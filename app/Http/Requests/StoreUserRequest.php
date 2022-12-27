@@ -13,18 +13,20 @@ class StoreUserRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
      * Get the validation rules that apply to the request.
-     *
+     * Reglas de validacion
      * @return array<string, mixed>
      */
     public function rules()
     {
         return [
-            //
+            'username' => ['required', 'string', 'max:10', 'unique:users,username', 'alpha_dash'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
         ];
     }
 }

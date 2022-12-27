@@ -28,12 +28,25 @@
                 <div class="card">
 
                     <div class="card-body">
-                      @if (session('status'))
-                          <div class="alert alert-success" role="alert">
-                              {{ session('status') }}
-                          </div>
-                      @endif
+
+                        @if ($message = Session::get('success'))               
+                            <div class="alert alert-success d-flex align-items-center alert-dismissible fade show" role="alert">
+                                  <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                                <div>
+                                    {{ $message }}
+                                </div>
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        @endif
+
+                        
                         {{-- <div class="card-title">Listado de usuarios</div> --}}
+
+                            <div class="mb-3">
+                                <a href="{{ route('admin.users.create') }}" class="btn btn-primary btn-sm p-2"  data-placement="left">
+                                    {{ __('Crear Nuevo Usuario') }}
+                                </a>
+                            </div>
 
                         <div class="table-responsive">
                             <table id="user_table" class="table table-striped table-bordered zero-configuration">
@@ -60,8 +73,8 @@
                                             <td>{{ $user->updated_at }}</td>
                                             {{-- <td>{{ implode(', ', $user->roles()->get()->pluck('username')->toArray()) }}</td> --}}
                                             <td>
-                                                <a href="{{ route('admin.users.edit', $user->id) }}"><button class="btn btn-primary btn-sm">Editar</button></a>
-                                                <form action="{{ route('admin.users.destroy', $user) }}" method="POST" style="display: inline">
+                                                <a href="{{ route('admin.users.edit', $user->id) }}"><button class="btn btn-warning btn-sm">Editar</button></a>
+                                                <form action="{{ route('admin.users.destroy', $user) }}" method="POST" style="display: inline" onsubmit="return confirm('Esta seguro que desea eliminar el registro?')">
                                                     @csrf
                                                     {{ method_field('DELETE') }}
                                                     <button class="btn btn-danger btn-sm" type="submit">Eliminar</button>
