@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin; // yo cambie esto
 
 use App\Models\Persona;
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller; // yo agregue esta
 
 /**
  * Class PersonaController

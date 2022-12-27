@@ -57,7 +57,10 @@ class Persona extends Model
     public function user()
     {
         // return $this->hasOne('App\Models\User', 'id', 'user_id');
-        return $this->belongsTo('App\Models\User', 'id', 'user_id');
+        return $this->belongsTo('App\Models\User', 'id', 'user_id')->withDefault();
+
+        // El método withDefault() permite que el modelo devuelva un objeto de modelo vacío si no se encuentra ningún
+        // resultado.
     }
     
 

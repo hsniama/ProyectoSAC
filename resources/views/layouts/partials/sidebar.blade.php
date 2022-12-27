@@ -19,8 +19,11 @@
             {{-- {{ Persona::find(Auth::user()->user_id)->nombres}} --}}
             {{-- {{ User::find(Auth::user()->id)->persona->nombres}} --}}
             {{-- {{ Auth::user()->persona->nombres}} --}}
-            {{ Auth::user()->persona->nombres . ' ' . Auth::user()->persona->apellidos }}
-
+            @if (Auth::user()->persona)
+              {{ Auth::user()->persona->nombres . ' ' . Auth::user()->persona->apellidos }}                            
+            @else
+              {{ 'Completa tu Perfil ' . Auth::user()->username }}
+            @endif
           </a>
         </div>
       </div>
@@ -139,7 +142,7 @@
 
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('admin.users.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Gestión de Usuarios</p>
                 </a>

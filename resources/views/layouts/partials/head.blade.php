@@ -14,4 +14,9 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset('css/adminlte.min.css') }}">
 
+  <!--Datatables-->
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.13.1/b-2.3.3/b-html5-2.3.3/date-1.2.0/r-2.4.0/datatables.min.css"/>
+ 
+ 
+
   @vite(['resources/sass/app.scss', 'resources/js/app.js'])
