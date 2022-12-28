@@ -14,8 +14,41 @@
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/jszip-2.5.0/dt-1.13.1/b-2.3.3/b-html5-2.3.3/date-1.2.0/r-2.4.0/datatables.min.js"></script>
 
+
 <script>
     $(document).ready(function () {
         $('#user_table').DataTable();
     });
+
+    $(document).ready(function () {
+        $('#personas_table').DataTable();
+    });
+
 </script>
+
+<!--FlatePickers-->
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://npmcdn.com/flatpickr/dist/l10n/es.js"></script>
+
+<script>
+    $(document).ready(function () {
+        flatpickr(".date", {
+            "locale": "es"
+        });
+    });
+</script>
+
+
+<!--Select2-->
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+<script>
+    $('.select2').select2();
+</script>
+
+
+
+
+
+
+

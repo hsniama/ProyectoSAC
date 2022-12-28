@@ -3,7 +3,7 @@
     <!-- Brand Logo -->
     <a href="#" class="brand-link text-decoration-none text-center">
       {{-- <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8"> --}}
-      <span class="brand-text font-weight-light">SAC</span>
+      <span class="brand-text font-weight-bolder">SAC</span>
     </a>
 
     <!-- Sidebar -->
@@ -14,19 +14,20 @@
         {{-- <div class="image">
           <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div> --}}
-        <div class="info">
-          <a href="#" class="d-block text-decoration-none text-center">
-            {{-- {{ Persona::find(Auth::user()->user_id)->nombres}} --}}
-            {{-- {{ User::find(Auth::user()->id)->persona->nombres}} --}}
-            {{-- {{ Auth::user()->persona->nombres}} --}}
-            @if (Auth::user()->persona)
-              {{ Auth::user()->persona->nombres . ' ' . Auth::user()->persona->apellidos }}                            
-            @else
-              {{ 'Completa tu Perfil ' . Auth::user()->username }}
-            @endif
-          </a>
+
+        <div class="text-center text-wrap">
+          @if (Auth::user()->persona)
+              <a href="#" class="text-decoration-none ml-4">Hola, <span class="fw-bold">{{ Auth::user()->persona->nombres . ' ' . Auth::user()->persona->apellidos }}</span></a>
+          @else
+              <a href="{{ route('admin.personas.create') }}" class="text-decoration-none text-warning fs-5">
+                Por favor <span class="fw-bold">{{ Auth::user()->username }} </span> completa tu perfil aqui.
+              </a>
+          @endif
         </div>
+
       </div>
+
+
 
       <!-- SidebarSearch Form -->
       {{-- <div class="form-inline">
@@ -145,6 +146,15 @@
                 <a href="{{ route('admin.users.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Gestión de Usuarios</p>
+                </a>
+              </li>
+            </ul>
+
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('admin.personas.index') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Gestión de Personas</p>
                 </a>
               </li>
             </ul>

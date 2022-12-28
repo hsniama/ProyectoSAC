@@ -37,11 +37,18 @@
           </li>
         @endif
       @else
-        <li class="nav-item d-none d-sm-inline-block">
-          <a href="#" class="nav-link">Editar Perfil</a>
+        <li class="nav-item d-none d-sm-inline-block mr-3">
+          {{-- <a href="{{ route('admin.personas.edit', Auth::user()->persona->id) }}" class="nav-link">Editar Perfil</a> --}}
+          @if (Auth::user()->persona)
+              <a href="{{ route('admin.personas.edit', Auth::user()->persona->id) }}" class="text-decoration-none nav-link">Editar Perfil</a>
+          @else
+              <a href="{{ route('admin.personas.create') }}" class="text-decoration-none nav-link text-bg-warning">
+                Completa tu perfil
+              </a>
+          @endif
         </li>
-        <li class="nav-item d-none d-sm-inline-block">
-          <a class="nav-link" 
+        <li class="nav-item d-none d-sm-inline-block mr-3">
+          <a class="nav-link text-bg-danger" 
              href="{{ route('logout') }}"
              onclick="event.preventDefault();
              document.getElementById('logout-form').submit();"

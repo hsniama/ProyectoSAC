@@ -6,6 +6,8 @@ use App\Models\User;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Controllers\Controller; // yo agregue esta
+use Illuminate\Support\Facades\DB; // yo agregue esta
+use Illuminate\Support\Facades\Hash; // yo agregue esta
 
 class UserController extends Controller
 {
@@ -17,6 +19,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
+
         return view('admin.users.index', compact('users'));
     }
 
@@ -39,7 +42,16 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-        User::create($request->validated());
+
+        // User::create($request->validated());
+
+        $request->validated();
+
+        User::create([
+            'username' => $request['username'],
+            'email' => $request['email'],
+            'password' => Hash::make($request['password']),
+        ]);
 
         return redirect()->route('admin.users.index')
             ->with('success', 'Usuario creado exitosamente.');

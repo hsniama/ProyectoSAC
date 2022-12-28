@@ -1,16 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Admin; // yo cambie esto
+namespace App\Http\Controllers\Admin;
 
 use App\Models\Persona;
 use App\Models\User;
-use Illuminate\Http\Request;
+use App\Http\Requests\StorePersonaRequest;
+use App\Http\Requests\UpdatePersonaRequest;
 use App\Http\Controllers\Controller; // yo agregue esta
 
-/**
- * Class PersonaController
- * @package App\Http\Controllers
- */
+
 class PersonaController extends Controller
 {
     /**
@@ -20,10 +18,10 @@ class PersonaController extends Controller
      */
     public function index()
     {
-        $personas = Persona::paginate();
+        $personas = Persona::with('user')->get();
 
-        return view('persona.index', compact('personas'))
-            ->with('i', (request()->input('page', 1) - 1) * $personas->perPage());
+        return view('admin.personas.index', compact('personas'));
+
     }
 
     /**
@@ -33,82 +31,74 @@ class PersonaController extends Controller
      */
     public function create()
     {
-        $persona = new Persona();
+        // Necesito saber a que usuario le voy  a crear la persona
+        $users = User::all();
 
-        $users = User::pluck('username', 'id');
-
-        return view('persona.create', compact('persona', 'users'));
+        return view('admin.personas.create', compact('users'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Http\Requests\StorePersonaRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StorePersonaRequest $request)
     {
-        request()->validate(Persona::$rules);
+        Persona::create($request->validated());
 
-        $persona = Persona::create($request->all());
-
-        return redirect()->route('personas.index')
-            ->with('success', 'Persona created successfully.');
+        return redirect()->route('admin.personas.index')->with('success', 'La persona se creó con éxito');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int $id
+     * @param  \App\Models\Persona  $persona
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Persona $persona)
     {
-        $persona = Persona::find($id);
-
-        return view('persona.show', compact('persona'));
+        return view('admin.personas.show', compact('persona'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int $id
+     * @param  \App\Models\Persona  $persona
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Persona $persona)
     {
-        $persona = Persona::find($id);
+        // Necesito saber a que usuario le voy  a crear la persona
+        $users = User::all();
 
-        return view('persona.edit', compact('persona'));
+        return view('admin.personas.edit', compact('users', 'persona'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  Persona $persona
+     * @param  \App\Http\Requests\UpdatePersonaRequest  $request
+     * @param  \App\Models\Persona  $persona
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Persona $persona)
+    public function update(UpdatePersonaRequest $request, Persona $persona)
     {
-        request()->validate(Persona::$rules);
+        $persona->update($request->validated());
 
-        $persona->update($request->all());
-
-        return redirect()->route('personas.index')
-            ->with('success', 'Persona updated successfully');
+        return redirect()->route('admin.personas.index')->with('success', 'La persona se actualizó con éxito');
     }
 
     /**
-     * @param int $id
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Exception
+     * Remove the specified resource from storage.
+     *
+     * @param  \App\Models\Persona  $persona
+     * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Persona $persona)
     {
-        $persona = Persona::find($id)->delete();
+        $persona->delete();
 
-        return redirect()->route('personas.index')
-            ->with('success', 'Persona deleted successfully');
+        return redirect()->route('admin.personas.index')->with('success', 'La persona se eliminó con éxito');
     }
 }

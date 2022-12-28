@@ -1,64 +1,65 @@
-<form method="POST" action="{{ route('admin.users.store') }}"  role="form" enctype="multipart/form-data">
+<form method="POST" action="{{ route('admin.users.store') }}" role="form" enctype="multipart/form-data">
     @csrf
 
-<div class="box box-info padding-1">
-    <div class="box-body">
+    <div class="box box-info padding-1">
+        <div class="box-body">
 
-    <div class="form-group">
-        <label for="email" class="required">Correo</label>
-        <input type="email" name="email" id="email" class="form-control {{ $errors->has('email') ? 'is-invalid' : ''}}" 
-               autofocus placeholder="Ingrese el Email del nuevo usuario" 
-               value="{{ old('email', '') }}">
-        @if ($errors->has('email'))
-            <span class="text-danger">
-                <strong>{{ $errors->first('email') }}</strong>
-            </span>
-        @endif
-    </div>
+            <div class="form-group">
+                <label for="email" class="required">Correo</label>
+                <input type="email" name="email" id="email"
+                    class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}" autofocus
+                    placeholder="Ingrese el Email del nuevo usuario" value="{{ old('email', '') }}">
+                @if ($errors->has('email'))
+                    <span class="text-danger">
+                        <strong>{{ $errors->first('email') }}</strong>
+                    </span>
+                @endif
+            </div>
 
 
-    <div class="form-group">
-        <label for="username" class="required">Username</label>
-        <input type="text" name="username" id="username" class="form-control {{ $errors->has('username') ? 'is-invalid' : ''}}" 
-               placeholder="Ingres el nuevo Username" 
-               value="{{ old('username', '') }}">
-        @if ($errors->has('username'))
-            <span class="text-danger">
-                <strong>{{ $errors->first('username') }}</strong>
-            </span>
-        @endif
-    </div>
+            <div class="form-group">
+                <label for="username" class="required">Username</label>
+                <input type="text" name="username" id="username"
+                    class="form-control {{ $errors->has('username') ? 'is-invalid' : '' }}"
+                    placeholder="Ingres el nuevo Username" value="{{ old('username', '') }}">
+                @if ($errors->has('username'))
+                    <span class="text-danger">
+                        <strong>{{ $errors->first('username') }}</strong>
+                    </span>
+                @endif
+            </div>
 
-    <div class="form-group">
-        <label for="password" class="required">Contraseña </label>
-        <input type="password" name="password" id="password" class="form-control {{$errors->has('password') ? 'is-invalid' : ''}}" 
-               placeholder="Ingrese la contraseña del usuario">
-        @if ($errors->has('password'))
-            <span class="text-danger">
-                <strong>{{ $errors->first('password') }}</strong>
-            </span>
-        @endif
-    </div>
+            <div class="form-group">
+                <label for="password" class="required">Contraseña </label>
+                <input type="password" name="password" id="password"
+                    class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}"
+                    placeholder="Ingrese la contraseña del usuario">
+                @if ($errors->has('password'))
+                    <span class="text-danger">
+                        <strong>{{ $errors->first('password') }}</strong>
+                    </span>
+                @endif
+            </div>
 
-    <div class="form-group">
-        <label for="password-confirmation" class="required">Repita la Contraseña </label>
-        <input type="password" name="password_confirmation" id="password-confirmation" 
-               class="form-control" placeholder="Repita la contraseña del usuario">
-    </div>
-    
-        {{-- <small id="helpId" class="text-muted">Help text</small> --}}
+            <div class="form-group">
+                <label for="password-confirmation" class="required">Repita la Contraseña </label>
+                <input type="password" name="password_confirmation" id="password-confirmation" class="form-control"
+                    placeholder="Repita la contraseña del usuario">
+            </div>
 
-        {{-- <label for="password">Password</label>
+            {{-- <small id="helpId" class="text-muted">Help text</small> --}}
+
+            {{-- <label for="password">Password</label>
         <input type="password" name="password" id="password" class="form-control" placeholder="Password" aria-describedby="helpId">
         <small id="helpId" class="text-muted">Help text</small> --}}
 
-        {{-- <label for="password_confirmation">Password Confirmation</label>
+            {{-- <label for="password_confirmation">Password Confirmation</label>
         <input type="password" name="password_confirmation" id="password_confirmation" class="form-control" placeholder="Password Confirmation" aria-describedby="helpId">
         <small id="helpId" class="text-muted">Help text</small> --}}
 
-    
 
-    {{-- <div class="form-group">
+
+            {{-- <div class="form-group">
         <label for="roles" class="required">Roles</label>
         <select class="form-control {{ $errors->has('roles') ? 'is-invalidad' : '' }}" name="roles[]" id="roles" multiple>
             @foreach ($roles as $role)
@@ -71,7 +72,7 @@
     </div> --}}
 
 
-    {{-- <div class="form-group">
+            {{-- <div class="form-group">
         <label for="permissions">Permissions</label>
         <select class="form-control" name="permissions[]" id="permissions" multiple>
             @foreach ($permissions as $permission)
@@ -80,29 +81,29 @@
         </select>
     </div> --}}
 
-        {{-- <label for="persona">Persona</label>
+            {{-- <label for="persona">Persona</label>
         <select class="form-control" name="persona" id="persona">
             @foreach ($personas as $persona)
                 <option value="{{ $persona->id }}">{{ $persona->nombres . ' ' . $persona->apellidos }}</option>
             @endforeach
         </select> --}}
 
-{{-- 
+            {{-- 
         <label for="avatar">Avatar</label>
         <input type="file" name="avatar" id="avatar" class="form-control" placeholder="Avatar" aria-describedby="helpId">
         <small id="helpId" class="text-muted">Help text</small> --}}
 
-    {{-- <div class="form-group">
+            {{-- <div class="form-group">
         <label for="active">Active</label>
         <input type="checkbox" name="active" id="active" class="form-control" placeholder="Active">
     </div> --}}
 
-    
-        {{-- <label for="confirmed">Confirmed</label>
+
+            {{-- <label for="confirmed">Confirmed</label>
         <input type="checkbox" name="confirmed" id="confirmed" class="form-control" placeholder="Confirmed" aria-describedby="helpId">
         <small id="helpId" class="text-muted">Help text</small> --}}
-       
-        {{--
+
+            {{--
 
         <label for="confirmation_code">Confirmation Code</label>
         <input type="text" name="confirmation_code" id="confirmation_code" class="form-control" placeholder="Confirmation Code" aria-describedby="helpId">
@@ -135,19 +136,18 @@
         <label for="deleted_by">Deleted By</label>
         <input type="text" name="deleted_by" id="deleted_by" class="form-control" placeholder="Deleted By" aria-describedby="helpId">
         <small id="helpId" class="text-muted">Help text</small> --}}
-    </div>
-
-
-    <div class="row">
-        <div class="col-12 text-right">
-            <button type="submit" class="btn btn-success">
-                <i class="fa fa-fw fa-lg fa-check-circle"></i>
-                Crear Usuario
-            </button>
         </div>
+
+
+        <div class="row">
+            <div class="col-12 text-right">
+                <button type="submit" class="btn btn-success">
+                    <i class="fa fa-fw fa-lg fa-check-circle"></i>
+                    Crear Usuario
+                </button>
+            </div>
+        </div>
+
+
     </div>
-
-
-</div>
 </form>
-

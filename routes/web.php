@@ -3,7 +3,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\PersonaController;
+use App\Http\Controllers\Admin\PersonaController;
 use App\Http\Controllers\Admin\UserController;
 
 /*
@@ -24,11 +24,11 @@ Route::get('/', function () {
 Auth::routes();
 
 
-// Route::resource('personas', PersonaController::class)->middleware('auth');
+
 
 Route::group(['middleware' => 'auth'], function () {
     
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');;
 
     Route::group([
         //'middleware' => 'is_admin'
@@ -37,6 +37,7 @@ Route::group(['middleware' => 'auth'], function () {
 
         ],function (){
             Route::resource('users', UserController::class);
+            Route::resource('personas', PersonaController::class);
     });
 
     Route::group([
@@ -45,6 +46,7 @@ Route::group(['middleware' => 'auth'], function () {
         'as' => 'user.',
 
         ],function (){
+            //Route::resource('personas', PersonaController::class);
             
     });
 
