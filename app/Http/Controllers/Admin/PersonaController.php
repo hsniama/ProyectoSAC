@@ -99,6 +99,7 @@ class PersonaController extends Controller
     {
         $persona->delete();
 
+        
         return redirect()->route('admin.personas.index')->with('success', 'La persona se eliminó con éxito');
     }
 }

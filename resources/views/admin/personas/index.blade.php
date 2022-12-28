@@ -87,7 +87,7 @@
                                             <td>
                                                 <a href="{{ route('admin.personas.show', $persona->id) }}"><button class="btn btn-info btn-sm"><i class="fa fa-fw fa-eye"></i>Ver</button></a>
                                                 <a href="{{ route('admin.personas.edit', $persona->id) }}"><button class="btn btn-warning btn-sm"><i class="fa fa-fw fa-edit"></i>Editar</button></a>
-                                                <form action="{{ route('admin.personas.destroy', $persona) }}" method="POST" style="display: inline" onsubmit="return confirm('Esta seguro que desea eliminar el registro?')">
+                                                <form action="{{ route('admin.personas.destroy', $persona) }}" method="POST" style="display: inline" class="eliminarPersona">
                                                     @csrf
                                                     {{ method_field('DELETE') }}
                                                     <button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-fw fa-trash"></i>Eliminar</button>

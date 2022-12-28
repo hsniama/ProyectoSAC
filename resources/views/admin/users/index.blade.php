@@ -80,7 +80,7 @@
                                             {{-- <td>{{ implode(', ', $user->roles()->get()->pluck('username')->toArray()) }}</td> --}}
                                             <td>
                                                 <a href="{{ route('admin.users.edit', $user->id) }}"><button class="btn btn-warning btn-sm">Editar</button></a>
-                                                <form action="{{ route('admin.users.destroy', $user) }}" method="POST" style="display: inline" onsubmit="return confirm('Esta seguro que desea eliminar el registro?')">
+                                                <form action="{{ route('admin.users.destroy', $user) }}" method="POST" style="display: inline" class="eliminarUsuario">
                                                     @csrf
                                                     {{ method_field('DELETE') }}
                                                     <button class="btn btn-danger btn-sm" type="submit">Eliminar</button>
