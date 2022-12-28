@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Persona extends Model
 {
@@ -30,4 +31,5 @@ class Persona extends Model
         return $this->belongsTo(User::class)->withDefault();
         // El metodo withDefault() es para que si no encuentra el usuario, no de error
     }
+
 }
