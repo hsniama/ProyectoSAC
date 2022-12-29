@@ -79,12 +79,17 @@
                                             <td>{{ $user->updated_at }}</td>
                                             {{-- <td>{{ implode(', ', $user->roles()->get()->pluck('username')->toArray()) }}</td> --}}
                                             <td>
-                                                <a href="{{ route('admin.users.edit', $user->id) }}"><button class="btn btn-warning btn-sm">Editar</button></a>
+                                                @can('admin.users.edit')
+                                                    <a href="{{ route('admin.users.edit', $user->id) }}"><button class="btn btn-warning btn-sm">Editar</button></a>
+                                                @endcan
+                                                @can('admin.users.destroy')
                                                 <form action="{{ route('admin.users.destroy', $user) }}" method="POST" style="display: inline" class="eliminarUsuario">
                                                     @csrf
                                                     {{ method_field('DELETE') }}
                                                     <button class="btn btn-danger btn-sm" type="submit">Eliminar</button>
                                                 </form>
+                                                @endcan
+
                                             </td>
                                         </tr>
                                     @endforeach

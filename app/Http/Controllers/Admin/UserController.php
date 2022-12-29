@@ -16,6 +16,21 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    /*
+    Debo crear un constuctor para definir un middleware para permisos de usuario ya que en las rutas estoy con
+    resource y no le puedo definir a cada una, entonces defino mi logica aqui.
+    */
+
+     public function __construct(){
+         $this->middleware('can:admin.users.index')->only('index');
+         $this->middleware('can:admin.users.create')->only('create', 'store');
+         $this->middleware('can:admin.users.edit')->only('edit', 'update');
+         $this->middleware('can:admin.users.destroy')->only('destroy');
+         $this->middleware('can:admin.users.show')->only('show');
+     }
+
+
     public function index()
     {
         $users = User::all();

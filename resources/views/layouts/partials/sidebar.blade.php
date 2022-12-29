@@ -112,7 +112,7 @@
           </li>
 
 
-
+          @can('admin.users.index')
           <li class="nav-item menu-open">
 
             <a href="#" class="nav-link active">
@@ -160,7 +160,10 @@
             </ul>
 
           </li>
+          @endcan
 
+
+          @can('admin.estadistica')
           <li class="nav-item menu-open">
 
             <a href="#" class="nav-link active">
@@ -190,6 +193,8 @@
             </ul>
 
           </li>
+          @endcan
+
 
 
 
