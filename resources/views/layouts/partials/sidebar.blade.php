@@ -46,7 +46,8 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item menu-open">
+
+          {{-- <li class="nav-item menu-open">
             <a href="#" class="nav-link active">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
@@ -54,7 +55,7 @@
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
-            {{-- <ul class="nav nav-treeview">
+            <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="#" class="nav-link active">
                   <i class="far fa-circle nav-icon"></i>
@@ -67,7 +68,7 @@
                   <p>Gestión de Usuarios</p>
                 </a>
               </li>
-            </ul> --}}
+            </ul>
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="#" class="nav-link">
@@ -100,76 +101,18 @@
                 </a>
               </li>
             </ul>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="nav-icon fa fa-user-md"></i>
-                  <p>Gestion de Especialidades</p>
-                </a>
-              </li>
-            </ul>
 
-          </li>
+          </li> --}}
 
 
-          @can('admin.users.index')
-          <li class="nav-item menu-open">
 
-            <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-users"></i>
-              <p>
-                Modulo RPU
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Gestión de Roles</p>
-                </a>
-              </li>
-            </ul>
-
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Gestión de Permisos</p>
-                </a>
-              </li>
-            </ul>
-
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{ route('admin.users.index') }}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Gestión de Usuarios</p>
-                </a>
-              </li>
-            </ul>
-
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{ route('admin.personas.index') }}" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Gestión de Personas</p>
-                </a>
-              </li>
-            </ul>
-
-          </li>
-          @endcan
-
-
-          @can('admin.estadistica')
+          @can('modulo.estadisticas')
           <li class="nav-item menu-open">
 
             <a href="#" class="nav-link active">
               <i class="nav-icon fa-regular fa-newspaper"></i>
               <p>
-                Estadisticas
+                Gestion Estadistica
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
@@ -195,18 +138,226 @@
           </li>
           @endcan
 
+          
 
 
 
-          <li class="nav-item">
+          @can('modulo.rpu')
+          <li class="nav-item menu-open">
+
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-users"></i>
+              <p>
+                Modulo RPU
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Gestión de Roles</p>
+                </a>
+              </li>
+            </ul> 
+
+
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Gestión de Permisos</p>
+                </a>
+              </li>
+            </ul>
+
+            @can('admin.users.index')
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('admin.users.index') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Gestión de Usuarios</p>
+                </a>
+              </li>
+            </ul>
+            @endcan
+
+
+          </li> 
+          @endcan
+
+          @can('modulo.personas')
+          <li class="nav-item menu-open">
+            <a href="{{ route('admin.personas.index') }}" class="nav-link active">
+              <i class="nav-icon fas fa-users"></i>
+              <p>
+                Gestión de Personas
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+
+            @can('admin.personas.create')
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="fa fa-user nav-icon"></i>
+                  <p>Registrar Persona</p>
+                </a>
+              </li>
+            </ul> 
+            @endcan
+            @can('admin.personas.index')
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="fa fa-user nav-icon"></i>
+                  <p>Listar Personas</p>
+                </a>
+              </li>
+            </ul>
+            @endcan
+
+          </li>    
+          @endcan
+
+          
+          @can('modulo.especialidades')
+          <li class="nav-item menu-open">
+            <a href="{{ route('admin.personas.index') }}" class="nav-link active">
+              <i class="fa-solid fa-hospital-user"></i>
+              <p>
+                Gestión de Especialidades
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="fa fa-user nav-icon"></i>
+                  <p>Crear Especialidad</p>
+                </a>
+              </li>
+            </ul>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="fa fa-user nav-icon"></i>
+                  <p>Listar Especialidades</p>
+                </a>
+              </li>
+            </ul>
+          </li> 
+          @endcan
+          
+          @can('modulo.citas')
+          <li class="nav-item menu-open">
+            <a href="{{ route('admin.personas.index') }}" class="nav-link active">
+              <i class="fa-solid fa-hospital-user"></i>
+              <p>
+                Gestión de Citas
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+
+            @can('admin.citas.create')
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="fa fa-user nav-icon"></i>
+                  <p>Agendar Cita</p>
+                </a>
+              </li>
+            </ul> 
+            @endcan
+
+            @can('admin.citas.index')
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="fa fa-user nav-icon"></i>
+                  <p>Consulta de Citas</p>
+                </a>
+              </li>
+            </ul> 
+            @endcan
+            @can('admin.citas.reprogramar')
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="fa fa-user nav-icon"></i>
+                  <p>Reprogramar Cita</p>
+                </a>
+              </li>
+            </ul> 
+            @endcan
+
+          </li> 
+          @endcan
+
+
+
+
+          @hasrole('secretaria')
+          <li class="nav-item menu-open">
+            <a href="#" class="nav-link active">
+              <i class="fa-solid fa-hospital-user"></i>
+              <p>
+                Gestión de Pacientes
+              </p>
+            </a>
+
+            @can('admin.users.create')
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="fa fa-user nav-icon"></i>
+                  <p>Crear Usuario</p>
+                </a>
+              </li>
+            </ul>
+            @endcan
+            @can('admin.personas.create')
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="fa fa-user nav-icon"></i>
+                  <p>Registrar Paciente</p>
+                </a>
+              </li>
+            </ul>
+            @endcan
+            @can('admin.users.creedenciales')
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="fa fa-user nav-icon"></i>
+                  <p>Imprimir creedenciales</p>
+                </a>
+              </li>
+            </ul>
+            @endcan
+
+          </li>  
+          @endhasrole
+
+          
+          @can('modulo.solo.paciente')
+            
+          @endcan
+
+
+
+          {{-- <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-th"></i>
               <p>
                 Otro enlace mas
-                {{-- <span class="right badge badge-danger">New</span> --}}
+                <span class="right badge badge-danger">New</span> 
               </p>
             </a>
-          </li>
+          </li> --}}
 
         </ul>
       </nav>

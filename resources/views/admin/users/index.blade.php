@@ -64,17 +64,19 @@
                                 </thead>
                                 <tbody>                                   
                                     @foreach ($users as $user)
-                                                                          
+                                         @foreach ($user->getRoleNames(); as $rol)
+                                             
+                             
                                         <tr>
                                             @if ($user->persona)
-                                                <td>Perfil LLenado</td>
+                                                <td>Si</td>
                                             @else
-                                                <td>Perfil Incompleto</td>
+                                                <td>No</td>
                                             @endif
 
                                             <td>{{ $user->username }}</td>
                                             <td>{{ $user->email }}</td>
-                                            <td>{{ 'rol x' }}</td>
+                                            <td>{{ $rol }}</td>
                                             <td>{{ $user->created_at }}</td>
                                             <td>{{ $user->updated_at }}</td>
                                             {{-- <td>{{ implode(', ', $user->roles()->get()->pluck('username')->toArray()) }}</td> --}}
@@ -92,6 +94,7 @@
 
                                             </td>
                                         </tr>
+                                        @endforeach    
                                     @endforeach
                                 </tbody>
                             </table>

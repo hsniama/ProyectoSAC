@@ -31,6 +31,8 @@
             @endif
         </div>
 
+        
+
         <div class="form-group">
             <label for="password" class="required">Contraseña </label>
             <input type="password" name="password" id="password" class="form-control {{$errors->has('password') ? 'is-invalid' : ''}}" 
