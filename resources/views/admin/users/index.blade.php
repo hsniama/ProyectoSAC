@@ -43,8 +43,8 @@
                         {{-- <div class="card-title">Listado de usuarios</div> --}}
 
                             <div class="mb-3">
-                                <a href="{{ route('admin.users.create') }}" class="btn btn-primary btn-sm p-2"  data-placement="left">
-                                    {{ __('Crear Nuevo Usuario') }}
+                                <a href="{{ route('admin.users.create') }}" class="btn btn-success p-2"  data-placement="left">
+                                    {{ __('Agregar Nuevo Usuario') }}
                                 </a>
                             </div>
 
@@ -52,6 +52,7 @@
                             <table id="user_table" class="table table-striped table-bordered zero-configuration">
                                 <thead>
                                     <tr>
+                                        <th>Id</th>
                                         <th>¿Perfil Completo?</th>
                                         <th>UserName</th>
                                         <th>Email</th>
@@ -68,6 +69,8 @@
                                              
                              
                                         <tr>
+                                            <td>{{ $user->id }}</td>
+
                                             @if ($user->persona)
                                                 <td>Si</td>
                                             @else
@@ -81,10 +84,10 @@
                                             <td>{{ $user->updated_at }}</td>
                                             {{-- <td>{{ implode(', ', $user->roles()->get()->pluck('username')->toArray()) }}</td> --}}
                                             <td>
-                                                @can('admin.users.edit')
+                                                @can('user-edit')
                                                     <a href="{{ route('admin.users.edit', $user->id) }}"><button class="btn btn-warning btn-sm">Editar</button></a>
                                                 @endcan
-                                                @can('admin.users.destroy')
+                                                @can('user-delete')
                                                 <form action="{{ route('admin.users.destroy', $user) }}" method="POST" style="display: inline" class="eliminarUsuario">
                                                     @csrf
                                                     {{ method_field('DELETE') }}

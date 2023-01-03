@@ -16,6 +16,16 @@ class PersonaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+     public function __construct(){
+         $this->middleware('can:persona-list')->only('index');
+         $this->middleware('can:persona-create')->only('create', 'store');
+         $this->middleware('can:persona-edit')->only('edit', 'update');
+         $this->middleware('can:persona-delete')->only('destroy');
+         $this->middleware('can:persona-show')->only('show');
+    }
+
+
     public function index()
     {
         $personas = Persona::with('user')->get();

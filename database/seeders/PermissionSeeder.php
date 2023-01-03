@@ -200,6 +200,7 @@ class PermissionSeeder extends Seeder
         // ASIGNACION DE PERMISOS A DOCTOR
         $doctor = Role::where('name', 'doctor')->first();
         // Tiene acceso solo al módulo Visualización de citas por parte del Médico. 
+        // (Puede ver las citas asignadas a él, pero no puede modificarlas, ni eliminarlas, ni reprogramarlas.)
 
         $doctorPermissions = [
             'welcome',
