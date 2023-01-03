@@ -4,9 +4,11 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\User;
+use App\Models\Persona;
 use Illuminate\Database\Seeder;
 use Database\Seeders\RoleSeeder;
 use Database\Seeders\UserSeeder;
+use Database\Seeders\PermissionSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -18,28 +20,20 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
 
-        // Roles y permisos base establecidos.
-        $this->call(RoleSeeder::class);
+        $this->call([
+            RoleSeeder::class,
+            UserSeeder::class,
+            PermissionSeeder::class,
+            //PersonaSeeder::class,
+            // CitaSeeder::class,
+            // ConsultaSeeder::class,
+            // RecetaSeeder::class,
+            // DiagnosticoSeeder::class,
+            // DetalleRecetaSeeder::class,
+            // DetalleDiagnosticoSeeder::class,
+        ]);
 
-        // Usuarios base
-        $this->call(UserSeeder::class);
 
-        // Llenar automaticamente 10 usuarios random con factory.
-        User::factory(10)->create()->each(function ($user) {
-            $user->assignRole('paciente');
-        });
-
-        // $this->call([
-        //     RoleSeeder::class,
-        //     UserSeeder::class,
-        //     PersonaSeeder::class,
-        //     CitaSeeder::class,
-        //     ConsultaSeeder::class,
-        //     RecetaSeeder::class,
-        //     DiagnosticoSeeder::class,
-        //     DetalleRecetaSeeder::class,
-        //     DetalleDiagnosticoSeeder::class,
-        // ]);
     
     }
 }

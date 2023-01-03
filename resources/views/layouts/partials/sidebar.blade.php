@@ -68,45 +68,13 @@
                   <p>Gestión de Usuarios</p>
                 </a>
               </li>
-            </ul>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="fa-solid fa-book-medical nav-icon"></i>
-                  <p>Agendar Cita</p>
-                </a>
-              </li>
-            </ul>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="fa-solid fa-briefcase-medical nav-icon"></i>
-                  <p>Gestión de Citas</p>
-                </a>
-              </li>
-            </ul>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="fa-solid fa-clock nav-icon"></i>
-                  <p>Ver mis Citas</p>
-                </a>
-              </li>
-            </ul>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="fa fa-user nav-icon"></i>
-                  <p>Registrar Paciente</p>
-                </a>
-              </li>
-            </ul>
+            </ul>       
 
           </li> --}}
 
 
 
-          @can('modulo.estadisticas')
+          @can('modulo-estadisticas')
           <li class="nav-item menu-open">
 
             <a href="#" class="nav-link active">
@@ -139,10 +107,7 @@
           @endcan
 
           
-
-
-
-          @can('modulo.rpu')
+          @can('modulo-rpu')
           <li class="nav-item menu-open">
 
             <a href="#" class="nav-link active">
@@ -153,6 +118,7 @@
               </p>
             </a>
 
+            @can('role-list')
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="#" class="nav-link">
@@ -161,8 +127,9 @@
                 </a>
               </li>
             </ul> 
+            @endcan
 
-
+            @can('permission-list')
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="#" class="nav-link">
@@ -171,8 +138,9 @@
                 </a>
               </li>
             </ul>
+            @endcan
 
-            @can('admin.users.index')
+            @can('user-list')
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="{{ route('admin.users.index') }}" class="nav-link">
@@ -182,22 +150,23 @@
               </li>
             </ul>
             @endcan
-
-
           </li> 
           @endcan
 
-          @can('modulo.personas')
+          
+
+
+          @can('modulo-personas')
           <li class="nav-item menu-open">
-            <a href="{{ route('admin.personas.index') }}" class="nav-link active">
-              <i class="nav-icon fas fa-users"></i>
+            <a href="#" class="nav-link active">
+              <i class="fa-solid fa-hospital-user"></i>
               <p>
                 Gestión de Personas
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
 
-            @can('admin.personas.create')
+            @can('persona-create')
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="#" class="nav-link">
@@ -207,7 +176,8 @@
               </li>
             </ul> 
             @endcan
-            @can('admin.personas.index')
+
+            @can('persona-list')
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="#" class="nav-link">
@@ -215,23 +185,21 @@
                   <p>Listar Personas</p>
                 </a>
               </li>
-            </ul>
+            </ul> 
             @endcan
-
-          </li>    
+          </li> 
           @endcan
 
-          
-          @can('modulo.especialidades')
+          @can('modulo-especialidades')
           <li class="nav-item menu-open">
-            <a href="{{ route('admin.personas.index') }}" class="nav-link active">
+            <a href="#" class="nav-link active">
               <i class="fa-solid fa-hospital-user"></i>
               <p>
                 Gestión de Especialidades
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
-
+            @can('especialidad-create')
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="#" class="nav-link">
@@ -240,6 +208,9 @@
                 </a>
               </li>
             </ul>
+            @endcan
+
+            @can('especialidad-list')
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="#" class="nav-link">
@@ -248,56 +219,10 @@
                 </a>
               </li>
             </ul>
+            @endcan
           </li> 
           @endcan
           
-          @can('modulo.citas')
-          <li class="nav-item menu-open">
-            <a href="{{ route('admin.personas.index') }}" class="nav-link active">
-              <i class="fa-solid fa-hospital-user"></i>
-              <p>
-                Gestión de Citas
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-
-            @can('admin.citas.create')
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="fa fa-user nav-icon"></i>
-                  <p>Agendar Cita</p>
-                </a>
-              </li>
-            </ul> 
-            @endcan
-
-            @can('admin.citas.index')
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="fa fa-user nav-icon"></i>
-                  <p>Consulta de Citas</p>
-                </a>
-              </li>
-            </ul> 
-            @endcan
-            @can('admin.citas.reprogramar')
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="fa fa-user nav-icon"></i>
-                  <p>Reprogramar Cita</p>
-                </a>
-              </li>
-            </ul> 
-            @endcan
-
-          </li> 
-          @endcan
-
-
-
 
           @hasrole('secretaria')
           <li class="nav-item menu-open">
@@ -305,10 +230,10 @@
               <i class="fa-solid fa-hospital-user"></i>
               <p>
                 Gestión de Pacientes
+                <i class="right fas fa-angle-left"></i>
               </p>
             </a>
-
-            @can('admin.users.create')
+            @can('user-create')
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="#" class="nav-link">
@@ -318,7 +243,8 @@
               </li>
             </ul>
             @endcan
-            @can('admin.personas.create')
+
+            @can('persona-create')
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="#" class="nav-link">
@@ -328,7 +254,8 @@
               </li>
             </ul>
             @endcan
-            @can('admin.users.creedenciales')
+
+            @can('user-creedenciales')
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="#" class="nav-link">
@@ -339,13 +266,65 @@
             </ul>
             @endcan
 
+
           </li>  
           @endhasrole
 
-          
-          @can('modulo.solo.paciente')
-            
+
+          @can('modulo-citas')
+          <li class="nav-item menu-open">
+            <a href="#" class="nav-link active">
+              <i class="fa-solid fa-hospital-user"></i>
+              <p>
+                Gestión de Citas
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+
+            @can('cita-create')
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="fa fa-user nav-icon"></i>
+                  <p>Agendar Cita</p>
+                </a>
+              </li>
+            </ul> 
+            @endcan
+
+            @can('cita-list')
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="fa fa-user nav-icon"></i>
+                  <p>Consulta de Citas</p>
+                </a>
+              </li>
+            </ul> 
+            @endcan
+
+            @if (auth()->user()->hasPermissionTo('cita-reprogramar'))
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="fa fa-user nav-icon"></i>
+                  <p>Reprogramar Cita</p>
+                </a>
+              </li>
+            </ul> 
+            @endif
+
+
+
+          </li> 
           @endcan
+
+
+
+
+
+
+          
 
 
 
