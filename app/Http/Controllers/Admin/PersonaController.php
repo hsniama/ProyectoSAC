@@ -68,7 +68,11 @@ class PersonaController extends Controller
      */
     public function show(Persona $persona)
     {
-        return view('admin.personas.show', compact('persona'));
+        // Regla de negocio: Calcular la edad de la persona.
+        $birthday = $persona->fecha_nacimiento;
+        $edad = \Carbon\Carbon::parse($birthday)->age;
+
+        return view('admin.personas.show', compact('persona', 'edad'));
     }
 
     /**

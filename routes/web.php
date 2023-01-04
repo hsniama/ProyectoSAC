@@ -3,8 +3,9 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\PersonaController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\PersonaController;
+use App\Http\Controllers\Admin\RoleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +39,7 @@ Route::group(['middleware' => 'auth'], function () {
         ],function (){
             Route::resource('users', UserController::class);
             Route::resource('personas', PersonaController::class);
+            Route::resource('roles', RoleController::class);
     });
 
     Route::group([

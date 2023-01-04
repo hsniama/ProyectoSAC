@@ -31,50 +31,99 @@
                       
                         {{-- <div class="card-title">Listado de usuarios</div> --}}
 
+                        @can('persona-list')
                         <div class="mb-3">
                             <a href="{{ route('admin.personas.index') }}" class="btn btn-danger btn-sm p-2"  data-placement="left">
                                 <i class="fa fa-fw fa-lg fa-arrow-left"></i>
                                 {{ __('Volver al listado') }}
                             </a>
                         </div>
+                        @endcan
+
+                        <div class="box box-info padding-1">
+                            <div class="box-body">
+
+                                <div class="form-group">
+                                    <label for="username" class="required">Username correspondiente</label>
+                                    <input type="text" class="form-control" id="username" disabled
+                                           value="{{$persona->user->username}}">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="apellidos" class="required">Apellidos</label>
+                                    <input type="text" class="form-control" id="apellidos" disabled
+                                           value="{{$persona->apellidos}}">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="nombres" class="required">Nombres</label>
+                                    <input type="text" class="form-control" id="nombres" disabled
+                                           value="{{$persona->nombres }}">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="cedula" class="required">Cedula</label>
+                                    <input type="number" class="form-control" id="cedula" disabled
+                                           value="{{$persona->cedula }}">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="email" class="required">Correo</label>
+                                    <input type="email" class="form-control" id="email" disabled
+                                           value="{{$persona->email }}">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="telefono" class="required">Telefono</label>
+                                    <input type="text" class="form-control" id="telefono" disabled
+                                           value="{{$persona->telefono }}">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="direccion" class="required">Direccion</label>
+                                    <input type="text" class="form-control" id="direccion" disabled
+                                           value="{{$persona->direccion }}">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="ciudad" class="required">Ciudad</label>
+                                    <input type="text" class="form-control" id="ciudad" disabled
+                                           value="{{$persona->ciudad }}">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="fecha_nacimiento" class="required">Fecha de Nacimiento</label>
+                                    <input type="text" class="form-control" id="fecha_nacimiento" disabled
+                                           value="{{$persona->fecha_nacimiento }}">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="fecha_nacimiento" class="required">Edad</label>
+                                    <input type="number" class="form-control" id="fecha_nacimiento" disabled
+                                           value="{{ $edad }}">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="genero" class="required">Genero</label>
+                                    <input type="text" class="form-control" id="genero" disabled
+                                           value="{{$persona->genero }}">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="created_at" class="required">Fecha de creación de la Persona</label>
+                                    <input type="text" class="form-control" id="created_at" disabled
+                                           value="{{$persona->created_at}}">                                       
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="updated_at" class="required">Fecha de actualización de la Persona</label>
+                                    <input type="text" class="form-control" id="updated_at" disabled
+                                           value="{{$persona->updated_at}}">
+                                </div>
 
 
-                        <div class="table-responsive">
-                            <table id="personas_table" class="table table-striped table-bordered zero-configuration">
-                                <thead class="thead">
-                                    <tr>
-                                        {{-- <th>No</th> --}}
-                                        
-										<th>User Id</th>
-                                        <th>Username</th>
-										<th>Cedula</th>
-										<th>Apellidos</th>
-										<th>Nombres</th>
-										<th>Email</th>
-										<th>Telefono</th>
-										<th>Direccion</th>
-										<th>Ciudad</th>
-										<th>Fecha Nacimiento</th>
-										<th>Genero</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                        <tr>
-                                            {{-- <td>{{ ++$i }}</td> --}}                                           
-											<td>{{ $persona->user_id }}</td>
-											<td>{{ $persona->user->username }}</td>
-											<td>{{ $persona->cedula }}</td>
-											<td>{{ $persona->apellidos }}</td>
-											<td>{{ $persona->nombres }}</td>
-											<td>{{ $persona->email }}</td>
-											<td>{{ $persona->telefono }}</td>
-											<td>{{ $persona->direccion }}</td>
-											<td>{{ $persona->ciudad }}</td>
-											<td>{{ $persona->fecha_nacimiento }}</td>
-											<td>{{ $persona->genero }}</td>
-                                        </tr>
-                                </tbody>
-                            </table>
+                            </div>
+
                         </div>
 
 

@@ -24,7 +24,6 @@ class UpdatePersonaRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => 'required',
             'cedula' => ['required', 'numeric', 'unique:personas,cedula,'. $this->persona->id],
             'apellidos' => ['required', 'string', 'max:255', 'min:3', 'string'],
             'nombres' => ['required', 'string', 'max:255', 'min:3', 'string'],

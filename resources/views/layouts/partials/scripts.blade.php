@@ -24,6 +24,10 @@
         $('#personas_table').DataTable();
     });
 
+    $(document).ready(function () {
+        $('#roles_table').DataTable();
+    });
+
     $.extend(true, $.fn.dataTable.defaults, {
         language: {
             url: "//cdn.datatables.net/plug-ins/1.13.1/i18n/es-ES.json"
@@ -104,6 +108,26 @@
     })
 
 
+    $('.eliminarRol').submit(function(e) {
+
+        e.preventDefault();
+
+        Swal.fire({
+            title: '¿Borrar Rol?',
+            text: "No se podrá revertir!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, borrar!',
+            cancelButtonText: 'Cancelar'
+            }).then((result) => {
+            if (result.value) {
+                this.submit();
+            }
+
+        }) 
+    })
 
 
 

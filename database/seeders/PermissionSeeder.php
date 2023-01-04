@@ -49,6 +49,7 @@ class PermissionSeeder extends Seeder
             'persona-create',
             'persona-edit',
             'persona-delete',
+            'persona-completar',
             'medico-list',
             'medico-show',
             'medico-create',
@@ -136,6 +137,7 @@ class PermissionSeeder extends Seeder
                 'persona-create',
                 'persona-edit',
                 'persona-delete',
+                'persona-completar',
             'modulo-especialidades',
                 'especialidad-list',
                 'especialidad-show',
@@ -185,6 +187,7 @@ class PermissionSeeder extends Seeder
                 'persona-create',
                 'persona-edit',
                 'persona-delete',
+                'persona-completar',
             'modulo-especialidades',
                 'especialidad-list',
                 'especialidad-show',
@@ -207,6 +210,7 @@ class PermissionSeeder extends Seeder
             'home',
             'modulo-citas',
             'cita-list',
+            'persona-completar'
         ];
 
         foreach ($doctorPermissions as $permission) {
@@ -229,6 +233,7 @@ class PermissionSeeder extends Seeder
             'user-create',
             'persona-create',
             'user-creedenciales',
+            'persona-completar'
         ];
 
         foreach ($secretariaPermissions as $permission) {
@@ -245,6 +250,7 @@ class PermissionSeeder extends Seeder
             'cita-list',
             'cita-show',
             'cita-create',
+            'persona-completar'
         ];
 
         foreach ($pacientePermissions as $permission) {

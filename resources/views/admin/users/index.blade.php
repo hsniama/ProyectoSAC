@@ -42,32 +42,31 @@
                         
                         {{-- <div class="card-title">Listado de usuarios</div> --}}
 
+                        @can('user-create')
                             <div class="mb-3">
                                 <a href="{{ route('admin.users.create') }}" class="btn btn-success p-2"  data-placement="left">
                                     {{ __('Agregar Nuevo Usuario') }}
                                 </a>
                             </div>
+                        @endcan
+
 
                         <div class="table-responsive">
-                            <table id="user_table" class="table table-striped table-bordered zero-configuration">
+                            <table id="user_table" class="table table-striped table-bordered zero-configuration text-center">
                                 <thead>
                                     <tr>
                                         <th>Id</th>
-                                        <th>¿Perfil Completo?</th>
-                                        <th>UserName</th>
+                                        <th>¿Perfil lleno?</th>
+                                        <th>Username</th>
                                         <th>Email</th>
                                         <th>Roles</th>
                                         <th>Creado el</th>
                                         <th>Actualizado el</th>
                                         <th>Acciones</th>
-                                        {{-- <th>Email verificado</th> --}}
                                     </tr>
                                 </thead>
                                 <tbody>                                   
-                                    @foreach ($users as $user)
-                                         @foreach ($user->getRoleNames(); as $rol)
-                                             
-                             
+                                    @foreach ($users as $user)                                                                                                                   
                                         <tr>
                                             <td>{{ $user->id }}</td>
 
@@ -79,25 +78,46 @@
 
                                             <td>{{ $user->username }}</td>
                                             <td>{{ $user->email }}</td>
-                                            <td>{{ $rol }}</td>
+                                        
+                                            <td>
+                                            @if ($user->getRoleNames())
+                                                @foreach ($user->getRoleNames() as $rol)
+                                                    @if ($rol == 'admin' || $rol == 'super-admin')
+                                                        <span class="badge bg-danger fs-6 mb-1">{{ $rol  }}</span> </br>
+                                                    @elseif ($rol == 'gerente')
+                                                        <span class="badge bg-warning fs-6 mb-1">{{ $rol  }}</span> </br>                            
+                                                    @elseif ($rol == 'secretaria')
+                                                        <span class="badge bg-primary fs-6 mb-1">{{ $rol }}</span> </br>
+                                                    @elseif ($rol == 'doctor')
+                                                        <span class="badge bg-success fs-6 mb-1">{{ $rol  }}</span> </br>                            
+                                                    @elseif ($rol == 'paciente')
+                                                        <span class="badge bg-cyan fs-6 mb-1">{{ $rol  }}</span> </br>
+                                                    @else
+                                                        <span class="badge bg-secondary fs-6 mb-1">{{ $rol  }}</span> </br>
+                                                    @endif
+                                                @endforeach
+                                            @endif
+                                            </td>
+
+
+                                            
                                             <td>{{ $user->created_at }}</td>
                                             <td>{{ $user->updated_at }}</td>
-                                            {{-- <td>{{ implode(', ', $user->roles()->get()->pluck('username')->toArray()) }}</td> --}}
                                             <td>
                                                 @can('user-edit')
-                                                    <a href="{{ route('admin.users.edit', $user->id) }}"><button class="btn btn-warning btn-sm">Editar</button></a>
+                                                    <a href="{{ route('admin.users.edit', $user->id) }}"><button class="btn btn-warning btn-sm"><i class="fa fa-fw fa-edit"></i>Editar</button></a>
                                                 @endcan
                                                 @can('user-delete')
                                                 <form action="{{ route('admin.users.destroy', $user) }}" method="POST" style="display: inline" class="eliminarUsuario">
                                                     @csrf
                                                     {{ method_field('DELETE') }}
-                                                    <button class="btn btn-danger btn-sm" type="submit">Eliminar</button>
+                                                    <button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-fw fa-trash"></i>Eliminar</button>
                                                 </form>
                                                 @endcan
 
                                             </td>
                                         </tr>
-                                        @endforeach    
+                                          
                                     @endforeach
                                 </tbody>
                             </table>

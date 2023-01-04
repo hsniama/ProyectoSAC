@@ -31,12 +31,15 @@
 
                         {{-- <div class="card-title">Listado de usuarios</div> --}}
 
+                        @can('persona-list')
                         <div class="mb-3">
                             <a href="{{ route('admin.personas.index') }}" class="btn btn-danger btn-sm p-2"  data-placement="left">
                                 <i class="fa fa-fw fa-lg fa-arrow-left"></i>
                                 {{ __('Volver al listado') }}
                             </a>
                         </div>
+                        @endcan
+
 
                         <form method="POST" action="{{ route('admin.personas.store') }}" role="form" enctype="multipart/form-data">
                             @csrf
@@ -45,13 +48,16 @@
                                 <div class="box-body">
 
                                     <div class="form-group">
-                                        <label for="user_id" class="required">¿Cuál usuario es?</label>
-                                        <select class="form-control select2" name="user_id" style="width: 100%;">
-                                            <option value="" class="p-2">Seleccione un usuario</option>
+                                        <label for="user_id" class="required">¿Qué usuario es? (ya creado)</label>
+                                        <select class="form-control select2 {{ $errors->has('user_id') ? 'is-invalid' : '' }}" name="user_id" id="user_id">
+                                            <option value="" class="p-2">Seleccione el usuario que falta completar su información</option>
                                             @foreach ($users as $user)
+                                            @if (!$user->persona)
                                                 <option value="{{ $user->id }}" {{ old('user_id') == $user->id ? 'selected' : '' }}>
                                                     {{ $user->username }}
                                                 </option>
+                                            @endif
+
                                             @endforeach
                                         </select>
                                         @if ($errors->has('user_id'))
@@ -113,7 +119,7 @@
 
                                     <div class="form-group">
                                         <label for="telefono">Teléfono</label>
-                                        <input type="number" name="telefono" id="telefono"
+                                        <input type="text" name="telefono" id="telefono"
                                             class="form-control {{ $errors->has('telefono') ? 'is-invalid' : '' }}"
                                             placeholder="Ingrese el Teléfono de la persona" value="{{ old('telefono', '') }}">
                                         @if ($errors->has('telefono'))
@@ -149,12 +155,18 @@
 
                                     <div class="form-group">
                                         <label for="fecha" class="required">Fecha de Nacimiento</label>
-                                        <input name="fecha_nacimiento" type="date" class="form-control date" value="{{ old('fecha') }}">
+                                        <input name="fecha_nacimiento" id="fecha" type="date" value="{{ old('fecha_nacimiento') }}"
+                                        class="form-control date {{ $errors->has('fecha_nacimiento') }}" placeholder="Escoja una fecha">
+                                        @if ($errors->has('fecha_nacimiento'))
+                                            <span class="text-danger">
+                                                <strong>{{ $errors->first('fecha_nacimiento') }}</strong>
+                                            </span>
+                                        @endif
                                     </div>
 
                                     <div class="form-group">
                                         <label for="genero" class="required">Género</label>
-                                        <select class="form-control select2" name="genero" style="width: 100%;">
+                                        <select class="form-control select2 {{ $errors->has('genero') ? 'is-invalid' : '' }}" name="genero" id="genero">
                                             <option value="">Seleccione un género</option>
                                             @foreach (App\Models\Persona::GENEROS as $genero)
                                                 <option value="{{ $genero }}" {{ old('genero') == $genero ? 'selected' : '' }}>
@@ -174,7 +186,7 @@
 
                                 </div>
 
-
+                                @can('persona_create')
                                 <div class="row">
                                     <div class="col-12 text-right">
                                         <button type="submit" class="btn btn-success">
@@ -183,6 +195,8 @@
                                         </button>
                                     </div>
                                 </div>
+                                @endcan
+
 
 
                             </div>

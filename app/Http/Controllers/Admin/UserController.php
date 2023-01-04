@@ -8,6 +8,8 @@ use App\Http\Requests\UpdateUserRequest;
 use App\Http\Controllers\Controller; // yo agregue esta
 use Illuminate\Support\Facades\DB; // yo agregue esta
 use Illuminate\Support\Facades\Hash; // yo agregue esta
+use Spatie\Permission\Models\Role; // yo agregue esta
+use Illuminate\Support\Arr; // yo agregue esta
 
 class UserController extends Controller
 {
@@ -46,8 +48,9 @@ class UserController extends Controller
      */
     public function create()
     {
+        $roles = Role::all();
 
-        return view('admin.users.create');
+        return view('admin.users.create', compact('roles'));
     }
 
     /**
@@ -63,11 +66,13 @@ class UserController extends Controller
 
         $request->validated();
 
-        User::create([
+        $user = User::create([
             'username' => $request['username'],
             'email' => $request['email'],
             'password' => Hash::make($request['password']),
         ]);
+
+        $user->assignRole($request->input('roles'));
 
         return redirect()->route('admin.users.index')
             ->with('success', 'Usuario creado exitosamente.');
@@ -92,7 +97,11 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('admin.users.edit', compact('user'));
+        $roles = Role::all();
+
+        $userRole = $user->roles->pluck('name', 'id')->all();
+
+        return view('admin.users.edit', compact('user', 'roles', 'userRole'));
     }
 
     /**
@@ -105,6 +114,10 @@ class UserController extends Controller
     public function update(UpdateUserRequest $request, User $user)
     {
         $user->update($request->validated());
+
+        DB::table('model_has_roles')->where('model_id', $user->id)->delete();
+
+        $user->assignRole($request->input('roles'));
 
         return redirect()->route('admin.users.index')
             ->with('success', 'Usuario actualizado exitosamente.');

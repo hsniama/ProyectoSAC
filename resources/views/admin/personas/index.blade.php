@@ -42,18 +42,20 @@
                         
                         {{-- <div class="card-title">Listado de usuarios</div> --}}
 
+                        @can('persona-create')
                             <div class="mb-3">
-                                <a href="{{ route('admin.personas.create') }}" class="btn btn-primary btn-sm p-2"  data-placement="left">
-                                    {{ __('Crear Nueva Persona') }}
+                                <a href="{{ route('admin.personas.create') }}" class="btn btn-success p-2"  data-placement="left">
+                                    {{ __('Agregar Nueva Persona') }}
                                 </a>
                             </div>
+                        @endcan
+
 
                         <div class="table-responsive">
-                            <table id="personas_table" class="table table-striped table-bordered zero-configuration">
+                            <table id="personas_table" class="table table-striped table-bordered zero-configuration text-center">
                                 <thead class="thead">
                                     <tr>
-                                        {{-- <th>No</th> --}}
-                                        
+                                        <th>ID</th>                    
 										<th>User Id</th>
 										<th>Cedula</th>
 										<th>Apellidos</th>
@@ -70,9 +72,7 @@
                                 <tbody>
                                     @foreach ($personas as $persona)
                                         <tr>
-                                            {{-- <td>{{ ++$i }}</td> --}}
-                                            
-											{{-- <td>{{ $persona->user_id }}</td> --}}
+                                            <td>{{ $persona->id }}</td>
 											<td>{{ $persona->user->username }}</td>
 											<td>{{ $persona->cedula }}</td>
 											<td>{{ $persona->apellidos }}</td>
@@ -85,15 +85,20 @@
 											<td>{{ $persona->genero }}</td>
 
                                             <td>
-                                                <a href="{{ route('admin.personas.show', $persona->id) }}"><button class="btn btn-info btn-sm"><i class="fa fa-fw fa-eye"></i>Ver</button></a>
-                                                <a href="{{ route('admin.personas.edit', $persona->id) }}"><button class="btn btn-warning btn-sm"><i class="fa fa-fw fa-edit"></i>Editar</button></a>
+                                                @can('persona-show')
+                                                <a href="{{ route('admin.personas.show', $persona->id) }}"><button class="btn btn-info mb-2 btn-sm"><i class="fa fa-fw fa-eye"></i>Ver</button></a> </br>   
+                                                @endcan
+                                                @can('persona-edit')
+                                                <a href="{{ route('admin.personas.edit', $persona->id) }}"><button class="btn btn-warning mb-2 btn-sm"><i class="fa fa-fw fa-edit"></i>Editar</button></a></br> 
+                                                @endcan
+                                                @can('persona-delete')
                                                 <form action="{{ route('admin.personas.destroy', $persona) }}" method="POST" style="display: inline" class="eliminarPersona">
                                                     @csrf
                                                     {{ method_field('DELETE') }}
                                                     <button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-fw fa-trash"></i>Eliminar</button>
                                                 </form>
+                                                @endcan
                                             </td>
-
                                         </tr>
                                     @endforeach
                                 </tbody>

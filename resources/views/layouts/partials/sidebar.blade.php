@@ -19,9 +19,12 @@
           @if (Auth::user()->persona)
               <a href="#" class="text-decoration-none ml-4">Hola, <span class="fw-bold">{{ Auth::user()->persona->nombres . ' ' . Auth::user()->persona->apellidos }}</span></a>
           @else
+          @can('persona-completar')
               <a href="{{ route('admin.personas.create') }}" class="text-decoration-none text-warning fs-5">
                 Por favor <span class="fw-bold">{{ Auth::user()->username }} </span> completa tu perfil aqui.
               </a>
+          @endcan
+
           @endif
         </div>
 
@@ -121,7 +124,7 @@
             @can('role-list')
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('admin.roles.index') }}" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Gestión de Roles</p>
                 </a>
@@ -169,7 +172,7 @@
             @can('persona-create')
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('admin.personas.create') }}" class="nav-link">
                   <i class="fa fa-user nav-icon"></i>
                   <p>Registrar Persona</p>
                 </a>
@@ -180,7 +183,7 @@
             @can('persona-list')
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('admin.personas.index') }}" class="nav-link">
                   <i class="fa fa-user nav-icon"></i>
                   <p>Listar Personas</p>
                 </a>
