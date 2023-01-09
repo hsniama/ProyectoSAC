@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
 use App\Models\User;
-use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Models\Persona;
+use Illuminate\Support\Str;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
 {
@@ -54,7 +56,10 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'username' => ['required', 'string', 'max:15', 'unique:users,username', 'alpha_dash'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            //'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'nombres' => ['required', 'string', 'max:255'],
+            'apellidos' => ['required', 'string', 'max:255'],
+            'cedula' => ['required', 'string', 'max:255', 'unique:personas,cedula'],
         ]);
     }
 
@@ -66,12 +71,28 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        // Generar clave fija hasheada para el usuario:
+        $password = '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'; //password
+
+        $user = User::create([
             'username' => $data['username'],
             'email' => $data['email'],
-            'password' => Hash::make($data['password']),
+            'password' => $password,
         ])->assignRole('paciente');
 
+
+        Persona::create([
+            'user_id' => $user->id,
+            'cedula' => $data['cedula'],
+            'nombres' => $data['nombres'],
+            'apellidos' => $data['apellidos'],
+            'email' => $data['email'],
+        ]);
+
+        return $user;
+
+        //return two variables $user and $clave
+        
 
     }
 }

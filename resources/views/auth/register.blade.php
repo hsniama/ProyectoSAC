@@ -98,6 +98,48 @@
         @csrf
 
         <div class="input-group mb-3">
+          <input id="cedula" type="number" class="form-control @error('cedula') is-invalid @enderror" name="cedula" value="{{ old('cedula') }}" required autocomplete="cedula" autofocus placeholder="Escribe tu cedula">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-user"></span>
+            </div>
+          </div>
+          @error('cedula')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+          @enderror
+        </div>
+        
+        <div class="input-group mb-3">
+          <input id="nombres" type="text" class="form-control @error('nombres') is-invalid @enderror" name="nombres" value="{{ old('nombres') }}" required autocomplete="nombres" autofocus placeholder="Escribe tus nombres completos">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-user"></span>
+            </div>
+          </div>
+          @error('nombres')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+          @enderror
+        </div>
+
+        <div class="input-group mb-3">
+          <input id="apellidos" type="text" class="form-control @error('apellidos') is-invalid @enderror" name="apellidos" value="{{ old('apellidos') }}" required autocomplete="apellidos" autofocus placeholder="Escribe tus apellidos completos">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-user"></span>
+            </div>
+          </div>
+          @error('apellidos')
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $message }}</strong>
+            </span>
+          @enderror
+        </div>
+
+        <div class="input-group mb-3">
           <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder="pepito@gmail.com">
           <div class="input-group-append">
             <div class="input-group-text">
@@ -125,7 +167,9 @@
           @enderror
         </div>
 
-        <div class="input-group mb-3">
+
+
+        {{-- <div class="input-group mb-3">
           <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder="Escribe una contraseña">
           <div class="input-group-append">
             <div class="input-group-text">
@@ -146,7 +190,7 @@
               <span class="fas fa-lock"></span>
             </div>
           </div>
-        </div>
+        </div> --}}
 
         <div class="row mb-3">
           <!-- <div class="col-8">

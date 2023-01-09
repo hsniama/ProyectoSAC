@@ -1,6 +1,5 @@
 <?php
 
-
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\UserController;
@@ -22,13 +21,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+
+Auth::routes(['verify' => true]);
 
 
 
-
-Route::group(['middleware' => 'auth'], function () {
-    
+Route::group(['middleware' => ['auth', 'verified']], function () {
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');;
 
     Route::group([
@@ -41,16 +39,4 @@ Route::group(['middleware' => 'auth'], function () {
             Route::resource('personas', PersonaController::class);
             Route::resource('roles', RoleController::class);
     });
-
-    Route::group([
-        //'middleware' => 'is_admin'
-        'prefix' => 'user',
-        'as' => 'user.',
-
-        ],function (){
-            //Route::resource('personas', PersonaController::class);
-            
-    });
-
-
 });

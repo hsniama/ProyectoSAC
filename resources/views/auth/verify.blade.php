@@ -1,28 +1,23 @@
-@extends('layouts.app')
+@extends('layouts.auth', ['title' => 'Verifica tu correo.'])
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Verify Your Email Address') }}</div>
 
-                <div class="card-body">
-                    @if (session('resent'))
-                        <div class="alert alert-success" role="alert">
-                            {{ __('A fresh verification link has been sent to your email address.') }}
-                        </div>
-                    @endif
+      <p class="login-box-msg h3">Verificación de correo y envio de creendenciales</p>
 
-                    {{ __('Before proceeding, please check your email for a verification link.') }}
-                    {{ __('If you did not receive the email') }},
-                    <form class="d-inline" method="POST" action="{{ route('verification.resend') }}">
-                        @csrf
-                        <button type="submit" class="btn btn-link p-0 m-0 align-baseline">{{ __('click here to request another') }}</button>.
-                    </form>
+        <div class="card-body text-center">
+            @if (session('resent'))
+                <div class="alert alert-success" role="alert">
+                    {{ __('Se envió un nuevo correo.') }}
                 </div>
-            </div>
+            @endif
+
+            {{ __('Se envió un correo con las creedenciales para ingresar al sistema.') }}
+            <br> <br>
+            {{ __('Si no recibe el correo') }},
+            <form class="d-inline" method="POST" action="{{ route('verification.resend') }}">
+                @csrf
+                <button type="submit" class="btn btn-link p-0 m-0 align-baseline">{{ __('click aqui para reenviarlo') }}</button>.
+            </form>
         </div>
-    </div>
-</div>
+
 @endsection
