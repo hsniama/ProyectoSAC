@@ -9,7 +9,7 @@
         <div class="row mb-2">
 
           <div class="col-sm-6">
-            <h1 class="m-0">Nueva Persona</h1>
+            <h1 class="m-0">Completa tu Información Personal</h1>
           </div><!-- /.col -->
 
         </div><!-- /.row -->
@@ -29,43 +29,30 @@
 
                     <div class="card-body">
 
-                        {{-- <div class="card-title">Listado de usuarios</div> --}}
+                        {{-- <div class="card-title">Listado de usuarios</div>  --}}
 
-                        @can('persona-list')
+                        @can('home')
                         <div class="mb-3">
-                            <a href="{{ route('admin.personas.index') }}" class="btn btn-danger btn-sm p-2"  data-placement="left">
+                            <a href="{{ route('home') }}" class="btn btn-danger btn-sm p-2"  data-placement="left">
                                 <i class="fa fa-fw fa-lg fa-arrow-left"></i>
-                                {{ __('Volver al listado') }}
+                                {{ __('Regresar') }}
                             </a>
                         </div>
-                        @endcan
+                        @endcan 
 
 
-                        <form method="POST" action="{{ route('admin.personas.store') }}" role="form" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('perfil.store') }}" role="form" enctype="multipart/form-data">
                             @csrf
 
                             <div class="box box-info padding-1">
                                 <div class="box-body">
 
-                                    <div class="form-group">
-                                        <label for="user_id" class="required">¿Qué usuario es? (ya creado)</label>
-                                        <select class="form-control select2 {{ $errors->has('user_id') ? 'is-invalid' : '' }}" name="user_id" id="user_id">
-                                            <option value="" class="p-2">Seleccione el usuario que falta completar su información</option>
-                                            @foreach ($users as $user)
-                                            @if (!$user->persona)
-                                                <option value="{{ $user->id }}" {{ old('user_id') == $user->id ? 'selected' : '' }}>
-                                                    {{ $user->username }}
-                                                </option>
-                                            @endif
-
-                                            @endforeach
-                                        </select>
-                                        @if ($errors->has('user_id'))
-                                            <span class="text-danger">
-                                                <strong>{{ $errors->first('user_id') }}</strong>
-                                            </span>
-                                        @endif
-                                    </div>
+                                <div class="form-group">
+                                    <label for="username" class="required">Username correspondiente (Solo un Administrador puede modificarlo)</label>
+                                    <input type="hidden" name="user_id" value="{{ Auth()->user()->id }}">
+                                    <input type="text" class="form-control" id="username" disabled
+                                           value="{{Auth()->user()->username }}">
+                                </div>
 
                                     <div class="form-group">
                                         <label for="cedula" class="required">N° de Cédula</label>
@@ -91,7 +78,7 @@
                                         @endif
                                     </div>
 
-
+                         
                                     <div class="form-group">
                                         <label for="nombres" class="required">Nombres</label>
                                         <input type="text" name="nombres" id="nombres"
@@ -179,19 +166,16 @@
                                                 <strong>{{ $errors->first('genero') }}</strong>
                                             </span>
                                         @endif
-                                    </div>
-
-
-
+                                    </div> 
 
                                 </div>
 
-                                @can('persona-create')
+                                @can('perfil-create')
                                 <div class="row">
                                     <div class="col-12 text-right">
                                         <button type="submit" class="btn btn-success">
                                             <i class="fa fa-fw fa-lg fa-check-circle"></i>
-                                            Crear Persona
+                                            Guardar 
                                         </button>
                                     </div>
                                 </div>

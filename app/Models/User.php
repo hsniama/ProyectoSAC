@@ -23,6 +23,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'username',
         'email',
         'password',
+        'email_verified_at',//agrego esta
     ];
 
     /**
@@ -43,6 +44,9 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public const CONFIRMAREMAIL = ['Si', 'No'];
+
 
     public function persona()
     {

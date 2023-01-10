@@ -37,16 +37,26 @@
           </li>
         @endif
       @else
-        <li class="nav-item d-none d-sm-inline-block mr-3">
-          {{-- <a href="{{ route('admin.personas.edit', Auth::user()->persona->id) }}" class="nav-link">Editar Perfil</a> --}}
-          @if (Auth::user()->persona)
-              <a href="{{ route('admin.personas.edit', Auth::user()->persona->id) }}" class="text-decoration-none nav-link">Editar Perfil</a>
-          @else
-              <a href="{{ route('admin.personas.create') }}" class="text-decoration-none nav-link text-bg-warning">
-                Completa tu perfil
+        <li class="nav-item d-none d-sm-inline-block mr-3">       
+          @if (Auth::user()->persona )
+
+            @if (!Auth::user()->persona->isComplete())
+              <a href="{{ route('perfil.edit', Auth::user()->persona->id) }}" class="text-decoration-none nav-link text-bg-warning">
+                Completa tu perfil Aqui
+              </a>
+            @else
+              <a href="{{ route('perfil.edit', Auth::user()->persona->id) }}" class="text-decoration-none nav-link text-bg-success">
+                Editar Perfil
+              </a>
+            @endif
+
+          @else         
+              <a href="{{ route('perfil.create') }}" class="text-decoration-none nav-link text-bg-warning">
+                Completa tu perfil aquí
               </a>
           @endif
         </li>
+        
         <li class="nav-item d-none d-sm-inline-block mr-3">
           <a class="nav-link text-bg-danger" 
              href="{{ route('logout') }}"

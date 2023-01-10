@@ -49,7 +49,10 @@ class PermissionSeeder extends Seeder
             'persona-create',
             'persona-edit',
             'persona-delete',
-            'persona-completar',
+            'perfil-create',
+            'perfil-edit',
+            'perfil-update',
+            'perfil-store',
             'medico-list',
             'medico-show',
             'medico-create',
@@ -137,7 +140,10 @@ class PermissionSeeder extends Seeder
                 'persona-create',
                 'persona-edit',
                 'persona-delete',
-                'persona-completar',
+                'perfil-create',
+                'perfil-edit',
+                'perfil-update',
+                'perfil-store',
             'modulo-especialidades',
                 'especialidad-list',
                 'especialidad-show',
@@ -187,7 +193,10 @@ class PermissionSeeder extends Seeder
                 'persona-create',
                 'persona-edit',
                 'persona-delete',
-                'persona-completar',
+                'perfil-create',
+                'perfil-edit',
+                'perfil-update',
+                'perfil-store',
             'modulo-especialidades',
                 'especialidad-list',
                 'especialidad-show',
@@ -210,7 +219,10 @@ class PermissionSeeder extends Seeder
             'home',
             'modulo-citas',
             'cita-list',
-            'persona-completar'
+            'perfil-create',
+            'perfil-edit',
+            'perfil-update',
+            'perfil-store',
         ];
 
         foreach ($doctorPermissions as $permission) {
@@ -233,7 +245,10 @@ class PermissionSeeder extends Seeder
             'user-create',
             'persona-create',
             'user-creedenciales',
-            'persona-completar'
+            'perfil-create',
+            'perfil-edit',
+            'perfil-update',
+            'perfil-store',
         ];
 
         foreach ($secretariaPermissions as $permission) {
@@ -250,7 +265,10 @@ class PermissionSeeder extends Seeder
             'cita-list',
             'cita-show',
             'cita-create',
-            'persona-completar'
+            'perfil-create',
+            'perfil-edit',
+            'perfil-update',
+            'perfil-store',
         ];
 
         foreach ($pacientePermissions as $permission) {

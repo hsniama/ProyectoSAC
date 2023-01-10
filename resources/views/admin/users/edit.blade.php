@@ -94,7 +94,7 @@
                                 <div class="form-group">
                                     <label for="password" class="required">Contraseña </label>
                                     <input type="password" name="password" id="password" class="form-control {{$errors->has('password') ? 'is-invalid' : ''}}" 
-                                        placeholder="Ingrese la contraseña del usuario">
+                                        placeholder="Ingrese la nueva contraseña del usuario.">
                                     @if ($errors->has('password'))
                                         <span class="text-danger">
                                             <strong>{{ $errors->first('password') }}</strong>
@@ -105,7 +105,7 @@
                                 <div class="form-group">
                                     <label for="password-confirmation" class="required">Repita la Contraseña </label>
                                     <input type="password" name="password_confirmation" id="password-confirmation" 
-                                        class="form-control" placeholder="Repita la contraseña del usuario">
+                                        class="form-control" placeholder="Repita la nueva contraseña del usuario">
                                 </div>
                             
                             </div>

@@ -85,7 +85,7 @@ class PersonaController extends Controller
     {
         // Necesito saber a que usuario le voy  a crear la persona
         $users = User::all();
-
+        
         return view('admin.personas.edit', compact('users', 'persona'));
     }
 

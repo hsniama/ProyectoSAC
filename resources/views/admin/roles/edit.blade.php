@@ -86,7 +86,7 @@
                                 <div class="col-12 text-right">
                                     <button type="submit" class="btn btn-success">
                                         <i class="fa fa-fw fa-lg fa-check-circle"></i>
-                                        Actualizar Persona
+                                        Actualizar Rol
                                     </button>
                                 </div>
                             </div>

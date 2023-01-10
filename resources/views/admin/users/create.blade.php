@@ -86,6 +86,19 @@
 
 
                                     <div class="form-group">
+                                        <label for="email_verified_at" class="required">Confirmar correo: </label>
+                                        <select class="form-control {{ $errors->has('email_verified_at') ? 'is-invalid' : ''}}" name="email_verified_at" id="email_verified_at">
+                                            <option value="Si">Si</option>
+                                            <option value="No">No</option>
+                                        </select>
+                                        @if ($errors->has('email_verified_at'))
+                                            <span class="text-danger">
+                                                <strong>{{ $errors->first('email_verified_at') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+
+                                    <div class="form-group">
                                         <label for="password" class="required">Contraseña </label>
                                         <input type="password" name="password" id="password"
                                             class="form-control {{ $errors->has('password') ? 'is-invalid' : '' }}"
@@ -103,16 +116,13 @@
                                             placeholder="Repita la contraseña del usuario">
                                     </div>
 
+
+
                                     {{-- <div class="form-group">
                                 <label for="active">Active</label>
                                 <input type="checkbox" name="active" id="active" class="form-control" placeholder="Active">
                             </div> --}}
 
-                                    {{-- <label for="confirmed">Confirmed</label>
-                                <input type="checkbox" name="confirmed" id="confirmed" class="form-control" placeholder="Confirmed" aria-describedby="helpId">
-                                <small id="helpId" class="text-muted">Help text</small> --}}
-
-                                    {{--
 
 
                                     {{-- 

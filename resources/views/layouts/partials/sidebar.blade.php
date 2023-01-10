@@ -1,7 +1,7 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="#" class="brand-link text-decoration-none text-center">
+    <a href="{{ route('home') }}" class="brand-link text-decoration-none text-center">
       {{-- <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8"> --}}
       <span class="brand-text font-weight-bolder">SAC</span>
     </a>
@@ -19,12 +19,9 @@
           @if (Auth::user()->persona)
               <a href="#" class="text-decoration-none ml-4">Hola, <span class="fw-bold">{{ Auth::user()->persona->nombres . ' ' . Auth::user()->persona->apellidos }}</span></a>
           @else
-          @can('persona-completar')
-              <a href="{{ route('admin.personas.create') }}" class="text-decoration-none text-warning fs-5">
-                Por favor <span class="fw-bold">{{ Auth::user()->username }} </span> completa tu perfil aqui.
-              </a>
-          @endcan
-
+              <p href="#" class="text-decoration-none text-warning fs-5">
+                Hola, <span class="fw-bold">{{ Auth::user()->username }}</span> </br>(Información incompleta).
+              </p>
           @endif
         </div>
 
@@ -239,7 +236,7 @@
             @can('user-create')
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('admin.users.create') }}" class="nav-link">
                   <i class="fa fa-user nav-icon"></i>
                   <p>Crear Usuario</p>
                 </a>

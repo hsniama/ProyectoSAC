@@ -9,7 +9,7 @@
         <div class="row mb-2">
 
           <div class="col-sm-6">
-            <h1 class="m-0">Editar Persona</h1>
+            <h1 class="m-0">Editar Perfil</h1>
           </div><!-- /.col -->
 
         </div><!-- /.row -->
@@ -29,42 +29,22 @@
 
                     <div class="card-body">
 
-                        {{-- <div class="card-title">Listado de usuarios</div> --}}
-
-                        @can('persona-list')
+                        @can('home')
                         <div class="mb-3">
-                            <a href="{{ route('admin.personas.index') }}" class="btn btn-danger btn-sm p-2"  data-placement="left">
+                            <a href="{{ route('home') }}" class="btn btn-danger btn-sm p-2"  data-placement="left">
                                 <i class="fa fa-fw fa-lg fa-arrow-left"></i>
-                                {{ __('Volver al listado') }}
+                                {{ __('Regresar') }}
                             </a>
                         </div>
                         @endcan
 
-
-                       <form method="POST" action="{{ route('admin.personas.update', $persona->id) }}">
+                       <form method="POST" action="{{ route('perfil.update', $persona->id) }}">
+                       <form method="POST" action="">
                             @csrf
                             @method('PUT')
 
                         <div class="box box-info padding-1">
                             <div class="box-body">
-
-                                {{-- <div class="form-group">
-                                    <label for="user_id" class="required">¿Qué usuario es? (ya creado)</label>
-                                    <select class="form-control select2 {{ $errors->has('user_id') ? 'is-invalid' : '' }}" name="user_id" id="user_id">
-                                        <option value="" class="p-2">Seleccione un usuario</option>
-                                        @foreach ($users as $user)
-                                            <option value="{{ $user->id }}" {{ (old('user_id') ? old('user_id') : $persona->user->id ?? '') == $user->id ? 'selected' : '' }}>
-                                                {{ $user->username }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                    
-                                    @if ($errors->has('user_id'))
-                                        <span class="text-danger">
-                                            <strong>{{ $errors->first('user_id') }}</strong>
-                                        </span>
-                                    @endif
-                                </div> --}}
 
                                 <div class="form-group">
                                     <label for="username" class="required">Username correspondiente (Se puede actualizar solo en el módulo de "usuarios")</label>
@@ -126,7 +106,7 @@
                                     <label for="telefono">Teléfono</label>
                                     <input type="text" name="telefono" id="telefono"
                                         class="form-control {{ $errors->has('telefono') ? 'is-invalid' : '' }}"
-                                        placeholder="Actualiza el Teléfono de la persona" value="{{ old('telefono', $persona->telefono) }}">
+                                        placeholder="Ingrese el Teléfono de la persona" value="{{ old('telefono', $persona->telefono) }}">
                                     @if ($errors->has('telefono'))
                                         <span class="text-danger">
                                             <strong>{{ $errors->first('telefono') }}</strong>
@@ -163,7 +143,7 @@
                                     <input name="fecha_nacimiento" id="fecha" type="date" 
                                     class="form-control date {{ $errors->has('fecha_nacimiento') }}" 
                                     value="{{ old('fecha', $persona->fecha_nacimiento) }}"
-                                    placeholder="Actualize la fecha de nacimiento">
+                                    placeholder="Ingrese su fecha de nacimiento">
                                     @if ($errors->has('fecha_nacimiento'))
                                         <span class="text-danger">
                                             <strong>{{ $errors->first('fecha_nacimiento') }}</strong>
@@ -174,7 +154,7 @@
                                 <div class="form-group">
                                     <label for="genero" class="required">Género</label>
                                     <select class="form-control select2 {{ $errors->has('genero') ? 'is-invalid' : '' }}" name="genero" id="genero">
-                                        <option value="">Seleccione un género</option>
+                                        <option value="">Seleccione tu género</option>
                                         @foreach (App\Models\Persona::GENEROS as $genero)
                                             <option value="{{ $genero }}" {{ (old('genero') ? old('genero') : $persona->genero ??  '') == $genero ? 'selected' : '' }}> 
                                                 {{ $genero }}
@@ -186,19 +166,19 @@
                                             <strong>{{ $errors->first('genero') }}</strong>
                                         </span>
                                     @endif
-                                </div>
+                                </div> 
 
 
 
 
                             </div>
 
-                            @can('persona-edit')
+                            @can('perfil-edit')
                             <div class="row">
                                 <div class="col-12 text-right">
                                     <button type="submit" class="btn btn-success">
                                         <i class="fa fa-fw fa-lg fa-check-circle"></i>
-                                        Actualizar Persona
+                                        Actualizar Informacion
                                     </button>
                                 </div>
                             </div>

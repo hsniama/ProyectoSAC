@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB; // yo agregue esta
 use Illuminate\Support\Facades\Hash; // yo agregue esta
 use Spatie\Permission\Models\Role; // yo agregue esta
 use Illuminate\Support\Arr; // yo agregue esta
+use Carbon\Carbon; // yo agregue esta
 
 class UserController extends Controller
 {
@@ -61,14 +62,19 @@ class UserController extends Controller
      */
     public function store(StoreUserRequest $request)
     {
-
         // User::create($request->validated());
-
         $request->validated();
+
+        if ($request['email_verified_at'] == 'Si') {
+            $confirmado = Carbon::now();;
+        }else{
+            $confirmado= null;
+        }
 
         $user = User::create([
             'username' => $request['username'],
             'email' => $request['email'],
+            'email_verified_at' => $confirmado,
             'password' => Hash::make($request['password']),
         ]);
 
@@ -114,6 +120,8 @@ class UserController extends Controller
     public function update(UpdateUserRequest $request, User $user)
     {
         $user->update($request->validated());
+
+        $user::where('id', $user->id)->update(['password' => Hash::make($request['password'])]);
 
         DB::table('model_has_roles')->where('model_id', $user->id)->delete();
 
