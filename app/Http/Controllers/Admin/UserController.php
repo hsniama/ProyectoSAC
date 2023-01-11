@@ -121,7 +121,11 @@ class UserController extends Controller
     {
         $user->update($request->validated());
 
-        $user::where('id', $user->id)->update(['password' => Hash::make($request['password'])]);
+        if($request['password'] == null){        
+            $user::where('id', $user->id)->update(['password' => $user->password]);
+        }else {
+            $user::where('id', $user->id)->update(['password' => Hash::make($request['password'])]);
+        }
 
         DB::table('model_has_roles')->where('model_id', $user->id)->delete();
 
