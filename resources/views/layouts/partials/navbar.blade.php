@@ -37,23 +37,33 @@
           </li>
         @endif
       @else
-        <li class="nav-item d-none d-sm-inline-block mr-3">       
+     
           @if (Auth::user()->persona )
 
             @if (!Auth::user()->persona->isComplete())
+            <li class="nav-item d-none d-sm-inline-block mr-3">  
               <a href="{{ route('perfil.edit', Auth::user()->persona->id) }}" class="text-decoration-none nav-link text-bg-warning">
                 Completa tu perfil Aqui
               </a>
+            </li>
             @else
+            <li class="nav-item d-none d-sm-inline-block mr-3">  
               <a href="{{ route('perfil.edit', Auth::user()->persona->id) }}" class="text-decoration-none nav-link text-bg-success">
                 Editar Perfil
               </a>
+            </li>
+            <li class="nav-item d-none d-sm-inline-block mr-3">  
+              <a href="{{ route('view.change.password') }}" class="text-decoration-none nav-link text-bg-warning">
+                Cambiar contraseña
+              </a>
+            </li>
             @endif
-
-          @else         
+          @else  
+          <li class="nav-item d-none d-sm-inline-block mr-3">         
               <a href="{{ route('perfil.create') }}" class="text-decoration-none nav-link text-bg-warning">
                 Completa tu perfil aquí
               </a>
+          </li>
           @endif
         </li>
         

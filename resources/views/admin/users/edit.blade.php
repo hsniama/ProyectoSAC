@@ -92,7 +92,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="password" class="required">Contraseña </label>
+                                    <label for="password">Nueva Contraseña (Opcional)</label>
                                     <input type="password" name="password" id="password" class="form-control {{$errors->has('password') ? 'is-invalid' : ''}}" 
                                         placeholder="Ingrese la nueva contraseña del usuario.">
                                     @if ($errors->has('password'))
@@ -103,9 +103,14 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="password-confirmation" class="required">Repita la Contraseña </label>
-                                    <input type="password" name="password_confirmation" id="password-confirmation" 
+                                    <label for="password_confirmation">Repita la Contraseña </label>
+                                    <input type="password" name="password_confirmation" id="password_confirmation" 
                                         class="form-control" placeholder="Repita la nueva contraseña del usuario">
+                                    @if ($errors->has('password_confirmation'))
+                                        <span class="text-danger">
+                                            <strong>{{ $errors->first('password_confirmation') }}</strong>
+                                        </span>
+                                    @endif
                                 </div>
                             
                             </div>

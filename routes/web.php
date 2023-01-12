@@ -2,10 +2,12 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\PersonaController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\PerfilController;
+use App\Http\Controllers\Auth\ChangePasswordController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,22 +27,22 @@ Route::get('/', function () {
 Auth::routes(['verify' => true]);
 
 
-
 Route::group(['middleware' => ['auth', 'verified']], function () {
-    Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');;
-    
 
-    Route::group([
-        //'prefix' => 'perfil', //stands for the /admin route. I mean It is the URL
-        //'as' => 'perfil.', // Son route names para referirme a ellos como admin.users.index por ejemplo.
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-        ],function (){
-            Route::get('perfil/create', [PerfilController::class, 'create'])->name('perfil.create');
-            Route::get('perfil/{id}/edit', [PerfilController::class, 'edit'])->name('perfil.edit');
-            Route::put('perfil/{id}', [PerfilController::class, 'update'])->name('perfil.update');
-            Route::post('perfil', [PerfilController::class, 'store'])->name('perfil.store');
+    Route::controller(ChangePasswordController::class)->group(function () {
+        Route::get('/cambiar-password', 'index')->name('view.change.password');
+        Route::post('/cambiar-password', 'changePassword')->name('change.password');
     });
-  
+
+    Route::controller(PerfilController::class)->group(function () {
+        Route::get('perfil/create', 'create')->name('perfil.create');
+        Route::get('perfil/{id}/edit', 'edit')->name('perfil.edit');
+        Route::put('perfil/{id}', 'update')->name('perfil.update');
+        Route::post('perfil', 'store')->name('perfil.store');
+    });
+
 
     Route::group([
         //'middleware' => 'is_admin'
@@ -62,8 +64,5 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
             Route::resource('users', UserController::class);
 
     });
-
-
-
 
 });

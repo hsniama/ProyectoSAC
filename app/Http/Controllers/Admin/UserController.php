@@ -118,15 +118,20 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateUserRequest $request, User $user)
-    {
-        $user->update($request->validated());
+    {    
+        // $user->update($request->validated());
 
+        $request->validated();
+
+        
         if($request['password'] == null){        
             $user::where('id', $user->id)->update(['password' => $user->password]);
         }else {
             $user::where('id', $user->id)->update(['password' => Hash::make($request['password'])]);
         }
-
+        
+        $user->update($request->except('password'));
+        
         DB::table('model_has_roles')->where('model_id', $user->id)->delete();
 
         $user->assignRole($request->input('roles'));
