@@ -53,6 +53,9 @@ class PermissionSeeder extends Seeder
             'perfil-edit',
             'perfil-update',
             'perfil-store',
+            'paciente-list',
+            'paciente-show',
+            'paciente-create',
             'medico-list',
             'medico-show',
             'medico-create',
@@ -249,6 +252,9 @@ class PermissionSeeder extends Seeder
             'perfil-edit',
             'perfil-update',
             'perfil-store',
+            'paciente-list',
+            'paciente-show',
+            'paciente-create',
         ];
 
         foreach ($secretariaPermissions as $permission) {

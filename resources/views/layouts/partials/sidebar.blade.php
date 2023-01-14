@@ -10,16 +10,18 @@
     <div class="sidebar">
       
       <!-- Sidebar user panel (optional) -->
-      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+      <div class="user-panel mt-3 mb-3">
         {{-- <div class="image">
           <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div> --}}
 
         <div class="text-center text-wrap">
-          @if (Auth::user()->persona)
-              <a href="#" class="text-decoration-none ml-4">Hola, <span class="fw-bold">{{ Auth::user()->persona->nombres . ' ' . Auth::user()->persona->apellidos }}</span></a>
+          @if (Auth::user()->persona)       
+              <p class="text-white fs-5">
+                  Hola, <span class="fw-bold">{{ Auth::user()->persona->nombres . ' ' . Auth::user()->persona->apellidos }}</span>
+              </p>
           @else
-              <p href="#" class="text-decoration-none text-warning fs-5">
+              <p class="text-warning fs-5">
                 Hola, <span class="fw-bold">{{ Auth::user()->username }}</span> </br>(Información incompleta).
               </p>
           @endif
@@ -30,16 +32,16 @@
 
 
       <!-- SidebarSearch Form -->
-      {{-- <div class="form-inline">
+      <div class="form-inline pb-2">
         <div class="input-group" data-widget="sidebar-search">
-          <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
+          <input class="form-control form-control-sidebar" type="search" placeholder="Buscar" aria-label="Search">
           <div class="input-group-append">
             <button class="btn btn-sidebar">
               <i class="fas fa-search fa-fw"></i>
             </button>
           </div>
         </div>
-      </div> --}}
+      </div>
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
@@ -65,7 +67,7 @@
               <li class="nav-item">
                 <a href="#" class="nav-link">
                   <i class="nav-icon fas fa-users"></i>
-                  <p>Gestión de Usuarios</p>
+                  <p>Prueba</p>
                 </a>
               </li>
             </ul>       
@@ -233,21 +235,11 @@
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
-            @can('user-create')
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{ route('admin.users.create') }}" class="nav-link">
-                  <i class="fa fa-user nav-icon"></i>
-                  <p>Crear Usuario</p>
-                </a>
-              </li>
-            </ul>
-            @endcan
 
-            @can('persona-create')
+            @can('paciente-create')
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('secretaria.pacientes.create') }}" class="nav-link botonActivo">
                   <i class="fa fa-user nav-icon"></i>
                   <p>Registrar Paciente</p>
                 </a>
@@ -255,17 +247,16 @@
             </ul>
             @endcan
 
-            @can('user-creedenciales')
+            @can('paciente-list')
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('secretaria.pacientes.index') }}" class="nav-link">
                   <i class="fa fa-user nav-icon"></i>
-                  <p>Imprimir creedenciales</p>
+                  <p>Listar Pacientes</p>
                 </a>
               </li>
             </ul>
             @endcan
-
 
           </li>  
           @endhasrole

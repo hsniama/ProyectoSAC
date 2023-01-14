@@ -3,11 +3,12 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PerfilController;
+use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\PersonaController;
-use App\Http\Controllers\Admin\RoleController;
-use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\Auth\ChangePasswordController;
+use App\Http\Controllers\Secretaria\PacienteController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -57,11 +58,13 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
     Route::group([
         'prefix' => 'secretaria', //stands for the /admin route. I mean It is the URL
+        'as' => 'secretaria.', // Son route names para referirme a ellos como secretaria.users.index por ejemplo.
         'middleware' => 'role:secretaria'
-        //'as' => 'secretaria.', // Son route names para referirme a ellos como admin.users.index por ejemplo.
 
         ],function (){
-            Route::resource('users', UserController::class);
+            Route::resource('pacientes', PacienteController::class);
+            Route::get('/creedenciales/{user}', [PacienteController::class, 'creedenciales'])->name('creedenciales');
+            Route::post('imprimir-creedenciales', [PacienteController::class, 'imprimirCreedenciales'])->name('imprimir.creedenciales');
 
     });
 

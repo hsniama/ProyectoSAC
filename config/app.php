@@ -196,6 +196,9 @@ return [
         App\Providers\RouteServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
 
+        //Para pdf:
+        Barryvdh\DomPDF\ServiceProvider::class,
+
     ],
 
     /*
