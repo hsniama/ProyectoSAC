@@ -31,21 +31,54 @@ class PacienteController extends Controller
     }
 
     public function index()
-    {
-        //$users = User::role('paciente')->get();      
+    {  
+        //----------------------------------------------------------------------------------------------
+        // Primera forma: no me sirvio aqui no se por que.
+        // $pacientes = Persona::with([
+        //     'user' => function($query){
+        //         $query->whereHas('roles', function($query){
+        //             $query->where('name', 'admin');
+        //         });
+        //     }
+        // ])->get();
+        // dd($pacientes);
 
-        $pacientes = Persona::with('user')->get();
+        //----------------------------------------------------------------------------------------------
 
-        $personasRolPaciente = [];
+        //Segunda forma: Es buena pero consume mucha memoria ya que itero todas las personas para saber
+        //quien tiene dicho rol que estoy buscando.
 
-        foreach ($pacientes as $paciente) {
-            if($paciente->user->hasRole('paciente')){
-                $personasRolPaciente[] = $paciente;
-            }
-        }
-       
+        // $pacientes = Persona::with('user')->get(); Pertenece a la segunda forma
+        // $personasRolPaciente = [];
+
+        // foreach ($pacientes as $paciente) {
+        //     if($paciente->user->hasRole('secretaria')){
+        //         $personasRolPaciente[] = $paciente;
+        //     }
+        // }
+
+        // ------------------------------------------------------------------------------------------------
+        // Tercera forma: Excelente, sirve muy bien, sirve para entender un poquito mas.
+        // $personasRolPaciente = Persona::whereHas('user', function($query){
+        //     $query->whereHas('roles', function($query){
+        //         $query->where('name', 'paciente');
+        //     });
+        // })->get();
+
+        // ------------------------------------------------------------------------------------------------
+        // Cuarta Forma: la mas optimizada
+         $personasRolPaciente = Persona::whereHas('user.roles', function($query){
+            $query->where('name', 'paciente');
+        })->get();
+        /*
+        This will retrieve all 'Persona' records that have a related 'User' model with a role named 'secretaria' 
+        directly from the database, without the need for the foreach loop.
+        This way you are saving time and memory by not having to iterate over all the pacientes and check if they 
+        have the role of secretaria.
+        */
 
         return view('secretaria.pacientes.index', compact('personasRolPaciente'));
+
     }
 
 

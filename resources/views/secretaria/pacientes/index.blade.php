@@ -70,6 +70,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($personasRolPaciente as $paciente)
+                                    {{-- @foreach ($pacientes as $paciente) --}}
                                         <tr>
                                             <td>{{ $paciente->id }}</td>
 											<td>{{ $paciente->user->username }}</td>
