@@ -18,9 +18,9 @@ class SpecialityFactory extends Factory
     public function definition()
     {
         return [
-            'name' => fake()->jobTitle(),
-            'description' => fake()->paragraph(),
-            'status' => fake()->randomElement(['Activo', 'Inactivo']),
+            'name' => fake()->unique()->jobTitle(),
+            'description' => fake()->sentence(15),
+            'status' => fake()->randomElement(['Activo', 'Activo']),
             'created_by' => fake()->name(), 
             'updated_by' => fake()->name(),
         ];

@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use App\Models\Persona;
+use App\Models\Speciality;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -25,7 +26,7 @@ class UserSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
-        ])->assignRole('super-admin');
+        ])->assignRole('super-admin')->persona()->save(Persona::factory()->make());
 
         User::create([
             'username' => 'admin',
@@ -33,7 +34,7 @@ class UserSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
-        ])->assignRole('admin');
+        ])->assignRole('admin')->persona()->save(Persona::factory()->make());
 
         User::create([
             'username' => 'gerente',
@@ -41,40 +42,53 @@ class UserSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
-        ])->assignRole('gerente');
+        ])->assignRole('gerente')->persona()->save(Persona::factory()->make());
 
         User::create([
-            'username' => 'GabrielPaciente',
-            'email' => 'gaby@gmail.com',
+            'username' => 'paciente',
+            'email' => 'paciente@gmail.com',
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
-        ])->assignRole('paciente');
+        ])->assignRole('paciente')->persona()->save(Persona::factory()->make());
 
         User::create([
-            'username' => 'AnaSecretaria',
-            'email' => 'anita@gmail.com',
+            'username' => 'secretaria',
+            'email' => 'secretaria@gmail.com',
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
-        ])->assignRole('secretaria');
+        ])->assignRole('secretaria')->persona()->save(Persona::factory()->make());
 
         User::create([
-            'username' => 'PepeDoctor',
-            'email' => 'pepe@gmail.com',
+            'username' => 'doctor',
+            'email' => 'doctor@gmail.com',
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
-        ])->assignRole('doctor');
+        ])->assignRole('doctor')->persona()->save(Persona::factory()->make());
 
         
 
-        //Llenar automaticamente 10 usuarios random con factory con relacion a persona.
-        User::factory(10)->create()->each(function ($user) {
+        //Llenar automaticamente 10 usuarios pacientes random con factory con relacion a persona.
+        User::factory(50)->create()->each(function ($user) {
             $user->assignRole('paciente');
             $user->persona()->save(Persona::factory()->make());
         });	
 
+        //Llenar automaticamente 5 usuarios doctores random con factory con relacion a persona sin especialidad.
+        User::factory(5)->create()->each(function ($user) {
+            $user->assignRole('doctor');
+            $user->persona()->save(Persona::factory()->make());
+        });	
+
+        // Llenar automaticamente 10 usuarios doctores random con factory con relacion a persona y cada persona
+        // con una especialidad:
+        User::factory(10)->create()->each(function ($user) {
+            $user->assignRole('doctor');
+            $user->persona()->save(Persona::factory()->make());
+            $user->persona->specialities()->save(Speciality::factory()->make());
+        });
 
 
     }
