@@ -22,6 +22,6 @@ class Speciality extends Model
 
     public function personas()
     {
-        return $this->belongsToMany(Persona::class);
+        return $this->belongsToMany(Persona::class)->withTimestamps();
     }
 }
