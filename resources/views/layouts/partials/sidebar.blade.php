@@ -131,7 +131,7 @@
             </ul> 
             @endcan
 
-            @can('permission-list')
+            {{-- @can('permission-list')
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="#" class="nav-link">
@@ -140,7 +140,7 @@
                 </a>
               </li>
             </ul>
-            @endcan
+            @endcan --}}
 
             @can('user-list')
             <ul class="nav nav-treeview">
@@ -168,7 +168,7 @@
               </p>
             </a>
 
-            @can('persona-create')
+            {{-- @can('persona-create')
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="{{ route('admin.personas.create') }}" class="nav-link">
@@ -177,7 +177,7 @@
                 </a>
               </li>
             </ul> 
-            @endcan
+            @endcan --}}
 
             @can('persona-list')
             <ul class="nav nav-treeview">
@@ -201,21 +201,21 @@
                 <i class="right fas fa-angle-left"></i>
               </p>
             </a>
-            @can('especialidad-create')
+            {{-- @can('especialidad-create')
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('admin.specialities.create') }}" class="nav-link">
                   <i class="fa fa-user nav-icon"></i>
                   <p>Crear Especialidad</p>
                 </a>
               </li>
             </ul>
-            @endcan
+            @endcan --}}
 
             @can('especialidad-list')
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('admin.specialities.index') }}" class="nav-link">
                   <i class="fa fa-user nav-icon"></i>
                   <p>Listar Especialidades</p>
                 </a>

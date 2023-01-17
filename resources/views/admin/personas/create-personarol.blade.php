@@ -33,7 +33,7 @@
 
                         @can('persona-list')
                         <div class="mb-3">
-                            <a href="{{ route('admin.personas.index') }}" class="btn btn-danger btn-sm p-2"  data-placement="left">
+                            <a href="{{ route('admin.users.index') }}" class="btn btn-danger btn-sm p-2"  data-placement="left">
                                 <i class="fa fa-fw fa-lg fa-arrow-left"></i>
                                 {{ __('Volver al listado') }}
                             </a>
@@ -47,25 +47,35 @@
                             <div class="box box-info padding-1">
                                 <div class="box-body">
 
+
+                                <div class="form-group">
+                                    <label for="username" class="required">Username correspondiente (Solo puede ser modificado en la gestion de usuarios)</label>
+                                    <input type="hidden" name="user_id" value="{{ $user->id }}">
+                                    <input type="text" class="form-control" id="username" disabled
+                                           value="{{$user->username }}">
+                                </div>
+
+                                @if ($user->hasRole('doctor'))
                                     <div class="form-group">
-                                        <label for="user_id" class="required">¿Qué usuario es? (ya creado)</label>
-                                        <select class="form-control select2 {{ $errors->has('user_id') ? 'is-invalid' : '' }}" name="user_id" id="user_id">
-                                            <option value="" class="p-2">Seleccione el usuario que falta completar su información</option>
-                                            @foreach ($users as $user)
-                                                @if (!$user->persona)
-                                                    <option value="{{ $user->id }}" 
-                                                        @selected($user->id == old('user_id'))>
-                                                        {{ $user->username }}
-                                                    </option>
-                                                @endif
+                                        <label for="specialities" class="required">Especialidades</label>
+                                        <select class="form-control select2 {{ $errors->has('specialities') ? 'is-invalid' : '' }}" name="specialities[]" id="specialities" multiple="multiple">
+                                            <option value="" class="p-2">Seleccione las especialidades</option>
+                                            @foreach ($specialities as $speciality)
+                                                <option value="{{ $speciality->id }}" 
+                                                    @selected($speciality->id == old('specialities'))>
+                                                    {{ $speciality->name }}
+                                                </option>
                                             @endforeach
                                         </select>
-                                        @if ($errors->has('user_id'))
+                                        @if ($errors->has('specialities'))
                                             <span class="text-danger">
-                                                <strong>{{ $errors->first('user_id') }}</strong>
+                                                <strong>{{ $errors->first('specialities') }}</strong>
                                             </span>
                                         @endif
                                     </div>
+                                @endif
+
+
 
                                     <div class="form-group">
                                         <label for="cedula" class="required">N° de Cédula</label>

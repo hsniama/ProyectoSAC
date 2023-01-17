@@ -49,6 +49,19 @@
                                            value="{{$persona->user->username}}">
                                 </div>
 
+                                @if ($persona->hasSpecialities())
+                                    <div class="form-group">
+                                        <label for="specialities" class="required">Especialidades</label> </br>
+                                            <select disabled class="form-control select2" name="specialities[]" id="specialities" multiple="multiple">
+                                                @foreach ($persona->specialities as $speciality)
+                                                    <option selected>
+                                                        {{ $speciality->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                    </div>
+                                @endif
+
                                 <div class="form-group">
                                     <label for="apellidos" class="required">Apellidos</label>
                                     <input type="text" class="form-control" id="apellidos" disabled

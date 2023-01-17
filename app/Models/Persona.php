@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\User;
+use App\Models\Speciality;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -33,6 +34,18 @@ class Persona extends Model
         // El metodo withDefault() es para que si no encuentra el usuario, no de error
     }
 
+    public function specialities( )
+    {
+        return $this->belongsToMany(Speciality::class);
+    }
+
+
+    // Function to get the full name of a Persona
+    public function getFullNameAttribute()
+    {
+        return "{$this->apellidos}, {$this->nombres}";
+    }
+
     // Function to check if all attributes of a Persona are null
     public function isComplete()
     {
@@ -50,6 +63,17 @@ class Persona extends Model
             return true;
     }
     
+    // create method to get the roles of the persona
+    public function getRolesAttribute()
+    {
+        return $this->user->roles;
+    }
     
+    // create method to get know if the persona has specialities
+    public function hasSpecialities()
+    {
+        return $this->specialities->isNotEmpty();
+    }
+
 
 }

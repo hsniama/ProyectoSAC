@@ -32,7 +32,9 @@ class UpdatePersonaRequest extends FormRequest
             'direccion' => ['required', 'max:255', 'min:3', 'string'],
             'ciudad' => ['required', 'max:255', 'min:3', 'string', 'string'],
             'fecha_nacimiento' => ['required', 'date'],
-            'genero' => ['required', 'string']
+            'genero' => ['required', 'string'],         
+            'specialities' => ['array'],
+            'specialities.*' => ['numeric', 'exists:specialities,id']
         ];
     }
 }

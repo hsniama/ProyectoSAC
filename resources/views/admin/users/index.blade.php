@@ -56,12 +56,12 @@
                                 <thead>
                                     <tr>
                                         <th>Id</th>
-                                        <th>¿Perfil lleno?</th>
                                         <th>Username</th>
                                         <th>Email</th>
                                         <th>Roles</th>
                                         <th>Creado el</th>
                                         <th>Actualizado el</th>
+                                        <th>Observaciones</th>
                                         <th>Acciones</th>
                                     </tr>
                                 </thead>
@@ -69,13 +69,6 @@
                                     @foreach ($users as $user)                                                                                                                   
                                         <tr>
                                             <td>{{ $user->id }}</td>
-
-                                            @if ($user->persona)
-                                                <td>Si</td>
-                                            @else
-                                                <td>No</td>
-                                            @endif
-
                                             <td>{{ $user->username }}</td>
                                             <td>{{ $user->email }}</td>
                                         
@@ -103,15 +96,33 @@
                                             
                                             <td>{{ $user->created_at }}</td>
                                             <td>{{ $user->updated_at }}</td>
+
+                                            <td class="text-left">
+                                                <ul>
+                                                    @if (!$user->persona)
+                                                        <li>No ha completado su perfil. <a href="{{ route('admin.personas.create.personarol', $user->id) }}">Completalo Aqui</a></li>
+                                                    @endif
+
+                                                    @if ($user->hasRole('doctor') && !$user->hasPersonaAndSpeciality())
+                                                        <li>No tiene especialidades asignadas.</li>
+                                                    @elseif ($user->hasRole('doctor') && $user->hasPersonaAndSpeciality())
+                                                        <li>Tiene asignado las siguientes especialidades: </li>
+                                                        @foreach ($user->persona->specialities as $especialidad)
+                                                            <span class="badge badge-primary">{{ $especialidad->name }}</span>
+                                                        @endforeach
+                                                    @endif
+                                                </ul>
+                                            </td>
+
                                             <td>
                                                 @can('user-edit')
-                                                    <a href="{{ route('admin.users.edit', $user->id) }}"><button class="btn btn-warning btn-sm"><i class="fa fa-fw fa-edit"></i>Editar</button></a>
+                                                    <a href="{{ route('admin.users.edit', $user->id) }}"><button class="btn btn-warning btn-sm"><i class="fa fa-fw fa-edit"></i></button></a>
                                                 @endcan
                                                 @can('user-delete')
                                                 <form action="{{ route('admin.users.destroy', $user) }}" method="POST" style="display: inline" class="eliminarUsuario">
                                                     @csrf
                                                     {{ method_field('DELETE') }}
-                                                    <button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-fw fa-trash"></i>Eliminar</button>
+                                                    <button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-fw fa-trash"></i></button>
                                                 </form>
                                                 @endcan
 

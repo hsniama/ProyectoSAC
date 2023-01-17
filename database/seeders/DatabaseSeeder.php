@@ -9,6 +9,7 @@ use Illuminate\Database\Seeder;
 use Database\Seeders\RoleSeeder;
 use Database\Seeders\UserSeeder;
 use Database\Seeders\PermissionSeeder;
+use Database\Seeders\SpecialitySeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -24,7 +25,7 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             UserSeeder::class,
             PermissionSeeder::class,
-            //PersonaSeeder::class,
+            SpecialitySeeder::class,
             // CitaSeeder::class,
             // ConsultaSeeder::class,
             // RecetaSeeder::class,

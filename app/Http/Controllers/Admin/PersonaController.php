@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Persona;
 use App\Models\User;
+use App\Models\Persona;
+use App\Models\Speciality;
 use App\Http\Requests\StorePersonaRequest;
 use App\Http\Requests\UpdatePersonaRequest;
 use App\Http\Controllers\Controller; // yo agregue esta
@@ -44,8 +45,27 @@ class PersonaController extends Controller
         // Necesito saber a que usuario le voy  a crear la persona
         $users = User::all();
 
+        // Bring the specialities that have status active
+        //$specialities = Speciality::where('status', 'Activo')->get();
+
+
         return view('admin.personas.create', compact('users'));
     }
+
+    // Create method to create a doctor
+    public function createSegunRol(User $user)
+    {
+        if ($user->hasRole('doctor')) {
+            // Bring the specialities that have status active
+            $specialities = Speciality::where('status', 'Activo')->get();
+
+            return view('admin.personas.create-personarol', compact('user', 'specialities'));
+            
+        } else{
+            return view('admin.personas.create-personarol', compact('user'));         
+        }
+    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -55,7 +75,11 @@ class PersonaController extends Controller
      */
     public function store(StorePersonaRequest $request)
     {
-        Persona::create($request->validated());
+        $persona = Persona::create($request->validated());
+
+        // Attach the specialities to the persona
+        $persona->specialities()->attach($request->specialities);
+    
 
         return redirect()->route('admin.personas.index')->with('success', 'La persona se creó con éxito');
     }
@@ -72,6 +96,7 @@ class PersonaController extends Controller
         $birthday = $persona->fecha_nacimiento;
         $edad = \Carbon\Carbon::parse($birthday)->age;
 
+
         return view('admin.personas.show', compact('persona', 'edad'));
     }
 
@@ -83,10 +108,13 @@ class PersonaController extends Controller
      */
     public function edit(Persona $persona)
     {
-        // Necesito saber a que usuario le voy  a crear la persona
         $users = User::all();
+
+        $specialities = Speciality::where('status', 'Activo')->get();
+
+
         
-        return view('admin.personas.edit', compact('users', 'persona'));
+        return view('admin.personas.edit', compact('users', 'persona', 'specialities'));
     }
 
     /**
@@ -99,6 +127,9 @@ class PersonaController extends Controller
     public function update(UpdatePersonaRequest $request, Persona $persona)
     {
         $persona->update($request->validated());
+
+        // Attach the specialities to the persona
+        $persona->specialities()->sync($request->specialities);
 
         return redirect()->route('admin.personas.index')->with('success', 'La persona se actualizó con éxito');
     }

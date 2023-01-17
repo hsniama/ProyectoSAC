@@ -48,29 +48,32 @@
                         <div class="box box-info padding-1">
                             <div class="box-body">
 
-                                {{-- <div class="form-group">
-                                    <label for="user_id" class="required">¿Qué usuario es? (ya creado)</label>
-                                    <select class="form-control select2 {{ $errors->has('user_id') ? 'is-invalid' : '' }}" name="user_id" id="user_id">
-                                        <option value="" class="p-2">Seleccione un usuario</option>
-                                        @foreach ($users as $user)
-                                            <option value="{{ $user->id }}" {{ (old('user_id') ? old('user_id') : $persona->user->id ?? '') == $user->id ? 'selected' : '' }}>
-                                                {{ $user->username }}
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                    
-                                    @if ($errors->has('user_id'))
-                                        <span class="text-danger">
-                                            <strong>{{ $errors->first('user_id') }}</strong>
-                                        </span>
-                                    @endif
-                                </div> --}}
-
                                 <div class="form-group">
                                     <label for="username" class="required">Username correspondiente (Se puede actualizar solo en el módulo de "usuarios")</label>
                                     <input type="text" class="form-control" id="username" disabled
                                            value="{{$persona->user->username}}">
                                 </div>
+
+                                @if ($persona->hasSpecialities())
+
+                                <div class="form-group">
+                                    <label for="specialities" class="required">Especialidades</label>
+                                    <select name="specialities[]" id="specialities" class="form-control select2 {{ $errors->has('specialities') ? 'is-invalid' : ''}}" multiple>
+                                        @foreach ($specialities as $especialidad)
+                                            <option value="{{ $especialidad->id }}" {{ $persona->specialities->pluck('id')->contains($especialidad->id) ? 'selected' : '' }} >
+                                                {{ $especialidad->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @if ($errors->has('specialities'))
+                                        <span class="text-danger">
+                                            <strong>{{ $errors->first('specialities') }}</strong>
+                                        </span>
+                                    @endif
+
+                                </div>
+                                    
+                                @endif
 
                                 <div class="form-group">
                                     <label for="cedula" class="required">N° de Cédula</label>

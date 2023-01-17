@@ -52,4 +52,10 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasOne(Persona::class);
     }
+
+    // Function to know if the user has a persona and a speciality
+    public function hasPersonaAndSpeciality()
+    {
+        return $this->persona && $this->persona->specialities->count() > 0;
+    }
 }

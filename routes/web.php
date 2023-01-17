@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\SpecialityController;
 use App\Http\Controllers\Admin\PersonaController;
 use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\Secretaria\PacienteController;
@@ -53,7 +54,9 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         ],function (){
             Route::resource('users', UserController::class);
             Route::resource('personas', PersonaController::class);
+            Route::get('personas/{user}/create', [PersonaController::class, 'createSegunRol'])->name('personas.create.personarol');
             Route::resource('roles', RoleController::class);
+            Route::resource('specialities', SpecialityController::class);
     });
 
     Route::group([
