@@ -49,7 +49,7 @@
 
 
                         <div class="table-responsive">
-                            <table id="citas_table" class="table table-striped table-bordered zero-configuration text-center">
+                            <table id="tablaDataTable" class="table table-striped table-bordered zero-configuration text-center">
                                 <thead class="thead">
                                     <tr>
                                         <th>ID</th>                    
@@ -81,9 +81,9 @@
                                             </td>
 											<td>{{ $cita->notes }}</td>
                                             <td>
-                                                @can('appointment-show')
+                                                {{-- @can('appointment-show')
                                                 <a href="{{ route('admin.appointments.show', $cita->id) }}"><button class="btn btn-info mb-2 btn-sm"><i class="fa fa-fw fa-eye"></i></button></a> </br>   
-                                                @endcan
+                                                @endcan --}}
                                                 @can('appointment-edit')
                                                 <a href="{{ route('admin.appointments.edit', $cita->id) }}"><button class="btn btn-warning mb-2 btn-sm"><i class="fa fa-fw fa-edit"></i></button></a></br> 
                                                 @endcan

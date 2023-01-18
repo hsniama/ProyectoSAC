@@ -26,9 +26,8 @@ class SpecialityController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {  
         $specialities = Speciality::all();
-
         return view('admin.specialities.index', compact('specialities'));
     }
 

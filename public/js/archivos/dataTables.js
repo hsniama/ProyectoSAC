@@ -10,12 +10,53 @@
         $('#roles_table').DataTable();
     });
 
-    $(document).ready(function () {
-        $('#especialidades_table').DataTable();
-    });
 
     $(document).ready(function () {
-        $('#citas_table').DataTable();
+        $('#tablaNormalDataTable').DataTable();
+    });
+
+
+    // Tabla estilizada con botones
+    $(document).ready(function () {
+        $('#tablaDataTable').DataTable({
+            responsive: true,
+            scrollY : 350,
+            deferRender: true,
+            scroller: true,
+
+            dom: 'Bfrtip',
+            buttons: [
+                {
+                    extend: 'excel',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                {
+                    extend: 'pdf',
+                    messageBottom: null,
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                {
+                    extend: 'print',
+                    messageBottom: null,
+                    text: 'Imprimir',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                { 
+                    extend: 'spacer',
+                    style : 'bar'
+                },
+                {
+                    extend: 'colvis',
+                    text : 'Escoger Columnas',
+                }
+            ]
+        });
     });
 
 

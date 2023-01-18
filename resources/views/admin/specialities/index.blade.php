@@ -56,7 +56,7 @@
 
 
                             <div class="table-responsive">
-                                <table id="especialidades_table"
+                                <table id="tablaDataTable"
                                     class="table table-striped table-bordered zero-configuration text-center">
                                     <thead class="thead">
                                         <tr>
@@ -75,7 +75,13 @@
                                                 <td>{{ $especialidad->id }}</td>
                                                 <td>{{ $especialidad->name }}</td>
                                                 <td>{{ $especialidad->description }}</td>
-                                                <td>{{ $especialidad->status }}</td>
+                                                <td>
+                                                    @if ($especialidad->status == "Activo")
+                                                        <span class="badge bg-success fs-6">Activo</span>
+                                                    @else
+                                                        <span class="badge bg-danger fs-6">Inactivo</span>
+                                                    @endif
+                                                </td>                                              
                                                 <td>{{ $especialidad->created_by }}</td>
                                                 <td>{{ $especialidad->updated_by }}</td>
 
@@ -102,6 +108,7 @@
                                                 </td>
                                             </tr>
                                         @endforeach
+                                        
                                     </tbody>
                                 </table>
                             </div>
