@@ -10,6 +10,7 @@ use Database\Seeders\RoleSeeder;
 use Database\Seeders\UserSeeder;
 use Database\Seeders\PermissionSeeder;
 use Database\Seeders\SpecialitySeeder;
+use Database\Seeders\AppointmentSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -26,7 +27,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             PermissionSeeder::class,
             SpecialitySeeder::class,
-            // CitaSeeder::class,
+            AppointmentSeeder::class,
             // ConsultaSeeder::class,
             // RecetaSeeder::class,
             // DiagnosticoSeeder::class,

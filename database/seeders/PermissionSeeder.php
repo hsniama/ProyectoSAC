@@ -26,7 +26,7 @@ class PermissionSeeder extends Seeder
             'modulo-rpu',
             'modulo-personas',
             'modulo-especialidades',
-            'modulo-citas',
+            'modulo-appointments',
             'modulo-estadisticas',
             'user-list',
             'user-show',
@@ -66,12 +66,12 @@ class PermissionSeeder extends Seeder
             'especialidad-create',
             'especialidad-edit',
             'especialidad-delete',
-            'cita-list',
-            'cita-show',
-            'cita-create',
-            'cita-edit',
-            'cita-delete',
-            'cita-reprogramar',
+            'appointment-list',
+            'appointment-show',
+            'appointment-create',
+            'appointment-edit',
+            'appointment-delete',
+            'appointment-reprogramar',
             'consulta-list',
             'consulta-show',
             'consulta-create',
@@ -130,13 +130,13 @@ class PermissionSeeder extends Seeder
                 'permission-create',
                 'permission-edit',
                 'permission-delete',
-            'modulo-citas',
-                'cita-list',
-                'cita-show',
-                'cita-create',
-                'cita-edit',
-                'cita-delete',
-                'cita-reprogramar',
+            'modulo-appointments',
+                'appointment-list',
+                'appointment-show',
+                'appointment-create',
+                'appointment-edit',
+                'appointment-delete',
+                'appointment-reprogramar',
             'modulo-personas',
                 'persona-list',
                 'persona-show',
@@ -183,13 +183,13 @@ class PermissionSeeder extends Seeder
                 'permission-create',
                 'permission-edit',
                 'permission-delete',
-            'modulo-citas',
-                'cita-list',
-                'cita-show',
-                'cita-create',
-                'cita-edit',
-                'cita-delete',
-                'cita-reprogramar',
+            'modulo-appointments',
+                'appointment-list',
+                'appointment-show',
+                'appointment-create',
+                'appointment-edit',
+                'appointment-delete',
+                'appointment-reprogramar',
             'modulo-personas',
                 'persona-list',
                 'persona-show',
@@ -214,14 +214,14 @@ class PermissionSeeder extends Seeder
 
         // ASIGNACION DE PERMISOS A DOCTOR
         $doctor = Role::where('name', 'doctor')->first();
-        // Tiene acceso solo al módulo Visualización de citas por parte del Médico. 
-        // (Puede ver las citas asignadas a él, pero no puede modificarlas, ni eliminarlas, ni reprogramarlas.)
+        // Tiene acceso solo al módulo Visualización de appointments por parte del Médico. 
+        // (Puede ver las appointments asignadas a él, pero no puede modificarlas, ni eliminarlas, ni reprogramarlas.)
 
         $doctorPermissions = [
             'welcome',
             'home',
-            'modulo-citas',
-            'cita-list',
+            'modulo-appointments',
+            'appointment-list',
             'perfil-create',
             'perfil-edit',
             'perfil-update',
@@ -234,17 +234,17 @@ class PermissionSeeder extends Seeder
 
         // ASIGNACION DE PERMISOS A SECRETARIA
         $secretaria = Role::where('name', 'secretaria')->first();
-        // Tiene acceso solo al módulo de Gestión de Citas. 
-        // Puede registrar a un paciente (antes debe registrar un usuario) y asignarle una cita.
+        // Tiene acceso solo al módulo de Gestión de appointments. 
+        // Puede registrar a un paciente (antes debe registrar un usuario) y asignarle una appointment.
         // Puede imprimir creedenciales de acceso al sistema para el paciente (User y Password).
 
         $secretariaPermissions = [
            'welcome',
             'home',
-            'modulo-citas',
-            'cita-list',
-            'cita-show',
-            'cita-create',
+            'modulo-appointments',
+            'appointment-list',
+            'appointment-show',
+            'appointment-create',
             'user-create',
             'persona-create',
             'user-creedenciales',
@@ -267,10 +267,10 @@ class PermissionSeeder extends Seeder
         $pacientePermissions = [
             'welcome',
             'home',
-            'modulo-citas',
-            'cita-list',
-            'cita-show',
-            'cita-create',
+            'modulo-appointments',
+            'appointment-list',
+            'appointment-show',
+            'appointment-create',
             'perfil-create',
             'perfil-edit',
             'perfil-update',

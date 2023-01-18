@@ -116,7 +116,7 @@
 
                                             <td>
                                                 @can('user-edit')
-                                                    <a href="{{ route('admin.users.edit', $user->id) }}"><button class="btn btn-warning btn-sm"><i class="fa fa-fw fa-edit"></i></button></a>
+                                                    <a href="{{ route('admin.users.edit', $user->id) }}"><button class="btn btn-warning mb-2 btn-sm"><i class="fa fa-fw fa-edit"></i></button></a>
                                                 @endcan
                                                 @can('user-delete')
                                                 <form action="{{ route('admin.users.destroy', $user) }}" method="POST" style="display: inline" class="eliminarUsuario">

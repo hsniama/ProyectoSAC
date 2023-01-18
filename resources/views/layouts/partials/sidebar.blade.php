@@ -168,7 +168,7 @@
               </p>
             </a>
 
-            {{-- @can('persona-create')
+            @can('persona-create')
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="{{ route('admin.personas.create') }}" class="nav-link">
@@ -177,7 +177,7 @@
                 </a>
               </li>
             </ul> 
-            @endcan --}}
+            @endcan
 
             @can('persona-list')
             <ul class="nav nav-treeview">
@@ -262,7 +262,7 @@
           @endhasrole
 
 
-          @can('modulo-citas')
+          @can('modulo-appointments')
           <li class="nav-item menu-open">
             <a href="#" class="nav-link active">
               <i class="fa-solid fa-hospital-user"></i>
@@ -272,10 +272,10 @@
               </p>
             </a>
 
-            @can('cita-create')
+            @can('appointment-create')
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('admin.appointments.create') }}" class="nav-link">
                   <i class="fa fa-user nav-icon"></i>
                   <p>Agendar Cita</p>
                 </a>
@@ -283,10 +283,10 @@
             </ul> 
             @endcan
 
-            @can('cita-list')
+            @can('appointment-list')
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="{{ route('admin.appointments.index') }}" class="nav-link">
                   <i class="fa fa-user nav-icon"></i>
                   <p>Consulta de Citas</p>
                 </a>
@@ -294,7 +294,7 @@
             </ul> 
             @endcan
 
-            @if (auth()->user()->hasPermissionTo('cita-reprogramar'))
+            @if (auth()->user()->hasPermissionTo('appointment-reprogramar'))
             <ul class="nav nav-treeview">
               <li class="nav-item">
                 <a href="#" class="nav-link">

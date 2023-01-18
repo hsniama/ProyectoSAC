@@ -31,3 +31,31 @@
         }
         return true;
     }
+
+
+
+
+
+// Cargar doctores por especialidad en crear cita.
+    $(function(){
+        const $speciality = $('#speciality');
+        $speciality.change(() => {
+            const specialityId = $speciality.val();
+            const url = `/especialidades/${specialityId}/doctores`;
+            $.get(url, onDoctorsLoaded);
+         
+        });
+    });
+
+    function onDoctorsLoaded(doctors){
+
+        const $doctor = $('#doctor');
+
+            console.log(doctors);
+
+        $doctor.find('option').remove();
+        $doctor.append('<option value="" disabled selected>Seleccione un doctor</option>');
+        doctors.forEach(doctor => {
+            $doctor.append(`<option value="${doctor.id}">${doctor.nombres} ${doctor.apellidos}</option>`);
+        });
+    }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\User;
 use App\Models\Speciality;
+use App\Models\Appointment;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
@@ -28,15 +29,23 @@ class Persona extends Model
 
     public const GENEROS = ['Masculino', 'Femenino', 'Otro'];
 
+    // Relationship with User
     public function user()
     {
         return $this->belongsTo(User::class)->withDefault();
         // El metodo withDefault() es para que si no encuentra el usuario, no de error
     }
 
+    // Relationship with Speciality
     public function specialities( )
     {
         return $this->belongsToMany(Speciality::class)->withTimestamps();
+    }
+
+    // Relationship with Appointment
+    public function appointments()
+    {
+        return $this->hasMany(Appointment::class);
     }
 
 

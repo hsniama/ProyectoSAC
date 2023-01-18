@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 use App\Models\Persona;
 use App\Models\Speciality;
+use App\Models\Appointment;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -70,23 +71,37 @@ class UserSeeder extends Seeder
 
         
 
-        //Llenar automaticamente 10 usuarios pacientes random con factory con relacion a persona.
-        User::factory(50)->create()->each(function ($user) {
+        //Llenar automaticamente 50 usuarios pacientes random con factory con relacion a persona.
+        User::factory(100)->create()->each(function ($user) {
             $user->assignRole('paciente');
             $user->persona()->save(Persona::factory()->make());
         });	
 
+                // // Vale muy bien para crear 10 usuarios pacientes con relacion a persona
+                // User::factory(10)->create()->each(function ($user) {
+                //     $user->assignRole('paciente');
+                //     Persona::factory()->create(['user_id' => $user->id]);
+                // });
+
         //Llenar automaticamente 5 usuarios doctores random con factory con relacion a persona sin especialidad.
-        User::factory(5)->create()->each(function ($user) {
-            $user->assignRole('doctor');
-            $user->persona()->save(Persona::factory()->make());
-        });	
+        // User::factory(5)->create()->each(function ($user) {
+        //     $user->assignRole('doctor');
+        //     $user->persona()->save(Persona::factory()->make());
+        // });	
 
         // Llenar automaticamente 10 usuarios doctores random con factory con relacion a persona y cada persona
         // con una especialidad:
-        User::factory(10)->create()->each(function ($user) {
+        // User::factory(10)->create()->each(function ($user) {
+        //     $user->assignRole('doctor');
+        //     $user->persona()->save(Persona::factory()->make());
+        //     $user->persona->specialities()->save(Speciality::factory()->make());
+        // });
+
+        // Llenar automaticamente 10 usuarios doctores random con el prefijo de Dr. con factory con relacion a persona y cada persona
+        // con una especialidad:
+        User::factory(20)->create()->each(function ($user) {
             $user->assignRole('doctor');
-            $user->persona()->save(Persona::factory()->make());
+            $user->persona()->save(Persona::factory()->make(['nombres' => 'Dr. ']));
             $user->persona->specialities()->save(Speciality::factory()->make());
         });
 

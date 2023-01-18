@@ -15,11 +15,13 @@ class SpecialityFactory extends Factory
      *
      * @return array<string, mixed>
      */
+
     public function definition()
     {
+
         return [
             'name' => fake()->unique()->jobTitle(),
-            'description' => fake()->sentence(15),
+            'description' => fake()->realText(),
             'status' => fake()->randomElement(['Activo', 'Activo']),
             'created_by' => fake()->name(), 
             'updated_by' => fake()->name(),

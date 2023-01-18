@@ -19,7 +19,7 @@ class PersonaFactory extends Factory
     {
 
         return [
-            //'user_id' => User::factory()->create()->id,
+            'user_id' => User::inRandomOrder()->first()->id,
             'cedula' => fake()->unique()->randomNumber(8),
             'apellidos' => fake()->lastName(),
             'nombres' => fake()->firstName(),

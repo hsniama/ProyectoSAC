@@ -6,8 +6,9 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Admin\SpecialityController;
 use App\Http\Controllers\Admin\PersonaController;
+use App\Http\Controllers\Admin\SpecialityController;
+use App\Http\Controllers\Admin\AppointmentController;
 use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\Secretaria\PacienteController;
 /*
@@ -45,6 +46,9 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::post('perfil', 'store')->name('perfil.store');
     });
 
+            // JSON: Get the doctors of a speciality
+            Route::get('/especialidades/{speciality}/doctores', [App\Http\Controllers\API\SpecialityController::class, 'doctors'])->name('especialidades.doctores');
+
 
     Route::group([
         //'middleware' => 'is_admin'
@@ -57,6 +61,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
             Route::get('personas/{user}/create', [PersonaController::class, 'createSegunRol'])->name('personas.create.personarol');
             Route::resource('roles', RoleController::class);
             Route::resource('specialities', SpecialityController::class);
+            Route::resource('appointments', AppointmentController::class);
     });
 
     Route::group([

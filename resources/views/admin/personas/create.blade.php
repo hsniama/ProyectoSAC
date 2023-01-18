@@ -50,7 +50,7 @@
                                     <div class="form-group">
                                         <label for="user_id" class="required">¿Qué usuario es? (ya creado)</label>
                                         <select class="form-control select2 {{ $errors->has('user_id') ? 'is-invalid' : '' }}" name="user_id" id="user_id">
-                                            <option value="" class="p-2">Seleccione el usuario que falta completar su información</option>
+                                            <option value="" disabled selected class="p-2">Seleccione el usuario que falta completar su información</option>
                                             @foreach ($users as $user)
                                                 @if (!$user->persona)
                                                     <option value="{{ $user->id }}" 

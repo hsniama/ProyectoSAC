@@ -14,6 +14,10 @@
         $('#especialidades_table').DataTable();
     });
 
+    $(document).ready(function () {
+        $('#citas_table').DataTable();
+    });
+
 
     $.extend(true, $.fn.dataTable.defaults, {
         language: {
