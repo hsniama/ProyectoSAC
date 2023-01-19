@@ -59,6 +59,55 @@
         });
     });
 
+        $(document).ready(function () {
+        $('#tablaReporte').DataTable({
+            columnDefs: [
+                {
+                   "orderable" : true     
+
+        }],
+           responsive: true,
+            scrollY : 350,
+            deferRender: true,
+            scroller: true,
+
+            dom: 'Bfrtip',
+            buttons: [
+                {
+                    extend: 'excel',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                {
+                    extend: 'pdf',
+                    messageBottom: null,
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                {
+                    extend: 'print',
+                    messageBottom: null,
+                    text: 'Imprimir',
+                    exportOptions: {
+                        columns: ':visible'
+                    }
+                },
+                { 
+                    extend: 'spacer',
+                    style : 'bar'
+                },
+                {
+                    extend: 'colvis',
+                    text : 'Escoger Columnas',
+                }
+            ]
+        }
+        );
+    });
+
+
 
     $.extend(true, $.fn.dataTable.defaults, {
         language: {

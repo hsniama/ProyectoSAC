@@ -145,6 +145,5 @@ class AppointmentController extends Controller
 
         return redirect()->route('admin.appointments.index')->with('success', 'La cita se eliminó con éxito');
     }
-
-    
+ 
 }

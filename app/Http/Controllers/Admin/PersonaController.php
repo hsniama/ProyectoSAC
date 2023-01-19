@@ -29,7 +29,8 @@ class PersonaController extends Controller
 
     public function index()
     {
-        $personas = Persona::with('user')->get();
+        // $personas = Persona::with('user')->get();
+        $personas = Persona::with(['user.roles', 'specialities'])->get();
 
         return view('admin.personas.index', compact('personas'));
 
@@ -43,7 +44,8 @@ class PersonaController extends Controller
     public function create()
     {
         // Necesito saber a que usuario le voy  a crear la persona
-        $users = User::all();
+        // $users = User::all(); Da problemas de duplicidad de datos y n+1.
+        $users = User::with('persona')->get();
 
         // Bring the specialities that have status active
         //$specialities = Speciality::where('status', 'Activo')->get();

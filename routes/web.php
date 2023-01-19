@@ -6,6 +6,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PerfilController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\PersonaController;
 use App\Http\Controllers\Admin\SpecialityController;
 use App\Http\Controllers\Admin\AppointmentController;
@@ -46,8 +47,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::post('perfil', 'store')->name('perfil.store');
     });
 
-            // JSON: Get the doctors of a speciality
-            Route::get('/especialidades/{speciality}/doctores', [App\Http\Controllers\API\SpecialityController::class, 'doctors'])->name('especialidades.doctores');
+    // JSON: Get the doctors of a speciality
+    Route::get('/especialidades/{speciality}/doctores', [App\Http\Controllers\API\SpecialityController::class, 'doctors'])->name('especialidades.doctores');
 
 
     Route::group([
@@ -62,6 +63,13 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
             Route::resource('roles', RoleController::class);
             Route::resource('specialities', SpecialityController::class);
             Route::resource('appointments', AppointmentController::class);
+
+            Route::controller(ReportController::class)->group(function () {
+                Route::get('/especialidad-cita', 'especialidadCita')->name('especialidad.cita');
+                Route::get('/medico-cita', 'doctorCita')->name('doctor.cita');
+                Route::get('/mes-cita', 'mesCita')->name('mes.cita');
+                Route::get('/year-cita', 'anoCita')->name('ano.cita');
+            });
     });
 
     Route::group([

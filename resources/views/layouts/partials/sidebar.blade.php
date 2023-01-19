@@ -108,6 +108,58 @@
           </li>
           @endcan
 
+
+          @can('modulo-reportes')
+          <li class="nav-item menu-open">
+
+            <a href="#" class="nav-link active">
+              <i class="fa-solid fa-scroll"></i>
+              <p>
+                Gestion de Reportes
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('admin.especialidad.cita') }}" class="nav-link">
+                  <i class="fa-solid fa-file-circle-check"></i>
+                  <p>Especialidad - Citas</p>
+                </a>
+              </li>
+            </ul>
+
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('admin.doctor.cita') }}" class="nav-link">
+                  <i class="fa-solid fa-file-circle-check"></i>
+                  <p>Medico - Citas</p>
+                </a>
+              </li>
+            </ul>
+
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('admin.mes.cita')}}" class="nav-link">
+                  <i class="fa-solid fa-file-circle-check"></i>
+                  <p>Mes - Citas</p>
+                </a>
+              </li>
+            </ul>
+
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{route('admin.ano.cita')}}" class="nav-link">
+                  <i class="fa-solid fa-file-circle-check"></i>
+                  <p>Año - Citas</p>
+                </a>
+              </li>
+            </ul>
+
+          </li>
+          @endcan
+
+
           
           @can('modulo-rpu')
           <li class="nav-item menu-open">

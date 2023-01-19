@@ -133,6 +133,7 @@
                                 </tbody>
                             </table>
                         </div><!--table-responsive-->
+
                     </div> <!--card-body-->
                 </div> <!--card-->
             </div> <!--col-lg-12-->

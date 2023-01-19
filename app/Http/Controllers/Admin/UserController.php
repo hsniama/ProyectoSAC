@@ -37,7 +37,12 @@ class UserController extends Controller
 
     public function index()
     {
-        $users = User::all();
+        // $users = User::all(); Me da problemas de duplicidad de datos y n+1.
+
+        // $users = User::with('roles')->get();
+        // $users = User::with(['roles', 'persona'])->get();
+
+        $users = User::with(['roles', 'persona.specialities'])->get();
 
         return view('admin.users.index', compact('users'));
     }
