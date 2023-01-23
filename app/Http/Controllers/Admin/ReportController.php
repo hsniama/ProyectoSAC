@@ -69,7 +69,7 @@ class ReportController extends Controller
         }   
         
 
-        // dd($specialitywithAppointments);
+        //  dd($specialitywithAppointments);
 
         return view('admin.reports.especialidadCita', compact('specialitywithAppointments'));
     }
@@ -133,7 +133,7 @@ class ReportController extends Controller
                 }
         }
 
-        // dd($doctorwithAppointments);
+        //dd($doctorwithAppointments);
 
 
         return view('admin.reports.doctorCita', compact('doctorwithAppointments'));

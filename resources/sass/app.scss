@@ -1,19 +1,12 @@
-// Fonts
-@import url('https://fonts.bunny.net/css?family=Nunito');
+@use "base";
+@use "welcome";
 
-// Variables
-@import 'variables';
+
 
 // Bootstrap
 @import 'bootstrap/scss/bootstrap';
 
 
-.letra{
-    font-size: smaller;
-    color: rgb(74, 186, 97);
-}
 
-.prueba{
-    color: aqua;
-}
+
 

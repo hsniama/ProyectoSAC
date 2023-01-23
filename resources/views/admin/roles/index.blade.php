@@ -50,7 +50,7 @@
 
 
                         <div class="table-responsive">
-                            <table id="roles_table" class="table table-striped table-bordered zero-configuration text-center">
+                            <table id="tablaDataTable" class="table table-striped table-bordered zero-configuration text-center">
                                 <thead class="thead">
                                     <tr>                                     
 										<th>Id</th>

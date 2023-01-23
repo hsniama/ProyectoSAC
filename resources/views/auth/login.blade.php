@@ -44,18 +44,19 @@
             <div class="icheck-primary">
               <input type="checkbox" id="remember" name="remember" {{ old('remember') ? 'checked' : '' }}>
               <label for="remember">
-                {{ __('Remember me') }}
+                {{ __('Recordarme') }}
               </label>
             </div>
           </div>
 
         </div>
 
-        <div class="row mb-3">
+        <div class="row mb-3 d-block">
           <!-- /.col -->
-          <div class="d-block">
+          <div class="">
             <button type="submit" class="btn btn-primary btn-block">{{ __('Login') }}</button>
           </div>
+
           <!-- /.col -->
         </div>
 
@@ -77,14 +78,14 @@
       </p>
       --}}
 
-      <div class="row">
-        <p class="d-flex justify-content-center">
+      <div class="row d-flex justify-content-center">
+        <p class="">
             <a href="{{ route('register') }}" class="text-decoration-none">¿No tienes una cuenta? ¡Registrate Aquí!</a>
         </p> 
       </div>
 
-       <div class="row">
-            <p class="mb-0 d-flex justify-content-center">
+       <div class="row d-flex justify-content-center">
+            <p class="mb-0">
                 @if (Route::has('password.request'))
                     <a class="text-decoration-none" href="{{ route('password.request') }}">
                         {{ __('¿Olvidaste la contraseña?') }}

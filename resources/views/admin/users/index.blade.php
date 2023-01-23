@@ -52,7 +52,7 @@
 
 
                         <div class="table-responsive">
-                            <table id="user_table" class="table table-striped table-bordered zero-configuration text-center">
+                            <table id="tablaDataTable" class="table table-striped table-bordered zero-configuration text-center">
                                 <thead>
                                     <tr>
                                         <th>Id</th>

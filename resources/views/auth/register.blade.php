@@ -192,7 +192,7 @@
           </div>
         </div> --}}
 
-        <div class="row mb-3">
+        <div class="row mb-3 d-block">
           <!-- <div class="col-8">
             <div class="icheck-primary">
               <input type="checkbox" id="agreeTerms" name="terms" value="agree">
@@ -202,7 +202,7 @@
             </div>
           </div> -->
           <!-- /.col -->
-          <div class="d-flex justify-content-center">
+          <div class="">
             <button type="submit" class="btn btn-primary btn-block">Registrarse</button>
           </div>
           <!-- /.col -->
@@ -221,8 +221,8 @@
         </a>
       </div> -->
 
-      <div class="row">
-        <p class="d-flex justify-content-center">
+      <div class="row d-flex justify-content-center">
+        <p class="">
             <a href="{{ route('login') }}" class="text-decoration-none">¿Ya Tienes una cuenta? ¡Inicia Sesión!</a>
         </p>
       </div>

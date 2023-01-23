@@ -4,11 +4,16 @@
   <!-- CSRF Token -->
   <meta name="csrf-token" content="{{ csrf_token() }}">
 
-  <title>SAC | App</title>
+  <title>OroMed | System</title>
 
   <!-- Google Font: Source Sans Pro -->
   {{-- <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback"> --}}
   
+
+  <!-- Favicons -->
+  <link href="{{ asset('assets/img/favicon.png') }}" rel="icon">
+  <link href="{{ asset('assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
+
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="{{ asset('css/plugins/css/all.min.css') }}">
   <!-- Theme style -->
@@ -30,4 +35,4 @@
  <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
  
 
-@vite(['resources/sass/app.scss', 'resources/js/app.js'])
+{{-- @vite(['resources/sass/app.scss', 'resources/js/app.js']) --}}
