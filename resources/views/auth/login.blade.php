@@ -54,7 +54,7 @@
         <div class="row mb-3 d-block">
           <!-- /.col -->
           <div class="">
-            <button type="submit" class="btn btn-primary btn-block">{{ __('Login') }}</button>
+            <button type="submit" class="btn btn-primary btn-block"><i class="fa-solid fa-right-to-bracket"></i> Ingresar</button>
           </div>
 
           <!-- /.col -->

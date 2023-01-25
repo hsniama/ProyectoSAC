@@ -18,7 +18,10 @@
   <div class="card card-outline card-primary">
 
     <div class="card-header text-center">
-      <a href="{{ url('/') }}" class="h2 text-decoration-none"><b>Sistema de Atención </br> Médica y Control</a>
+      <a href="{{ url('/') }}" class="text-decoration-none"> 
+        <h2>OroMed</h2>
+        <p class="text-dark fs-6">Sistema de Atención Médica y Control</p>    
+      </a>
     </div>
 
     <div class="card-body">

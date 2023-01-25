@@ -3,7 +3,7 @@
     <!-- Brand Logo -->
     <a href="{{ route('home') }}" class="brand-link text-decoration-none text-center">
       {{-- <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8"> --}}
-      <span class="brand-text font-weight-bolder">SAC</span>
+      <span class="brand-text font-weight-bolder">OroMed</span>
     </a>
 
     <!-- Sidebar -->

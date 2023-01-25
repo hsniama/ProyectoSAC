@@ -48,12 +48,12 @@
             </li>
             @else
             <li class="nav-item d-none d-sm-inline-block mr-3">  
-              <a href="{{ route('perfil.edit', Auth::user()->persona->id) }}" class="text-decoration-none nav-link text-bg-success">
+              <a href="{{ route('perfil.edit', Auth::user()->persona->id) }}" class="text-decoration-none nav-link ">
                 Editar Perfil
               </a>
             </li>
             <li class="nav-item d-none d-sm-inline-block mr-3">  
-              <a href="{{ route('view.change.password') }}" class="text-decoration-none nav-link text-bg-warning">
+              <a href="{{ route('view.change.password') }}" class="text-decoration-none nav-link">
                 Cambiar contraseña
               </a>
             </li>
@@ -68,7 +68,7 @@
         </li>
         
         <li class="nav-item d-none d-sm-inline-block mr-3">
-          <a class="nav-link text-bg-danger" 
+          <a class="nav-link text-danger" 
              href="{{ route('logout') }}"
              onclick="event.preventDefault();
              document.getElementById('logout-form').submit();"

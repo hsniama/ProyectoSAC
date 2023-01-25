@@ -52,7 +52,7 @@
   <header id="header" class="fixed-top">
     <div class="container d-flex align-items-center">
 
-      <h1 class="logo me-auto"><a href="index.html">OroMed</a></h1>
+      <h1 class="logo me-auto"><a href="{{ url('/') }}">OroMed</a></h1>
       <!-- Uncomment below if you prefer to use an image logo -->
       <!-- <a href="index.html" class="logo me-auto"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
 
@@ -103,7 +103,7 @@
     <div class="container">
       <h1>Bienvenido a OroMed</h1>
       <h2>Tu salud es nuestro compromiso.</h2>
-      <a href="#about" class="btn-get-started scrollto">Comecemos</a>
+      <a href="{{ route('register') }}" class="btn-get-started scrollto">Registrate ahora</a>
     </div>
   </section><!-- End Hero -->
 
@@ -131,21 +131,21 @@
                 <div class="col-xl-4 d-flex align-items-stretch">
                   <div class="icon-box mt-4 mt-xl-0">
                     <i class="bx bx-receipt"></i>
-                    <h4>Personal altamente capacitado y experimentado:</h4>
+                    <h4>Personal altamente capacitado y experimentado</h4>
                     <p>Nuestro equipo de médicos y enfermeros está compuesto por profesionales altamente capacitados y con experiencia en una amplia variedad de especialidades médicas.</p>
                   </div>
                 </div>
                 <div class="col-xl-4 d-flex align-items-stretch">
                   <div class="icon-box mt-4 mt-xl-0">
                     <i class="bx bx-cube-alt"></i>
-                    <h4>Tecnología de última generación:</h4>
+                    <h4>Tecnología de última generación</h4>
                     <p>OroMed cuenta con tecnología avanzada para brindar atención médica de alta calidad, desde equipos de diagnóstico hasta tratamientos innovadores.</p>
                   </div>
                 </div>
                 <div class="col-xl-4 d-flex align-items-stretch">
                   <div class="icon-box mt-4 mt-xl-0">
                     <i class="bx bx-images"></i>
-                    <h4>Atención personalizada:</h4>
+                    <h4>Atención personalizada</h4>
                     <p>Ofrecemos un ambiente de atención personalizada para garantizar la mejor experiencia de atención médica para usted y su familia. </p>
                   </div>
                 </div>
