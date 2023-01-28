@@ -17,7 +17,11 @@ class ReportController extends Controller
 
     public function especialidadCita()
     {     
-        $specialityCount = Appointment::specialityCount()->get('speciality_id', 'total', 'name');
+        // $specialityCount = Appointment::specialityCount()->get('speciality_id', 'total', 'name');
+        $specialityCount = Appointment::selectRaw('speciality_id, count(*) as total')
+            ->with('speciality')
+            ->groupBy('speciality_id')
+            ->get('speciality_id', 'total', 'name');
 
         // get the amount of appointments with satus Atendido per speciality:
         $specialityCountAtendido = Appointment::selectRaw('speciality_id, count(*) as total')
@@ -80,7 +84,11 @@ class ReportController extends Controller
     {
 
         // Get the amount of appointments per doctor:
-        $doctorCount = Appointment::doctorCount()->get('doctor_id', 'total');
+        // $doctorCount = Appointment::doctorCount()->get('doctor_id', 'total');
+        $doctorCount = Appointment::selectRaw('doctor_id, count(*) as total')
+            ->with('doctor')
+            ->groupBy('doctor_id')
+            ->get('doctor_id', 'total');
 
 
         // dd($doctorCount);
@@ -139,32 +147,37 @@ class ReportController extends Controller
         return view('admin.reports.doctorCita', compact('doctorwithAppointments'));
     }
 
-    public function mesCita()
-    {
-        // Get the amount of appointments per month:
-        $monthCount = Appointment::selectRaw('month(scheduled_date) as month, count(*) as total')
-            ->groupBy('month')
-            ->get();
 
-        // get the amount of appointments with status Atendido per month:
-        $monthCountAtendido = Appointment::selectRaw('month(scheduled_date) as month, count(*) as total')
+    public function mesCita(Request $request)
+    {
+        // get the amount of appointments per month and year:
+        $monthYearCount = Appointment::selectRaw('month(scheduled_date) as month, year(scheduled_date) as year, count(*) as total')
+            ->groupBy('month', 'year')
+            ->get('month', 'total', 'year');
+
+        // dd($monthYearCount);
+
+        // get the amount of appointments with status Atendido per month and year:
+        $monthCountAtendido = Appointment::selectRaw('month(scheduled_date) as month, year(scheduled_date) as year, count(*) as total')
             ->where('status', 'Atendido')
-            ->groupBy('month')
-            ->get();
+            ->groupBy('month', 'year')
+            ->get('month', 'total', 'year');
+
 
         // get the amount of appointments with status Cancelado per month:
-        $monthCountCancelado = Appointment::selectRaw('month(scheduled_date) as month, count(*) as total')
+        $monthCountCancelado = Appointment::selectRaw('month(scheduled_date) as month, year(scheduled_date) as year, count(*) as total')
             ->where('status', 'Cancelado')
-            ->groupBy('month')
-            ->get();
+            ->groupBy('month', 'year')
+            ->get('month', 'total', 'year');
 
         // get the amount of appointments with status Pendiente per month:
 
-        $monthCountPendiente = Appointment::selectRaw('month(scheduled_date) as month, count(*) as total')
+        $monthCountPendiente = Appointment::selectRaw('month(scheduled_date) as month, year(scheduled_date) as year, count(*) as total')
             ->where('status', 'Pendiente')
-            ->groupBy('month')
-            ->get();
+            ->groupBy('month', 'year')
+            ->get('month', 'total', 'year');
 
+        // dd($monthCountPendiente);
 
         // Create an array that stores the amount of Atendido, Cancelado and Pendiente appointments per month and year:
         $monthwithAppointments = array();
@@ -185,46 +198,158 @@ class ReportController extends Controller
             '12' => 'Diciembre'
         );
 
+        $i =0;
 
-        foreach ($monthCount as $mT) {
+        // store the amount of appointments per month and year in the array:
+        foreach ($monthYearCount as $mY) {
 
-            $monthwithAppointments[$mT->month]['month'] = $months[$mT->month];
+            // $monthwithAppointments[$months[$mY->month] . ' ' . $mY->year]['total'] = $mY->total;
 
-            $monthwithAppointments[$mT->month]['total'] = $mT->total;
+            $monthwithAppointments[$i]['month'] = $months[$mY->month];
+            $monthwithAppointments[$i]['year'] = $mY->year;
+            $monthwithAppointments[$i]['total'] = $mY->total;
 
+            foreach ($monthCountAtendido as $mA) {
+
+                if ($mY->month == $mA->month && $mY->year == $mA->year) {
+
+                    // $monthwithAppointments[$months[$mY->month] . ' ' . $mY->year]['atendido'] = $mA->total;
+
+                    $monthwithAppointments[$i]['atendido'] = $mA->total;
+                }
+            }
 
             foreach ($monthCountCancelado as $mC) {
 
-                if ($mT->month == $mC->month) {
-               
-                    $monthwithAppointments[$mT->month]['cancelado'] = $mC->total;
+                if ($mY->month == $mC->month && $mY->year == $mC->year) {
+
+                    // $monthwithAppointments[$months[$mY->month] . ' ' . $mY->year]['cancelado'] = $mC->total;
+
+                    $monthwithAppointments[$i]['cancelado'] = $mC->total;
                 }
             }
 
             foreach ($monthCountPendiente as $mP) {
 
-                if ($mT->month == $mP->month) {
+                if ($mY->month == $mP->month && $mY->year == $mP->year) {
 
-                    $monthwithAppointments[$mT->month]['pendiente'] = $mP->total;
+                    // $monthwithAppointments[$months[$mY->month] . ' ' . $mY->year]['pendiente'] = $mP->total;
+
+                    $monthwithAppointments[$i]['pendiente'] = $mP->total;
                 }
             }
 
-            foreach ($monthCountAtendido as $mA) {
-
-                if ($mT->month == $mA->month) {
-
-                    $monthwithAppointments[$mT->month]['atendido'] = $mA->total;
-                }
-            }
-
+            $i++;
         }
 
 
         // dd($monthwithAppointments);
 
+        // bring the years  of the appointments
+        $years = Appointment::selectRaw('YEAR(scheduled_date) as year')->groupBy('year')->get();
 
-        return view('admin.reports.mesCita', compact('monthwithAppointments'));
+
+        return view('admin.reports.mesCita', compact('monthwithAppointments', 'years'));
+
+
     }
+
+
+    // public function mesCita()
+    // {
+
+
+    //     //Get the amount of appointments per month:
+    //     $monthCount = Appointment::selectRaw('month(scheduled_date) as month, count(*) as total')
+    //         ->groupBy('month')
+    //         ->get('month', 'total');
+
+
+    //     // dd($monthCount);
+
+    //     // get the amount of appointments with status Atendido per month:
+    //     $monthCountAtendido = Appointment::selectRaw('month(scheduled_date) as month, count(*) as total')
+    //         ->where('status', 'Atendido')
+    //         ->groupBy('month')
+    //         ->get();
+
+    //     // get the amount of appointments with status Cancelado per month:
+    //     $monthCountCancelado = Appointment::selectRaw('month(scheduled_date) as month, count(*) as total')
+    //         ->where('status', 'Cancelado')
+    //         ->groupBy('month')
+    //         ->get();
+
+    //     // get the amount of appointments with status Pendiente per month:
+
+    //     $monthCountPendiente = Appointment::selectRaw('month(scheduled_date) as month, count(*) as total')
+    //         ->where('status', 'Pendiente')
+    //         ->groupBy('month')
+    //         ->get();
+
+
+    //     // Create an array that stores the amount of Atendido, Cancelado and Pendiente appointments per month and year:
+    //     $monthwithAppointments = array();
+
+    //     //create array with all the months of the year:
+    //     $months = array(
+    //         '1' => 'Enero',
+    //         '2' => 'Febrero',
+    //         '3' => 'Marzo',
+    //         '4' => 'Abril',
+    //         '5' => 'Mayo',
+    //         '6' => 'Junio',
+    //         '7' => 'Julio',
+    //         '8' => 'Agosto',
+    //         '9' => 'Septiembre',
+    //         '10' => 'Octubre',
+    //         '11' => 'Noviembre',
+    //         '12' => 'Diciembre'
+    //     );
+
+
+    //     foreach ($monthCount as $mT) {
+
+    //         $monthwithAppointments[$mT->month]['month'] = $months[$mT->month];
+
+    //         $monthwithAppointments[$mT->month]['total'] = $mT->total;
+
+
+
+    //         foreach ($monthCountCancelado as $mC) {
+
+    //             if ($mT->month == $mC->month) {
+               
+    //                 $monthwithAppointments[$mT->month]['cancelado'] = $mC->total;
+    //             }
+    //         }
+
+    //         foreach ($monthCountPendiente as $mP) {
+
+    //             if ($mT->month == $mP->month) {
+
+    //                 $monthwithAppointments[$mT->month]['pendiente'] = $mP->total;
+    //             }
+    //         }
+
+    //         foreach ($monthCountAtendido as $mA) {
+
+    //             if ($mT->month == $mA->month) {
+
+    //                 $monthwithAppointments[$mT->month]['atendido'] = $mA->total;
+    //             }
+    //         }
+
+    //     }
+
+
+    //     // dd($monthwithAppointments);
+
+    //     // bring the years  of the appointments
+    //     $years = Appointment::selectRaw('YEAR(scheduled_date) as year')->groupBy('year')->get();
+
+
+    //     return view('admin.reports.mesCita', compact('monthwithAppointments', 'years'));
+    // }
 
     public function anoCita()
     {

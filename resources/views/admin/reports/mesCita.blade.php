@@ -8,7 +8,7 @@
         <div class="row mb-2">
 
           <div class="col-sm-12">
-            <h1 class="m-0">Reporte de citas atendidas por Mes a nivel general en todos los años</h1>
+            <h1 class="m-0">Reporte de citas atendidas por Mes en cierto Año.</h1>
           </div><!-- /.col -->
 
         </div><!-- /.row -->
@@ -26,13 +26,16 @@
                 <div class="card">
 
                     <div class="card-body">
-                  
+                 
                         <div class="table-responsive">
+
                             <table id="tablaReporte" class="table table-striped table-bordered zero-configuration text-center">
+                                                              
                                 <thead class="thead">
                                     <tr>
                                         <th>ID</th>                    
 										<th>Mes</th>
+										<th>Año</th>
 										<th>Citas Atendidas</th>
 										<th>Citas Pendientes</th>
 										<th>Citas Canceladas</th>
@@ -44,6 +47,7 @@
                                         <tr>
                                             <td>{{ $loop->iteration }}</td>
                                             <td>{{ $value['month'] }}</td>
+                                            <td>{{ $value['year'] }}</td>
                                             <td> @if (array_key_exists('atendido', $value)) {{$value['atendido'] }}@else 0 @endif </td>
                                             <td> @if (array_key_exists('pendiente', $value)) {{$value['pendiente'] }}@else 0 @endif </td>
                                             <td> @if (array_key_exists('cancelado', $value)) {{$value['cancelado'] }}@else 0 @endif </td>

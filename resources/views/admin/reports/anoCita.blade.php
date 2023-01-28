@@ -8,7 +8,7 @@
         <div class="row mb-2">
 
           <div class="col-sm-12">
-            <h1 class="m-0">Reporte de citas atendidas por Mes a nivel general en todos los años</h1>
+            <h1 class="m-0">Reporte de citas atendidas por cada Año.</h1>
           </div><!-- /.col -->
 
         </div><!-- /.row -->

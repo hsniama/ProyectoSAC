@@ -35,35 +35,4 @@ class Appointment extends Model
         return $this->belongsTo(Speciality::class)->withDefault();
     }
 
-
-    // Get the amount of appointments per speciality:
-    public function scopeSpecialityCount($query)
-    {
-        return $query->selectRaw('speciality_id, count(*) as total')->with('speciality')
-            ->groupBy('speciality_id');
-    }
-
-    //Get the amount of appointments per Doctor:
-    public function scopeDoctorCount($query)
-    {
-        return $query->selectRaw('doctor_id, count(*) as total')->with('doctor')
-            ->groupBy('doctor_id');
-    }
-
-    //Get the amount of appointments per month:
-    // public function scopeMonthCount($query)
-    // {
-    //     return $query->selectRaw('MONTH(scheduled_date) as month, count(*) as total')
-    //         ->groupBy('month');
-    // }
-
-    //Get the amount of appointments per year:
-    public function scopeYearCount($query)
-    {
-        return $query->selectRaw('YEAR(scheduled_date) as year, count(*) as total')
-            ->groupBy('year');
-    }
-    
-
-
 }
