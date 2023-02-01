@@ -1,17 +1,4 @@
     $(document).ready(function () {
-        $('#user_table').DataTable();
-    });
-
-    $(document).ready(function () {
-        $('#personas_table').DataTable();
-    });
-
-    $(document).ready(function () {
-        $('#roles_table').DataTable();
-    });
-
-
-    $(document).ready(function () {
         $('#tablaNormalDataTable').DataTable();
     });
 

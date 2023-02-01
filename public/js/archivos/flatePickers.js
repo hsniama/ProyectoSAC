@@ -1,6 +1,8 @@
     $(document).ready(function () {
         flatpickr(".date", {
             "locale": "es",
+            "dateFormat": "Y-m-d",
+            "maxDate": "today",
         });
     });
 

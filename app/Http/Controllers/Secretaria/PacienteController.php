@@ -69,7 +69,7 @@ class PacienteController extends Controller
         // Cuarta Forma: la mas optimizada
          $personasRolPaciente = Persona::whereHas('user.roles', function($query){
             $query->where('name', 'paciente');
-        })->get();
+        })->with('user')->get();
         /*
         This will retrieve all 'Persona' records that have a related 'User' model with a role named 'secretaria' 
         directly from the database, without the need for the foreach loop.
@@ -86,10 +86,7 @@ class PacienteController extends Controller
 
     public function create()
     {
-        // Necesito saber a que usuario le voy  a crear la persona
-        $users = User::all();
-
-        return view('secretaria.pacientes.create', compact('users'));
+        return view('secretaria.pacientes.create');
     }
 
 
@@ -98,7 +95,6 @@ class PacienteController extends Controller
         $request->validate([
             'username' => ['required', 'string', 'max:15', 'unique:users,username', 'alpha_dash'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
-            //'password' => ['required', 'string', 'min:8', 'confirmed'],
             'cedula' => ['required', 'string', 'max:255', 'unique:personas,cedula'],
             'apellidos' => ['required', 'string', 'max:255'],
             'nombres' => ['required', 'string', 'max:255'],
@@ -130,15 +126,9 @@ class PacienteController extends Controller
             'genero' => $request->genero,
         ]);
 
-        return redirect()->route('secretaria.creedenciales', compact('user'))->with('success', 'El paciente se creó con éxito');   
-    }
-
-
-    public function creedenciales($id)
-    {
-        $user = User::find($id);
-
-        return view('secretaria.pacientes.creedenciales', compact('user'));
+        $success = 'El paciente se creó con éxito';
+         
+        return view('secretaria.pacientes.creedenciales', compact('user', 'paciente', 'success'));
     }
 
 

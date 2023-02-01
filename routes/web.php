@@ -1,6 +1,7 @@
 <?php
 
-use Illuminate\Support\Facades\Auth;
+
+
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PerfilController;
@@ -79,9 +80,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
         ],function (){
             Route::resource('pacientes', PacienteController::class);
-            Route::get('/creedenciales/{user}', [PacienteController::class, 'creedenciales'])->name('creedenciales');
             Route::post('imprimir-creedenciales', [PacienteController::class, 'imprimirCreedenciales'])->name('imprimir.creedenciales');
-
     });
 
 });

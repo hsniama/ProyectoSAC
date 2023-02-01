@@ -57,7 +57,7 @@
     </div>
 
       <div class="row mt-2 mb-5">
-        <p>Hola, <span class="font-weight-bold">{{ $nombres }}</span> tenga un cordial saludo por parte del 
+        <p>Hola, <span class="font-weight-bold">{{ $nombres . ' ' . $apellidos}}</span> tenga un cordial saludo por parte del 
         Hospital El Oro. A continuación, se detallan sus creedenciales para que ingrese a nuestro Sistema 
         de Atención Médica y Control SAC.
       </p>
