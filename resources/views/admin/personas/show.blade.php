@@ -80,11 +80,11 @@
                                            value="{{$persona->cedula }}">
                                 </div>
 
-                                <div class="form-group">
+                                {{-- <div class="form-group">
                                     <label for="email" class="required">Correo</label>
                                     <input type="email" class="form-control" id="email" disabled
                                            value="{{$persona->email }}">
-                                </div>
+                                </div> --}}
 
                                 <div class="form-group">
                                     <label for="telefono" class="required">Telefono</label>

@@ -113,7 +113,7 @@
                                 </div>
 
 
-                                <div class="form-group">
+                                {{-- <div class="form-group">
                                     <label for="email" class="required">Correo</label>
                                     <input type="email" name="email" id="email"
                                         class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}"
@@ -123,7 +123,7 @@
                                             <strong>{{ $errors->first('email') }}</strong>
                                         </span>
                                     @endif
-                                </div>
+                                </div> --}}
 
                                 <div class="form-group">
                                     <label for="telefono">Teléfono</label>

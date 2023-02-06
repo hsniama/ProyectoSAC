@@ -9,7 +9,7 @@
                         </div>
                     @endif
 
-      <p class="login-box-msg">Genera una nueva contraseña</p>
+      <p class="login-box-msg">Escribe tu correo registrado</p>
       <form method="POST" action="{{ route('password.email') }}">
         @csrf
         <div class="input-group mb-3">

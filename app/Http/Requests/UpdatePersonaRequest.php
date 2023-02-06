@@ -27,7 +27,7 @@ class UpdatePersonaRequest extends FormRequest
             'cedula' => ['required', 'numeric', 'unique:personas,cedula,'. $this->persona->id],
             'apellidos' => ['required', 'string', 'max:255', 'min:3', 'string'],
             'nombres' => ['required', 'string', 'max:255', 'min:3', 'string'],
-            'email' => ['required', 'email', 'max:255', 'min:3', 'unique:personas,email,'. $this->persona->id],
+            //'email' => ['required', 'email', 'max:255', 'min:3', 'unique:personas,email,'. $this->persona->id],
             'telefono' => ['required', 'numeric'],
             'direccion' => ['required', 'max:255', 'min:3', 'string'],
             'ciudad' => ['required', 'max:255', 'min:3', 'string', 'string'],

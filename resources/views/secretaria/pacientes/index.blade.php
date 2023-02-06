@@ -77,7 +77,7 @@
 											<td>{{ $paciente->cedula }}</td>
 											<td>{{ $paciente->apellidos }}</td>
 											<td>{{ $paciente->nombres }}</td>
-											<td>{{ $paciente->email }}</td>
+											<td>{{ $paciente->user->email }}</td>
 											{{-- <td>{{ $paciente->telefono }}</td> --}}
 											{{-- <td>{{ $paciente->direccion }}</td> --}}
 											{{-- <td>{{ $paciente->ciudad }}</td> --}}

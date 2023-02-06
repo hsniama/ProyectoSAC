@@ -86,7 +86,7 @@ class RegisterController extends Controller
             'cedula' => $data['cedula'],
             'nombres' => $data['nombres'],
             'apellidos' => $data['apellidos'],
-            'email' => $data['email'],
+            //'email' => $data['email'],
         ]);
 
         return $user;

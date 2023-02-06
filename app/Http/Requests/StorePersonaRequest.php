@@ -28,7 +28,7 @@ class StorePersonaRequest extends FormRequest
             'cedula' => ['required', 'numeric', 'unique:personas'],
             'apellidos' => ['required', 'string', 'max:255', 'min:3', 'string'],
             'nombres' => ['required', 'string', 'max:255', 'min:3', 'string'],
-            'email' => ['required', 'email', 'max:255', 'min:3', 'unique:personas'],
+            //'email' => ['required', 'email', 'max:255', 'min:3', 'unique:personas'],
             'telefono' => ['required', 'numeric'],
             'direccion' => ['required', 'max:255', 'min:3', 'string'],
             'ciudad' => ['required', 'max:255', 'min:3', 'string', 'string'],

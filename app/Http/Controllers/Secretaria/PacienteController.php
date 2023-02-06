@@ -118,7 +118,7 @@ class PacienteController extends Controller
             'cedula' => $request->cedula,
             'apellidos' => $request->apellidos,
             'nombres' => $request->nombres,
-            'email' => $request->email,
+            //'email' => $request->email,
             'telefono' => $request->telefono,
             'direccion' => $request->direccion,
             'ciudad' => $request->ciudad,
