@@ -36,7 +36,7 @@
                                 </div>
                             @endcan
 
-                            <form method="POST" action="{{ route('profile.update', $persona->id) }}">
+                            <form method="POST" action="{{ route('profile.update', $person->id) }}">
                                 <form method="POST" action="">
                                     @csrf
                                     @method('PUT')
@@ -48,15 +48,15 @@
                                                 <label for="username" class="required">Username correspondiente (Se puede
                                                     actualizar solo en el módulo de "usuarios")</label>
                                                 <input type="text" class="form-control" id="username" disabled
-                                                    value="{{ $persona->user->username }}">
+                                                    value="{{ $person->user->username }}">
                                             </div>
 
                                             <div class="form-group">
                                                 <label for="cedula" class="required">N° de Cédula</label>
                                                 <input type="number" name="cedula" id="cedula"
                                                     class="form-control {{ $errors->has('cedula') ? 'is-invalid' : '' }}"
-                                                    placeholder="Actualiza el N° de Cédula de la persona"
-                                                    value="{{ old('cedula', $persona->cedula) }}">
+                                                    placeholder="Actualiza el N° de Cédula de la person"
+                                                    value="{{ old('cedula', $person->cedula) }}">
                                                 @if ($errors->has('cedula'))
                                                     <span class="text-danger">
                                                         <strong>{{ $errors->first('cedula') }}</strong>
@@ -69,7 +69,7 @@
                                                 <input type="text" name="apellidos" id="apellidos"
                                                     class="form-control {{ $errors->has('apellidos') ? 'is-invalid' : '' }}"
                                                     placeholder="Actualiza los apellidos"
-                                                    value="{{ old('apellidos', $persona->apellidos) }}">
+                                                    value="{{ old('apellidos', $person->apellidos) }}">
                                                 @if ($errors->has('apellidos'))
                                                     <span class="text-danger">
                                                         <strong>{{ $errors->first('apellidos') }}</strong>
@@ -83,7 +83,7 @@
                                                 <input type="text" name="nombres" id="nombres"
                                                     class="form-control {{ $errors->has('nombres') ? 'is-invalid' : '' }}"
                                                     placeholder="Actualiza los nombres"
-                                                    value="{{ old('nombres', $persona->nombres) }}">
+                                                    value="{{ old('nombres', $person->nombres) }}">
                                                 @if ($errors->has('nombres'))
                                                     <span class="text-danger">
                                                         <strong>{{ $errors->first('nombres') }}</strong>
@@ -96,7 +96,7 @@
                                     <label for="email" class="required">Correo</label>
                                     <input type="email" name="email" id="email"
                                         class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}"
-                                        placeholder="Actualiza el email" value="{{ old('email', $persona->email) }}">
+                                        placeholder="Actualiza el email" value="{{ old('email', $person->email) }}">
                                     @if ($errors->has('email'))
                                         <span class="text-danger">
                                             <strong>{{ $errors->first('email') }}</strong>
@@ -108,8 +108,8 @@
                                                 <label for="telefono">Teléfono</label>
                                                 <input type="text" name="telefono" id="telefono"
                                                     class="form-control {{ $errors->has('telefono') ? 'is-invalid' : '' }}"
-                                                    placeholder="Ingrese el Teléfono de la persona"
-                                                    value="{{ old('telefono', $persona->telefono) }}">
+                                                    placeholder="Ingrese el Teléfono de la person"
+                                                    value="{{ old('telefono', $person->telefono) }}">
                                                 @if ($errors->has('telefono'))
                                                     <span class="text-danger">
                                                         <strong>{{ $errors->first('telefono') }}</strong>
@@ -121,8 +121,8 @@
                                                 <label for="direccion">Dirección</label>
                                                 <input type="text" name="direccion" id="direccion"
                                                     class="form-control {{ $errors->has('direccion') ? 'is-invalid' : '' }}"
-                                                    placeholder="Ingrese la Dirección de la persona"
-                                                    value="{{ old('direccion', $persona->direccion) }}">
+                                                    placeholder="Ingrese la Dirección de la person"
+                                                    value="{{ old('direccion', $person->direccion) }}">
                                                 @if ($errors->has('direccion'))
                                                     <span class="text-danger">
                                                         <strong>{{ $errors->first('direccion') }}</strong>
@@ -134,8 +134,8 @@
                                                 <label for="ciudad">Ciudad</label>
                                                 <input type="text" name="ciudad" id="ciudad"
                                                     class="form-control {{ $errors->has('ciudad') ? 'is-invalid' : '' }}"
-                                                    placeholder="Ingrese la Ciudad de la persona"
-                                                    value="{{ old('ciudad', $persona->ciudad) }}">
+                                                    placeholder="Ingrese la Ciudad de la person"
+                                                    value="{{ old('ciudad', $person->ciudad) }}">
                                                 @if ($errors->has('ciudad'))
                                                     <span class="text-danger">
                                                         <strong>{{ $errors->first('ciudad') }}</strong>
@@ -147,7 +147,7 @@
                                                 <label for="fecha" class="required">Fecha de Nacimiento</label>
                                                 <input name="fecha_nacimiento" id="fecha" type="date"
                                                     class="form-control date {{ $errors->has('fecha_nacimiento') }}"
-                                                    value="{{ old('fecha', $persona->fecha_nacimiento) }}"
+                                                    value="{{ old('fecha', $person->fecha_nacimiento) }}"
                                                     placeholder="Ingrese su fecha de nacimiento">
                                                 @if ($errors->has('fecha_nacimiento'))
                                                     <span class="text-danger">
@@ -162,9 +162,9 @@
                                                     class="form-control select2 {{ $errors->has('genero') ? 'is-invalid' : '' }}"
                                                     name="genero" id="genero">
                                                     <option value="">Seleccione tu género</option>
-                                                    @foreach (App\Models\Persona::GENEROS as $genero)
+                                                    @foreach (App\Models\Person::GENEROS as $genero)
                                                         <option value="{{ $genero }}"
-                                                            {{ (old('genero') ? old('genero') : $persona->genero ?? '') == $genero ? 'selected' : '' }}>
+                                                            {{ (old('genero') ? old('genero') : $person->genero ?? '') == $genero ? 'selected' : '' }}>
                                                             {{ $genero }}
                                                         </option>
                                                     @endforeach

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Appointment;
-use App\Models\Persona;
+use App\Models\Person;
 use App\Models\Speciality;
 use App\Http\Requests\StoreAppointmentRequest;
 use App\Http\Requests\UpdateAppointmentRequest;
@@ -42,16 +42,16 @@ class AppointmentController extends Controller
      */
     public function create()
     {
-        $patients = Persona::whereHas('user.roles', function($query){
+        $patients = Person::whereHas('user.roles', function($query){
             $query->where('name', 'paciente');
         })->get();
 
-        $doctors = Persona::whereHas('user.roles', function($query){
+        $doctors = Person::whereHas('user.roles', function($query){
             $query->where('name', 'doctor');
         })->get();
 
         // Bring the doctors that have specialities
-        $doctors = Persona::whereHas('specialities')->get();
+        $doctors = Person::whereHas('specialities')->get();
 
         $specialities = Speciality::where('status', 'Activo')->get();
 
@@ -98,20 +98,20 @@ class AppointmentController extends Controller
         $specialities = Speciality::where('status', 'Activo')->get();
         
         // Look for the patient and doctor
-        // $paciente = Persona::find($appointment->patient_id);
-        $doctorCita = Persona::find($appointment->doctor_id);
+        // $paciente = Person::find($appointment->patient_id);
+        $doctorCita = Person::find($appointment->doctor_id);
 
-        // Bring the personas that have specialities
-        //$doctors = Persona::whereHas('specialities')->get();
+        // Bring the persons that have specialities
+        //$doctors = Person::whereHas('specialities')->get();
 
         // Bring the doctors that have the same specialities
-        $doctors = Persona::whereHas('specialities', function($query) use ($appointment){
+        $doctors = Person::whereHas('specialities', function($query) use ($appointment){
             $query->where('speciality_id', $appointment->speciality_id);
         })->get();
 
 
         // Look for the patient and retrieve id, nombres, apellidos and cedula:
-        $paciente = Persona::where('id', $appointment->patient_id)->select('id', 'nombres', 'apellidos', 'cedula')->first();
+        $paciente = Person::where('id', $appointment->patient_id)->select('id', 'nombres', 'apellidos', 'cedula')->first();
 
 
         return view('admin.appointments.edit', compact('appointment', 'specialities', 'paciente', 'doctorCita', 'doctors'));

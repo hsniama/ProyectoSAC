@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Persona;
+use App\Models\Person;
 use App\Models\Speciality;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -22,12 +22,12 @@ class Appointment extends Model
 
     public function patient()
     {
-        return $this->belongsTo(Persona::class, 'patient_id')->withDefault();
+        return $this->belongsTo(Person::class, 'patient_id')->withDefault();
     }
 
     public function doctor()
     {
-        return $this->belongsTo(Persona::class, 'doctor_id')->withDefault();
+        return $this->belongsTo(Person::class, 'doctor_id')->withDefault();
     }
 
     public function speciality()

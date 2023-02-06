@@ -7,7 +7,7 @@
             <div class="row mb-2">
 
                 <div class="col-sm-6">
-                    <h1 class="m-0">Completa tu Información Personl</h1>
+                    <h1 class="m-0">Nueva Persona</h1>
                 </div><!-- /.col -->
 
             </div><!-- /.row -->
@@ -27,19 +27,20 @@
 
                         <div class="card-body">
 
-                            {{-- <div class="card-title">Listado de usuarios</div>  --}}
+                            {{-- <div class="card-title">Listado de usuarios</div> --}}
 
-                            @can('home')
+                            @can('person-list')
                                 <div class="mb-3">
-                                    <a href="{{ route('home') }}" class="btn btn-danger btn-sm p-2" data-placement="left">
+                                    <a href="{{ route('admin.persons.index') }}" class="btn btn-danger btn-sm p-2"
+                                        data-placement="left">
                                         <i class="fa fa-fw fa-lg fa-arrow-left"></i>
-                                        {{ __('Regresar') }}
+                                        {{ __('Volver al listado') }}
                                     </a>
                                 </div>
                             @endcan
 
 
-                            <form method="POST" action="{{ route('profile.store') }}" role="form"
+                            <form method="POST" action="{{ route('admin.persons.store') }}" role="form"
                                 enctype="multipart/form-data">
                                 @csrf
 
@@ -47,11 +48,25 @@
                                     <div class="box-body">
 
                                         <div class="form-group">
-                                            <label for="username" class="required">Username correspondiente (Solo un
-                                                Administrador puede modificarlo)</label>
-                                            <input type="hidden" name="user_id" value="{{ Auth()->user()->id }}">
-                                            <input type="text" class="form-control" id="username" disabled
-                                                value="{{ Auth()->user()->username }}">
+                                            <label for="user_id" class="required">¿Qué usuario es? (ya creado)</label>
+                                            <select
+                                                class="form-control select2 {{ $errors->has('user_id') ? 'is-invalid' : '' }}"
+                                                name="user_id" id="user_id">
+                                                <option value="" disabled selected class="p-2">Seleccione el
+                                                    usuario que falta completar su información</option>
+                                                @foreach ($users as $user)
+                                                    @if (!$user->person)
+                                                        <option value="{{ $user->id }}" @selected($user->id == old('user_id'))>
+                                                            {{ $user->username }}
+                                                        </option>
+                                                    @endif
+                                                @endforeach
+                                            </select>
+                                            @if ($errors->has('user_id'))
+                                                <span class="text-danger">
+                                                    <strong>{{ $errors->first('user_id') }}</strong>
+                                                </span>
+                                            @endif
                                         </div>
 
                                         <div class="form-group">
@@ -93,17 +108,17 @@
                                         </div>
 
 
-                                        <div class="form-group">
-                                            <label for="email" class="required">Correo</label>
-                                            <input type="email" name="email" id="email"
-                                                class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}"
-                                                placeholder="Ingrese el Email de la person" value="{{ old('email', '') }}">
-                                            @if ($errors->has('email'))
-                                                <span class="text-danger">
-                                                    <strong>{{ $errors->first('email') }}</strong>
-                                                </span>
-                                            @endif
-                                        </div>
+                                        {{-- <div class="form-group">
+                                        <label for="email" class="required">Correo</label>
+                                        <input type="email" name="email" id="email"
+                                            class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}"
+                                            placeholder="Ingrese el Email de la person" value="{{ old('email', '') }}">
+                                        @if ($errors->has('email'))
+                                            <span class="text-danger">
+                                                <strong>{{ $errors->first('email') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div> --}}
 
                                         <div class="form-group">
                                             <label for="telefono">Teléfono</label>
@@ -177,14 +192,17 @@
                                             @endif
                                         </div>
 
+
+
+
                                     </div>
 
-                                    @can('profile-create')
+                                    @can('person-create')
                                         <div class="row">
                                             <div class="col-12 text-right">
                                                 <button type="submit" class="btn btn-success">
                                                     <i class="fa fa-fw fa-lg fa-check-circle"></i>
-                                                    Guardar
+                                                    Crear Person
                                                 </button>
                                             </div>
                                         </div>

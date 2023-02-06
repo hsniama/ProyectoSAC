@@ -14,7 +14,7 @@ class SpecialityController extends Controller
     {
         // PRIMERA OPCION:
         //Get the doctors that have the speciality
-        // $doctors = $speciality->personas()->whereHas('user.roles', function($query){
+        // $doctors = $speciality->persons()->whereHas('user.roles', function($query){
         //     $query->where('name', 'doctor');
         // })->get();
 
@@ -22,16 +22,16 @@ class SpecialityController extends Controller
         // return response()->json($doctors);
 
         // TERCERA OPCION
-        // return $speciality->personas;
+        // return $speciality->persons;
 
         // CUARTA OPCION
-        // return $speciality->personas()->with('user')->get();
+        // return $speciality->persons()->with('user')->get();
 
         // QUINTA OPCION
-        return $speciality->personas()->get([
-            'personas.id',
-            'personas.nombres',
-            'personas.apellidos'
+        return $speciality->persons()->get([
+            'persons.id',
+            'persons.nombres',
+            'persons.apellidos'
         ]);
     }
 

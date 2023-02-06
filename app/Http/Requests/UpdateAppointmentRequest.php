@@ -25,7 +25,7 @@ class UpdateAppointmentRequest extends FormRequest
     {
         // return [
         //     'patient_id' => ['required' , 'numeric', 'exists:appointments,patient_id'],
-        //     'doctor_id' => ['required' , 'numeric', 'exists:personas,id'],
+        //     'doctor_id' => ['required' , 'numeric', 'exists:persons,id'],
         //     'speciality_id' => ['required' , 'numeric', 'exists:specialities,id'],
         //     'scheduled_date' => ['required' , 'date', 'after_or_equal:today', 'date_format:Y-m-d', 'unique:appointments,scheduled_date,NULL,id,doctor_id,' . $this->doctor_id, 'unique:appointments,scheduled_date,NULL,id,patient_id,' . $this->patient_id],
         //     'scheduled_time' => ['required' , 'date_format:H:i', 'unique:appointments,scheduled_time,NULL,id,doctor_id,' . $this->doctor_id, 'unique:appointments,scheduled_time,NULL,id,patient_id,' . $this->patient_id],
@@ -35,7 +35,7 @@ class UpdateAppointmentRequest extends FormRequest
 
         return [
             'patient_id' => ['required', 'numeric', 'exists:appointments,patient_id'],
-            'doctor_id' => ['required',  'numeric', 'exists:personas,id'],
+            'doctor_id' => ['required',  'numeric', 'exists:persons,id'],
             'speciality_id' => ['required', 'numeric', 'exists:specialities,id'],
             'scheduled_date' => ['required', 'date', 'date_format:Y-m-d'],
             'scheduled_time' => ['required', 'date_format:H:i'],

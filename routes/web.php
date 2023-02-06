@@ -8,7 +8,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ReportController;
-use App\Http\Controllers\Admin\PersonaController;
+use App\Http\Controllers\Admin\PersonController;
 use App\Http\Controllers\Admin\SpecialityController;
 use App\Http\Controllers\Admin\AppointmentController;
 use App\Http\Controllers\Auth\ChangePasswordController;
@@ -59,8 +59,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
         ],function (){
             Route::resource('users', UserController::class);
-            Route::resource('personas', PersonaController::class);
-            Route::get('personas/{user}/create', [PersonaController::class, 'createSegunRol'])->name('personas.create.personarol');
+            Route::resource('persons', PersonController::class);
+            Route::get('persons/{user}/create', [PersonController::class, 'createSegunRol'])->name('persons.create.personrol');
             Route::resource('roles', RoleController::class);
             Route::resource('specialities', SpecialityController::class);
             Route::resource('appointments', AppointmentController::class);

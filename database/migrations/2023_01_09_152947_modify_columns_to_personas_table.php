@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('personas', function (Blueprint $table) {
+        Schema::table('people', function (Blueprint $table) {
             $table->string('genero')->nullable()->change();
             $table->string('fecha_nacimiento')->nullable()->change();
             $table->string('ciudad')->nullable()->change();
@@ -29,7 +29,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('personas', function (Blueprint $table) {
+        Schema::table('people', function (Blueprint $table) {
             //
         });
     }

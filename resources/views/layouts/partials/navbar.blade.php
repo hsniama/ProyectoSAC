@@ -37,17 +37,17 @@
                   </li>
               @endif
           @else
-              @if (Auth::user()->persona)
-                  @if (!Auth::user()->persona->isComplete())
+              @if (Auth::user()->person)
+                  @if (!Auth::user()->person->isComplete())
                       <li class="nav-item d-none d-sm-inline-block mr-3">
-                          <a href="{{ route('profile.edit', Auth::user()->persona->id) }}"
+                          <a href="{{ route('profile.edit', Auth::user()->person->id) }}"
                               class="text-decoration-none nav-link text-bg-warning">
                               Completa tu profile Aqui
                           </a>
                       </li>
                   @else
                       <li class="nav-item d-none d-sm-inline-block mr-3">
-                          <a href="{{ route('profile.edit', Auth::user()->persona->id) }}"
+                          <a href="{{ route('profile.edit', Auth::user()->person->id) }}"
                               class="text-decoration-none nav-link ">
                               Editar Perfil
                           </a>

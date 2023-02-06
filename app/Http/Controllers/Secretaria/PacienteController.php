@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Secretaria;
 
 use App\Models\User;
-use App\Models\Persona;
+use App\Models\Person;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -34,7 +34,7 @@ class PacienteController extends Controller
     {  
         //----------------------------------------------------------------------------------------------
         // Primera forma: no me sirvio aqui no se por que.
-        // $pacientes = Persona::with([
+        // $pacientes = Person::with([
         //     'user' => function($query){
         //         $query->whereHas('roles', function($query){
         //             $query->where('name', 'admin');
@@ -45,21 +45,21 @@ class PacienteController extends Controller
 
         //----------------------------------------------------------------------------------------------
 
-        //Segunda forma: Es buena pero consume mucha memoria ya que itero todas las personas para saber
+        //Segunda forma: Es buena pero consume mucha memoria ya que itero todas las persons para saber
         //quien tiene dicho rol que estoy buscando.
 
-        // $pacientes = Persona::with('user')->get(); Pertenece a la segunda forma
-        // $personasRolPaciente = [];
+        // $pacientes = Person::with('user')->get(); Pertenece a la segunda forma
+        // $personsRolPaciente = [];
 
         // foreach ($pacientes as $paciente) {
         //     if($paciente->user->hasRole('secretaria')){
-        //         $personasRolPaciente[] = $paciente;
+        //         $personsRolPaciente[] = $paciente;
         //     }
         // }
 
         // ------------------------------------------------------------------------------------------------
         // Tercera forma: Excelente, sirve muy bien, sirve para entender un poquito mas.
-        // $personasRolPaciente = Persona::whereHas('user', function($query){
+        // $personsRolPaciente = Person::whereHas('user', function($query){
         //     $query->whereHas('roles', function($query){
         //         $query->where('name', 'paciente');
         //     });
@@ -67,17 +67,17 @@ class PacienteController extends Controller
 
         // ------------------------------------------------------------------------------------------------
         // Cuarta Forma: la mas optimizada
-         $personasRolPaciente = Persona::whereHas('user.roles', function($query){
+         $personsRolPaciente = Person::whereHas('user.roles', function($query){
             $query->where('name', 'paciente');
         })->with('user')->get();
         /*
-        This will retrieve all 'Persona' records that have a related 'User' model with a role named 'secretaria' 
+        This will retrieve all 'Person' records that have a related 'User' model with a role named 'secretaria' 
         directly from the database, without the need for the foreach loop.
         This way you are saving time and memory by not having to iterate over all the pacientes and check if they 
         have the role of secretaria.
         */
 
-        return view('secretaria.pacientes.index', compact('personasRolPaciente'));
+        return view('secretaria.pacientes.index', compact('personsRolPaciente'));
 
     }
 
@@ -95,7 +95,7 @@ class PacienteController extends Controller
         $request->validate([
             'username' => ['required', 'string', 'max:15', 'unique:users,username', 'alpha_dash'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
-            'cedula' => ['required', 'string', 'max:255', 'unique:personas,cedula'],
+            'cedula' => ['required', 'string', 'max:255', 'unique:persons,cedula'],
             'apellidos' => ['required', 'string', 'max:255'],
             'nombres' => ['required', 'string', 'max:255'],
             'telefono' => ['required', 'string', 'max:255'],
@@ -113,7 +113,7 @@ class PacienteController extends Controller
             'password' =>$password, //password,
         ])->assignRole('paciente');
 
-        $paciente = Persona::create([
+        $paciente = Person::create([
             'user_id' => $user->id,
             'cedula' => $request->cedula,
             'apellidos' => $request->apellidos,

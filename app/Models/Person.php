@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Persona extends Model
+class Person extends Model
 {
     use HasFactory;
 
@@ -49,13 +49,13 @@ class Persona extends Model
     }
 
 
-    // Function to get the full name of a Persona
+    // Function to get the full name of a Person
     public function getFullNameAttribute()
     {
         return "{$this->apellidos}, {$this->nombres}";
     }
 
-    // Function to check if all attributes of a Persona are null
+    // Function to check if all attributes of a Person are null
     public function isComplete()
     {
         // $attributes = $this->getAttributes();
@@ -72,13 +72,13 @@ class Persona extends Model
             return true;
     }
     
-    // create method to get the roles of the persona
+    // create method to get the roles of the person
     public function getRolesAttribute()
     {
         return $this->user->roles;
     }
     
-    // create method to get know if the persona has specialities
+    // create method to get know if the person has specialities
     public function hasSpecialities()
     {
         return $this->specialities->isNotEmpty();

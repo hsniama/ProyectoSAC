@@ -7,7 +7,7 @@
             <div class="row mb-2">
 
                 <div class="col-sm-6">
-                    <h1 class="m-0">Listado de Especialidades</h1>
+                    <h1 class="m-0">Listado de Personas registradas en el sistema</h1>
                 </div><!-- /.col -->
 
             </div><!-- /.row -->
@@ -47,9 +47,9 @@
 
                             @can('person-create')
                                 <div class="mb-3">
-                                    <a href="{{ route('admin.specialities.create') }}" class="btn btn-success p-2"
+                                    <a href="{{ route('admin.persons.create') }}" class="btn btn-success p-2"
                                         data-placement="left">
-                                        {{ __('Agregar Nueva Especialidad') }}
+                                        {{ __('Agregar Nueva Person') }}
                                     </a>
                                 </div>
                             @endcan
@@ -61,44 +61,59 @@
                                     <thead class="thead">
                                         <tr>
                                             <th>ID</th>
-                                            <th>Nombre</th>
-                                            <th>Descripción</th>
-                                            <th>Estado</th>
-                                            <th>Creado por</th>
-                                            <th>Actualizado por</th>
+                                            <th>User Id</th>
+                                            <th>Cedula</th>
+                                            <th>Apellidos</th>
+                                            <th>Nombres</th>
+                                            <th>Genero</th>
+                                            <th>Observaciones</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($specialities as $especialidad)
+                                        @foreach ($persons as $person)
                                             <tr>
-                                                <td>{{ $especialidad->id }}</td>
-                                                <td>{{ $especialidad->name }}</td>
-                                                <td>{{ $especialidad->description }}</td>
-                                                <td>
-                                                    @if ($especialidad->status == 'Activo')
-                                                        <span class="badge bg-success fs-6">Activo</span>
-                                                    @else
-                                                        <span class="badge bg-danger fs-6">Inactivo</span>
-                                                    @endif
+                                                <td>{{ $person->id }}</td>
+                                                <td>{{ $person->user->username }}</td>
+                                                <td>{{ $person->cedula }}</td>
+                                                <td>{{ $person->apellidos }}</td>
+                                                <td>{{ $person->nombres }}</td>
+                                                <td>{{ $person->genero }}</td>
+                                                <td class="text-left">
+                                                    <ul>
+                                                        <li class="mb-2">
+                                                            Tiene los roles de:
+                                                            @foreach ($person->getRolesAttribute() as $rol)
+                                                                <span
+                                                                    class="badge badge-dark fs-6">{{ $rol->name }}</span>
+                                                            @endforeach
+                                                        </li>
+                                                        @if ($person->specialities->count() > 0)
+                                                            <li>
+                                                                Tiene {{ $person->specialities->count() }}
+                                                                especialidad(es):
+                                                                @foreach ($person->specialities as $speciality)
+                                                                    <span
+                                                                        class="badge badge-primary fs-6">{{ $speciality->name }}</span>
+                                                                @endforeach
+                                                            </li>
+                                                        @endif
+                                                    </ul>
                                                 </td>
-                                                <td>{{ $especialidad->created_by }}</td>
-                                                <td>{{ $especialidad->updated_by }}</td>
-
                                                 <td>
-                                                    {{-- @can('especialidad-show')
-                                                        <a href="{{ route('admin.specialities.show', $especialidad->id) }}">
-                                                            <button
-                                                                class="btn btn-info mb-2 btn-sm"><i class="fa fa-fw fa-eye"></i></button></a> </br>
-                                                    @endcan --}}
-                                                    @can('especialidad-edit')
-                                                        <a href="{{ route('admin.specialities.edit', $especialidad->id) }}"><button
+                                                    @can('person-show')
+                                                        <a href="{{ route('admin.persons.show', $person->id) }}"><button
+                                                                class="btn btn-info mb-2 btn-sm"><i
+                                                                    class="fa fa-fw fa-eye"></i></button></a> </br>
+                                                    @endcan
+                                                    @can('person-edit')
+                                                        <a href="{{ route('admin.persons.edit', $person->id) }}"><button
                                                                 class="btn btn-warning mb-2 btn-sm"><i
                                                                     class="fa fa-fw fa-edit"></i></button></a></br>
                                                     @endcan
-                                                    @can('especialidad-delete')
-                                                        <form action="{{ route('admin.specialities.destroy', $especialidad) }}"
-                                                            method="POST" style="display: inline" class="eliminarEspecialidad">
+                                                    @can('person-delete')
+                                                        <form action="{{ route('admin.persons.destroy', $person) }}"
+                                                            method="POST" style="display: inline" class="eliminarPerson">
                                                             @csrf
                                                             {{ method_field('DELETE') }}
                                                             <button class="btn btn-danger btn-sm" type="submit"><i
@@ -106,9 +121,9 @@
                                                         </form>
                                                     @endcan
                                                 </td>
+
                                             </tr>
                                         @endforeach
-
                                     </tbody>
                                 </table>
                             </div>

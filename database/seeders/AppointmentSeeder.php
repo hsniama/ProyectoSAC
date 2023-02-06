@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use App\Models\Persona;
+use App\Models\Person;
 use App\Models\Speciality;
 use App\Models\Appointment;
 use Illuminate\Database\Seeder;

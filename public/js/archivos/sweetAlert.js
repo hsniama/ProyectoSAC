@@ -1,9 +1,9 @@
-    $('.eliminarPersona').submit(function(e) {
+    $('.eliminarPerson').submit(function(e) {
 
         e.preventDefault();
 
         Swal.fire({
-            title: '¿Borrar Persona?',
+            title: '¿Borrar Person?',
             text: "No se podrá revertir!",
             icon: 'warning',
             showCancelButton: true,

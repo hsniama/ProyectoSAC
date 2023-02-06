@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Persona;
+use App\Models\Person;
 use App\Models\User;
-use App\Http\Requests\StorePersonaRequest;
-use App\Http\Requests\UpdatePersonaRequest;
+use App\Http\Requests\StorePersonRequest;
+use App\Http\Requests\UpdatePersonRequest;
 use App\Http\Controllers\Controller; // yo agregue esta
 
 class ProfileController extends Controller
@@ -23,7 +23,7 @@ class ProfileController extends Controller
 
     public function create()
     {
-        // Necesito saber a que usuario le voy  a crear la persona
+        // Necesito saber a que usuario le voy  a crear la person
         $users = User::all();
 
         return view('profile.create', compact('users'));
@@ -33,10 +33,10 @@ class ProfileController extends Controller
     {
         $request->validate([
             'user_id' => 'required',
-            'cedula' => ['required', 'numeric', 'unique:personas'],
+            'cedula' => ['required', 'numeric', 'unique:persons'],
             'apellidos' => ['required', 'string', 'max:255', 'min:3', 'string'],
             'nombres' => ['required', 'string', 'max:255', 'min:3', 'string'],
-            //'email' => ['required', 'email', 'max:255', 'min:3', 'unique:personas'],
+            //'email' => ['required', 'email', 'max:255', 'min:3', 'unique:persons'],
             'telefono' => ['required', 'numeric'],
             'direccion' => ['required', 'max:255', 'min:3', 'string'],
             'ciudad' => ['required', 'max:255', 'min:3', 'string', 'string'],
@@ -44,24 +44,24 @@ class ProfileController extends Controller
             'genero' => ['required', 'string']
         ]);
 
-        Persona::create($request->all());
+        Person::create($request->all());
 
         return redirect()->route('home')->with('success', 'Perfil completado con éxito');
     }
 
     public function edit($id)
     {
-        $persona = Persona::findOrFail($id);
-        return view('profile.edit', compact('persona'));
+        $person = Person::findOrFail($id);
+        return view('profile.edit', compact('person'));
     }
 
     public function update(Request $request, $id)
     {
         $request->validate([
-            'cedula' => ['required', 'numeric', 'unique:personas,cedula,'.$id],
+            'cedula' => ['required', 'numeric', 'unique:persons,cedula,'.$id],
             'apellidos' => ['required', 'string', 'max:255', 'min:3', 'string'],
             'nombres' => ['required', 'string', 'max:255', 'min:3', 'string'],
-            //'email' => ['required', 'email', 'max:255', 'min:3', 'unique:personas,email,'.$id],
+            //'email' => ['required', 'email', 'max:255', 'min:3', 'unique:persons,email,'.$id],
             'telefono' => ['required', 'numeric'],
             'direccion' => ['required', 'max:255', 'min:3', 'string'],
             'ciudad' => ['required', 'max:255', 'min:3', 'string', 'string'],
@@ -69,9 +69,9 @@ class ProfileController extends Controller
             'genero' => ['required', 'string']
         ]);
 
-        $persona = Persona::findOrFail($id);
+        $person = Person::findOrFail($id);
 
-        $persona->update($request->all());
+        $person->update($request->all());
 
         return redirect()->route('home')->with('success', 'Perfil actualizado con éxito');
     }

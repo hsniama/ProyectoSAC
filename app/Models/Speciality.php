@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-use App\Models\Persona;
+use App\Models\Person;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -20,8 +20,8 @@ class Speciality extends Model
 
     public const ESTADOS = ['Activo', 'Inactivo'];
 
-    public function personas()
+    public function persons()
     {
-        return $this->belongsToMany(Persona::class)->withTimestamps();
+        return $this->belongsToMany(Person::class)->withTimestamps();
     }
 }

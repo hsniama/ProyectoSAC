@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Models\Appointment;
-use App\Models\Persona;
+use App\Models\Person;
 use App\Models\Speciality;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller; // yo agregue esta

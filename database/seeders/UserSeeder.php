@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use App\Models\Persona;
+use App\Models\Person;
 use App\Models\Speciality;
 use App\Models\Appointment;
 use Illuminate\Support\Str;
@@ -27,7 +27,7 @@ class UserSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
-        ])->assignRole('super-admin')->persona()->save(Persona::factory()->make());
+        ])->assignRole('super-admin')->person()->save(Person::factory()->make());
 
         User::create([
             'username' => 'admin',
@@ -35,7 +35,7 @@ class UserSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
-        ])->assignRole('admin')->persona()->save(Persona::factory()->make());
+        ])->assignRole('admin')->person()->save(Person::factory()->make());
 
         User::create([
             'username' => 'gerente',
@@ -43,7 +43,7 @@ class UserSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
-        ])->assignRole('gerente')->persona()->save(Persona::factory()->make());
+        ])->assignRole('gerente')->person()->save(Person::factory()->make());
 
         User::create([
             'username' => 'paciente',
@@ -51,7 +51,7 @@ class UserSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
-        ])->assignRole('paciente')->persona()->save(Persona::factory()->make());
+        ])->assignRole('paciente')->person()->save(Person::factory()->make());
 
         User::create([
             'username' => 'secretaria',
@@ -59,7 +59,7 @@ class UserSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
-        ])->assignRole('secretaria')->persona()->save(Persona::factory()->make());
+        ])->assignRole('secretaria')->person()->save(Person::factory()->make());
 
         User::create([
             'username' => 'doctor',
@@ -67,42 +67,42 @@ class UserSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
-        ])->assignRole('doctor')->persona()->save(Persona::factory()->make());
+        ])->assignRole('doctor')->person()->save(Person::factory()->make());
 
         
 
-        //Llenar automaticamente 50 usuarios pacientes random con factory con relacion a persona.
+        //Llenar automaticamente 50 usuarios pacientes random con factory con relacion a person.
         User::factory(100)->create()->each(function ($user) {
             $user->assignRole('paciente');
-            $user->persona()->save(Persona::factory()->make());
+            $user->person()->save(Person::factory()->make());
         });	
 
-                // // Vale muy bien para crear 10 usuarios pacientes con relacion a persona
+                // // Vale muy bien para crear 10 usuarios pacientes con relacion a person
                 // User::factory(10)->create()->each(function ($user) {
                 //     $user->assignRole('paciente');
-                //     Persona::factory()->create(['user_id' => $user->id]);
+                //     Person::factory()->create(['user_id' => $user->id]);
                 // });
 
-        //Llenar automaticamente 5 usuarios doctores random con factory con relacion a persona sin especialidad.
+        //Llenar automaticamente 5 usuarios doctores random con factory con relacion a person sin especialidad.
         // User::factory(5)->create()->each(function ($user) {
         //     $user->assignRole('doctor');
-        //     $user->persona()->save(Persona::factory()->make());
+        //     $user->person()->save(Person::factory()->make());
         // });	
 
-        // Llenar automaticamente 10 usuarios doctores random con factory con relacion a persona y cada persona
+        // Llenar automaticamente 10 usuarios doctores random con factory con relacion a person y cada person
         // con una especialidad:
         // User::factory(10)->create()->each(function ($user) {
         //     $user->assignRole('doctor');
-        //     $user->persona()->save(Persona::factory()->make());
-        //     $user->persona->specialities()->save(Speciality::factory()->make());
+        //     $user->person()->save(Person::factory()->make());
+        //     $user->person->specialities()->save(Speciality::factory()->make());
         // });
 
-        // Llenar automaticamente 10 usuarios doctores random con el prefijo de Dr. con factory con relacion a persona y cada persona
+        // Llenar automaticamente 10 usuarios doctores random con el prefijo de Dr. con factory con relacion a person y cada person
         // con una especialidad:
         User::factory(20)->create()->each(function ($user) {
             $user->assignRole('doctor');
-            $user->persona()->save(Persona::factory()->make(['nombres' => 'Dr. ']));
-            $user->persona->specialities()->save(Speciality::factory()->make());
+            $user->person()->save(Person::factory()->make(['nombres' => 'Dr. ']));
+            $user->person->specialities()->save(Speciality::factory()->make());
         });
 
 

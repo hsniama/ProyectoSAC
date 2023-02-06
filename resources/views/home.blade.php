@@ -70,7 +70,7 @@
                             {{-- <div class="card-title">Bienvenido</div> --}}
 
                             <div class="block">
-                                @if (!Auth::user()->persona)
+                                @if (!Auth::user()->person)
                                     <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show"
                                         role="alert">
                                         <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img"
@@ -83,7 +83,7 @@
                                             <div class="mt-3">
                                                 <p class="fs-3">
                                                     <span class="text-bold">¡Hola {{ Auth::user()->username }}!</span>,
-                                                    primero debes completar tu información personal presionando el siguiente
+                                                    primero debes completar tu información personl presionando el siguiente
                                                     botón:
                                                 </p>
                                             </div>
@@ -105,7 +105,7 @@
 
                                         {{-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> --}}
                                     </div>
-                                @elseif (!Auth::user()->persona->isComplete())
+                                @elseif (!Auth::user()->person->isComplete())
                                     <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show"
                                         role="alert">
                                         <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img"
@@ -118,14 +118,14 @@
                                             <div class="mt-3">
                                                 <p class="fs-3">
                                                     <span class="text-bold">¡Hola {{ Auth::user()->username }}!</span>,
-                                                    primero debes completar tu información personal presionando el siguiente
+                                                    primero debes completar tu información personl presionando el siguiente
                                                     botón:
                                                 </p>
                                             </div>
 
 
                                             <div class="mb-3 mt-3 d-flex justify-content-center">
-                                                <a href="{{ route('profile.edit', Auth::user()->persona->id) }}"
+                                                <a href="{{ route('profile.edit', Auth::user()->person->id) }}"
                                                     class="btn btn-warning btn-lg text-decoration-none text-black">
                                                     Presiona aquí para completar tu profile.
                                                 </a>
@@ -140,18 +140,18 @@
 
                                         {{-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> --}}
                                     </div>
-                                @elseif (Auth::user()->persona->isComplete() && Auth::user()->hasRole('super-admin'))
+                                @elseif (Auth::user()->person->isComplete() && Auth::user()->hasRole('super-admin'))
                                     <div>
                                         <p class="fs-4">
-                                            <span class="text-bold">¡Hola {{ Auth::user()->persona->nombres }}!</span>, como
+                                            <span class="text-bold">¡Hola {{ Auth::user()->person->nombres }}!</span>, como
                                             <span class="text-bold">Super Administrador</span> puedes operar absolutamente
                                             todo el sistema.</br>
                                         </p>
                                     </div>
-                                @elseif (Auth::user()->persona->isComplete() && Auth::user()->hasRole('gerente'))
+                                @elseif (Auth::user()->person->isComplete() && Auth::user()->hasRole('gerente'))
                                     <div>
                                         <p class="fs-4">
-                                            <span class="text-bold">¡Hola {{ Auth::user()->persona->nombres }}!</span>, como
+                                            <span class="text-bold">¡Hola {{ Auth::user()->person->nombres }}!</span>, como
                                             <span class="text-bold">Gerente</span> puedes:</br>
                                         <ul class="fs-5">
                                             <li>Acceder al Modulo de Gestión Estadística.</li>
@@ -169,15 +169,15 @@
                                         </ul>
                                         </p>
                                     </div>
-                                @elseif (Auth::user()->persona->isComplete() && Auth::user()->hasRole('admin'))
+                                @elseif (Auth::user()->person->isComplete() && Auth::user()->hasRole('admin'))
                                     <div>
                                         <p class="fs-4">
-                                            <span class="text-bold">¡Hola {{ Auth::user()->persona->nombres }}!</span>, como
+                                            <span class="text-bold">¡Hola {{ Auth::user()->person->nombres }}!</span>, como
                                             <span class="text-bold">Administrador</span> puedes operar las siguientes
                                             funcionalidades del sistema:</br>
                                         <ul class="fs-5">
                                             <li>Modulo RPU</li>
-                                            <li>Gestión de Personas</li>
+                                            <li>Gestión de Persons</li>
                                             <li>Gestión de Citas</li>
                                         </ul>
                                         </p>
@@ -192,10 +192,10 @@
                                         </ul>
                                         </p>
                                     </div>
-                                @elseif (Auth::user()->persona->isComplete() && Auth::user()->hasRole('doctor'))
+                                @elseif (Auth::user()->person->isComplete() && Auth::user()->hasRole('doctor'))
                                     <div>
                                         <p class="fs-4">
-                                            <span class="text-bold">¡Hola {{ Auth::user()->persona->nombres }}!</span>,
+                                            <span class="text-bold">¡Hola {{ Auth::user()->person->nombres }}!</span>,
                                             como <span class="text-bold">Doctor</span> puedes:</br>
                                         <ul class="fs-5">
                                             <li>Consultar tu agenda de citas.</li>
@@ -214,10 +214,10 @@
                                         </ul>
                                         </p>
                                     </div>
-                                @elseif (Auth::user()->persona->isComplete() && Auth::user()->hasRole('secretaria'))
+                                @elseif (Auth::user()->person->isComplete() && Auth::user()->hasRole('secretaria'))
                                     <div>
                                         <p class="fs-4">
-                                            <span class="text-bold">¡Hola {{ Auth::user()->persona->nombres }}!</span>,
+                                            <span class="text-bold">¡Hola {{ Auth::user()->person->nombres }}!</span>,
                                             como <span class="text-bold">Secretaria</span> puedes:</br>
                                         <ul class="fs-5">
                                             <li>Registrar un nuevo paciente en el sistema e imprimir sus creedenciales
@@ -237,17 +237,17 @@
                                         </ul>
                                         </p>
                                     </div>
-                                @elseif (Auth::user()->persona->isComplete() && Auth::user()->hasRole('paciente'))
+                                @elseif (Auth::user()->person->isComplete() && Auth::user()->hasRole('paciente'))
                                     <div>
                                         <p class="fs-4">
-                                            <span class="text-bold">¡Hola {{ Auth::user()->persona->nombres }}!</span>,
+                                            <span class="text-bold">¡Hola {{ Auth::user()->person->nombres }}!</span>,
                                             puedes agendar o consultar una cita en la parte izquierda.
                                         </p>
                                     </div>
                                 @else
                                     <div>
                                         <p class="fs-4">
-                                            <span class="text-bold">¡Hola {{ Auth::user()->persona->nombres }}!</span>,
+                                            <span class="text-bold">¡Hola {{ Auth::user()->person->nombres }}!</span>,
                                             tienes los siguientes roles:
                                         <ul class="fs-5">
                                             @foreach (Auth::user()->roles as $rol)

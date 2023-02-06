@@ -6,9 +6,9 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Persona>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Person>
  */
-class PersonaFactory extends Factory
+class PersonFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -23,7 +23,6 @@ class PersonaFactory extends Factory
             'cedula' => fake()->unique()->randomNumber(8),
             'apellidos' => fake()->lastName(),
             'nombres' => fake()->firstName(),
-            'email' => fake()->unique()->safeEmail(),
             'telefono' => fake()->unique()->phoneNumber(),
             'direccion' => fake()->address(),
             'ciudad' => fake()->city(),

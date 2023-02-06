@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
-use App\Models\Persona;
+use App\Models\Person;
 use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
@@ -59,7 +59,7 @@ class RegisterController extends Controller
             //'password' => ['required', 'string', 'min:8', 'confirmed'],
             'nombres' => ['required', 'string', 'max:255'],
             'apellidos' => ['required', 'string', 'max:255'],
-            'cedula' => ['required', 'string', 'max:255', 'unique:personas,cedula'],
+            'cedula' => ['required', 'string', 'max:255', 'unique:persons,cedula'],
         ]);
     }
 
@@ -81,7 +81,7 @@ class RegisterController extends Controller
         ])->assignRole('paciente');
 
 
-        Persona::create([
+        Person::create([
             'user_id' => $user->id,
             'cedula' => $data['cedula'],
             'nombres' => $data['nombres'],

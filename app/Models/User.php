@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
-use App\Models\Persona;
+use App\Models\Person;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -48,14 +48,14 @@ class User extends Authenticatable implements MustVerifyEmail
     public const CONFIRMAREMAIL = ['Si', 'No'];
 
 
-    public function persona()
+    public function person()
     {
-        return $this->hasOne(Persona::class);
+        return $this->hasOne(Person::class);
     }
 
-    // Function to know if the user has a persona and a speciality
-    public function hasPersonaAndSpeciality()
+    // Function to know if the user has a person and a speciality
+    public function hasPersonAndSpeciality()
     {
-        return $this->persona && $this->persona->specialities->count() > 0;
+        return $this->person && $this->person->specialities->count() > 0;
     }
 }

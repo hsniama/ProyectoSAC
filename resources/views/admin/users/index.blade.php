@@ -116,17 +116,17 @@
 
                                                 <td class="text-left">
                                                     <ul>
-                                                        @if (!$user->persona)
+                                                        @if (!$user->person)
                                                             <li>No ha completado su profile. <a
-                                                                    href="{{ route('admin.personas.create.personarol', $user->id) }}">Completalo
+                                                                    href="{{ route('admin.persons.create.personrol', $user->id) }}">Completalo
                                                                     Aqui</a></li>
                                                         @endif
 
-                                                        @if ($user->hasRole('doctor') && !$user->hasPersonaAndSpeciality())
+                                                        @if ($user->hasRole('doctor') && !$user->hasPersonAndSpeciality())
                                                             <li>No tiene especialidades asignadas.</li>
-                                                        @elseif ($user->hasRole('doctor') && $user->hasPersonaAndSpeciality())
+                                                        @elseif ($user->hasRole('doctor') && $user->hasPersonAndSpeciality())
                                                             <li>Tiene asignado las siguientes especialidades: </li>
-                                                            @foreach ($user->persona->specialities as $especialidad)
+                                                            @foreach ($user->person->specialities as $especialidad)
                                                                 <span
                                                                     class="badge badge-primary">{{ $especialidad->name }}</span>
                                                             @endforeach

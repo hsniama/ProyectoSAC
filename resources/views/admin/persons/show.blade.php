@@ -1,13 +1,14 @@
 @extends('layouts.admin')
 
 @section('content')
+
     <!-- Content Header (Page header) -->
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
 
                 <div class="col-sm-6">
-                    <h1 class="m-0">Datos personles de: {{ $paciente->apellidos . ' ' . $paciente->nombres }}</h1>
+                    <h1 class="m-0">Datos personles de: {{ $person->apellidos . ' ' . $person->nombres }}</h1>
                 </div><!-- /.col -->
 
             </div><!-- /.row -->
@@ -29,9 +30,9 @@
 
                             {{-- <div class="card-title">Listado de usuarios</div> --}}
 
-                            @can('paciente-list')
+                            @can('person-list')
                                 <div class="mb-3">
-                                    <a href="{{ route('secretaria.pacientes.index') }}" class="btn btn-danger btn-sm p-2"
+                                    <a href="{{ route('admin.persons.index') }}" class="btn btn-danger btn-sm p-2"
                                         data-placement="left">
                                         <i class="fa fa-fw fa-lg fa-arrow-left"></i>
                                         {{ __('Volver al listado') }}
@@ -45,55 +46,69 @@
                                     <div class="form-group">
                                         <label for="username" class="required">Username correspondiente</label>
                                         <input type="text" class="form-control" id="username" disabled
-                                            value="{{ $paciente->user->username }}">
+                                            value="{{ $person->user->username }}">
                                     </div>
+
+                                    @if ($person->hasSpecialities())
+                                        <div class="form-group">
+                                            <label for="specialities" class="required">Especialidades</label> </br>
+                                            <select disabled class="form-control select2" name="specialities[]"
+                                                id="specialities" multiple="multiple">
+                                                @foreach ($person->specialities as $speciality)
+                                                    <option selected>
+                                                        {{ $speciality->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    @endif
 
                                     <div class="form-group">
                                         <label for="apellidos" class="required">Apellidos</label>
                                         <input type="text" class="form-control" id="apellidos" disabled
-                                            value="{{ $paciente->apellidos }}">
+                                            value="{{ $person->apellidos }}">
                                     </div>
 
                                     <div class="form-group">
                                         <label for="nombres" class="required">Nombres</label>
                                         <input type="text" class="form-control" id="nombres" disabled
-                                            value="{{ $paciente->nombres }}">
+                                            value="{{ $person->nombres }}">
                                     </div>
 
                                     <div class="form-group">
                                         <label for="cedula" class="required">Cedula</label>
                                         <input type="number" class="form-control" id="cedula" disabled
-                                            value="{{ $paciente->cedula }}">
+                                            value="{{ $person->cedula }}">
                                     </div>
 
-                                    <div class="form-group">
-                                        <label for="email" class="required">Correo</label>
-                                        <input type="email" class="form-control" id="email" disabled
-                                            value="{{ $paciente->email }}">
-                                    </div>
+                                    {{-- <div class="form-group">
+                                    <label for="email" class="required">Correo</label>
+                                    <input type="email" class="form-control" id="email" disabled
+                                           value="{{$person->email }}">
+                                </div> --}}
 
                                     <div class="form-group">
                                         <label for="telefono" class="required">Telefono</label>
                                         <input type="text" class="form-control" id="telefono" disabled
-                                            value="{{ $paciente->telefono }}">
+                                            value="{{ $person->telefono }}">
                                     </div>
 
                                     <div class="form-group">
                                         <label for="direccion" class="required">Direccion</label>
                                         <input type="text" class="form-control" id="direccion" disabled
-                                            value="{{ $paciente->direccion }}">
+                                            value="{{ $person->direccion }}">
                                     </div>
 
                                     <div class="form-group">
                                         <label for="ciudad" class="required">Ciudad</label>
                                         <input type="text" class="form-control" id="ciudad" disabled
-                                            value="{{ $paciente->ciudad }}">
+                                            value="{{ $person->ciudad }}">
                                     </div>
 
                                     <div class="form-group">
                                         <label for="fecha_nacimiento" class="required">Fecha de Nacimiento</label>
                                         <input type="text" class="form-control" id="fecha_nacimiento" disabled
-                                            value="{{ $paciente->fecha_nacimiento }}">
+                                            value="{{ $person->fecha_nacimiento }}">
                                     </div>
 
                                     <div class="form-group">
@@ -105,20 +120,20 @@
                                     <div class="form-group">
                                         <label for="genero" class="required">Genero</label>
                                         <input type="text" class="form-control" id="genero" disabled
-                                            value="{{ $paciente->genero }}">
+                                            value="{{ $person->genero }}">
                                     </div>
 
                                     <div class="form-group">
                                         <label for="created_at" class="required">Fecha de creación de la Person</label>
                                         <input type="text" class="form-control" id="created_at" disabled
-                                            value="{{ $paciente->created_at }}">
+                                            value="{{ $person->created_at }}">
                                     </div>
 
                                     <div class="form-group">
                                         <label for="updated_at" class="required">Fecha de actualización de la
                                             Person</label>
                                         <input type="text" class="form-control" id="updated_at" disabled
-                                            value="{{ $paciente->updated_at }}">
+                                            value="{{ $person->updated_at }}">
                                     </div>
 
 
@@ -138,4 +153,6 @@
             <!--row-->
         </div><!-- /.container-fluid -->
     </div><!-- /.content -->
+
+
 @endsection

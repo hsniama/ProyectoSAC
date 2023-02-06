@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('personas', function (Blueprint $table) {
+        Schema::table('people', function (Blueprint $table) {
             $table->unsignedBigInteger('user_id')->cascadeOnDelete()->change();
         });
     }
@@ -25,7 +25,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('personas', function (Blueprint $table) {
+        Schema::table('people', function (Blueprint $table) {
             $table->foreign('user_id')->references('id')->on('users')->onDelete('no action');
         });
     }

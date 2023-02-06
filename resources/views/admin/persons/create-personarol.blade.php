@@ -1,13 +1,14 @@
 @extends('layouts.admin')
 
 @section('content')
+
     <!-- Content Header (Page header) -->
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
 
                 <div class="col-sm-6">
-                    <h1 class="m-0">Completa tu Información Personl</h1>
+                    <h1 class="m-0">Nueva Persona</h1>
                 </div><!-- /.col -->
 
             </div><!-- /.row -->
@@ -27,32 +28,58 @@
 
                         <div class="card-body">
 
-                            {{-- <div class="card-title">Listado de usuarios</div>  --}}
+                            {{-- <div class="card-title">Listado de usuarios</div> --}}
 
-                            @can('home')
+                            @can('person-list')
                                 <div class="mb-3">
-                                    <a href="{{ route('home') }}" class="btn btn-danger btn-sm p-2" data-placement="left">
+                                    <a href="{{ route('admin.users.index') }}" class="btn btn-danger btn-sm p-2"
+                                        data-placement="left">
                                         <i class="fa fa-fw fa-lg fa-arrow-left"></i>
-                                        {{ __('Regresar') }}
+                                        {{ __('Volver al listado') }}
                                     </a>
                                 </div>
                             @endcan
 
 
-                            <form method="POST" action="{{ route('profile.store') }}" role="form"
+                            <form method="POST" action="{{ route('admin.persons.store') }}" role="form"
                                 enctype="multipart/form-data">
                                 @csrf
 
                                 <div class="box box-info padding-1">
                                     <div class="box-body">
 
+
                                         <div class="form-group">
-                                            <label for="username" class="required">Username correspondiente (Solo un
-                                                Administrador puede modificarlo)</label>
-                                            <input type="hidden" name="user_id" value="{{ Auth()->user()->id }}">
+                                            <label for="username" class="required">Username correspondiente (Solo puede ser
+                                                modificado en la gestion de usuarios)</label>
+                                            <input type="hidden" name="user_id" value="{{ $user->id }}">
                                             <input type="text" class="form-control" id="username" disabled
-                                                value="{{ Auth()->user()->username }}">
+                                                value="{{ $user->username }}">
                                         </div>
+
+                                        @if ($user->hasRole('doctor'))
+                                            <div class="form-group">
+                                                <label for="specialities" class="required">Especialidades</label>
+                                                <select
+                                                    class="form-control select2 {{ $errors->has('specialities') ? 'is-invalid' : '' }}"
+                                                    name="specialities[]" id="specialities" multiple="multiple">
+                                                    <option value="" class="p-2">Seleccione las especialidades
+                                                    </option>
+                                                    @foreach ($specialities as $speciality)
+                                                        <option value="{{ $speciality->id }}" @selected($speciality->id == old('specialities'))>
+                                                            {{ $speciality->name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                                @if ($errors->has('specialities'))
+                                                    <span class="text-danger">
+                                                        <strong>{{ $errors->first('specialities') }}</strong>
+                                                    </span>
+                                                @endif
+                                            </div>
+                                        @endif
+
+
 
                                         <div class="form-group">
                                             <label for="cedula" class="required">N° de Cédula</label>
@@ -93,17 +120,17 @@
                                         </div>
 
 
-                                        <div class="form-group">
-                                            <label for="email" class="required">Correo</label>
-                                            <input type="email" name="email" id="email"
-                                                class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}"
-                                                placeholder="Ingrese el Email de la person" value="{{ old('email', '') }}">
-                                            @if ($errors->has('email'))
-                                                <span class="text-danger">
-                                                    <strong>{{ $errors->first('email') }}</strong>
-                                                </span>
-                                            @endif
-                                        </div>
+                                        {{-- <div class="form-group">
+                                        <label for="email" class="required">Correo</label>
+                                        <input type="email" name="email" id="email"
+                                            class="form-control {{ $errors->has('email') ? 'is-invalid' : '' }}"
+                                            placeholder="Ingrese el Email de la person" value="{{ old('email', '') }}">
+                                        @if ($errors->has('email'))
+                                            <span class="text-danger">
+                                                <strong>{{ $errors->first('email') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div> --}}
 
                                         <div class="form-group">
                                             <label for="telefono">Teléfono</label>
@@ -177,19 +204,21 @@
                                             @endif
                                         </div>
 
+
+
+
                                     </div>
 
-                                    @can('profile-create')
+                                    @can('person-create')
                                         <div class="row">
                                             <div class="col-12 text-right">
                                                 <button type="submit" class="btn btn-success">
                                                     <i class="fa fa-fw fa-lg fa-check-circle"></i>
-                                                    Guardar
+                                                    Crear Person
                                                 </button>
                                             </div>
                                         </div>
                                     @endcan
-
 
 
                                 </div>
@@ -206,4 +235,6 @@
             <!--row-->
         </div><!-- /.container-fluid -->
     </div><!-- /.content -->
+
+
 @endsection
