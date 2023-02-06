@@ -1,92 +1,90 @@
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-    
-    <!-- Left navbar links -->
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-      </li>
-      {{-- <li class="nav-item d-none d-sm-inline-block">
+
+      <!-- Left navbar links -->
+      <ul class="navbar-nav">
+          <li class="nav-item">
+              <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+          </li>
+          {{-- <li class="nav-item d-none d-sm-inline-block">
         <a href="index3.html" class="nav-link">Home</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Contact</a>
       </li> --}}
-    </ul>
+      </ul>
 
 
-    <!-- Right navbar links -->
-    <ul class="navbar-nav ml-auto">
+      <!-- Right navbar links -->
+      <ul class="navbar-nav ml-auto">
 
-      {{-- <li class="nav-item">
+          {{-- <li class="nav-item">
         <a class="nav-link" data-widget="control-sidebar" data-slide="true" role="button" href="#">
           <i class="fas fa-th-large"></i>
         </a>
       </li> --}}
 
-      @guest
-        @if (Route::has('login'))
-          <li class="nav-item d-none d-sm-inline-block">
-            <a href="{{ route('login') }}" class="nav-link">Iniciar Sesión</a>
-          </li>
-        @endif
+          @guest
+              @if (Route::has('login'))
+                  <li class="nav-item d-none d-sm-inline-block">
+                      <a href="{{ route('login') }}" class="nav-link">Iniciar Sesión</a>
+                  </li>
+              @endif
 
-        @if (Route::has('register'))
-          <li class="nav-item d-none d-sm-inline-block">
-            <a href="{{ route('register') }}" class="nav-link">Registrarse</a>
-          </li>
-        @endif
-      @else
-     
-          @if (Auth::user()->persona )
+              @if (Route::has('register'))
+                  <li class="nav-item d-none d-sm-inline-block">
+                      <a href="{{ route('register') }}" class="nav-link">Registrarse</a>
+                  </li>
+              @endif
+          @else
+              @if (Auth::user()->persona)
+                  @if (!Auth::user()->persona->isComplete())
+                      <li class="nav-item d-none d-sm-inline-block mr-3">
+                          <a href="{{ route('profile.edit', Auth::user()->persona->id) }}"
+                              class="text-decoration-none nav-link text-bg-warning">
+                              Completa tu profile Aqui
+                          </a>
+                      </li>
+                  @else
+                      <li class="nav-item d-none d-sm-inline-block mr-3">
+                          <a href="{{ route('profile.edit', Auth::user()->persona->id) }}"
+                              class="text-decoration-none nav-link ">
+                              Editar Perfil
+                          </a>
+                      </li>
+                      <li class="nav-item d-none d-sm-inline-block mr-3">
+                          <a href="{{ route('view.change.password') }}" class="text-decoration-none nav-link">
+                              Cambiar contraseña
+                          </a>
+                      </li>
+                  @endif
+              @else
+                  <li class="nav-item d-none d-sm-inline-block mr-3">
+                      <a href="{{ route('profile.create') }}" class="text-decoration-none nav-link text-bg-warning">
+                          Completa tu profile aquí
+                      </a>
+                  </li>
+              @endif
+              </li>
 
-            @if (!Auth::user()->persona->isComplete())
-            <li class="nav-item d-none d-sm-inline-block mr-3">  
-              <a href="{{ route('perfil.edit', Auth::user()->persona->id) }}" class="text-decoration-none nav-link text-bg-warning">
-                Completa tu perfil Aqui
-              </a>
-            </li>
-            @else
-            <li class="nav-item d-none d-sm-inline-block mr-3">  
-              <a href="{{ route('perfil.edit', Auth::user()->persona->id) }}" class="text-decoration-none nav-link ">
-                Editar Perfil
-              </a>
-            </li>
-            <li class="nav-item d-none d-sm-inline-block mr-3">  
-              <a href="{{ route('view.change.password') }}" class="text-decoration-none nav-link">
-                Cambiar contraseña
-              </a>
-            </li>
-            @endif
-          @else  
-          <li class="nav-item d-none d-sm-inline-block mr-3">         
-              <a href="{{ route('perfil.create') }}" class="text-decoration-none nav-link text-bg-warning">
-                Completa tu perfil aquí
-              </a>
-          </li>
-          @endif
-        </li>
-        
-        <li class="nav-item d-none d-sm-inline-block mr-3">
-          <a class="nav-link text-danger" 
-             href="{{ route('logout') }}"
-             onclick="event.preventDefault();
-             document.getElementById('logout-form').submit();"
-            >
-            {{ __('Cerrar Sesión') }}
-          </a>
+              <li class="nav-item d-none d-sm-inline-block mr-3">
+                  <a class="nav-link text-danger" href="{{ route('logout') }}"
+                      onclick="event.preventDefault();
+                      document.getElementById('logout-form').submit();">
+                      {{ __('Cerrar Sesión') }}
+                  </a>
 
-          <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                @csrf
-          </form>
+                  <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                      @csrf
+                  </form>
 
-        </li> 
-      @endguest
+              </li>
+          @endguest
 
 
 
-      <!-- Navbar Search -->
-      {{-- <li class="nav-item">
+          <!-- Navbar Search -->
+          {{-- <li class="nav-item">
         <a class="nav-link" data-widget="navbar-search" href="#" role="button">
           <i class="fas fa-search"></i>
         </a>
@@ -107,8 +105,8 @@
         </div>
       </li> --}}
 
-      <!-- Messages Dropdown Menu -->
-      {{-- <li class="nav-item dropdown">
+          <!-- Messages Dropdown Menu -->
+          {{-- <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-comments"></i>
           <span class="badge badge-danger navbar-badge">3</span>
@@ -167,8 +165,8 @@
       </li> --}}
 
 
-      <!-- Notifications Dropdown Menu -->
-      {{-- <li class="nav-item dropdown">
+          <!-- Notifications Dropdown Menu -->
+          {{-- <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="far fa-bell"></i>
           <span class="badge badge-warning navbar-badge">15</span>
@@ -194,18 +192,18 @@
           <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
         </div>
       </li> --}}
-      {{-- <li class="nav-item">
+          {{-- <li class="nav-item">
         <a class="nav-link" data-widget="fullscreen" href="#" role="button">
           <i class="fas fa-expand-arrows-alt"></i>
         </a>
       </li> --}}
-      {{-- <li class="nav-item">
+          {{-- <li class="nav-item">
         <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
           <i class="fas fa-th-large"></i>
         </a>
       </li> --}}
 
-      
-    </ul>
+
+      </ul>
   </nav>
   <!-- /.navbar -->

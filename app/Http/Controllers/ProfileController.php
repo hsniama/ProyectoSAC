@@ -9,16 +9,16 @@ use App\Http\Requests\StorePersonaRequest;
 use App\Http\Requests\UpdatePersonaRequest;
 use App\Http\Controllers\Controller; // yo agregue esta
 
-class PerfilController extends Controller
+class ProfileController extends Controller
 {
     public function __invoke()
     {
-        //return view('perfil.create');
+        //return view('profile.create');
     }
 
      public function __construct(){
-         $this->middleware('can:perfil-create')->only('create', 'store');
-         $this->middleware('can:perfil-edit')->only('edit', 'update');
+         $this->middleware('can:profile-create')->only('create', 'store');
+         $this->middleware('can:profile-edit')->only('edit', 'update');
     }
 
     public function create()
@@ -26,7 +26,7 @@ class PerfilController extends Controller
         // Necesito saber a que usuario le voy  a crear la persona
         $users = User::all();
 
-        return view('perfil.create', compact('users'));
+        return view('profile.create', compact('users'));
     }
 
     public function store(Request $request)
@@ -52,7 +52,7 @@ class PerfilController extends Controller
     public function edit($id)
     {
         $persona = Persona::findOrFail($id);
-        return view('perfil.edit', compact('persona'));
+        return view('profile.edit', compact('persona'));
     }
 
     public function update(Request $request, $id)

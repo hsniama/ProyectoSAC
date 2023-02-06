@@ -4,7 +4,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\PerfilController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ReportController;
@@ -41,11 +41,11 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::post('/cambiar-password', 'changePassword')->name('change.password');
     });
 
-    Route::controller(PerfilController::class)->group(function () {
-        Route::get('perfil/create', 'create')->name('perfil.create');
-        Route::get('perfil/{id}/edit', 'edit')->name('perfil.edit');
-        Route::put('perfil/{id}', 'update')->name('perfil.update');
-        Route::post('perfil', 'store')->name('perfil.store');
+    Route::controller(ProfileController::class)->group(function () {
+        Route::get('profile/create', 'create')->name('profile.create');
+        Route::get('profile/{id}/edit', 'edit')->name('profile.edit');
+        Route::put('profile/{id}', 'update')->name('profile.update');
+        Route::post('profile', 'store')->name('profile.store');
     });
 
     // JSON: Get the doctors of a speciality
