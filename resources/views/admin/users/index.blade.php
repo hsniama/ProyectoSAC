@@ -4,11 +4,11 @@
     <!-- Content Header (Page header) -->
     <div class="content-header">
         <div class="container-fluid">
-            <div class="row mb-2">
+            <div class="row">
 
-                <div class="col-sm-6">
+                {{-- <div class="col-sm-6">
                     <h1 class="m-0">Listado de Usuarios</h1>
-                </div><!-- /.col -->
+                </div><!-- /.col --> --}}
 
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
@@ -43,16 +43,18 @@
                             @endif
 
 
-                            {{-- <div class="card-title">Listado de usuarios</div> --}}
+                            <div class="card-title fs-3 fw-bolder">Listado de usuarios</div>
 
                             @can('user-create')
-                                <div class="mb-3">
+                                <div class="float-end">
                                     <a href="{{ route('admin.users.create') }}" class="btn btn-success p-2"
                                         data-placement="left">
                                         {{ __('Agregar Nuevo Usuario') }}
                                     </a>
                                 </div>
                             @endcan
+
+
 
 
                             <div class="table-responsive">
@@ -82,27 +84,27 @@
                                                         @foreach ($user->getRoleNames() as $rol)
                                                             @if ($rol == 'admin' || $rol == 'super-admin')
                                                                 <span
-                                                                    class="badge bg-danger fs-6 mb-1">{{ $rol }}</span>
+                                                                    class="badge bg-danger mb-1">{{ $rol }}</span>
                                                                 </br>
                                                             @elseif ($rol == 'gerente')
                                                                 <span
-                                                                    class="badge bg-warning fs-6 mb-1">{{ $rol }}</span>
+                                                                    class="badge bg-warning mb-1">{{ $rol }}</span>
                                                                 </br>
                                                             @elseif ($rol == 'secretaria')
                                                                 <span
-                                                                    class="badge bg-primary fs-6 mb-1">{{ $rol }}</span>
+                                                                    class="badge bg-primary mb-1">{{ $rol }}</span>
                                                                 </br>
                                                             @elseif ($rol == 'doctor')
                                                                 <span
-                                                                    class="badge bg-success fs-6 mb-1">{{ $rol }}</span>
+                                                                    class="badge bg-success mb-1">{{ $rol }}</span>
                                                                 </br>
                                                             @elseif ($rol == 'paciente')
                                                                 <span
-                                                                    class="badge bg-cyan fs-6 mb-1">{{ $rol }}</span>
+                                                                    class="badge bg-cyan mb-1">{{ $rol }}</span>
                                                                 </br>
                                                             @else
                                                                 <span
-                                                                    class="badge bg-secondary fs-6 mb-1">{{ $rol }}</span>
+                                                                    class="badge bg-secondary mb-1">{{ $rol }}</span>
                                                                 </br>
                                                             @endif
                                                         @endforeach

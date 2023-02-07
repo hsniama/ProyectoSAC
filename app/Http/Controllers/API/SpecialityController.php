@@ -29,9 +29,9 @@ class SpecialityController extends Controller
 
         // QUINTA OPCION
         return $speciality->persons()->get([
-            'persons.id',
-            'persons.nombres',
-            'persons.apellidos'
+            'people.id',
+            'people.nombres',
+            'people.apellidos'
         ]);
     }
 

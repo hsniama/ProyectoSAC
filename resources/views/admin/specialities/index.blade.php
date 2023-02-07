@@ -4,11 +4,11 @@
     <!-- Content Header (Page header) -->
     <div class="content-header">
         <div class="container-fluid">
-            <div class="row mb-2">
+            <div class="row">
 
-                <div class="col-sm-6">
+                {{-- <div class="col-sm-6">
                     <h1 class="m-0">Listado de Especialidades</h1>
-                </div><!-- /.col -->
+                </div><!-- /.col --> --}}
 
             </div><!-- /.row -->
         </div><!-- /.container-fluid -->
@@ -43,10 +43,10 @@
                             @endif
 
 
-                            {{-- <div class="card-title">Listado de usuarios</div> --}}
+                            <div class="card-title fs-3 fw-bolder">Listado de Especialidades</div>
 
                             @can('person-create')
-                                <div class="mb-3">
+                                <div class="float-end">
                                     <a href="{{ route('admin.specialities.create') }}" class="btn btn-success p-2"
                                         data-placement="left">
                                         {{ __('Agregar Nueva Especialidad') }}

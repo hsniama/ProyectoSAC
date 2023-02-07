@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdatePersonRequest extends FormRequest
+class StorePersonRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,15 +24,16 @@ class UpdatePersonRequest extends FormRequest
     public function rules()
     {
         return [
-            'cedula' => ['required', 'numeric', 'unique:persons,cedula,'. $this->person->id],
+            'user_id' => 'required',
+            'cedula' => ['required', 'numeric', 'unique:people'],
             'apellidos' => ['required', 'string', 'max:255', 'min:3', 'string'],
             'nombres' => ['required', 'string', 'max:255', 'min:3', 'string'],
-            //'email' => ['required', 'email', 'max:255', 'min:3', 'unique:persons,email,'. $this->person->id],
+            //'email' => ['required', 'email', 'max:255', 'min:3', 'unique:persons'],
             'telefono' => ['required', 'numeric'],
             'direccion' => ['required', 'max:255', 'min:3', 'string'],
             'ciudad' => ['required', 'max:255', 'min:3', 'string', 'string'],
             'fecha_nacimiento' => ['required', 'date'],
-            'genero' => ['required', 'string'],         
+            'genero' => ['required', 'string'],
             'specialities' => ['array'],
             'specialities.*' => ['numeric', 'exists:specialities,id']
         ];

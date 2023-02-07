@@ -5,11 +5,11 @@
     <!-- Content Header (Page header) -->
     <div class="content-header">
       <div class="container-fluid">
-        <div class="row mb-2">
+        <div class="row">
 
-          <div class="col-sm-12">
+          {{-- <div class="col-sm-12">
             <h1 class="m-0">Reporte de citas atendidas por Mes en cierto Año.</h1>
-          </div><!-- /.col -->
+          </div><!-- /.col --> --}}
 
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -27,6 +27,8 @@
 
                     <div class="card-body">
                  
+                        <div class="card-title fs-3 fw-bolder">Reporte de citas atendidas por Mes en cierto Año.</div>
+
                         <div class="table-responsive">
 
                             <table id="tablaReporte" class="table table-striped table-bordered zero-configuration text-center">

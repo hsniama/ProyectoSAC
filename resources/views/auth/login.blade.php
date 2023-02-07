@@ -78,13 +78,13 @@
       </p>
       --}}
 
-      <div class="row d-flex justify-content-center">
+      <div class="d-flex justify-content-center">
         <p class="">
             <a href="{{ route('register') }}" class="text-decoration-none">¿No tienes una cuenta? ¡Registrate Aquí!</a>
         </p> 
       </div>
 
-       <div class="row d-flex justify-content-center">
+       <div class="d-flex justify-content-center">
             <p class="mb-0">
                 @if (Route::has('password.request'))
                     <a class="text-decoration-none" href="{{ route('password.request') }}">

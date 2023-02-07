@@ -6,11 +6,11 @@
     <!-- Content Header (Page header) -->
     <div class="content-header">
       <div class="container-fluid">
-        <div class="row mb-2">
+        <div class="row">
 
-          <div class="col-sm-6">
+          {{-- <div class="col-sm-6">
             <h1 class="m-0">Lista de Citas totales independientemente de su estado</h1>
-          </div><!-- /.col -->
+          </div><!-- /.col --> --}}
 
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
@@ -38,9 +38,9 @@
                             </div>
                         @endif
                    
-
+                        <div class="card-title fs-3 fw-bolder">Lista de Citas totales independientemente de su estado</div>
                         @can('appointment-create')
-                            <div class="mb-3">
+                            <div class="mb-3 float-end">
                                 <a href="{{ route('admin.appointments.create') }}" class="btn btn-success p-2"  data-placement="left">
                                     {{ __('Agendar Nueva Cita') }}
                                 </a>
@@ -68,15 +68,15 @@
                                             <td>{{ $cita->id }}</td>
 											<td>{{ $cita->patient->cedula }}</td>
 											<td>{{'Dr(a). '. $cita->doctor->nombres . ' '. $cita->doctor->apellidos}}</td>
-											<td><span class="badge badge-primary fs-6">{{ $cita->speciality->name }}</span></td>
+											<td><span class="badge badge-primary ">{{ $cita->speciality->name }}</span></td>
 											<td>{{ $cita->scheduled_date }} </br> {{ 'Hora: '. $cita->scheduled_time }}</td>
                                             <td>
                                                 @if ($cita->status == 'Cancelado')
-                                                    <span class="badge badge-danger fs-6">{{ $cita->status }}</span>
+                                                    <span class="badge badge-danger">{{ $cita->status }}</span>
                                                 @elseif ($cita->status == 'Atendido')
-                                                    <span class="badge badge-success fs-6">{{ $cita->status }}</span>
+                                                    <span class="badge badge-success">{{ $cita->status }}</span>
                                                 @else
-                                                    <span class="badge badge-warning fs-6">{{ $cita->status }}</span>
+                                                    <span class="badge badge-warning">{{ $cita->status }}</span>
                                                 @endif
                                             </td>
 											<td>{{ $cita->notes }}</td>

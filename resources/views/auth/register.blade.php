@@ -221,7 +221,7 @@
         </a>
       </div> -->
 
-      <div class="row d-flex justify-content-center">
+      <div class="d-flex justify-content-center">
         <p class="">
             <a href="{{ route('login') }}" class="text-decoration-none">¿Ya Tienes una cuenta? ¡Inicia Sesión!</a>
         </p>

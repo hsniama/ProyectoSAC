@@ -33,10 +33,10 @@ class ProfileController extends Controller
     {
         $request->validate([
             'user_id' => 'required',
-            'cedula' => ['required', 'numeric', 'unique:persons'],
+            'cedula' => ['required', 'numeric', 'unique:people'],
             'apellidos' => ['required', 'string', 'max:255', 'min:3', 'string'],
             'nombres' => ['required', 'string', 'max:255', 'min:3', 'string'],
-            //'email' => ['required', 'email', 'max:255', 'min:3', 'unique:persons'],
+            //'email' => ['required', 'email', 'max:255', 'min:3', 'unique:people'],
             'telefono' => ['required', 'numeric'],
             'direccion' => ['required', 'max:255', 'min:3', 'string'],
             'ciudad' => ['required', 'max:255', 'min:3', 'string', 'string'],
@@ -58,10 +58,10 @@ class ProfileController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'cedula' => ['required', 'numeric', 'unique:persons,cedula,'.$id],
+            'cedula' => ['required', 'numeric', 'unique:people,cedula,'.$id],
             'apellidos' => ['required', 'string', 'max:255', 'min:3', 'string'],
             'nombres' => ['required', 'string', 'max:255', 'min:3', 'string'],
-            //'email' => ['required', 'email', 'max:255', 'min:3', 'unique:persons,email,'.$id],
+            //'email' => ['required', 'email', 'max:255', 'min:3', 'unique:people,email,'.$id],
             'telefono' => ['required', 'numeric'],
             'direccion' => ['required', 'max:255', 'min:3', 'string'],
             'ciudad' => ['required', 'max:255', 'min:3', 'string', 'string'],

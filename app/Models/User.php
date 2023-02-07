@@ -58,4 +58,18 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->person && $this->person->specialities->count() > 0;
     }
+
+
+    // function to get the number of users
+    public static function countUsers()
+    {
+        return User::count();
+    }
+
+    // function to get the number of users with role doctor
+    public static function countDoctors()
+    {
+        return User::role('doctor')->count();
+    }
+
 }

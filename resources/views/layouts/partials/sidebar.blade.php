@@ -1,29 +1,39 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
+
       <!-- Brand Logo -->
-      <a href="{{ route('home') }}" class="brand-link text-decoration-none text-center">
-          {{-- <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8"> --}}
-          <span class="brand-text font-weight-bolder">OroMed</span>
+      <a href="{{ route('home') }}" class="brand-link text-decoration-none">
+          <img src="{{ asset('assets/img/favicon.png') }}" alt="AdminLTE Logo" class="brand-image img-circle">
+          <span class="brand-text font-weight-bolder ml-4">OroMed</span>
       </a>
 
       <!-- Sidebar -->
       <div class="sidebar">
 
           <!-- Sidebar user panel (optional) -->
-          <div class="user-panel mt-3 mb-3">
-              {{-- <div class="image">
-          <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-        </div> --}}
+          <div class="user-panel mt-3 mb-3 d-flex justify-content-center">
+            {{-- <div class="image">
+                    <img src="{{ asset('assets/img/favicon.png') }}" class="img-circle elevation-2" alt="User Image">
+            </div> --}}
 
-              <div class="text-center text-wrap">
+              <div class="info">
                   @if (Auth::user()->person)
-                      <p class="text-white fs-5">
-                          Hola, <span
-                              class="fw-bold">{{ Auth::user()->person->nombres . ' ' . Auth::user()->person->apellidos }}</span>
+                      <p class="text-white fs-6">
+                          Hola, <span class="fw-bold">
+                                    {{ Auth::user()->person->nombres . ' ' . Auth::user()->person->apellidos }}
+                                </span>
+                      </p>
+                      <p class="text-center">
+                        @foreach (Auth::user()->roles as $role)
+                            <span class="badge badge-info">{{ $role->name }}</span>                
+                        @endforeach  
                       </p>
                   @else
                       <p class="text-warning fs-5">
-                          Hola, <span class="fw-bold">{{ Auth::user()->username }}</span> </br>(Información incompleta).
+                          Hola, <span class="fw-bold">
+                                {{ Auth::user()->username }}
+                                </span> 
+                          </br>(Información incompleta).
                       </p>
                   @endif
               </div>
@@ -125,7 +135,7 @@
 
                           <ul class="nav nav-treeview">
                               <li class="nav-item">
-                                  <a href="{{ route('admin.especialidad.cita') }}" class="nav-link">
+                                  <a href="{{ route('admin.especialidad.cita') }}" class="nav-link @if (request()->routeIs('admin.especialidad.cita')) active @endif">
                                       <i class="fa-solid fa-file-circle-check"></i>
                                       <p>Especialidad - Citas</p>
                                   </a>
@@ -134,7 +144,7 @@
 
                           <ul class="nav nav-treeview">
                               <li class="nav-item">
-                                  <a href="{{ route('admin.doctor.cita') }}" class="nav-link">
+                                  <a href="{{ route('admin.doctor.cita') }}" class="nav-link @if (request()->routeIs('admin.doctor.cita')) active @endif">
                                       <i class="fa-solid fa-file-circle-check"></i>
                                       <p>Medico - Citas</p>
                                   </a>
@@ -143,7 +153,7 @@
 
                           <ul class="nav nav-treeview">
                               <li class="nav-item">
-                                  <a href="{{ route('admin.mes.cita') }}" class="nav-link">
+                                  <a href="{{ route('admin.mes.cita') }}" class="nav-link @if (request()->routeIs('admin.mes.cita')) active @endif">
                                       <i class="fa-solid fa-file-circle-check"></i>
                                       <p>Mes - Citas</p>
                                   </a>
@@ -152,7 +162,7 @@
 
                           <ul class="nav nav-treeview">
                               <li class="nav-item">
-                                  <a href="{{ route('admin.ano.cita') }}" class="nav-link">
+                                  <a href="{{ route('admin.ano.cita') }}" class="nav-link @if (request()->routeIs('admin.ano.cita')) active @endif">
                                       <i class="fa-solid fa-file-circle-check"></i>
                                       <p>Año - Citas</p>
                                   </a>
@@ -178,7 +188,7 @@
                           @can('role-list')
                               <ul class="nav nav-treeview">
                                   <li class="nav-item">
-                                      <a href="{{ route('admin.roles.index') }}" class="nav-link">
+                                      <a href="{{ route('admin.roles.index') }}" class="nav-link @if (request()->routeIs('admin.roles.index')) active @endif ">  
                                           <i class="far fa-circle nav-icon"></i>
                                           <p>Gestión de Roles</p>
                                       </a>
@@ -186,21 +196,10 @@
                               </ul>
                           @endcan
 
-                          {{-- @can('permission-list')
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Gestión de Permisos</p>
-                </a>
-              </li>
-            </ul>
-            @endcan --}}
-
                           @can('user-list')
                               <ul class="nav nav-treeview">
                                   <li class="nav-item">
-                                      <a href="{{ route('admin.users.index') }}" class="nav-link">
+                                      <a href="{{ route('admin.users.index') }}" class="nav-link @if (request()->routeIs('admin.users.index')) active @endif">
                                           <i class="far fa-circle nav-icon"></i>
                                           <p>Gestión de Usuarios</p>
                                       </a>
@@ -226,7 +225,7 @@
                           @can('person-create')
                               <ul class="nav nav-treeview">
                                   <li class="nav-item">
-                                      <a href="{{ route('admin.persons.create') }}" class="nav-link">
+                                      <a href="{{ route('admin.persons.create') }}" class="nav-link @if (request()->routeIs('admin.persons.create')) active @endif">
                                           <i class="fa fa-user nav-icon"></i>
                                           <p>Registrar Persona</p>
                                       </a>
@@ -237,7 +236,7 @@
                           @can('person-list')
                               <ul class="nav nav-treeview">
                                   <li class="nav-item">
-                                      <a href="{{ route('admin.persons.index') }}" class="nav-link">
+                                      <a href="{{ route('admin.persons.index') }}" class="nav-link @if (request()->routeIs('admin.persons.index')) active @endif ">
                                           <i class="fa fa-user nav-icon"></i>
                                           <p>Listar Personas</p>
                                       </a>
@@ -256,21 +255,11 @@
                                   <i class="right fas fa-angle-left"></i>
                               </p>
                           </a>
-                          {{-- @can('especialidad-create')
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="{{ route('admin.specialities.create') }}" class="nav-link">
-                  <i class="fa fa-user nav-icon"></i>
-                  <p>Crear Especialidad</p>
-                </a>
-              </li>
-            </ul>
-            @endcan --}}
 
                           @can('especialidad-list')
                               <ul class="nav nav-treeview">
                                   <li class="nav-item">
-                                      <a href="{{ route('admin.specialities.index') }}" class="nav-link">
+                                      <a href="{{ route('admin.specialities.index') }}" class="nav-link @if (request()->routeIs('admin.specialities.index')) active @endif">
                                           <i class="fa fa-user nav-icon"></i>
                                           <p>Listar Especialidades</p>
                                       </a>
@@ -294,7 +283,7 @@
                           @can('paciente-create')
                               <ul class="nav nav-treeview">
                                   <li class="nav-item">
-                                      <a href="{{ route('secretaria.pacientes.create') }}" class="nav-link botonActivo">
+                                      <a href="{{ route('secretaria.pacientes.create') }}" class="nav-link botonActivo @if (request()->routeIs('secretaria.pacientes.create')) active @endif">
                                           <i class="fa fa-user nav-icon"></i>
                                           <p>Registrar Paciente</p>
                                       </a>
@@ -305,7 +294,7 @@
                           @can('paciente-list')
                               <ul class="nav nav-treeview">
                                   <li class="nav-item">
-                                      <a href="{{ route('secretaria.pacientes.index') }}" class="nav-link">
+                                      <a href="{{ route('secretaria.pacientes.index') }}" class="nav-link @if (request()->routeIs('secretaria.pacientes.index')) active @endif">
                                           <i class="fa fa-user nav-icon"></i>
                                           <p>Listar Pacientes</p>
                                       </a>
@@ -330,7 +319,7 @@
                           @can('appointment-create')
                               <ul class="nav nav-treeview">
                                   <li class="nav-item">
-                                      <a href="{{ route('admin.appointments.create') }}" class="nav-link">
+                                      <a href="{{ route('admin.appointments.create') }}" class="nav-link @if (request()->routeIs('admin.appointments.create')) active @endif">
                                           <i class="fa fa-user nav-icon"></i>
                                           <p>Agendar Cita</p>
                                       </a>
@@ -341,7 +330,7 @@
                           @can('appointment-list')
                               <ul class="nav nav-treeview">
                                   <li class="nav-item">
-                                      <a href="{{ route('admin.appointments.index') }}" class="nav-link">
+                                      <a href="{{ route('admin.appointments.index') }}" class="nav-link @if (request()->routeIs('admin.appointments.index')) active @endif">
                                           <i class="fa fa-user nav-icon"></i>
                                           <p>Consulta de Citas</p>
                                       </a>
@@ -352,7 +341,7 @@
                           @if (auth()->user()->hasPermissionTo('appointment-reprogramar'))
                               <ul class="nav nav-treeview">
                                   <li class="nav-item">
-                                      <a href="#" class="nav-link">
+                                      <a href="#" class="nav-link ">
                                           <i class="fa fa-user nav-icon"></i>
                                           <p>Reprogramar Cita</p>
                                       </a>

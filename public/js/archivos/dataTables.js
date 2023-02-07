@@ -7,9 +7,10 @@
     $(document).ready(function () {
         $('#tablaDataTable').DataTable({
             responsive: true,
-            scrollY : 350,
+            scrollY : 300,
             deferRender: true,
             scroller: true,
+            pageLength: 5,
 
             dom: 'Bfrtip',
             buttons: [
@@ -54,7 +55,7 @@
 
         }],
            responsive: true,
-            scrollY : 350,
+            scrollY : 300,
             deferRender: true,
             scroller: true,
 

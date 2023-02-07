@@ -24,4 +24,10 @@ class Speciality extends Model
     {
         return $this->belongsToMany(Person::class)->withTimestamps();
     }
+
+    // function to get the number of specialities
+    public static function countSpecialities()
+    {
+        return Speciality::count();
+    }
 }
