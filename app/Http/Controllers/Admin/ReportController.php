@@ -11,12 +11,13 @@ use App\Http\Controllers\Controller; // yo agregue esta
 class ReportController extends Controller
 {
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->middleware('can:modulo-reportes');
     }
 
     public function especialidadCita()
-    {     
+    {
         // $specialityCount = Appointment::specialityCount()->get('speciality_id', 'total', 'name');
         $specialityCount = Appointment::selectRaw('speciality_id, count(*) as total')
             ->with('speciality')
@@ -43,34 +44,27 @@ class ReportController extends Controller
         $specialitywithAppointments = array();
 
 
-        foreach ($specialityCount as $sT ) {
-
+        foreach ($specialityCount as $sT) {
             $specialitywithAppointments[$sT->speciality->name]['total'] = $sT->total;
 
             foreach ($specialityCountCancelado as $sC) {
-
                 if ($sT->speciality_id == $sC->speciality_id) {
-
                     $specialitywithAppointments[$sT->speciality->name]['cancelado']= $sC->total;
                 }
             }
 
             foreach ($specialityCountPendiente as $sP) {
-
                 if ($sT->speciality_id == $sP->speciality_id) {
-
                     $specialitywithAppointments[$sT->speciality->name]['pendiente']= $sP->total;
                 }
             }
 
             foreach ($specialityCountAtendido as $sA) {
-
                 if ($sT->speciality_id == $sA->speciality_id) {
-
                     $specialitywithAppointments[$sT->speciality->name]['atendido']= $sA->total;
                 }
             }
-        }   
+        }
         
 
         //  dd($specialitywithAppointments);
@@ -113,32 +107,25 @@ class ReportController extends Controller
         $doctorwithAppointments = array();
 
         foreach ($doctorCount as $dT) {
-                
                 $doctorwithAppointments[$dT->doctor->nombres . ' ' . $dT->doctor->apellidos]['total'] = $dT->total;
     
-                foreach ($doctorCountCancelado as $dC) {
-    
-                    if ($dT->doctor_id == $dC->doctor_id) {
-    
-                        $doctorwithAppointments[$dT->doctor->nombres . ' ' . $dT->doctor->apellidos]['cancelado']= $dC->total;
-                    }
+            foreach ($doctorCountCancelado as $dC) {
+                if ($dT->doctor_id == $dC->doctor_id) {
+                    $doctorwithAppointments[$dT->doctor->nombres . ' ' . $dT->doctor->apellidos]['cancelado']= $dC->total;
                 }
+            }
     
-                foreach ($doctorCountPendiente as $dP) {
-    
-                    if ($dT->doctor_id == $dP->doctor_id) {
-    
-                        $doctorwithAppointments[$dT->doctor->nombres . ' ' . $dT->doctor->apellidos]['pendiente']= $dP->total;
-                    }
+            foreach ($doctorCountPendiente as $dP) {
+                if ($dT->doctor_id == $dP->doctor_id) {
+                    $doctorwithAppointments[$dT->doctor->nombres . ' ' . $dT->doctor->apellidos]['pendiente']= $dP->total;
                 }
+            }
     
-                foreach ($doctorCountAtendido as $dA) {
-    
-                    if ($dT->doctor_id == $dA->doctor_id) {
-    
-                        $doctorwithAppointments[$dT->doctor->nombres . ' ' . $dT->doctor->apellidos]['atendido']= $dA->total;
-                    }
+            foreach ($doctorCountAtendido as $dA) {
+                if ($dT->doctor_id == $dA->doctor_id) {
+                    $doctorwithAppointments[$dT->doctor->nombres . ' ' . $dT->doctor->apellidos]['atendido']= $dA->total;
                 }
+            }
         }
 
         //dd($doctorwithAppointments);
@@ -202,7 +189,6 @@ class ReportController extends Controller
 
         // store the amount of appointments per month and year in the array:
         foreach ($monthYearCount as $mY) {
-
             // $monthwithAppointments[$months[$mY->month] . ' ' . $mY->year]['total'] = $mY->total;
 
             $monthwithAppointments[$i]['month'] = $months[$mY->month];
@@ -210,9 +196,7 @@ class ReportController extends Controller
             $monthwithAppointments[$i]['total'] = $mY->total;
 
             foreach ($monthCountAtendido as $mA) {
-
                 if ($mY->month == $mA->month && $mY->year == $mA->year) {
-
                     // $monthwithAppointments[$months[$mY->month] . ' ' . $mY->year]['atendido'] = $mA->total;
 
                     $monthwithAppointments[$i]['atendido'] = $mA->total;
@@ -220,9 +204,7 @@ class ReportController extends Controller
             }
 
             foreach ($monthCountCancelado as $mC) {
-
                 if ($mY->month == $mC->month && $mY->year == $mC->year) {
-
                     // $monthwithAppointments[$months[$mY->month] . ' ' . $mY->year]['cancelado'] = $mC->total;
 
                     $monthwithAppointments[$i]['cancelado'] = $mC->total;
@@ -230,9 +212,7 @@ class ReportController extends Controller
             }
 
             foreach ($monthCountPendiente as $mP) {
-
                 if ($mY->month == $mP->month && $mY->year == $mP->year) {
-
                     // $monthwithAppointments[$months[$mY->month] . ' ' . $mY->year]['pendiente'] = $mP->total;
 
                     $monthwithAppointments[$i]['pendiente'] = $mP->total;
@@ -250,8 +230,6 @@ class ReportController extends Controller
 
 
         return view('admin.reports.mesCita', compact('monthwithAppointments', 'years'));
-
-
     }
 
 
@@ -286,41 +264,30 @@ class ReportController extends Controller
 
 
         foreach ($yearCount as $yT) {
-
             $yearwithAppointments[$yT->year]['total'] = $yT->total;
 
             foreach ($yearCountCancelado as $yC) {
-
                 if ($yT->year == $yC->year) {
-
                     $yearwithAppointments[$yT->year]['cancelado'] = $yC->total;
                 }
             }
 
             foreach ($yearCountPendiente as $yP) {
-
                 if ($yT->year == $yP->year) {
-
                     $yearwithAppointments[$yT->year]['pendiente'] = $yP->total;
                 }
             }
 
             foreach ($yearCountAtendido as $yA) {
-
                 if ($yT->year == $yA->year) {
-
                     $yearwithAppointments[$yT->year]['atendido'] = $yA->total;
                 }
             }
         }
 
 
-        // dd($yearwithAppointments);  
+        // dd($yearwithAppointments);
 
         return view('admin.reports.anoCita', compact('yearwithAppointments'));
-
     }
-
-
-
 }

@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\SpecialityController;
 use App\Http\Controllers\Admin\AppointmentController;
 use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\Secretaria\PacienteController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -57,7 +58,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         'prefix' => 'admin', //stands for the /admin route. I mean It is the URL
         'as' => 'admin.', // Son route names para referirme a ellos como admin.users.index por ejemplo.
 
-        ],function (){
+        ], function () {
             Route::resource('users', UserController::class);
             Route::resource('persons', PersonController::class);
             Route::get('persons/{user}/create', [PersonController::class, 'createSegunRol'])->name('persons.create.personrol');
@@ -71,16 +72,15 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
                 Route::get('/mes-cita', 'mesCita')->name('mes.cita');
                 Route::get('/year-cita', 'anoCita')->name('ano.cita');
             });
-    });
+        });
 
     Route::group([
         'prefix' => 'secretaria', //stands for the /admin route. I mean It is the URL
         'as' => 'secretaria.', // Son route names para referirme a ellos como secretaria.users.index por ejemplo.
         'middleware' => 'role:secretaria'
 
-        ],function (){
+        ], function () {
             Route::resource('pacientes', PacienteController::class);
             Route::post('imprimir-creedenciales', [PacienteController::class, 'imprimirCreedenciales'])->name('imprimir.creedenciales');
-    });
-
+        });
 });

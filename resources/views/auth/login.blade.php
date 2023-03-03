@@ -6,35 +6,50 @@
 
       <p class="login-box-msg h3">Inicia sesión</p>
 
+      
+      @if ($errors->any())
+
+        <div class="alert alert-danger text-center" role="alert">
+            {{ $errors->first()  }}
+        </div>
+
+      @else
+
+        <div class="text-center text-muted mb-4">
+          <small>Ingresa tus creedenciales</small>
+        </div>
+        
+      @endif
+
       <form method="POST" action="{{ route('login') }}">
         @csrf
 
         <div class="input-group mb-3">
-          <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" placeholder="Escribe tu Usuario" name="username" value="{{ old('username') }}" required autocomplete="username" autofocus>
+          <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" placeholder="Escribe tu Usuario" name="username" value="{{ old('username') }}"  autocomplete="username" autofocus>
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fa-solid fa-user"></span>
             </div>
           </div>
-          @error('username')
+          {{-- @error('username')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
             </span>
-          @enderror
+          @enderror --}}
         </div>
 
         <div class="input-group mb-3">
-          <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" placeholder="Digita tu Password" name="password" required autocomplete="current-password">
+          <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" placeholder="Digita tu Password" name="password"  autocomplete="current-password">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
             </div>
           </div>
-          @error('password')
+          {{-- @error('password')
             <span class="invalid-feedback" role="alert">
                 <strong>{{ $message }}</strong>
             </span>
-          @enderror
+          @enderror --}}
         </div>
 
 

@@ -9,7 +9,6 @@ use Illuminate\Auth\Notifications\VerifyEmail; // Agrego esta
 use Illuminate\Notifications\Messages\MailMessage; // Agrego esta
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
-
 class AuthServiceProvider extends ServiceProvider
 {
     /**
@@ -32,14 +31,13 @@ class AuthServiceProvider extends ServiceProvider
 
         // Implicitly grant "super-admin" role all permissions
         // This works in the app by using gate-related functions like auth()->user->can() and @can()
-        Gate::before(function ($user, $ability){
+        Gate::before(function ($user, $ability) {
             return $user->hasRole('super-admin') ? true : null;
         });
 
 
-        VerifyEmail::toMailUsing(function ($notifiable, $url)
-        {
-           return (new Mailmessage)
+        VerifyEmail::toMailUsing(function ($notifiable, $url) {
+            return (new Mailmessage)
             ->subject('Envio de creedenciales del sistema y verificación de cuenta')
             ->line('Bienvenido a nuestro sistema de atención médica.')
             ->line('Una vez dentro del sistema, debes cambiar tu contraseña por una de tu preferencia.')
@@ -47,7 +45,7 @@ class AuthServiceProvider extends ServiceProvider
             ->line('Usuario: '.$notifiable->username)
             ->line('Contraseña: password')
             ->line('Clic aqui para verificar tu cuenta:')
-            ->action('Verificar cuenta', $url); 
+            ->action('Verificar cuenta', $url);
         });
     }
 }

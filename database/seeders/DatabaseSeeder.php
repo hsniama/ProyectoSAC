@@ -34,8 +34,5 @@ class DatabaseSeeder extends Seeder
             // DetalleRecetaSeeder::class,
             // DetalleDiagnosticoSeeder::class,
         ]);
-
-
-    
     }
 }

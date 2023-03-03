@@ -30,7 +30,7 @@ class StoreAppointmentRequest extends FormRequest
             'scheduled_date' => ['required', 'date', 'after_or_equal:today'],
             'scheduled_time' => ['required', 'date_format:H:i'],
             'status' => ['required', 'in:Pendiente', 'string' ],
-            'notes' => ['required', 'string', 'max:255', 'min:3'],     
+            'notes' => ['required', 'string', 'max:255', 'min:3'],
         ];
     }
 }

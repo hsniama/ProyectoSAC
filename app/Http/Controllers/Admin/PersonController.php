@@ -9,7 +9,6 @@ use App\Http\Requests\StorePersonRequest;
 use App\Http\Requests\UpdatePersonRequest;
 use App\Http\Controllers\Controller; // yo agregue esta
 
-
 class PersonController extends Controller
 {
     /**
@@ -18,12 +17,13 @@ class PersonController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-     public function __construct(){
-         $this->middleware('can:person-list')->only('index');
-         $this->middleware('can:person-create')->only('create', 'store');
-         $this->middleware('can:person-edit')->only('edit', 'update');
-         $this->middleware('can:person-delete')->only('destroy');
-         $this->middleware('can:person-show')->only('show');
+    public function __construct()
+    {
+        $this->middleware('can:person-list')->only('index');
+        $this->middleware('can:person-create')->only('create', 'store');
+        $this->middleware('can:person-edit')->only('edit', 'update');
+        $this->middleware('can:person-delete')->only('destroy');
+        $this->middleware('can:person-show')->only('show');
     }
 
 
@@ -33,7 +33,6 @@ class PersonController extends Controller
         $persons = Person::with(['user.roles', 'specialities'])->get();
 
         return view('admin.persons.index', compact('persons'));
-
     }
 
     /**
@@ -62,9 +61,8 @@ class PersonController extends Controller
             $specialities = Speciality::where('status', 'Activo')->get();
 
             return view('admin.persons.create-personrol', compact('user', 'specialities'));
-            
-        } else{
-            return view('admin.persons.create-personrol', compact('user'));         
+        } else {
+            return view('admin.persons.create-personrol', compact('user'));
         }
     }
 

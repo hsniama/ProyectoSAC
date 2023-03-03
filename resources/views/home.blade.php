@@ -202,7 +202,7 @@
                                                     <p>Citas agendadas</p>
                                                 </div>
                                                 <div class="icon">
-                                                    <i class="ion ion-pie-graph"></i>
+                                                    <i class="fa-regular fa-calendar-check"></i>
                                                 </div>
                                                 <a href="{{ route('admin.appointments.index') }}" class="small-box-footer">Mas información <i class="fas fa-arrow-circle-right"></i></a>
                                                 </div>

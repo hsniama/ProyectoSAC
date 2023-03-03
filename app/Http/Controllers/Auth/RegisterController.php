@@ -59,7 +59,7 @@ class RegisterController extends Controller
             //'password' => ['required', 'string', 'min:8', 'confirmed'],
             'nombres' => ['required', 'string', 'max:255'],
             'apellidos' => ['required', 'string', 'max:255'],
-            'cedula' => ['required', 'string', 'max:255', 'unique:persons,cedula'],
+            'cedula' => ['required', 'string', 'max:255', 'unique:people,cedula'],
         ]);
     }
 
@@ -92,7 +92,5 @@ class RegisterController extends Controller
         return $user;
 
         //return two variables $user and $clave
-        
-
     }
 }

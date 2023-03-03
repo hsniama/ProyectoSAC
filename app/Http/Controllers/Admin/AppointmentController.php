@@ -9,11 +9,11 @@ use App\Http\Requests\StoreAppointmentRequest;
 use App\Http\Requests\UpdateAppointmentRequest;
 use App\Http\Controllers\Controller; // yo agregue esta
 
-
 class AppointmentController extends Controller
 {
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->middleware('can:appointment-list')->only('index');
         $this->middleware('can:appointment-create')->only('create', 'store');
         $this->middleware('can:appointment-edit')->only('edit', 'update');
@@ -42,11 +42,11 @@ class AppointmentController extends Controller
      */
     public function create()
     {
-        $patients = Person::whereHas('user.roles', function($query){
+        $patients = Person::whereHas('user.roles', function ($query) {
             $query->where('name', 'paciente');
         })->get();
 
-        $doctors = Person::whereHas('user.roles', function($query){
+        $doctors = Person::whereHas('user.roles', function ($query) {
             $query->where('name', 'doctor');
         })->get();
 
@@ -82,7 +82,6 @@ class AppointmentController extends Controller
         $appointment->load('patient', 'doctor', 'speciality');
 
         return view('admin.appointments.show', compact('appointment'));
-
     }
 
     /**
@@ -105,7 +104,7 @@ class AppointmentController extends Controller
         //$doctors = Person::whereHas('specialities')->get();
 
         // Bring the doctors that have the same specialities
-        $doctors = Person::whereHas('specialities', function($query) use ($appointment){
+        $doctors = Person::whereHas('specialities', function ($query) use ($appointment) {
             $query->where('speciality_id', $appointment->speciality_id);
         })->get();
 
@@ -117,13 +116,7 @@ class AppointmentController extends Controller
         return view('admin.appointments.edit', compact('appointment', 'specialities', 'paciente', 'doctorCita', 'doctors'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateAppointmentRequest  $request
-     * @param  \App\Models\Appointment  $appointment
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(UpdateAppointmentRequest $request, Appointment $appointment)
     {
         $appointment->update($request->all());
@@ -145,5 +138,4 @@ class AppointmentController extends Controller
 
         return redirect()->route('admin.appointments.index')->with('success', 'La cita se eliminó con éxito');
     }
- 
 }

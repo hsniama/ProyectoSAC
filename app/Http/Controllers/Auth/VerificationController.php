@@ -53,7 +53,5 @@ class VerificationController extends Controller
 
             return '/password/reset';
         }
-
     }
-
 }

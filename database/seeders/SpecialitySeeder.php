@@ -60,8 +60,6 @@ class SpecialitySeeder extends Seeder
 
 
         // Creo 5 mas elementos random.
-        //Speciality::factory()->count(5)->create();  
-        
-  
+        //Speciality::factory()->count(5)->create();
     }
 }

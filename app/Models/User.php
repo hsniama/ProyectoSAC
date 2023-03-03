@@ -12,7 +12,7 @@ use Spatie\Permission\Traits\HasRoles; // agrego desde spatie
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles; 
+    use HasApiTokens, HasFactory, Notifiable, HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -71,5 +71,4 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return User::role('doctor')->count();
     }
-
 }

@@ -75,7 +75,7 @@ class UserSeeder extends Seeder
         User::factory(100)->create()->each(function ($user) {
             $user->assignRole('paciente');
             $user->person()->save(Person::factory()->make());
-        });	
+        });
 
                 // // Vale muy bien para crear 10 usuarios pacientes con relacion a person
                 // User::factory(10)->create()->each(function ($user) {
@@ -87,7 +87,7 @@ class UserSeeder extends Seeder
         // User::factory(5)->create()->each(function ($user) {
         //     $user->assignRole('doctor');
         //     $user->person()->save(Person::factory()->make());
-        // });	
+        // });
 
         // Llenar automaticamente 10 usuarios doctores random con factory con relacion a person y cada person
         // con una especialidad:
@@ -104,7 +104,5 @@ class UserSeeder extends Seeder
             $user->person()->save(Person::factory()->make(['nombres' => 'Dr. ']));
             $user->person->specialities()->save(Speciality::factory()->make());
         });
-
-
     }
 }

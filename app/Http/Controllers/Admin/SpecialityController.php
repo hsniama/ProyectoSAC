@@ -7,11 +7,11 @@ use App\Http\Requests\StoreSpecialityRequest;
 use App\Http\Requests\UpdateSpecialityRequest;
 use App\Http\Controllers\Controller; // yo agregue esta
 
-
 class SpecialityController extends Controller
 {
 
-    public function __construct(){
+    public function __construct()
+    {
         $this->middleware('can:especialidad-list')->only('index');
         $this->middleware('can:especialidad-create')->only('create', 'store');
         $this->middleware('can:especialidad-edit')->only('edit', 'update');
@@ -26,7 +26,7 @@ class SpecialityController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {  
+    {
         $specialities = Speciality::all();
         return view('admin.specialities.index', compact('specialities'));
     }
@@ -63,7 +63,6 @@ class SpecialityController extends Controller
      */
     public function show(Speciality $speciality)
     {
-        
     }
 
     /**

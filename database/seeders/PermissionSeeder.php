@@ -100,7 +100,7 @@ class PermissionSeeder extends Seeder
             'detalle-diagnostico-delete',
         ];
 
-        foreach($permissions as $permission){
+        foreach ($permissions as $permission) {
             Permission::create(['name' => $permission]);
         }
 
@@ -108,7 +108,7 @@ class PermissionSeeder extends Seeder
         // ASIGNACION DE PERMISOS A GERENTE
         $gerente = Role::where('name', 'gerente')->first();
         // Tiene acceso a todos los módulos y funcionalidades del sistema.
-        //Tiene acceso al módulo de Estadísticas en Salud.   
+        //Tiene acceso al módulo de Estadísticas en Salud.
 
         $gerentePermissions = [
             'welcome',
@@ -163,7 +163,7 @@ class PermissionSeeder extends Seeder
 
         //ASIGNACION DE PERMISOS A ADMINISTRADOR
         $administrador = Role::where('name', 'admin')->first();
-        //Tiene acceso a todos los módulos y funcionalidades del sistema. 
+        //Tiene acceso a todos los módulos y funcionalidades del sistema.
 
         $adminPermissions = [
             'welcome',
@@ -207,7 +207,7 @@ class PermissionSeeder extends Seeder
                 'especialidad-show',
                 'especialidad-create',
                 'especialidad-edit',
-                'especialidad-delete',  
+                'especialidad-delete',
         ];
 
         foreach ($adminPermissions as $permission) {
@@ -216,7 +216,7 @@ class PermissionSeeder extends Seeder
 
         // ASIGNACION DE PERMISOS A DOCTOR
         $doctor = Role::where('name', 'doctor')->first();
-        // Tiene acceso solo al módulo Visualización de appointments por parte del Médico. 
+        // Tiene acceso solo al módulo Visualización de appointments por parte del Médico.
         // (Puede ver las appointments asignadas a él, pero no puede modificarlas, ni eliminarlas, ni reprogramarlas.)
 
         $doctorPermissions = [
@@ -236,7 +236,7 @@ class PermissionSeeder extends Seeder
 
         // ASIGNACION DE PERMISOS A SECRETARIA
         $secretaria = Role::where('name', 'secretaria')->first();
-        // Tiene acceso solo al módulo de Gestión de appointments. 
+        // Tiene acceso solo al módulo de Gestión de appointments.
         // Puede registrar a un paciente (antes debe registrar un usuario) y asignarle una appointment.
         // Puede imprimir creedenciales de acceso al sistema para el paciente (User y Password).
 
@@ -282,6 +282,5 @@ class PermissionSeeder extends Seeder
         foreach ($pacientePermissions as $permission) {
             $paciente->givePermissionTo($permission);
         }
-
     }
 }

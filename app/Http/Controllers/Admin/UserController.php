@@ -25,12 +25,13 @@ class UserController extends Controller
     resource y no le puedo definir a cada una, entonces defino mi logica aqui.
     */
 
-     public function __construct(){
-         $this->middleware('can:user-list')->only('index');
-         $this->middleware('can:user-create')->only('create', 'store');
-         $this->middleware('can:user-edit')->only('edit', 'update');
-         $this->middleware('can:user-delete')->only('destroy');
-         $this->middleware('can:user-show')->only('show');
+    public function __construct()
+    {
+        $this->middleware('can:user-list')->only('index');
+        $this->middleware('can:user-create')->only('create', 'store');
+        $this->middleware('can:user-edit')->only('edit', 'update');
+        $this->middleware('can:user-delete')->only('destroy');
+        $this->middleware('can:user-show')->only('show');
     }
 
 
@@ -71,8 +72,9 @@ class UserController extends Controller
         $request->validated();
 
         if ($request['email_verified_at'] == 'Si') {
-            $confirmado = Carbon::now();;
-        }else{
+            $confirmado = Carbon::now();
+            ;
+        } else {
             $confirmado= null;
         }
 
@@ -123,15 +125,15 @@ class UserController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(UpdateUserRequest $request, User $user)
-    {    
+    {
         // $user->update($request->validated());
 
         $request->validated();
 
         
-        if($request['password'] == null){        
+        if ($request['password'] == null) {
             $user::where('id', $user->id)->update(['password' => $user->password]);
-        }else {
+        } else {
             $user::where('id', $user->id)->update(['password' => Hash::make($request['password'])]);
         }
         

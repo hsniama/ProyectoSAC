@@ -23,7 +23,7 @@ class SpecialityFactory extends Factory
             'name' => fake()->unique()->jobTitle(),
             'description' => fake()->realText(),
             'status' => fake()->randomElement(['Activo', 'Activo']),
-            'created_by' => fake()->name(), 
+            'created_by' => fake()->name(),
             'updated_by' => fake()->name(),
         ];
     }

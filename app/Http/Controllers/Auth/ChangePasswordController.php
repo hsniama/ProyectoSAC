@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Controllers\Controller; // yo agregue esta
 
-
 class ChangePasswordController extends Controller
 {
     //create invoke function
@@ -35,15 +34,12 @@ class ChangePasswordController extends Controller
         $user = User::find(auth()->user()->id);
 
         if (Hash::check($request->current_password, $user->password)) {
-
             $user->password = Hash::make($request->new_password);
             $user->save();
 
             return redirect()->back()->with('success', 'Contraseña cambiada exitosamente!');
-
         } else {
             return redirect()->back()->with('error', 'La contraseña actual no es correcta!');
         }
     }
-    
 }

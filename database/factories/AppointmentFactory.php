@@ -20,18 +20,18 @@ class AppointmentFactory extends Factory
     public function definition()
     {
 
-        $idDoctor = Person::whereHas('user', function($query){
-            $query->whereHas('roles', function($query){
+        $idDoctor = Person::whereHas('user', function ($query) {
+            $query->whereHas('roles', function ($query) {
                 $query->where('name', 'doctor');
             });
         })->inRandomOrder()->first()->id;
 
         return [
             'patient_id' =>  // Get the first patient
-                            Person::whereHas('user', function($query){
-                                $query->whereHas('roles', function($query){
-                                $query->where('name', 'paciente');
-                            });
+                            Person::whereHas('user', function ($query) {
+                                $query->whereHas('roles', function ($query) {
+                                    $query->where('name', 'paciente');
+                                });
                             })->inRandomOrder()->first()->id,
             'doctor_id' =>  $idDoctor,
             'speciality_id' => // Bring the id of a random speciality that belongs to a person with role doctor:

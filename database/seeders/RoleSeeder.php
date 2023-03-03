@@ -17,7 +17,7 @@ class RoleSeeder extends Seeder
     public function run()
     {
         /*
-        gerente => todos los modulos y permisos ademas del modulo de estadisticas de salud. 
+        gerente => todos los modulos y permisos ademas del modulo de estadisticas de salud.
         admin => todos los modulos y permisos.
         secretaria => acceso al modulo de gestion de citas. Registrar paciente y generar/imprimir creedenciales, ver citas ya registradas, registrar citas para paciente
         doctor => acceso al modulo de visualizacion de citas por parte del medico. ver agenda de citas que tiene asignadas, hacer la consulta y llenar campos de la cita.
@@ -30,7 +30,5 @@ class RoleSeeder extends Seeder
         Role::create(['name' => 'doctor']);
         Role::create(['name' => 'secretaria']);
         Role::create(['name' => 'paciente']);
-
-
     }
 }

@@ -16,9 +16,10 @@ class ProfileController extends Controller
         //return view('profile.create');
     }
 
-     public function __construct(){
-         $this->middleware('can:profile-create')->only('create', 'store');
-         $this->middleware('can:profile-edit')->only('edit', 'update');
+    public function __construct()
+    {
+        $this->middleware('can:profile-create')->only('create', 'store');
+        $this->middleware('can:profile-edit')->only('edit', 'update');
     }
 
     public function create()
@@ -75,5 +76,4 @@ class ProfileController extends Controller
 
         return redirect()->route('home')->with('success', 'Perfil actualizado con éxito');
     }
-
 }

@@ -8,7 +8,6 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-
 class PacienteController extends Controller
 {
 
@@ -22,7 +21,8 @@ class PacienteController extends Controller
         //return view('paciente.create');
     }
     
-    public function __construct(){
+    public function __construct()
+    {
         $this->middleware('can:paciente-list')->only('index');
         $this->middleware('can:paciente-create')->only('create', 'store');
         // $this->middleware('can:paciente-edit')->only('edit', 'update');
@@ -31,7 +31,7 @@ class PacienteController extends Controller
     }
 
     public function index()
-    {  
+    {
         //----------------------------------------------------------------------------------------------
         // Primera forma: no me sirvio aqui no se por que.
         // $pacientes = Person::with([
@@ -67,18 +67,17 @@ class PacienteController extends Controller
 
         // ------------------------------------------------------------------------------------------------
         // Cuarta Forma: la mas optimizada
-         $personsRolPaciente = Person::whereHas('user.roles', function($query){
+         $personsRolPaciente = Person::whereHas('user.roles', function ($query) {
             $query->where('name', 'paciente');
-        })->with('user')->get();
+         })->with('user')->get();
         /*
-        This will retrieve all 'Person' records that have a related 'User' model with a role named 'secretaria' 
+        This will retrieve all 'Person' records that have a related 'User' model with a role named 'secretaria'
         directly from the database, without the need for the foreach loop.
-        This way you are saving time and memory by not having to iterate over all the pacientes and check if they 
+        This way you are saving time and memory by not having to iterate over all the pacientes and check if they
         have the role of secretaria.
         */
 
         return view('secretaria.pacientes.index', compact('personsRolPaciente'));
-
     }
 
 
@@ -95,7 +94,7 @@ class PacienteController extends Controller
         $request->validate([
             'username' => ['required', 'string', 'max:15', 'unique:users,username', 'alpha_dash'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
-            'cedula' => ['required', 'string', 'max:255', 'unique:persons,cedula'],
+            'cedula' => ['required', 'string', 'max:255', 'unique:people,cedula'],
             'apellidos' => ['required', 'string', 'max:255'],
             'nombres' => ['required', 'string', 'max:255'],
             'telefono' => ['required', 'string', 'max:255'],
@@ -145,7 +144,6 @@ class PacienteController extends Controller
         $pdf = PDF::loadView('secretaria.pacientes.print-creedentials', compact('username', 'nombres', 'apellidos', 'password', 'fecha'))
                 ->setPaper('a4', 'portrait');
 
-        return $pdf->download('creedenciales'.$username.time().'.pdf');    
+        return $pdf->download('creedenciales'.$username.time().'.pdf');
     }
-
 }

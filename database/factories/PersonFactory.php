@@ -29,6 +29,5 @@ class PersonFactory extends Factory
             'fecha_nacimiento' => fake()->date(),
             'genero' => fake()->randomElement(['Masculino', 'Femenino', 'Otro']),
         ];
-
     }
 }

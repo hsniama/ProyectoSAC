@@ -37,7 +37,7 @@ class Person extends Model
     }
 
     // Relationship with Speciality
-    public function specialities( )
+    public function specialities()
     {
         return $this->belongsToMany(Speciality::class)->withTimestamps();
     }
@@ -83,6 +83,4 @@ class Person extends Model
     {
         return $this->specialities->isNotEmpty();
     }
-
-
 }
