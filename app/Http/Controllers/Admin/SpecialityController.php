@@ -27,7 +27,9 @@ class SpecialityController extends Controller
      */
     public function index()
     {
-        $specialities = Speciality::all();
+        //$specialities = Speciality::all();
+        $specialities = Speciality::select('id', 'name', 'description', 'status', 'created_by', 'updated_by')->get();
+
         return view('admin.specialities.index', compact('specialities'));
     }
 

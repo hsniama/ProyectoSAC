@@ -23,7 +23,7 @@ class RoleController extends Controller
     public function index()
     {
         // $roles = Role::all(); Da problema con duplicidad de datos y n+1.
-        $roles = Role::with('permissions')->get();
+        $roles = Role::with('permissions:name')->select('id','name')->get();
 
         return view('admin.roles.index', compact('roles'));
     }

@@ -30,7 +30,10 @@ class AppointmentController extends Controller
     {
         //$appointments = Appointment::all();
 
-        $appointments = Appointment::with('patient', 'doctor', 'speciality')->get();
+        // $appointments = Appointment::with('patient', 'doctor', 'speciality')->get();
+
+        $appointments = Appointment::with('patient:id,nombres,apellidos,cedula', 'doctor:id,nombres,apellidos', 'speciality:id,name')
+        ->select('id', 'patient_id', 'doctor_id', 'speciality_id', 'scheduled_time', 'scheduled_date', 'status', 'notes')->get();
 
         return view('admin.appointments.index', compact('appointments'));
     }

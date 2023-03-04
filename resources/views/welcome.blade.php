@@ -446,7 +446,7 @@
                                     </div>
                                     <div class="col-lg-4 text-center order-1 order-lg-2">
                                         <img src="{{ asset('assets/img/departments-1.jpg') }}" alt=""
-                                            class="img-fluid">
+                                            class="img-fluid" loading = "lazy">
                                     </div>
                                 </div>
                             </div>
@@ -461,7 +461,7 @@
                                     </div>
                                     <div class="col-lg-4 text-center order-1 order-lg-2">
                                         <img src="{{ asset('assets/img/departments-2.jpg') }}" alt=""
-                                            class="img-fluid">
+                                            class="img-fluid" loading = "lazy">
                                     </div>
                                 </div>
                             </div>
@@ -476,7 +476,7 @@
                                     </div>
                                     <div class="col-lg-4 text-center order-1 order-lg-2">
                                         <img src="{{ asset('assets/img/departments-3.jpg') }}" alt=""
-                                            class="img-fluid">
+                                            class="img-fluid" loading = "lazy">
                                     </div>
                                 </div>
                             </div>
@@ -490,7 +490,7 @@
                                     </div>
                                     <div class="col-lg-4 text-center order-1 order-lg-2">
                                         <img src="{{ asset('assets/img/departments-4.jpg') }}" alt=""
-                                            class="img-fluid">
+                                            class="img-fluid" loading = "lazy">
                                     </div>
                                 </div>
                             </div>
@@ -505,7 +505,7 @@
                                     </div>
                                     <div class="col-lg-4 text-center order-1 order-lg-2">
                                         <img src="{{ asset('assets/img/departments-5.jpg') }}" alt=""
-                                            class="img-fluid">
+                                            class="img-fluid" loading = "lazy">
                                     </div>
                                 </div>
                             </div>
@@ -531,7 +531,7 @@
                     <div class="col-lg-6">
                         <div class="member d-flex align-items-start">
                             <div class="pic"><img src="assets/img/doctors/doctors-1.jpg" class="img-fluid"
-                                    alt=""></div>
+                                    alt="" loading = "lazy"></div>
                             <div class="member-info">
                                 <h4>Dr. Juan Pérez: </h4>
                                 <span>Cardiólogo</span>
@@ -550,7 +550,7 @@
                     <div class="col-lg-6 mt-4 mt-lg-0">
                         <div class="member d-flex align-items-start">
                             <div class="pic"><img src="assets/img/doctors/doctors-2.jpg" class="img-fluid"
-                                    alt=""></div>
+                                    alt="" loading = "lazy"></div>
                             <div class="member-info">
                                 <h4>Dra. Maria González:</h4>
                                 <span>Ginecóloga</span>
@@ -570,7 +570,7 @@
                     <div class="col-lg-6 mt-4">
                         <div class="member d-flex align-items-start">
                             <div class="pic"><img src="assets/img/doctors/doctors-3.jpg" class="img-fluid"
-                                    alt=""></div>
+                                    alt="" loading = "lazy"></div>
                             <div class="member-info">
                                 <h4>Dr. Carlos Rodriguez</h4>
                                 <span>Neurólogo</span>
@@ -590,7 +590,7 @@
                     <div class="col-lg-6 mt-4">
                         <div class="member d-flex align-items-start">
                             <div class="pic"><img src="assets/img/doctors/doctors-4.jpg" class="img-fluid"
-                                    alt=""></div>
+                                    alt="" loading = "lazy"></div>
                             <div class="member-info">
                                 <h4>Dra. Ana Martínez</h4>
                                 <span>Oncóloga</span>
@@ -700,7 +700,7 @@
                             <div class="testimonial-wrap">
                                 <div class="testimonial-item">
                                     <img src="assets/img/testimonials/testimonials-1.jpg" class="testimonial-img"
-                                        alt="">
+                                        alt="" loading = "lazy">
                                     <h3>El Mago Maldivia</h3>
                                     <h4>Contador</h4>
                                     <p>
@@ -718,7 +718,7 @@
                             <div class="testimonial-wrap">
                                 <div class="testimonial-item">
                                     <img src="assets/img/testimonials/testimonials-2.jpg" class="testimonial-img"
-                                        alt="">
+                                        alt="" loading = "lazy">
                                     <h3>Luz Jiménez</h3>
                                     <h4>Empresaria</h4>
                                     <p>
@@ -737,7 +737,7 @@
                             <div class="testimonial-wrap">
                                 <div class="testimonial-item">
                                     <img src="assets/img/testimonials/testimonials-3.jpg" class="testimonial-img"
-                                        alt="">
+                                        alt="" loading = "lazy">
                                     <h3>Jena Merlina</h3>
                                     <h4>Paciente</h4>
                                     <p>
@@ -756,7 +756,7 @@
                             <div class="testimonial-wrap">
                                 <div class="testimonial-item">
                                     <img src="assets/img/testimonials/testimonials-4.jpg" class="testimonial-img"
-                                        alt="">
+                                        alt="" loading = "lazy">
                                     <h3>El Pollo Vignolo</h3>
                                     <h4>Freelancer</h4>
                                     <p>
@@ -774,7 +774,7 @@
                             <div class="testimonial-wrap">
                                 <div class="testimonial-item">
                                     <img src="assets/img/testimonials/testimonials-5.jpg" class="testimonial-img"
-                                        alt="">
+                                        alt="" loading = "lazy">
                                     <h3>Santi Martinelli</h3>
                                     <h4>Emprendedor</h4>
                                     <p>
@@ -813,7 +813,7 @@
                         <div class="gallery-item">
                             <a href="{{ asset('assets/img/gallery/gallery-1.jpg') }}" class="galelry-lightbox">
                                 <img src="{{ asset('assets/img/gallery/gallery-1.jpg') }}" alt=""
-                                    class="img-fluid">
+                                    class="img-fluid" loading = "lazy">
                             </a>
                         </div>
                     </div>
@@ -822,7 +822,7 @@
                         <div class="gallery-item">
                             <a href="{{ asset('assets/img/gallery/gallery-2.jpg') }}" class="galelry-lightbox">
                                 <img src="{{ asset('assets/img/gallery/gallery-2.jpg') }}" alt=""
-                                    class="img-fluid">
+                                    class="img-fluid" loading = "lazy">
                             </a>
                         </div>
                     </div>
@@ -831,7 +831,7 @@
                         <div class="gallery-item">
                             <a href="{{ asset('assets/img/gallery/gallery-3.jpg') }}" class="galelry-lightbox">
                                 <img src="{{ asset('assets/img/gallery/gallery-3.jpg') }}" alt=""
-                                    class="img-fluid">
+                                    class="img-fluid" loading = "lazy">
                             </a>
                         </div>
                     </div>
@@ -840,7 +840,7 @@
                         <div class="gallery-item">
                             <a href="{{ asset('assets/img/gallery/gallery-4.jpg') }}" class="galelry-lightbox">
                                 <img src="{{ asset('assets/img/gallery/gallery-4.jpg') }}" alt=""
-                                    class="img-fluid">
+                                    class="img-fluid" loading = "lazy">
                             </a>
                         </div>
                     </div>
@@ -849,7 +849,7 @@
                         <div class="gallery-item">
                             <a href="{{ asset('assets/img/gallery/gallery-5.jpg') }}" class="galelry-lightbox">
                                 <img src="{{ asset('assets/img/gallery/gallery-5.jpg') }}" alt=""
-                                    class="img-fluid">
+                                    class="img-fluid" loading = "lazy">
                             </a>
                         </div>
                     </div>
@@ -858,7 +858,7 @@
                         <div class="gallery-item">
                             <a href="{{ asset('assets/img/gallery/gallery-6.jpg') }}" class="galelry-lightbox">
                                 <img src="{{ asset('assets/img/gallery/gallery-6.jpg') }}" alt=""
-                                    class="img-fluid">
+                                    class="img-fluid" loading = "lazy">
                             </a>
                         </div>
                     </div>
@@ -867,7 +867,7 @@
                         <div class="gallery-item">
                             <a href="{{ asset('assets/img/gallery/gallery-7.jpg') }}" class="galelry-lightbox">
                                 <img src="{{ asset('assets/img/gallery/gallery-7.jpg') }}" alt=""
-                                    class="img-fluid">
+                                    class="img-fluid" loading = "lazy">
                             </a>
                         </div>
                     </div>
@@ -876,7 +876,7 @@
                         <div class="gallery-item">
                             <a href="{{ asset('assets/img/gallery/gallery-8.jpg') }}" class="galelry-lightbox">
                                 <img src="{{ asset('assets/img/gallery/gallery-8.jpg') }}" alt=""
-                                    class="img-fluid">
+                                    class="img-fluid" loading = "lazy">
                             </a>
                         </div>
                     </div>

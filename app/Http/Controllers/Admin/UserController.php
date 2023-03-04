@@ -40,10 +40,12 @@ class UserController extends Controller
     {
         // $users = User::all(); Me da problemas de duplicidad de datos y n+1.
 
-        // $users = User::with('roles')->get();
-        // $users = User::with(['roles', 'person'])->get();
+        // $users = User::with(['roles:name', 'person.specialities:name'])
+        // ->select('id', 'username', 'email', 'created_at', 'updated_at')->paginate(10);
 
-        $users = User::with(['roles', 'person.specialities'])->get();
+        $users = User::with(['roles:name', 'person.specialities:name'])
+        ->select('id', 'username', 'email', 'created_at', 'updated_at')->get();
+
 
         return view('admin.users.index', compact('users'));
     }

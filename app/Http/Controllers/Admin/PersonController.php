@@ -30,7 +30,14 @@ class PersonController extends Controller
     public function index()
     {
         // $persons = Person::with('user')->get();
-        $persons = Person::with(['user.roles', 'specialities'])->get();
+        // $persons = Person::with(['user.roles', 'specialities'])->get();
+
+        $persons = Person::with(['user.roles' => function($query) {
+            $query->select('name');
+        }, 'specialities' => function($query) {
+            $query->select('name');
+        }
+        ])->select('id', 'cedula', 'apellidos', 'nombres', 'genero', 'user_id')->get();
 
         return view('admin.persons.index', compact('persons'));
     }
@@ -43,12 +50,8 @@ class PersonController extends Controller
     public function create()
     {
         // Necesito saber a que usuario le voy  a crear la person
-        // $users = User::all(); Da problemas de duplicidad de datos y n+1.
-        $users = User::with('person')->get();
-
-        // Bring the specialities that have status active
-        //$specialities = Speciality::where('status', 'Activo')->get();
-
+        //$users = User::all(); //Da problemas de duplicidad de datos y n+1.
+        $users = User::with('person')->select('id', 'username')->get();
 
         return view('admin.persons.create', compact('users'));
     }
