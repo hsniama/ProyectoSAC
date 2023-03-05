@@ -77,9 +77,9 @@
                                                 <td>{{ $especialidad->description }}</td>
                                                 <td>
                                                     @if ($especialidad->status == 'Activo')
-                                                        <span class="badge bg-success fs-6">Activo</span>
+                                                        <span class="badge bg-success">Activo</span>
                                                     @else
-                                                        <span class="badge bg-danger fs-6">Inactivo</span>
+                                                        <span class="badge bg-danger">Inactivo</span>
                                                     @endif
                                                 </td>
                                                 <td>{{ $especialidad->created_by }}</td>

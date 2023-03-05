@@ -58,7 +58,7 @@
 
 
                             <div class="table-responsive">
-                                <table id="tablaDataTable"
+                                <table id="usuariosTabla"
                                     class="table table-striped table-bordered zero-configuration text-center">
                                     <thead>
                                         <tr>
@@ -66,14 +66,14 @@
                                             <th>Username</th>
                                             <th>Email</th>
                                             <th>Roles</th>
-                                            <th>Creado el</th>
-                                            <th>Actualizado el</th>
+                                            {{-- <th>Creado el</th>
+                                            <th>Actualizado el</th> --}}
                                             <th>Observaciones</th>
                                             <th>Acciones</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($users as $user)
+                                        {{-- @foreach ($users as $user)
                                             <tr>
                                                 <td>{{ $user->id }}</td>
                                                 <td>{{ $user->username }}</td>
@@ -154,7 +154,7 @@
 
                                                 </td>
                                             </tr>
-                                        @endforeach
+                                        @endforeach --}}
                                     </tbody>
                                 </table>
                             </div>
@@ -170,4 +170,116 @@
             <!--row-->
         </div><!-- /.container-fluid -->
     </div><!-- /.content -->
+@endsection
+
+
+@section('scripts')
+
+    @can('export-buttons')
+    <script>
+        $(document).ready(function() {
+            $('#usuariosTabla').DataTable({
+ 
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('admin.users.index') }}",
+                dataType: 'json',
+                type: 'GET',
+                columns: [{
+                        data: 'id', name: 'id'
+                    },
+                    {
+                        data: 'username', name: 'username'
+                    },
+                    {
+                        data: 'email', name: 'email'
+                    },
+                    {
+                        data: 'roles', name: 'roles'
+                    },
+                    // {
+                    //     data: 'created_at', name: 'created_at'
+                    // },
+                    // {
+                    //     data: 'updated_at', name: 'updated_at'
+                    // },
+                    {
+                        data: 'observaciones', name: 'observaciones'
+                    },
+                    {
+                        data: 'actions',
+                        name: 'actions',
+                        orderable: false,
+                        searchable: false 
+                    }
+                ],
+
+                scrollY : 300,
+                
+                dom: 'Bfrtip',
+                buttons: 
+                [
+                    {
+                        extend: 'copy',
+                        text: 'Copiar',
+                        className: 'btn-secondary'
+                    },
+                    {
+                        extend: 'excel',
+                        exportOptions: {
+                            columns: ':visible'
+                        },
+                        text: 'Excel',
+                        className: 'btn-success'
+                    },
+                    {
+                        extend: 'csv',
+                        exportOptions: {
+                            columns: ':visible'
+                        },
+                        text: 'CSV',  
+                        className: 'btn-primary'
+                    },
+                    {
+                        extend: 'pdf',
+                        messageBottom: "Impreso el " + new Date().toLocaleDateString() + " a las " + new Date().toLocaleTimeString(),
+                        exportOptions: {
+                            columns: ':visible'
+                        },
+                        text: 'PDF',
+                        className: 'btn-danger'
+                    },
+                    {
+                        extend: 'print',
+                        messageBottom: "Impreso el " + new Date().toLocaleDateString() + " a las " + new Date().toLocaleTimeString(),
+                        text: 'Imprimir',
+                        exportOptions: {
+                            columns: ':visible'
+                        },
+                        className: 'btn-info'
+                    },
+                    ,
+                    { 
+                        extend: 'spacer',
+                        style : 'bar'
+                    },
+                    {
+                        extend: 'colvis',
+                        text: 'Escoger Columnas',
+                        className: 'btn-warning'
+                    },
+                ],
+
+            });
+        });
+
+
+    </script>
+    @endcan
+
+
+
+
+
+
 @endsection

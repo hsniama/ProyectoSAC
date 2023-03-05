@@ -3,14 +3,16 @@
 namespace App\Http\Controllers\Admin; //ojo que yo cambie esta, por que cree la carpeta de Admin
 
 use App\Models\User;
+use Carbon\Carbon; // yo agregue esta
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
-use App\Http\Controllers\Controller; // yo agregue esta
-use Illuminate\Support\Facades\DB; // yo agregue esta
-use Illuminate\Support\Facades\Hash; // yo agregue esta
-use Spatie\Permission\Models\Role; // yo agregue esta
 use Illuminate\Support\Arr; // yo agregue esta
-use Carbon\Carbon; // yo agregue esta
+use Illuminate\Support\Facades\DB; // yo agregue esta
+use Spatie\Permission\Models\Role; // yo agregue esta
+use App\Http\Controllers\Controller; // yo agregue esta
+use Illuminate\Support\Facades\Hash; // yo agregue esta
+use Yajra\DataTables\DataTables; // yo agregue esta
+use Illuminate\Http\Request; // yo agregue esta
 
 class UserController extends Controller
 {
@@ -36,18 +38,106 @@ class UserController extends Controller
 
 
 
-    public function index()
+    public function index(Request $request)
     {
         // $users = User::all(); Me da problemas de duplicidad de datos y n+1.
 
         // $users = User::with(['roles:name', 'person.specialities:name'])
-        // ->select('id', 'username', 'email', 'created_at', 'updated_at')->paginate(10);
+        // ->select('id', 'username', 'email', 'created_at', 'updated_at')->get();
 
-        $users = User::with(['roles:name', 'person.specialities:name'])
-        ->select('id', 'username', 'email', 'created_at', 'updated_at')->get();
+        // return view('admin.users.index', compact('users'));
+
+        if ($request->ajax()) {
+            
+            $users = User::with(['roles:name', 'person.specialities:name'])
+            ->select('id', 'username', 'email', 'created_at', 'updated_at')->get();
 
 
-        return view('admin.users.index', compact('users'));
+            return DataTables::of($users)
+                ->addColumn('roles', function ($user) {
+                        if ($user->getRoleNames() ){
+                            foreach ($user->getRoleNames() as $rol){
+                                if ($rol == 'admin' || $rol == 'super-admin')
+                                    return '<span class="badge bg-danger mb-1">' . $rol . '</span> </br>';
+                                elseif ($rol == 'gerente')
+                                    return '<span class="badge bg-warning mb-1">' . $rol . '</span> </br>';
+                                elseif ($rol == 'secretaria')
+                                    return '<span class="badge bg-primary mb-1">' . $rol . '</span> </br>';
+                                elseif ($rol == 'doctor')
+                                    return '<span class="badge bg-success mb-1">' . $rol . '</span> </br>';
+                                elseif ($rol == 'paciente')
+                                    return '<span class="badge bg-cyan mb-1">' . $rol . '</span> </br>';
+                                else
+                                    return '<span class="badge bg-secondary mb-1">' . $rol . '</span> </br>';
+                            }
+                        }                                              
+                })
+                ->addColumn('actions', function ($user) {
+                    $edit = '';
+                    $delete = '';
+                    $show = '';
+
+                    if (auth()->user()->can('user-show')) {
+                        $show = '<a href="' . route('admin.users.show', $user->id) . '" class="show btn btn-info btn-sm">
+                                    <i class="fa fa-fw fa-eye"></i>
+                                </a>';
+                    }
+                    if (auth()->user()->can('user-edit')) {
+                        $edit = '<a href="' . route('admin.users.edit', $user->id) . '" class="edit btn btn-warning btn-sm">
+                                    <i class="fa fa-fw fa-edit"></i>
+                                </a>';
+                    }
+                    if (auth()->user()->can('user-delete')) {
+                        $delete = '
+                        <form action="' . route('admin.users.destroy', $user->id) . '" method="POST" class="d-inline eliminarUsuario">
+                           <input type="hidden" name="_method" value="DELETE">
+                           <input type="hidden" name="_token" value="' . csrf_token() . '">
+                           <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i></button>
+                       </form>';
+                    }
+
+                    return $show . ' ' . $edit . ' ' . $delete;
+                })
+                ->addColumn('observaciones', function ($user) {
+                    $observaciones = '<div class ="text-left">';
+             
+                        if (!$user->person){
+                            $observaciones .= '
+                                <p>No ha completado su perfil. 
+                                    <a href="' . route("admin.persons.create.personrol", $user->id) .'" class="text-decoration-none">
+                                        Completalo Aqui
+                                    </a>
+                                </p>
+                            ';
+                        }
+
+                            if ($user->hasRole("doctor") && !$user->hasPersonAndSpeciality()){
+                                $observaciones .= '
+                                    <p>No tiene especialidades asignadas.</p>
+                                ';
+                            }
+
+                            if ($user->hasRole("doctor") && $user->hasPersonAndSpeciality()) {
+                                $observaciones .= '
+                                    <p>Tiene asignado las siguientes especialidades: </p>
+                                ';
+                                foreach ($user->person->specialities as $especialidad){
+                                    $observaciones .= '
+                                        <span class="badge badge-primary"> '.$especialidad->name.' </span>
+                                    ';
+                                }
+                            }
+
+                        $observaciones .= '</div>';
+
+                    return $observaciones;
+                })
+                ->rawColumns(['roles', 'actions', 'observaciones'])
+                ->make(true);
+        }
+
+        return view('admin.users.index');
+
     }
 
     /**

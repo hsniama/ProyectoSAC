@@ -48,7 +48,7 @@
                         @endif
 
                         
-                        <div class="card-title fs-3 fw-bolder">Listado de usuarios</div>
+                        <div class="card-title fs-3 fw-bolder">Listado de Roles</div>
                             @can('role-create')
                             <div class="mb-3 float-end">
                                 <a href="{{ route('admin.roles.create') }}" class="btn btn-success p-2"  data-placement="right">
@@ -74,47 +74,52 @@
 											<td>{{ $rol->id}}</td>
                                             <td>
                                             @if ($rol->name == 'admin' || $rol->name == 'super-admin')
-                                                <span class="badge bg-danger fs-6 mb-1">{{ $rol->name  }}</span> </br>
+                                                <span class="badge bg-danger mb-1">{{ $rol->name  }}</span> </br>
                                             @elseif ($rol->name == 'gerente')
-                                                <span class="badge bg-warning fs-6 mb-1">{{ $rol->name  }}</span> </br>                            
+                                                <span class="badge bg-warning mb-1">{{ $rol->name  }}</span> </br>                            
                                             @elseif ($rol->name == 'secretaria')
-                                                <span class="badge bg-primary fs-6 mb-1">{{ $rol->name }}</span> </br>
+                                                <span class="badge bg-primary mb-1">{{ $rol->name }}</span> </br>
                                             @elseif ($rol->name == 'doctor')
-                                                <span class="badge bg-success fs-6 mb-1">{{ $rol->name  }}</span> </br>                            
+                                                <span class="badge bg-success mb-1">{{ $rol->name  }}</span> </br>                            
                                             @elseif ($rol->name == 'paciente')
-                                                <span class="badge bg-cyan fs-6 mb-1">{{ $rol->name  }}</span> </br>
+                                                <span class="badge bg-cyan mb-1">{{ $rol->name  }}</span> </br>
                                             @else
-                                                <span class="badge bg-secondary fs-6 mb-1">{{ $rol->name  }}</span> </br>
+                                                <span class="badge bg-secondary  mb-1">{{ $rol->name  }}</span> </br>
                                             @endif
 											</td>
-                                            <td class="text-start">
+                                            <td class="text-left">
                                                 @if(!empty($rol->permissions))
 
                                                     @if ($rol->name == 'super-admin')
                                                         <label class="badge badge-danger">Tiene todos los permisos</label>                                                    
                                                     @endif
 
+                                                    <p hidden>{{ $i =5; }}</p>
                                                     @foreach($rol->permissions as $v)
-                                                        <label class="badge badge-dark">{{ $v->name }},</label>
+                                                        @if ($i == 5)
+                                                            <br>
+                                                            <p hidden> {{ $i = 0; }}  </p>                                                         
+                                                        @endif
+                                                            <label class="badge badge-dark">{{ $v->name }}</label>    
+                                                            <p hidden>{{ $i++;  }} </p>                                                             
                                                     @endforeach
                                                 @endif
                                             </td>
 
                                             <td>
-                                                @can('role-show')
-                                                <a href="{{ route('admin.roles.show', $rol->id) }}"><button class="btn btn-info mb-2 btn-sm"><i class="fa fa-fw fa-eye"></i></button></a>  
-                                                @endcan
-                                                @can('role-edit')
-                                                <a href="{{ route('admin.roles.edit', $rol->id) }}"><button class="btn btn-warning mb-2 btn-sm"><i class="fa fa-fw fa-edit"></i></button></a>                                                   
-                                                @endcan
-                                                @can('role-delete')
-                                                <form action="{{ route('admin.roles.destroy', $rol) }}" method="POST" style="display: inline" class="eliminarRol">
-                                                    @csrf
-                                                    {{ method_field('DELETE') }}
-                                                    <button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-fw fa-trash"></i></button>
-                                                </form>
-                                                @endcan
-
+                                                    @can('role-show')
+                                                        <a href="{{ route('admin.roles.show', $rol->id) }}" class="btn btn-info btn-sm mb-1"><i class="fa fa-fw fa-eye"></i></a>  
+                                                    @endcan
+                                                    @can('role-edit')
+                                                        <a href="{{ route('admin.roles.edit', $rol->id) }}" class="btn btn-warning btn-sm mb-1"><i class="fa fa-fw fa-edit"></i></a>                                                   
+                                                    @endcan
+                                                    @can('role-delete')
+                                                        <form action="{{ route('admin.roles.destroy', $rol) }}" method="POST" style="display: inline" class="eliminarRol">
+                                                            @csrf
+                                                            {{ method_field('DELETE') }}
+                                                            <button class="btn btn-danger btn-sm mb-1" type="submit"><i class="fa fa-fw fa-trash"></i></button>
+                                                        </form>
+                                                    @endcan                                       
                                             </td>
 
                                         </tr>

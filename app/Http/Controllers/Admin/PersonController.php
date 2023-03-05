@@ -63,9 +63,9 @@ class PersonController extends Controller
             // Bring the specialities that have status active
             $specialities = Speciality::where('status', 'Activo')->get();
 
-            return view('admin.persons.create-personrol', compact('user', 'specialities'));
+            return view('admin.persons.create-personarol', compact('user', 'specialities'));
         } else {
-            return view('admin.persons.create-personrol', compact('user'));
+            return view('admin.persons.create-personarol', compact('user'));
         }
     }
 

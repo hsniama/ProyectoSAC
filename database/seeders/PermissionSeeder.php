@@ -98,6 +98,7 @@ class PermissionSeeder extends Seeder
             'detalle-diagnostico-create',
             'detalle-diagnostico-edit',
             'detalle-diagnostico-delete',
+            'export-buttons'
         ];
 
         foreach ($permissions as $permission) {
@@ -155,6 +156,7 @@ class PermissionSeeder extends Seeder
                 'especialidad-create',
                 'especialidad-edit',
                 'especialidad-delete',
+            'export-buttons'
         ];
 
         foreach ($gerentePermissions as $permission) {
@@ -208,6 +210,7 @@ class PermissionSeeder extends Seeder
                 'especialidad-create',
                 'especialidad-edit',
                 'especialidad-delete',
+            'export-buttons'
         ];
 
         foreach ($adminPermissions as $permission) {
