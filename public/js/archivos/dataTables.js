@@ -25,7 +25,7 @@
 
 // TABLA NORMAL
     $(document).ready(function () {
-        $('.tablaNormalDataTable').DataTable();
+        $('#tablaNormalDataTable').DataTable();
     });
 
 

@@ -46,7 +46,7 @@
                             <div class="card-title fs-3 fw-bolder">Listado de pacientes</div>
 
                             @can('person-create')
-                                <div class="">
+                                <div class="float-end">
                                     <a href="{{ route('secretaria.pacientes.create') }}" class="btn btn-success p-2"
                                         data-placement="left">
                                         {{ __('Agregar Nuevo Paciente') }}

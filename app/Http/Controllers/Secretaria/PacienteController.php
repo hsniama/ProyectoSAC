@@ -130,6 +130,14 @@ class PacienteController extends Controller
         return view('secretaria.pacientes.creedenciales', compact('user', 'paciente', 'success'));
     }
 
+    public function show(Person $paciente)
+    {
+
+        // Regla de negocio: Calcular la edad de la person.
+        $edad = \Carbon\Carbon::parse($paciente->fecha_nacimiento)->age;
+
+        return view('secretaria.pacientes.show', compact('paciente', 'edad'));
+    }
 
     public function imprimirCreedenciales(Request $request)
     {

@@ -84,7 +84,7 @@ class PersonController extends Controller
         $person->specialities()->attach($request->specialities);
     
 
-        return redirect()->route('admin.persons.index')->with('success', 'La person se creó con éxito');
+        return redirect()->route('admin.users.index')->with('success', 'Se completó con éxito la información del usuario');
     }
 
     /**

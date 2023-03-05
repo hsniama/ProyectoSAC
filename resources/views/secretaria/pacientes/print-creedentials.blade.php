@@ -116,7 +116,7 @@
         <br>
         <br>
 
-        <div class="row mt-5">
+        <div class="row mt-3">
             <p><span class="font-weight-bold font-italic">Nota: </span>
                 No entregue a nadie esta hoja ya que contiene sus creedenciales para el acceso al sistema. </p>
         </div>

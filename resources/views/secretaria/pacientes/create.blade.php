@@ -46,7 +46,7 @@
                                 <ul class="nav nav-tabs">
                                     <li class="nav-item">
                                         <a class="nav-link active" data-toggle="tab" href="#step1">1. Información
-                                            Personl</a>
+                                            Personal</a>
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" data-toggle="tab" href="#step2">2. Usuario y Correo</a>

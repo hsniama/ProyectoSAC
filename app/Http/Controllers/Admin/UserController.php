@@ -191,7 +191,16 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        // Regla de negocio: Calcular la edad de la person.
+
+        $edad =0;
+
+        if($user->person){
+            $birthday = $user->person->fecha_nacimiento;
+            $edad = \Carbon\Carbon::parse($edad)->age;
+        }
+           
+        return view('admin.users.show', compact('user', 'edad'));
     }
 
     /**
