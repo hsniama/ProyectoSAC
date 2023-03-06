@@ -51,7 +51,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
     // JSON: Get the doctors of a speciality
     Route::get('/especialidades/{speciality}/doctores', [App\Http\Controllers\API\SpecialityController::class, 'doctors'])->name('especialidades.doctores');
-
+    // JSON: Get all specialities
+    Route::get('/especialidades', [App\Http\Controllers\API\SpecialityController::class, 'specialities'])->name('especialidades.crear.doctor');
 
     Route::group([
         //'middleware' => 'is_admin'

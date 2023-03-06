@@ -35,6 +35,11 @@ class SpecialityController extends Controller
         ]);
     }
 
+    public function specialities()
+    {
+        return Speciality::all();
+    }
+
     /**
      * Display a listing of the resource.
      *

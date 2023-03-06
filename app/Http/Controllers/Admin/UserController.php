@@ -3,16 +3,18 @@
 namespace App\Http\Controllers\Admin; //ojo que yo cambie esta, por que cree la carpeta de Admin
 
 use App\Models\User;
+use App\Models\Person;
+use App\Models\Speciality;
 use Carbon\Carbon; // yo agregue esta
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Support\Arr; // yo agregue esta
+use Illuminate\Http\Request; // yo agregue esta
+use Yajra\DataTables\DataTables; // yo agregue esta
 use Illuminate\Support\Facades\DB; // yo agregue esta
 use Spatie\Permission\Models\Role; // yo agregue esta
 use App\Http\Controllers\Controller; // yo agregue esta
 use Illuminate\Support\Facades\Hash; // yo agregue esta
-use Yajra\DataTables\DataTables; // yo agregue esta
-use Illuminate\Http\Request; // yo agregue esta
 
 class UserController extends Controller
 {
@@ -178,6 +180,21 @@ class UserController extends Controller
         ]);
 
         $user->assignRole($request->input('roles'));
+
+        $person = Person::create([
+            'user_id' => $user->id,
+            'cedula' => $request['cedula'],
+            'apellidos' => $request['apellidos'],
+            'nombres' => $request['nombres'],
+            'telefono' => $request['telefono'],
+            'direccion' => $request['direccion'],
+            'ciudad' => $request['ciudad'],
+            'fecha_nacimiento' => $request['fecha_nacimiento'],
+            'genero' => $request['genero']
+        ]);
+
+        // Attach the specialities to the person
+        $person->specialities()->attach($request->input('specialities'));
 
         return redirect()->route('admin.users.index')
             ->with('success', 'Usuario creado exitosamente.');

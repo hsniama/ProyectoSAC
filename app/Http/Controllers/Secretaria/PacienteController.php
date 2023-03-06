@@ -94,14 +94,14 @@ class PacienteController extends Controller
         $request->validate([
             'username' => ['required', 'string', 'max:15', 'unique:users,username', 'alpha_dash'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
-            'cedula' => ['required', 'string', 'max:255', 'unique:people,cedula'],
-            'apellidos' => ['required', 'string', 'max:255'],
-            'nombres' => ['required', 'string', 'max:255'],
-            'telefono' => ['required', 'string', 'max:255'],
-            'direccion' => ['required', 'string', 'max:255'],
-            'ciudad' => ['required', 'string', 'max:255'],
+            'cedula' => ['required', 'number', 'max:10', 'unique:people,cedula'],
+            'nombres' => ['required', 'string', 'min:3', 'max:15'],
+            'apellidos' => ['required', 'string', 'min:3', 'max:15'],
+            'telefono' => ['required', 'numeric', 'max:12'],
+            'direccion' => ['required', 'max:25', 'min:3', 'string'],     
+            'ciudad' => ['required', 'string', 'max:10'],
             'fecha_nacimiento' => ['required', 'date'],
-            'genero' => ['required', 'string', 'max:255'],
+            'genero' => ['required', 'string', 'max:10'],
         ]);
 
         $password = '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi'; //password

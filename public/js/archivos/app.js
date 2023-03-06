@@ -1,8 +1,6 @@
 // Activar boton when pressing
 
 
-
-
 // Multi-Step Form
     function nextTab(e, tabName) {
         e.preventDefault();
@@ -51,11 +49,51 @@
 
         const $doctor = $('#doctor');
 
-            console.log(doctors);
+        //console.log(doctors);
 
         $doctor.find('option').remove();
         $doctor.append('<option value="" disabled selected>Seleccione un doctor</option>');
+
         doctors.forEach(doctor => {
             $doctor.append(`<option value="${doctor.id}">${doctor.nombres} ${doctor.apellidos}</option>`);
+        });
+    }
+
+// Cargar especialidades si el usuario es doctor
+    $(function(){
+        const $rolDoctor = $('#roles');
+
+        const $specialityBox = $('#specialitiesBox');
+        $specialityBox.hide();
+
+        $rolDoctor.change(() => {
+            if ($rolDoctor.val() == 4) {
+                const url = `/especialidades`;
+                $.get(url, onSpecialitiesLoaded);
+                $specialityBox.show();
+
+            }else if($rolDoctor.val() !== 4){
+                $specialityBox.hide();
+                const $specialityDoctor = $('#specialities');
+                $specialityDoctor.find('option').remove();
+            }
+        });
+
+    });
+
+    function onSpecialitiesLoaded(specialities){
+
+        const $specialityBox = $('#specialitiesBox');
+        $specialityBox.show();
+
+        const $specialityDoctor = $('#specialities');
+     
+        //console.log(specialities);
+    
+        $specialityDoctor.find('option').remove();
+        $specialityDoctor.append('<option value="" disabled selected>Seleccione una o mas especialidades</option>');
+
+        specialities.forEach(specialityDoctor => {
+            $specialityDoctor.append(`<option value="${specialityDoctor.id}">${specialityDoctor.name}</option>`);
         });
     }
