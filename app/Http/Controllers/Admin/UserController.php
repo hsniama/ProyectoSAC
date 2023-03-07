@@ -57,22 +57,25 @@ class UserController extends Controller
 
             return DataTables::of($users)
                 ->addColumn('roles', function ($user) {
+                    $roles = '';
                         if ($user->getRoleNames() ){
                             foreach ($user->getRoleNames() as $rol){
                                 if ($rol == 'admin' || $rol == 'super-admin')
-                                    return '<span class="badge bg-danger mb-1">' . $rol . '</span> </br>';
+                                    $roles .= '<span class="badge bg-danger mb-1">' . $rol . '</span> </br>';
                                 elseif ($rol == 'gerente')
-                                    return '<span class="badge bg-warning mb-1">' . $rol . '</span> </br>';
+                                    $roles .=  '<span class="badge bg-warning mb-1">' . $rol . '</span> </br>';
                                 elseif ($rol == 'secretaria')
-                                    return '<span class="badge bg-primary mb-1">' . $rol . '</span> </br>';
+                                    $roles .=  '<span class="badge bg-primary mb-1">' . $rol . '</span> </br>';
                                 elseif ($rol == 'doctor')
-                                    return '<span class="badge bg-success mb-1">' . $rol . '</span> </br>';
+                                    $roles .=  '<span class="badge bg-success mb-1">' . $rol . '</span> </br>';
                                 elseif ($rol == 'paciente')
-                                    return '<span class="badge bg-cyan mb-1">' . $rol . '</span> </br>';
+                                    $roles .=  '<span class="badge bg-cyan mb-1">' . $rol . '</span> </br>';
                                 else
-                                    return '<span class="badge bg-secondary mb-1">' . $rol . '</span> </br>';
+                                    $roles .=  '<span class="badge bg-secondary mb-1">' . $rol . '</span> </br>';
                             }
-                        }                                              
+                        }
+                        
+                    return $roles;
                 })
                 ->addColumn('actions', function ($user) {
                     $edit = '';
@@ -193,8 +196,17 @@ class UserController extends Controller
             'genero' => $request['genero']
         ]);
 
-        // Attach the specialities to the person
-        $person->specialities()->attach($request->input('specialities'));
+
+        //get the roles of the user
+        $userRoles = $user->getRoleNames();
+
+        foreach ($userRoles as $rol) {
+            if ($rol == 'doctor') {
+                // Attach the specialities to the person
+                $person->specialities()->attach($request->input('specialities'));
+            }
+        }
+
 
         return redirect()->route('admin.users.index')
             ->with('success', 'Usuario creado exitosamente.');
@@ -228,11 +240,14 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+        $specialities = Speciality::where('status', 'Activo')->get();
         $roles = Role::all();
 
         $userRole = $user->roles->pluck('name', 'id')->all();
+        $person = $user->person;
 
-        return view('admin.users.edit', compact('user', 'roles', 'userRole'));
+
+        return view('admin.users.edit', compact('user', 'roles', 'userRole', 'person', 'specialities'));
     }
 
     /**
@@ -259,7 +274,27 @@ class UserController extends Controller
         
         DB::table('model_has_roles')->where('model_id', $user->id)->delete();
 
-        $user->assignRole($request->input('roles'));
+        $user->assignRole($request->input('rolesEdit'));
+
+
+        // Update the person
+        $person = Person::where('user_id', $user->id)->first(); 
+
+        $person->update($request->except('password', 'rolesEdit', 'username', 'email', 'email_verified_at', 'specialitiesEdit'));
+
+
+        //get the roles of the user
+        $userRoles = $user->getRoleNames();
+
+        foreach ($userRoles as $rol) {
+            if ($rol !== 'doctor') {
+                $person->specialities()->detach();
+            }
+        }
+
+
+        // Sync the specialities to the person
+        $person->specialities()->sync($request->input('specialitiesEdit'));
 
         return redirect()->route('admin.users.index')
             ->with('success', 'Usuario actualizado exitosamente.');

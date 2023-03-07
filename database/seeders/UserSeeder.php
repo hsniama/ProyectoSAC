@@ -61,18 +61,18 @@ class UserSeeder extends Seeder
             'remember_token' => Str::random(10),
         ])->assignRole('secretaria')->person()->save(Person::factory()->make());
 
-        User::create([
-            'username' => 'doctor',
-            'email' => 'doctor@gmail.com',
-            'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
-            'remember_token' => Str::random(10),
-        ])->assignRole('doctor')->person()->save(Person::factory()->make());
+        // User::create([
+        //     'username' => 'doctor',
+        //     'email' => 'doctor@gmail.com',
+        //     'email_verified_at' => now(),
+        //     'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+        //     'remember_token' => Str::random(10),
+        // ])->assignRole('doctor')->person()->save(Person::factory()->make());
 
         
 
         //Llenar automaticamente 50 usuarios pacientes random con factory con relacion a person.
-        User::factory(100)->create()->each(function ($user) {
+        User::factory(50)->create()->each(function ($user) {
             $user->assignRole('paciente');
             $user->person()->save(Person::factory()->make());
         });

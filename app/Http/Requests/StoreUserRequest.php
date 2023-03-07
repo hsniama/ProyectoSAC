@@ -36,7 +36,7 @@ class StoreUserRequest extends FormRequest
             'apellidos' => ['required', 'string', 'max:15', 'min:3'],
             'telefono' => ['required', 'numeric'],
             'direccion' => ['required', 'max:25', 'min:3', 'string'],
-            'ciudad' => ['required', 'string', 'max:10'],
+            'ciudad' => ['required', 'string', 'max:20'],
             'fecha_nacimiento' => ['required', 'date'],
             'genero' => ['required', 'string', 'max:10'],
             'specialities' => ['array'],

@@ -66,25 +66,24 @@
         const $specialityBox = $('#specialitiesBox');
         $specialityBox.hide();
 
+
         $rolDoctor.change(() => {
+
             if ($rolDoctor.val() == 4) {
                 const url = `/especialidades`;
                 $.get(url, onSpecialitiesLoaded);
                 $specialityBox.show();
-
-            }else if($rolDoctor.val() !== 4){
+            }else{
                 $specialityBox.hide();
                 const $specialityDoctor = $('#specialities');
                 $specialityDoctor.find('option').remove();
+                    
             }
         });
 
     });
 
     function onSpecialitiesLoaded(specialities){
-
-        const $specialityBox = $('#specialitiesBox');
-        $specialityBox.show();
 
         const $specialityDoctor = $('#specialities');
      
@@ -97,3 +96,27 @@
             $specialityDoctor.append(`<option value="${specialityDoctor.id}">${specialityDoctor.name}</option>`);
         });
     }
+
+
+//Cargar especialidades al editar doctor
+    $(function(){
+        const $rolDoctor = $('#rolesEdit');
+
+        const $specialityBox = $('#specialitiesBoxEdit');
+        //$specialityBox.hide();
+        
+        $rolDoctor.change(() => {
+                
+                if ($rolDoctor.val() == 4) {
+                    $specialityBox.show();
+                    
+                }else{
+                    $specialityBox.hide();
+                    // const $specialityDoctor = $('#specialitiesEdit');
+                    // $specialityDoctor.find('option').remove();
+                }
+            }
+        );
+    });
+
+
