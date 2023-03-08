@@ -212,7 +212,7 @@
 
 
 
-                  @can('modulo-persons')
+                  {{-- @can('modulo-persons')
                       <li class="nav-item menu-open">
                           <a href="#" class="nav-link active">
                               <i class="fa-solid fa-hospital-user"></i>
@@ -244,7 +244,7 @@
                               </ul>
                           @endcan
                       </li>
-                  @endcan
+                  @endcan --}}
 
                   @can('modulo-especialidades')
                       <li class="nav-item menu-open">

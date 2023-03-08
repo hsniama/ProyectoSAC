@@ -61,8 +61,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
         ], function () {
             Route::resource('users', UserController::class);
-            Route::resource('persons', PersonController::class);
-            Route::get('persons/{user}/create', [PersonController::class, 'createSegunRol'])->name('persons.create.personrol');
+            // Route::resource('persons', PersonController::class);
+            // Route::get('persons/{user}/create', [PersonController::class, 'createSegunRol'])->name('persons.create.personrol');
             Route::resource('roles', RoleController::class);
             Route::resource('specialities', SpecialityController::class);
             Route::resource('appointments', AppointmentController::class);

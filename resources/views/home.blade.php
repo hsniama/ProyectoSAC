@@ -84,7 +84,7 @@
                                             <div class="mt-3">
                                                 <p class="fs-3">
                                                     <span class="text-bold">¡Hola {{ Auth::user()->username }}!</span>,
-                                                    primero debes completar tu información personl presionando el siguiente
+                                                    primero debes completar tu información personal presionando el siguiente
                                                     botón:
                                                 </p>
                                             </div>
@@ -93,7 +93,7 @@
                                             <div class="mb-3 mt-3 d-flex justify-content-center">
                                                 <a href="{{ route('profile.create') }}"
                                                     class="btn btn-warning btn-lg text-decoration-none text-black">
-                                                    Presiona aquí para completar tu profile.
+                                                    Presiona aquí para completar tu perfil.
                                                 </a>
                                             </div>
 
@@ -128,7 +128,7 @@
                                             <div class="mb-3 mt-3 d-flex justify-content-center">
                                                 <a href="{{ route('profile.edit', Auth::user()->person->id) }}"
                                                     class="btn btn-warning btn-lg text-decoration-none text-black">
-                                                    Presiona aquí para completar tu profile.
+                                                    Presiona aquí para completar tu perfil.
                                                 </a>
                                             </div>
 
@@ -157,7 +157,7 @@
                                                 <div class="icon">
                                                     <i class="fa-solid fa-user-doctor"></i>
                                                 </div>
-                                                <a href="{{ route('admin.persons.index') }}" class="small-box-footer">Mas información <i class="fas fa-arrow-circle-right"></i></a>
+                                                <a href="#" class="small-box-footer">Mas información <i class="fas fa-arrow-circle-right"></i></a>
                                                 </div>
                                             </div>
 
