@@ -57,129 +57,117 @@
 
 
                                 <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="row d-flex justify-content-center">
 
-                                    <input type="number" name="patient_id" id="patient_id" value="{{ $paciente->id }}" hidden>
-                                    
-                                    <div class="form-group col-6">
-                                        <label for="nombres" class="required">Nombre del Paciente: </label>
-                                        <input type="text" class="form-control" id="nombres" disabled
-                                            value="{{$paciente->nombres . " " . $paciente->apellidos}}">
-                                    </div>
-
-                                    <div class="form-group col-6">
-                                        <label for="cedula" class="required">Cedula: </label>     
-                                        <input type="text" class="form-control" id="cedula" disabled
-                                            value="{{$paciente->cedula}}">
-                                    </div>
-                                </div>
-
-
-                                <div class="row">
-                                    <div class="form-group col-6">
-                                        <label for="speciality" class="required">Especialidad</label>
-                                        <select class="form-control select2 {{ $errors->has('speciality_id') ? 'is-invalid' : '' }}" name="speciality_id" id="speciality">
+                                            <input type="number" name="patient_id" id="patient_id" value="{{ $paciente->id }}" hidden>
                                             
-                                            <option value="" disabled selected>Seleccione una especialidad</option>
-                                            @foreach ($specialities as $specialty)
-                                                <option value="{{ $specialty->id }}" {{ $doctorCita->specialities->pluck('id')->contains($specialty->id) ? 'selected' : '' }} >
-                                                    {{ $specialty->name }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        @if($errors->has('speciality_id'))
-                                            <div class="invalid-feedback">
-                                                {{ $errors->first('speciality_id') }}
+                                            <div class="form-group col-6">
+                                                <label for="nombres" class="required">Nombre del Paciente: </label>
+                                                <input type="text" class="form-control" id="nombres" disabled
+                                                    value="{{$paciente->nombres . " " . $paciente->apellidos}}">
                                             </div>
-                                        @endif
-                                    </div>
-                                 
-                                    <div class="form-group col-6">
-                                        <label for="doctor" class="required">Doctor</label>
-                                        <select class="form-control select2 {{ $errors->has('doctor_id') ? 'is-invalid' : '' }}" name="doctor_id" id="doctor">
-                                            <option value="" disabled >Seleccione un doctor</option>
-
-                                            @foreach ($doctors as $doctor)
-                                                <option value="{{ $doctor->id }}" {{ $doctor->id == $doctorCita->id ? 'selected' : '' }} >
-                                                    {{ $doctor->nombres . " " . $doctor->apellidos }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        @if($errors->has('doctor_id'))
-                                            <div class="invalid-feedback">
-                                                {{ $errors->first('doctor_id') }}
-                                            </div>
-                                        @endif
-                                    </div>
-                                </div>
-
-
-                                <div class="row">
-                                    <div class="form-group col-6">
-                                        <label for="scheduled_date" class="required">Fecha</label>
-                                        <input class="form-control editarCita input-button{{ $errors->has('scheduled_date') ? 'is-invalid' : '' }}" 
-                                        type="date" name="scheduled_date" id="scheduled_date" 
-                                        value="{{ old('scheduled_date', $appointment->scheduled_date) }}">
-
-                                        @if($errors->has('scheduled_date'))
-                                            <div class="invalid-feedback">
-                                                {{ $errors->first('scheduled_date') }}
-                                            </div>
-                                        @endif
-                                    </div>
-
-                                    <div class="form-group col-6">
-                                        <label for="scheduled_time" class="required">Hora</label>
-                                        <input class="form-control horaCita input-button{{ $errors->has('scheduled_time') ? 'is-invalid' : '' }}" 
-                                        type="time" name="scheduled_time" id="scheduled_time" 
-                                        value="{{ old('scheduled_time', $appointment->scheduled_time) }}">
-
-                                        @if($errors->has('scheduled_time'))
-                                            <div class="invalid-feedback">
-                                                {{ $errors->first('scheduled_time') }}
-                                            </div>
-                                        @endif
-                                    </div>
-
-                                </div>
-
-                                <div class="form-group">
-                                    <input hidden class="form-control  {{ $errors->has('status') ? 'is-invalid' : '' }}" type="text" name="status" id="status" value="{{ $appointment->status }}">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="notes" class="required">Motivo/Observaciones: </label>
-                                    <textarea class="form-control {{ $errors->has('notes') ? 'is-invalid' : '' }}" name="notes" id="notes" rows="3">{{ old('notes', $appointment->notes) }}</textarea>
-                                    @if($errors->has('notes'))
-                                        <div class="invalid-feedback">
-                                            {{ $errors->first('notes') }}
                                         </div>
-                                    @endif
+                                        <div class="row d-flex justify-content-center">
+                                            <div class="form-group col-6">
+                                                <label for="cedula" class="required">Cedula: </label>     
+                                                <input type="text" class="form-control" id="cedula" disabled
+                                                    value="{{$paciente->cedula}}">
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="row d-flex justify-content-center">
+                                            <div class="form-group col-8">
+                                                <label for="speciality" class="required">Especialidad</label>
+                                                <select class="form-control select2 {{ $errors->has('speciality_id') ? 'is-invalid' : '' }}" name="speciality_id" id="speciality">
+                                                    
+                                                    <option value="" disabled selected>Seleccione una especialidad</option>
+                                                    @foreach ($specialities as $specialty)
+                                                        <option value="{{ $specialty->id }}" {{ $doctorCita->specialities->pluck('id')->contains($specialty->id) ? 'selected' : '' }} >
+                                                            {{ $specialty->name }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                                @if($errors->has('speciality_id'))
+                                                    <div class="invalid-feedback">
+                                                        {{ $errors->first('speciality_id') }}
+                                                    </div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="row d-flex justify-content-center">
+                                            <div class="form-group col-8">
+                                                <label for="doctor" class="required">Doctor</label>
+                                                <select class="form-control select2 {{ $errors->has('doctor_id') ? 'is-invalid' : '' }}" name="doctor_id" id="doctor">
+                                                    <option value="" disabled >Seleccione un doctor</option>
+
+                                                    @foreach ($doctors as $doctor)
+                                                        <option value="{{ $doctor->id }}" {{ $doctor->id == $doctorCita->id ? 'selected' : '' }} >
+                                                            {{ $doctor->nombres . " " . $doctor->apellidos }}
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                                @if($errors->has('doctor_id'))
+                                                    <div class="invalid-feedback">
+                                                        {{ $errors->first('doctor_id') }}
+                                                    </div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="row d-flex justify-content-center">
+                                            <div class="form-group col-4">
+                                                <label for="scheduled_date" class="required">Fecha</label>
+                                                <input class="form-control editarCita input-button{{ $errors->has('scheduled_date') ? 'is-invalid' : '' }}" 
+                                                type="date" name="scheduled_date" id="scheduled_date" 
+                                                value="{{ old('scheduled_date', $appointment->scheduled_date) }}">
+
+                                                @if($errors->has('scheduled_date'))
+                                                    <div class="invalid-feedback">
+                                                        {{ $errors->first('scheduled_date') }}
+                                                    </div>
+                                                @endif
+                                            </div>
+
+                                            <div class="form-group col-4">
+                                                <label for="scheduled_time" class="required">Hora</label>
+                                                <input class="form-control bg-white horaCita input-button{{ $errors->has('scheduled_time') ? 'is-invalid' : '' }}" 
+                                                type="time" name="scheduled_time" id="scheduled_time" 
+                                                value="{{ old('scheduled_time', $appointment->scheduled_time) }}">
+
+                                                @if($errors->has('scheduled_time'))
+                                                    <div class="invalid-feedback">
+                                                        {{ $errors->first('scheduled_time') }}
+                                                    </div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 
 
-                               
 
-                                {{--  
-                                <div class="form-group">
-                                    <label for="scheduled_date" class="required">Fecha</label>
-                                    <input class="form-control dateCita input-button{{ $errors->has('scheduled_date') ? 'is-invalid' : '' }}" type="date" name="scheduled_date" id="scheduled_date" value="{{ old('scheduled_date') }}">
-                                    @if($errors->has('scheduled_date'))
-                                        <div class="invalid-feedback">
-                                            {{ $errors->first('scheduled_date') }}
+
+
+                                <div class="row d-flex justify-content-center">
+                                    <div class="col-md-9">
+                                        <div class="form-group">
+                                            <input hidden class="form-control  {{ $errors->has('status') ? 'is-invalid' : '' }}" type="text" name="status" id="status" value="{{ $appointment->status }}">
                                         </div>
-                                    @endif
+
+                                        <div class="form-group ">
+                                            <label for="notes" class="required">Motivo/Observaciones: </label>
+                                            <textarea class="form-control {{ $errors->has('notes') ? 'is-invalid' : '' }}" name="notes" id="notes" rows="3">{{ old('notes', $appointment->notes) }}</textarea>
+                                            @if($errors->has('notes'))
+                                                <div class="invalid-feedback">
+                                                    {{ $errors->first('notes') }}
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </div>
                                 </div>
-
-                                <div class="form-group">
-                                    <label for="scheduled_time" class="required">Hora</label>
-                                    <input class="form-control horaCita {{ $errors->has('scheduled_time') ? 'is-invalid' : '' }}" type="text" name="scheduled_time" id="scheduled_time" value="{{ old('scheduled_time') }}">
-                                    @if($errors->has('scheduled_time'))
-                                        <div class="invalid-feedback">
-                                            {{ $errors->first('scheduled_time') }}
-                                        </div>
-                                    @endif
-                                </div> --}}
-
 
 
                                 {{-- <div class="form-group">

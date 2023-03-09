@@ -35,7 +35,7 @@
                       </li>
                   @else
                       <li class="nav-item d-none d-sm-inline-block mr-3">
-                          <a href="{{ route('profile.edit', Auth::user()->person->id) }}"
+                          <a href="{{ route('profile.edit', Auth::user()->username) }}"
                               class="text-decoration-none nav-link ">
                               Editar Perfil
                           </a>

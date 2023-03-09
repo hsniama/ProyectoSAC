@@ -106,7 +106,7 @@
 
                                         {{-- <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button> --}}
                                     </div>
-                                @elseif (!Auth::user()->person->isComplete())
+                                {{-- @elseif (!Auth::user()->person->isComplete())
                                     <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show"
                                         role="alert">
                                         <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img"
@@ -139,7 +139,7 @@
                                             </div>
                                         </div>
 
-                                    </div>
+                                    </div> --}}
 
                                 @elseif (Auth::user()->person->isComplete() )
 
@@ -157,7 +157,7 @@
                                                 <div class="icon">
                                                     <i class="fa-solid fa-user-doctor"></i>
                                                 </div>
-                                                <a href="#" class="small-box-footer">Mas información <i class="fas fa-arrow-circle-right"></i></a>
+                                                <a href="{{ route('admin.doctor.cita') }}" class="small-box-footer">Mas información <i class="fas fa-arrow-circle-right"></i></a>
                                                 </div>
                                             </div>
 
@@ -221,7 +221,7 @@
                                                 <li>Detallar la consulta (sintomas, examenes, tratamientos).</li>
                                             </ul>
                                             </p>
-                                            <p class="fs-4">
+                                            {{-- <p class="fs-4">
                                                 Roles asignados a este usuario:
                                             <ul>
                                                 @foreach (Auth::user()->roles as $rol)
@@ -230,7 +230,7 @@
                                                     </li>
                                                 @endforeach
                                             </ul>
-                                            </p>
+                                            </p> --}}
                                         </div>
                                     @elseif (Auth::user()->hasRole('secretaria'))
                                         <div>
@@ -244,7 +244,7 @@
                                                 <li>Consultar y filtrar citas agendadas.</li>
                                             </ul>
                                             </p>
-                                            <p class="fs-4">
+                                            {{-- <p class="fs-4">
                                                 Roles asignados a este usuario:
                                             <ul>
                                                 @foreach (Auth::user()->roles as $rol)
@@ -253,7 +253,7 @@
                                                     </li>
                                                 @endforeach
                                             </ul>
-                                            </p>
+                                            </p> --}}
                                         </div>
                                     @elseif ( Auth::user()->hasRole('paciente'))
                                         <div>
@@ -265,7 +265,7 @@
                                     @endif
 
                                 @else
-                                    <div>
+                                    {{-- <div>
                                         <p class="fs-4">
                                             <span class="text-bold">¡Hola {{ Auth::user()->person->nombres }}!</span>,
                                             tienes los siguientes roles:
@@ -277,9 +277,12 @@
                                             @endforeach
                                         </ul>
                                         </p>
+                                    </div> --}}
+                                    <div>
+                                        <p>nada, desde home.</p>
                                     </div>
-                                </div>
                                 @endif
+                            </div>
 
                         {{-- </div>
                     </div> --}}

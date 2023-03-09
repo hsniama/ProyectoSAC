@@ -50,20 +50,24 @@ class ProfileController extends Controller
         return redirect()->route('home')->with('success', 'Perfil completado con éxito');
     }
 
-    public function edit($id)
+    public function edit($username)
     {
-        $person = Person::findOrFail($id);
+        // El ID de la persona es el mismo que el ID del usuario.
+        // Find the $id of the username trough the username
+        $user = User::where('username', $username)->select('id', 'username')->first();
 
-        $user = User::findOrFail($person->user_id);
+        // La persona.
+        $person = Person::findOrFail($user->id);
 
-        $edad = \Carbon\Carbon::parse($user->person->fecha_nacimiento)->age;
-
+        // La edad.
+        $edad = $person->getAgeAttribute();
 
         return view('profile.edit', compact('person', 'edad'));
     }
 
     public function update(Request $request, $id)
     {
+
         $request->validate([
             //'cedula' => ['required', 'numeric', 'unique:people,cedula,'.$id],
             //'apellidos' => ['required', 'string', 'max:255', 'min:3', 'string'],
@@ -75,8 +79,9 @@ class ProfileController extends Controller
             //'fecha_nacimiento' => ['required', 'date'],
             //'genero' => ['required', 'string']
         ]);
-
+  
         $person = Person::findOrFail($id);
+
         $person->update($request->except('email'));
 
         $user = User::findOrFail($person->user_id);

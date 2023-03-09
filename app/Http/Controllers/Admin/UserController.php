@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Admin; //ojo que yo cambie esta, por que cree la 
 use App\Models\User;
 use App\Models\Person;
 use App\Models\Speciality;
-use Carbon\Carbon; // yo agregue esta
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use Illuminate\Support\Arr; // yo agregue esta
@@ -225,8 +224,7 @@ class UserController extends Controller
         $edad =0;
 
         if($user->person){
-            $birthday = $user->person->fecha_nacimiento;
-            $edad = \Carbon\Carbon::parse($edad)->age;
+            $edad = $user->person->getAgeAttribute();
         }
            
         return view('admin.users.show', compact('user', 'edad'));

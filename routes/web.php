@@ -44,18 +44,19 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
     Route::controller(ProfileController::class)->group(function () {
         Route::get('profile/create', 'create')->name('profile.create');
-        Route::get('profile/{id}/edit', 'edit')->name('profile.edit');
+        Route::get('profile/{username}/edit', 'edit')->name('profile.edit');
         Route::put('profile/{id}', 'update')->name('profile.update');
         Route::post('profile', 'store')->name('profile.store');
     });
 
-    // JSON: Get the doctors of a speciality
+    // JSON: Get the doctors of a speciality. OJO PROTEGER ESTA RUTA DE API EN UN FUTURO.
     Route::get('/especialidades/{speciality}/doctores', [App\Http\Controllers\API\SpecialityController::class, 'doctors'])->name('especialidades.doctores');
-    // JSON: Get all specialities
-    Route::get('/especialidades', [App\Http\Controllers\API\SpecialityController::class, 'specialities'])->name('especialidades.crear.doctor');
+    
+    // JSON: Get all specialities. Protect with middleware only role admin
+    Route::get('/especialidades', [App\Http\Controllers\API\SpecialityController::class, 'specialities'])->name('especialidades.crear.doctor')->middleware('role:admin', 'role:superadmin', 'role:gerente');
 
     Route::group([
-        //'middleware' => 'is_admin'
+        // 'middleware' => ['role:admin', 'role:superadmin', 'role:gerente'],
         'prefix' => 'admin', //stands for the /admin route. I mean It is the URL
         'as' => 'admin.', // Son route names para referirme a ellos como admin.users.index por ejemplo.
 
@@ -73,7 +74,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
                 Route::get('/mes-cita', 'mesCita')->name('mes.cita');
                 Route::get('/year-cita', 'anoCita')->name('ano.cita');
             });
-        });
+    });
 
     Route::group([
         'prefix' => 'secretaria', //stands for the /admin route. I mean It is the URL
@@ -83,5 +84,18 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         ], function () {
             Route::resource('pacientes', PacienteController::class);
             Route::post('imprimir-creedenciales', [PacienteController::class, 'imprimirCreedenciales'])->name('imprimir.creedenciales');
-        });
+    });
+    
+    Route::group([
+        'prefix' => 'doctor',
+        'as' => 'doctor.',
+        'middleware' => 'role:doctor'
+        ], function () {
+            // Route::get('citas', [DoctorController::class, 'citas'])->name('citas');
+            // Route::get('citas/{appointment}', [DoctorController::class, 'cita'])->name('cita');
+            // Route::post('citas/{appointment}/atender', [DoctorController::class, 'atender'])->name('atender');
+            // Route::post('citas/{appointment}/cancelar', [DoctorController::class, 'cancelar'])->name('cancelar');
+    });
+
+
 });

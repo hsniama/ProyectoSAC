@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Speciality;
 use App\Models\Appointment;
@@ -82,5 +83,11 @@ class Person extends Model
     public function hasSpecialities()
     {
         return $this->specialities->isNotEmpty();
+    }
+
+    // create method to calculate the age of the person
+    public function getAgeAttribute()
+    {
+        return Carbon::parse($this->fecha_nacimiento)->age;
     }
 }
