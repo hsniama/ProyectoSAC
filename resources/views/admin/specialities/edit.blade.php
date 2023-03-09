@@ -47,49 +47,76 @@
                                 <div class="box box-info padding-1">
                                     <div class="box-body">
 
-                                        <div class="form-group">
-                                            <label for="name" class="required">Nombre: </label>
-                                            <input type="text" name="name" id="name"
-                                                class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}"
-                                                placeholder="Actualiza el nombre de la especialidad actual"
-                                                value="{{ old('name', $speciality->name) }}">
-                                            @if ($errors->has('name'))
-                                                <span class="text-danger">
-                                                    <strong>{{ $errors->first('name') }}</strong>
-                                                </span>
-                                            @endif
+
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="form-group">
+                                                            <label for="name" class="required">Nombre: </label>
+                                                            <input type="text" name="name" id="name"
+                                                                class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}"
+                                                                placeholder="Actualiza el nombre de la especialidad actual"
+                                                                value="{{ old('name', $speciality->name) }}">
+                                                            @if ($errors->has('name'))
+                                                                <span class="text-danger">
+                                                                    <strong>{{ $errors->first('name') }}</strong>
+                                                                </span>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="form-group">
+                                                            <label for="description" class="required">Descripción:</label>
+                                                            <textarea type="text" name="description" id="description"
+                                                                class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}"
+                                                                placeholder="Ingrese lA descripción"
+                                                                {{-- value="{{ old('description', $speciality->description) }}" --}}
+                                                                rows="7">
+                                                                {{ old('description', $speciality->description) }}
+                                                            </textarea>
+                                                            @if ($errors->has('description'))
+                                                                <span class="text-danger">
+                                                                    <strong>{{ $errors->first('description') }}</strong>
+                                                                </span>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="form-group">
+                                                            <label for="status" class="required">Estado:</label>
+                                                            <select name="status" id="status" class="form-control">
+                                                                <option value="Activo"
+                                                                    {{ old('status', $speciality->status) == 'Activo' ? 'selected' : '' }}>
+                                                                    Activo</option>
+                                                                <option value="Inactivo"
+                                                                    {{ old('status', $speciality->status) == 'Inactivo' ? 'selected' : '' }}>
+                                                                    Inactivo</option>
+                                                            </select>
+                                                            @if ($errors->has('status'))
+                                                                <span class="text-danger">
+                                                                    <strong>{{ $errors->first('status') }}</strong>
+                                                                </span>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
 
 
-                                        <div class="form-group">
-                                            <label for="description" class="required">Descripción:</label>
-                                            <input type="text" name="description" id="description"
-                                                class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}"
-                                                placeholder="Ingrese lA descripción"
-                                                value="{{ old('description', $speciality->description) }}">
-                                            @if ($errors->has('description'))
-                                                <span class="text-danger">
-                                                    <strong>{{ $errors->first('description') }}</strong>
-                                                </span>
-                                            @endif
-                                        </div>
 
-                                        <div class="form-group">
-                                            <label for="status" class="required">Estado:</label>
-                                            <select name="status" id="status" class="form-control">
-                                                <option value="Activo"
-                                                    {{ old('status', $speciality->status) == 'Activo' ? 'selected' : '' }}>
-                                                    Activo</option>
-                                                <option value="Inactivo"
-                                                    {{ old('status', $speciality->status) == 'Inactivo' ? 'selected' : '' }}>
-                                                    Inactivo</option>
-                                            </select>
-                                            @if ($errors->has('status'))
-                                                <span class="text-danger">
-                                                    <strong>{{ $errors->first('status') }}</strong>
-                                                </span>
-                                            @endif
-                                        </div>
+
+
+
+
 
 
                                         <div class="form-group" hidden>

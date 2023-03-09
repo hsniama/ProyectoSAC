@@ -53,26 +53,34 @@ class ProfileController extends Controller
     public function edit($id)
     {
         $person = Person::findOrFail($id);
-        return view('profile.edit', compact('person'));
+
+        $user = User::findOrFail($person->user_id);
+
+        $edad = \Carbon\Carbon::parse($user->person->fecha_nacimiento)->age;
+
+
+        return view('profile.edit', compact('person', 'edad'));
     }
 
     public function update(Request $request, $id)
     {
         $request->validate([
-            'cedula' => ['required', 'numeric', 'unique:people,cedula,'.$id],
-            'apellidos' => ['required', 'string', 'max:255', 'min:3', 'string'],
-            'nombres' => ['required', 'string', 'max:255', 'min:3', 'string'],
-            //'email' => ['required', 'email', 'max:255', 'min:3', 'unique:people,email,'.$id],
+            //'cedula' => ['required', 'numeric', 'unique:people,cedula,'.$id],
+            //'apellidos' => ['required', 'string', 'max:255', 'min:3', 'string'],
+            //'nombres' => ['required', 'string', 'max:255', 'min:3', 'string'],
+            'email' => ['required', 'email', 'max:255', 'min:3', 'unique:users,email,'.$id],
             'telefono' => ['required', 'numeric'],
             'direccion' => ['required', 'max:255', 'min:3', 'string'],
-            'ciudad' => ['required', 'max:255', 'min:3', 'string', 'string'],
-            'fecha_nacimiento' => ['required', 'date'],
-            'genero' => ['required', 'string']
+            'ciudad' => ['required', 'max:255', 'min:3', 'string'],
+            //'fecha_nacimiento' => ['required', 'date'],
+            //'genero' => ['required', 'string']
         ]);
 
         $person = Person::findOrFail($id);
+        $person->update($request->except('email'));
 
-        $person->update($request->all());
+        $user = User::findOrFail($person->user_id);
+        $user->update($request->only('email'));
 
         return redirect()->route('home')->with('success', 'Perfil actualizado con éxito');
     }

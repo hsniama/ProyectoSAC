@@ -47,70 +47,75 @@
                                 <div class="box box-info padding-1">
                                     <div class="box-body">
 
-
-                                        <div class="form-group">
-                                            <label for="name" class="required">Nombre:</label>
-                                            <input type="text" name="name" id="name"
-                                                class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}"
-                                                placeholder="Ingres el nombre de la nueva especialidad"
-                                                value="{{ old('name', '') }}">
-                                            @if ($errors->has('name'))
-                                                <span class="text-danger">
-                                                    <strong>{{ $errors->first('name') }}</strong>
-                                                </span>
-                                            @endif
-                                        </div>
-
-
-                                        <div class="form-group">
-                                            <label for="description" class="required">Descripción:</label>
-                                            <input type="text" name="description" id="description"
-                                                class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}"
-                                                placeholder="Ingrese los descripción" value="{{ old('description', '') }}">
-                                            @if ($errors->has('description'))
-                                                <span class="text-danger">
-                                                    <strong>{{ $errors->first('description') }}</strong>
-                                                </span>
-                                            @endif
-                                        </div>
-
-                                        {{-- <div class="form-group">
-                                        <label for="status" class="required">Estado: </label>
-                                        <select class="form-control select2 {{ $errors->has('status') ? 'is-invalid' : '' }}" name="status" id="status">
-                                            <option value="">Seleccione el estado actual de la especialidad</option>
-                                            @foreach (App\Models\Speciality::ESTADOS as $estado)
-                                                <option value="{{ $estado }}" @selected($estado === old('estado'))>
-                                                    {{ $estado }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-                                        @if ($errors->has('estado'))
-                                            <span class="text-danger">
-                                                <strong>{{ $errors->first('estado') }}</strong>
-                                            </span>
-                                        @endif
-                                    </div> --}}
-
-                                        <div class="form-group">
-                                            <label for="status" class="required">Estado: </label>
-                                            </br>
-                                            @foreach (App\Models\Speciality::ESTADOS as $status)
-                                                <div class="form-check form-check-inline">
-                                                    <input
-                                                        class="form-check-input {{ $errors->has('status') ? 'is-invalid' : '' }}"
-                                                        type="radio" name="status" id="estado_{{ $status }}"
-                                                        value="{{ $status }}"
-                                                        @if ($status === old('status')) checked @endif>
-                                                    <label class="form-check-label"
-                                                        for="estado_{{ $status }}">{{ $status }}</label>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="form-group">
+                                                            <label for="name" class="required">Nombre:</label>
+                                                            <input type="text" name="name" id="name"
+                                                                class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}"
+                                                                placeholder="Ingres el nombre de la nueva especialidad"
+                                                                value="{{ old('name', '') }}">
+                                                            @if ($errors->has('name'))
+                                                                <span class="text-danger">
+                                                                    <strong>{{ $errors->first('name') }}</strong>
+                                                                </span>
+                                                            @endif
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                            @endforeach
-                                            @if ($errors->has('status'))
-                                                <span class="text-danger">
-                                                    <strong>{{ $errors->first('status') }}</strong>
-                                                </span>
-                                            @endif
+
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <div class="form-group">
+                                                            <label for="description" class="required">Descripción:</label>
+                                                            <textarea type="text" name="description" id="description"
+                                                                class="form-control {{ $errors->has('description') ? 'is-invalid' : '' }}"
+                                                                placeholder="Ingrese la descripción de la especialidad" value="{{ old('description', '') }}"
+                                                                rows="7">
+                                                            </textarea>
+                                                            @if ($errors->has('description'))
+                                                                <span class="text-danger">
+                                                                    <strong>{{ $errors->first('description') }}</strong>
+                                                                </span>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                            <div class="col-md-6">
+                                                <div class="row d-flex">
+                                                    <div class="form-group">
+                                                        <label for="status" class="required">Estado: </label>
+                                                        </br>
+                                                        @foreach (App\Models\Speciality::ESTADOS as $status)
+                                                            <div class="form-check form-check-inline">
+                                                                <input
+                                                                    class="form-check-input {{ $errors->has('status') ? 'is-invalid' : '' }}"
+                                                                    type="radio" name="status" id="estado_{{ $status }}"
+                                                                    value="{{ $status }}"
+                                                                    @if ($status === old('status')) checked @endif>
+                                                                <label class="form-check-label"
+                                                                    for="estado_{{ $status }}">{{ $status }}</label>
+                                                            </div>
+                                                        @endforeach
+                                                        @if ($errors->has('status'))
+                                                            <span class="text-danger">
+                                                                <strong>{{ $errors->first('status') }}</strong>
+                                                            </span>
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                         </div>
+
+
+
+
 
                                         <div class="form-group" hidden>
                                             <label for="created_by" class="required">Creado por:</label>

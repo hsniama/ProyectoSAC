@@ -7,7 +7,7 @@
             <div class="row mb-2">
 
                 <div class="col-sm-6">
-                    <h1 class="m-0">Completa tu Información Personl</h1>
+                    <h1 class="m-0">Completa tu Información Personal</h1>
                 </div><!-- /.col -->
 
             </div><!-- /.row -->

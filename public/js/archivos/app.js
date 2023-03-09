@@ -32,8 +32,6 @@
 
 
 
-
-
 // Cargar doctores por especialidad en crear cita.
     $(function(){
         const $speciality = $('#speciality');
@@ -120,3 +118,7 @@
     });
 
 
+// TextArea para descripcion al crear nueva especialidad
+const myTextArea = document.getElementById('description');
+// myTextArea.focus();
+myTextArea.setSelectionRange(0, 0);

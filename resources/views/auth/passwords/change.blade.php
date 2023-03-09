@@ -50,7 +50,7 @@
                         <div class="mb-3">
                             <a href="{{ route('home') }}" class="btn btn-danger btn-sm p-2"  data-placement="left">
                                 <i class="fa fa-fw fa-lg fa-arrow-left"></i>
-                                {{ __('Regresar') }}
+                                {{ __('Cancelar') }}
                             </a>
                         </div>
                         @endcan 
@@ -62,43 +62,63 @@
                             <div class="box box-info padding-1">
                                 <div class="box-body">
 
-                                <div class="form-group">
-                                    <label for="current_password" class="required">Contraseña actual</label>
-                                    <input type="password" name="current_password" id="current_password"
-                                        class="form-control {{ $errors->has('current_password') ? 'is-invalid' : '' }}"
-                                        placeholder="Ingrese la contraseña actual" value="{{ old('current_password', '') }}">
-                                    @if ($errors->has('current_password'))
-                                        <span class="text-danger">
-                                            <strong>{{ $errors->first('current_password') }}</strong>
-                                        </span>
-                                    @endif
+                                <div class="row">
+
+                                    <div class="col-md-6">
+                                        <div class="row d-flex justify-content-center">
+                                            <div class="col-6">
+                                                <div class="form-group">
+                                                    <label for="current_password" class="required">Contraseña actual</label>
+                                                    <input type="password" name="current_password" id="current_password"
+                                                        class="form-control {{ $errors->has('current_password') ? 'is-invalid' : '' }}"
+                                                        placeholder="Ingrese la contraseña actual" value="{{ old('current_password', '') }}">
+                                                    @if ($errors->has('current_password'))
+                                                        <span class="text-danger">
+                                                            <strong>{{ $errors->first('current_password') }}</strong>
+                                                        </span>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="row d-flex justify-content-center">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="new_password">Nueva contraseña</label>
+                                                    <input type="password" name="new_password" id="new_password"
+                                                        class="form-control {{ $errors->has('new_password') ? 'is-invalid' : '' }}"
+                                                        placeholder="Ingrese la nueva contraseña" value="{{ old('new_password', '') }}"
+                                                        required>
+                                                    @if ($errors->has('new_password'))
+                                                        <span class="text-danger">
+                                                            <strong>{{ $errors->first('new_password') }}</strong>
+                                                        </span>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row d-flex justify-content-center">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="new_password_confirmation">Confirmar nueva contraseña</label>
+                                                    <input type="password" name="new_password_confirmation" id="new_password_confirmation"
+                                                        class="form-control {{ $errors->has('new_password_confirmation') ? 'is-invalid' : '' }}"
+                                                        placeholder="Confirme la nueva contraseña" value="{{ old('new_password_confirmation', '') }}"
+                                                        required>
+                                                    @if ($errors->has('new_password_confirmation'))
+                                                        <span class="text-danger">
+                                                            <strong>{{ $errors->first('new_password_confirmation') }}</strong>
+                                                        </span>
+                                                    @endif
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
 
-                                <div class="form-group">
-                                    <label for="new_password">Nueva contraseña</label>
-                                    <input type="password" name="new_password" id="new_password"
-                                        class="form-control {{ $errors->has('new_password') ? 'is-invalid' : '' }}"
-                                        placeholder="Ingrese la nueva contraseña" value="{{ old('new_password', '') }}"
-                                        required>
-                                    @if ($errors->has('new_password'))
-                                        <span class="text-danger">
-                                            <strong>{{ $errors->first('new_password') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="new_password_confirmation">Confirmar nueva contraseña</label>
-                                    <input type="password" name="new_password_confirmation" id="new_password_confirmation"
-                                        class="form-control {{ $errors->has('new_password_confirmation') ? 'is-invalid' : '' }}"
-                                        placeholder="Confirme la nueva contraseña" value="{{ old('new_password_confirmation', '') }}"
-                                        required>
-                                    @if ($errors->has('new_password_confirmation'))
-                                        <span class="text-danger">
-                                            <strong>{{ $errors->first('new_password_confirmation') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
 
                                 </div> <!--box-body-->
                                                             

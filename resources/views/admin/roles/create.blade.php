@@ -47,31 +47,41 @@
                             <div class="box box-info padding-1">
                                 <div class="box-body">
 
-                                    <div class="form-group">
-                                        <label for="name" class="required">Nombre</label>
-                                        <input type="text" class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" name="name" id="name" placeholder="Nombre del rol" value="{{ old('name') }}">
 
-                                        @if ($errors->has('name'))
-                                            <span class="text-danger">
-                                                <strong>{{ $errors->first('name') }}</strong>
-                                            </span>
-                                        @endif
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <div class="form-group">
+                                                <label for="name" class="required">Nombre</label>
+                                                <input type="text" class="form-control {{ $errors->has('name') ? 'is-invalid' : '' }}" name="name" id="name" placeholder="Nombre del rol" value="{{ old('name') }}">
+
+                                                @if ($errors->has('name'))
+                                                    <span class="text-danger">
+                                                        <strong>{{ $errors->first('name') }}</strong>
+                                                    </span>
+                                                @endif
+                                            </div>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <div class="form-group">
+                                                <label for="permissions" class="required">Permisos</label>
+                                                <select class="form-control select2 {{ $errors->has('permissions') ? 'is-invalidad' : '' }}" name="permissions[]" id="permissions" multiple>
+                                                    @foreach ($permissions as $permission)
+                                                        <option value="{{ $permission->id }}">{{ $permission->name }}</option>
+                                                    @endforeach 
+                                                </select>
+
+                                                @if ($errors->has('permissions'))
+                                                    <span class="text-danger">
+                                                        <strong>{{ $errors->first('permissions') }}</strong>
+                                                    </span>
+                                                @endif
+                                            </div>
+                                        </div>
                                     </div>
 
-                                    <div class="form-group">
-                                        <label for="permissions" class="required">Permisos</label>
-                                        <select class="form-control select2 {{ $errors->has('permissions') ? 'is-invalidad' : '' }}" name="permissions[]" id="permissions" multiple>
-                                            @foreach ($permissions as $permission)
-                                                <option value="{{ $permission->id }}">{{ $permission->name }}</option>
-                                            @endforeach 
-                                        </select>
 
-                                        @if ($errors->has('permissions'))
-                                            <span class="text-danger">
-                                                <strong>{{ $errors->first('permissions') }}</strong>
-                                            </span>
-                                        @endif
-                                    </div>
+
+
 
 
                                 </div>
