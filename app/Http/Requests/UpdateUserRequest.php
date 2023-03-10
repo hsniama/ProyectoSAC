@@ -38,6 +38,7 @@ class UpdateUserRequest extends FormRequest
             'ciudad' => ['required', 'string', 'max:20'],
             'fecha_nacimiento' => ['required', 'date'],
             'genero' => ['required', 'string', 'max:10'],
+            'status' => 'required|in:Activo,Inactivo',
             'specialitiesEdit' => ['array'],
             'specialitiesEdit.*' => ['numeric', 'exists:specialities,id']
         ];

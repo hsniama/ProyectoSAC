@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Models\Appointment;
+use App\Models\User;
 use App\Models\Person;
 use App\Models\Speciality;
+use App\Models\Appointment;
 use App\Http\Requests\StoreAppointmentRequest;
 use App\Http\Requests\UpdateAppointmentRequest;
 use App\Http\Controllers\Controller; // yo agregue esta
@@ -45,20 +46,14 @@ class AppointmentController extends Controller
      */
     public function create()
     {
-        $patients = Person::whereHas('user.roles', function ($query) {
+
+        $patients = User::with('person')->whereHas('roles', function ($query) {
             $query->where('name', 'paciente');
-        })->get();
-
-        $doctors = Person::whereHas('user.roles', function ($query) {
-            $query->where('name', 'doctor');
-        })->get();
-
-        // Bring the doctors that have specialities
-        $doctors = Person::whereHas('specialities')->get();
+        })->where('status', 'Activo')->get();
 
         $specialities = Speciality::where('status', 'Activo')->get();
 
-        return view('admin.appointments.create', compact('patients', 'doctors', 'specialities'));
+        return view('admin.appointments.create', compact('patients', 'specialities'));
     }
 
     /**

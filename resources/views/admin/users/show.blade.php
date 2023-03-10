@@ -107,7 +107,7 @@
                                                 <div class="col-6">
                                                     <div class="form-group">
                                                         <label for="updated_at" class="required">Fecha de la ultima actualización</label>
-                                                        <input type="text" class="form-control" id="updated_at" disabled value=@if ($user->person) {{ $user->person->updated_up }} @else "Sin Registros" @endif>
+                                                        <input type="text" class="form-control" id="updated_at" disabled value=@if ($user->person) {{ $user->person->updated_at }} @else "Sin Registros" @endif>
                                                     </div> 
                                                 </div>
                                             </div>
@@ -123,7 +123,7 @@
                                                             <select disabled class="form-control select2" name="specialities[]"
                                                                 id="specialities" multiple="multiple">
                                                                 @foreach ($user->person->specialities as $speciality)
-                                                                    <option selected>
+                                                                    <option selected class="bg-cyan">
                                                                         {{ $speciality->name }}
                                                                     </option>
                                                                 @endforeach
@@ -170,6 +170,20 @@
                                                         <label for="ciudad" class="required">Ciudad</label>
                                                         <input type="text" class="form-control" id="ciudad" disabled
                                                             value=@if ($user->person) {{ $user->person->ciudad }} @else "Sin Registros" @endif>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label for="estado" class="required">Estado en el Sistema</label>
+                                                        <input type="text" class="form-control @if ($user->person)
+                                                            @if ($user->status == 'Activo')
+                                                                bg-success
+                                                            @elseif ($user->status == 'Inactivo')
+                                                                bg-danger
+                                                            @endif
+                                                            
+                                                        @endif" id="estado" disabled
+                                                            value=@if ($user->person) {{ $user->status }} @else "Sin Registros" @endif>
                                                     </div>
                                                 </div>
                                             </div>
