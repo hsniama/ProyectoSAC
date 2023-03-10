@@ -667,7 +667,7 @@
     return angle * 180 / Math.PI;
   }
 
-  var EventsHandlerAdmin = function () {
+  var EventsHandlerAdmin = (function () {
     function EventsHandlerAdmin(el) {
       _classCallCheck(this, EventsHandlerAdmin);
 
@@ -707,7 +707,7 @@
     }]);
 
     return EventsHandlerAdmin;
-  }();
+  }());
 
   function wrapFunc(el, handler) {
     var EventshandlerAdmin = new EventsHandlerAdmin(el);
@@ -715,7 +715,7 @@
     return EventshandlerAdmin;
   }
 
-  var TouchEvents = function () {
+  var TouchEvents = (function () {
     function TouchEvents(el, option) {
       _classCallCheck(this, TouchEvents);
 
@@ -1035,7 +1035,7 @@
     }]);
 
     return TouchEvents;
-  }();
+  }());
 
   function resetSlideMove(slide) {
     var transitionEnd = whichTransitionEvent();
@@ -1322,7 +1322,7 @@
     instance.events['touch'] = touchInstance;
   }
 
-  var ZoomImages = function () {
+  var ZoomImages = (function () {
     function ZoomImages(el, slide) {
       var _this = this;
 
@@ -1498,9 +1498,9 @@
     }]);
 
     return ZoomImages;
-  }();
+  }());
 
-  var DragSlides = function () {
+  var DragSlides = (function () {
     function DragSlides() {
       var _this = this;
 
@@ -1730,7 +1730,7 @@
     }]);
 
     return DragSlides;
-  }();
+  }());
 
   function slideImage(slide, data, index, callback) {
     var slideMedia = slide.querySelector('.gslide-media');
@@ -1924,7 +1924,7 @@
     return;
   }
 
-  var SlideConfigParser = function () {
+  var SlideConfigParser = (function () {
     function SlideConfigParser() {
       var slideParamas = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
@@ -2149,9 +2149,9 @@
     }]);
 
     return SlideConfigParser;
-  }();
+  }());
 
-  var Slide = function () {
+  var Slide = (function () {
     function Slide(el, instance, index) {
       _classCallCheck(this, Slide);
 
@@ -2386,7 +2386,7 @@
     }]);
 
     return Slide;
-  }();
+  }());
 
   var _version = '3.1.0';
 
@@ -2489,7 +2489,7 @@
   defaults.slideHTML = "<div class=\"gslide\">\n    <div class=\"gslide-inner-content\">\n        <div class=\"ginner-container\">\n            <div class=\"gslide-media\">\n            </div>\n            <div class=\"gslide-description\">\n                <div class=\"gdesc-inner\">\n                    <h4 class=\"gslide-title\"></h4>\n                    <div class=\"gslide-desc\"></div>\n                </div>\n            </div>\n        </div>\n    </div>\n</div>";
   defaults.lightboxHTML = "<div id=\"glightbox-body\" class=\"glightbox-container\" tabindex=\"-1\" role=\"dialog\" aria-hidden=\"false\">\n    <div class=\"gloader visible\"></div>\n    <div class=\"goverlay\"></div>\n    <div class=\"gcontainer\">\n    <div id=\"glightbox-slider\" class=\"gslider\"></div>\n    <button class=\"gclose gbtn\" aria-label=\"Close\" data-taborder=\"3\">{closeSVG}</button>\n    <button class=\"gprev gbtn\" aria-label=\"Previous\" data-taborder=\"2\">{prevSVG}</button>\n    <button class=\"gnext gbtn\" aria-label=\"Next\" data-taborder=\"1\">{nextSVG}</button>\n</div>\n</div>";
 
-  var GlightboxInit = function () {
+  var GlightboxInit = (function () {
     function GlightboxInit() {
       var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
@@ -3641,7 +3641,7 @@
     }]);
 
     return GlightboxInit;
-  }();
+  }());
 
   function glightbox () {
     var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
