@@ -229,7 +229,7 @@
 
 
   const reflow = element => {
-     // eslint-disable-line no-unused-expressions
+    element.offsetHeight; // eslint-disable-line no-unused-expressions
   };
 
   const getjQuery = () => {

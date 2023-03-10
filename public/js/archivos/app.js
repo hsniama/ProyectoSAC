@@ -47,7 +47,7 @@
 
         const $doctor = $('#doctor');
 
-        
+        console.log(doctors);
 
         $doctor.find('option').remove();
         $doctor.append('<option value="" disabled selected>Seleccione un doctor</option>');
