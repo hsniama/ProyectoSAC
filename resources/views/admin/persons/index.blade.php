@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+{{-- @extends('layouts.admin')
 
 @section('content')
     <!-- Content Header (Page header) -->
@@ -145,4 +145,4 @@
             <!--row-->
         </div><!-- /.container-fluid -->
     </div><!-- /.content -->
-@endsection
+@endsection --}}

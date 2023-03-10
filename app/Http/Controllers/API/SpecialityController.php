@@ -10,8 +10,8 @@ class SpecialityController extends Controller
 {
 
 
-    public function doctors(Speciality $speciality)
-    {
+    // public function getActiveDoctors(Speciality $speciality)
+    // {
         // PRIMERA OPCION:
         //Get the doctors that have the speciality
         // $doctors = $speciality->persons()->whereHas('user.roles', function($query){
@@ -27,12 +27,27 @@ class SpecialityController extends Controller
         // CUARTA OPCION
         // return $speciality->persons()->with('user')->get();
 
+
+
         // QUINTA OPCION
-        return $speciality->persons()->get([
-            'people.id',
-            'people.nombres',
-            'people.apellidos'
-        ]);
+        // return $speciality->persons()->get([
+        //     'people.id',
+        //     'people.nombres',
+        //     'people.apellidos'
+        // ]);
+    // }
+
+    public function getActiveDoctors(Speciality $speciality)
+    {
+
+        $doctors = $speciality->persons()->whereHas('user', function($query){
+            $query->where('status', 'Activo', 'and')->whereHas('roles', function($query){
+                $query->where('name', 'doctor');
+            });
+        })->select('people.id', 'people.nombres', 'people.apellidos')->get();
+        
+        return response()->json($doctors);
+       
     }
 
     public function specialities()

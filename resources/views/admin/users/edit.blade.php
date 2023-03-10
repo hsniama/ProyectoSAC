@@ -364,7 +364,26 @@
                                                             @endif
                                                         </div>
                                                     </div>
-
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <label for="status" class="required">Estado:</label>
+                                                            <select name="status" id="statusEdit" class="form-control">
+                                                                <option value="Activo"
+                                                                    {{ old('status', $user->status) == 'Activo' ? 'selected' : '' }}>
+                                                                    Activo
+                                                                </option>
+                                                                <option value="Inactivo"
+                                                                    {{ old('status', $user->status) == 'Inactivo' ? 'selected' : '' }}>
+                                                                    Inactivo
+                                                                </option>
+                                                            </select>
+                                                            @if ($errors->has('status'))
+                                                                <span class="text-danger">
+                                                                    <strong>{{ $errors->first('status') }}</strong>
+                                                                </span>
+                                                            @endif
+                                                        </div>
+                                                    </div>
 
 
                                                 </div>
@@ -393,7 +412,7 @@
                                                             <div class="form-group" id="specialitiesBoxEdit">
                                                                 <label for="specialitiesEdit" class="required">Especialidades</label>
                                                                 <select name="specialitiesEdit[]" id="specialitiesEdit"
-                                                                    class="form-control {{ $errors->has('specialitiesEdit') ? 'is-invalid' : '' }}"
+                                                                    class="form-control select2 {{ $errors->has('specialitiesEdit') ? 'is-invalid' : '' }}"
                                                                     multiple>
                                                                     @foreach ($specialities as $especialidad)
                                                                         <option value="{{ $especialidad->id }}"

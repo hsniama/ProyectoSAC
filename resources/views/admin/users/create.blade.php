@@ -146,7 +146,7 @@
                                                     <div class="col">
                                                         <div class="form-group">
                                                             <label for="telefono">Teléfono</label>
-                                                            <input type="text" name="telefono" id="telefono"
+                                                            <input type="number" name="telefono" id="telefono"
                                                                 class="form-control {{ $errors->has('telefono') ? 'is-invalid' : '' }}"
                                                                 placeholder="Ingrese el Teléfono de la person"
                                                                 value="{{ old('telefono', '') }}">
@@ -194,7 +194,7 @@
                                             <div id="step2" class="tab-pane">
 
                                                 <div class="row">
-                                                    <div class="col-md-4">
+                                                    <div class="col-md-3">
                                                         <div class="form-group">
                                                             <label for="username" class="required">Username</label>
                                                             <input type="text" name="username" id="username"
@@ -208,7 +208,7 @@
                                                             @endif
                                                         </div>
                                                     </div>
-                                                    <div class="col-md-4">
+                                                    <div class="col-md-3">
                                                         <div class="form-group">
                                                             <label for="email" class="required">Correo</label>
                                                             <input type="email" name="email" id="email"
@@ -223,19 +223,90 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4">
+                                                    <div class="col-md-3">
                                                         <div class="form-group">
                                                             <label for="email_verified_at" class="required">Confirmar correo: </label>
-                                                            <select class="form-control {{ $errors->has('email_verified_at') ? 'is-invalid' : ''}}" name="email_verified_at" id="email_verified_at">
+                                                            
+                                                            {{-- <select class="form-control {{ $errors->has('email_verified_at') ? 'is-invalid' : ''}}" name="email_verified_at" id="email_verified_at">
                                                                 <option value="Si">Si</option>
                                                                 <option value="No">No</option>
-                                                            </select>
+                                                            </select> --}}
+                                                            </br>
+
+                                                                <div class="form-check form-check-inline">
+                                                                    <input
+                                                                        class="form-check-input {{ $errors->has('email_verified_at') ? 'is-invalid' : ''}}"
+                                                                        type="radio" name="email_verified_at" id="estado_Activo"
+                                                                        value="Si"
+                                                                    >                                                                 
+                                                                    <label class="form-check-label" for="estado_Si">Si</label>                                                           
+                                                                </div>
+                                                                <div class="form-check form-check-inline">
+                                                                    <input
+                                                                        class="form-check-input {{ $errors->has('email_verified_at') ? 'is-invalid' : ''}}"
+                                                                        type="radio" name="email_verified_at" id="estado_No"
+                                                                        value="No" 
+                                                                    >                                                                 
+                                                                    <label class="form-check-label" for="estado_Inactivo">No</label>
+                                                                </div>
+
                                                             @if ($errors->has('email_verified_at'))
                                                                 <span class="text-danger">
                                                                     <strong>{{ $errors->first('email_verified_at') }}</strong>
                                                                 </span>
                                                             @endif
+
                                                         </div>
+
+
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <div class="row d-flex">
+                                                            <div class="form-group">
+                                                                <label for="status" class="required">Estado: </label>                                                            
+                                                                </br>
+                                                                    <div class="form-check form-check-inline">
+                                                                        <input
+                                                                            class="form-check-input {{ $errors->has('status') ? 'is-invalid' : '' }}"
+                                                                            type="radio" name="status" id="estado_Activo"
+                                                                            value="Activo" 
+                                                                        >                                                                 
+                                                                        <label class="form-check-label" for="estado_Activo">Activo</label>                                                           
+                                                                    </div>
+                                                                    <div class="form-check form-check-inline">                                  
+                                                                        <input
+                                                                            class="form-check-input {{ $errors->has('status') ? 'is-invalid' : '' }}"
+                                                                            type="radio" name="status" id="estado_Inactivo"
+                                                                            value="Inactivo" 
+                                                                        >                                                                 
+                                                                        <label class="form-check-label" for="estado_Inactivo">Inactivo</label>
+                                                                    </div>
+
+                                                                    {{-- @foreach (App\Models\Speciality::ESTADOS as $status)
+                                                                        <div class="form-check form-check-inline">
+                                                                            <input
+                                                                                class="form-check-input {{ $errors->has('status') ? 'is-invalid' : '' }}"
+                                                                                type="radio" name="status" id="estado_{{ $status }}"
+                                                                                value="{{ $status }}"
+                                                                                @if ($status === old('status')) checked @endif>
+                                                                            <label class="form-check-label" for="estado_{{ $status }}">{{ $status }}</label>
+                                                                        </div>
+                                                                    @endforeach --}}
+
+                                                                {{-- <select class="form-control select2{{ $errors->has('status') ? 'is-invalidad' : '' }}" name="status" id="status">                                                          
+                                                                    <option value="Activo">Activo</option>
+                                                                    <option value="Inactivo">Inactivo</option>        
+                                                                </select> --}}
+                
+                                                                @if ($errors->has('status'))
+                                                                    <span class="text-danger">
+                                                                        <strong>{{ $errors->first('status') }}</strong>
+                                                                    </span>
+                                                                @endif
+                                                            </div>
+                                                        </div>
+
+
                                                     </div>
 
                                                 </div>
@@ -244,8 +315,8 @@
                                                     <div class="col-md-4">
                                                         <div class="form-group">
                                                             <label for="roles" class="required">Roles</label>
-                                                            <select class="form-control {{ $errors->has('roles') ? 'is-invalidad' : '' }}" name="roles[]" id="roles" multiple>
-                                                                <option value="" disabled selected>Escoge uno o varios roles</option>
+                                                            <select class="form-control select2{{ $errors->has('roles') ? 'is-invalidad' : '' }}" name="roles[]" id="roles" multiple>
+                                                                {{-- <option value="" disabled selected>Escoge uno o varios roles</option> --}}
                                                                 @foreach ($roles as $rol)
                                                                     <option value="{{ $rol->id }}" {{ old('roles' == $roles ? 'selected' : '') }}>{{ $rol->name }}</option>
                                                                 @endforeach
@@ -262,9 +333,8 @@
                                                         <div class="form-group" id="specialitiesBox">
                                                             <label for="specialities" class="required">Especialidades</label>
                                                             <select
-                                                                class="form-control {{ $errors->has('specialities') ? 'is-invalid' : '' }}"
-                                                                name="specialities[]" id="specialities" multiple="multiple">
-                                                                
+                                                                class="form-control select2 {{ $errors->has('specialities') ? 'is-invalid' : '' }}"
+                                                                name="specialities[]" id="specialities" multiple="multiple">                                                   
                                                             </select>
                                                             @if ($errors->has('specialities'))
                                                                 <span class="text-danger">

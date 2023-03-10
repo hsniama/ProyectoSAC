@@ -47,7 +47,7 @@
 
         const $doctor = $('#doctor');
 
-        //console.log(doctors);
+        console.log(doctors);
 
         $doctor.find('option').remove();
         $doctor.append('<option value="" disabled selected>Seleccione un doctor</option>');
@@ -88,7 +88,7 @@
         //console.log(specialities);
     
         $specialityDoctor.find('option').remove();
-        $specialityDoctor.append('<option value="" disabled selected>Seleccione una o mas especialidades</option>');
+        // $specialityDoctor.append('<option value="" disabled selected>Seleccione una o mas especialidades</option>');
 
         specialities.forEach(specialityDoctor => {
             $specialityDoctor.append(`<option value="${specialityDoctor.id}">${specialityDoctor.name}</option>`);
@@ -117,8 +117,3 @@
         );
     });
 
-
-// TextArea para descripcion al crear nueva especialidad
-const myTextArea = document.getElementById('description');
-// myTextArea.focus();
-myTextArea.setSelectionRange(0, 0);

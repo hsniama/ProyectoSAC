@@ -98,8 +98,7 @@
                                                                     type="radio" name="status" id="estado_{{ $status }}"
                                                                     value="{{ $status }}"
                                                                     @if ($status === old('status')) checked @endif>
-                                                                <label class="form-check-label"
-                                                                    for="estado_{{ $status }}">{{ $status }}</label>
+                                                                <label class="form-check-label" for="estado_{{ $status }}">{{ $status }}</label>
                                                             </div>
                                                         @endforeach
                                                         @if ($errors->has('status'))

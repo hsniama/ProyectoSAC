@@ -25,7 +25,7 @@ class Person extends Model
         'direccion',
         'ciudad',
         'fecha_nacimiento',
-        'genero'
+        'genero',
     ];
 
     public const GENEROS = ['Masculino', 'Femenino', 'Otro'];

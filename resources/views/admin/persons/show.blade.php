@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+{{-- @extends('layouts.admin')
 
 @section('content')
 
@@ -30,7 +30,7 @@
 
                             {{-- <div class="card-title">Listado de usuarios</div> --}}
 
-                            @can('person-list')
+                            {{-- @can('person-list')
                                 <div class="mb-3">
                                     <a href="{{ route('admin.persons.index') }}" class="btn btn-danger btn-sm p-2"
                                         data-placement="left">
@@ -79,7 +79,7 @@
                                         <label for="cedula" class="required">Cedula</label>
                                         <input type="number" class="form-control" id="cedula" disabled
                                             value="{{ $person->cedula }}">
-                                    </div>
+                                    </div> --}}
 
                                     {{-- <div class="form-group">
                                     <label for="email" class="required">Correo</label>
@@ -87,7 +87,7 @@
                                            value="{{$person->email }}">
                                 </div> --}}
 
-                                    <div class="form-group">
+                                    {{-- <div class="form-group">
                                         <label for="telefono" class="required">Telefono</label>
                                         <input type="text" class="form-control" id="telefono" disabled
                                             value="{{ $person->telefono }}">
@@ -155,4 +155,4 @@
     </div><!-- /.content -->
 
 
-@endsection
+@endsection --}} 

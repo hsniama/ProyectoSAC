@@ -39,8 +39,9 @@ class StoreUserRequest extends FormRequest
             'ciudad' => ['required', 'string', 'max:20'],
             'fecha_nacimiento' => ['required', 'date'],
             'genero' => ['required', 'string', 'max:10'],
+            'status' => 'required|in:Activo,Inactivo',
             'specialities' => ['array'],
-            'specialities.*' => ['numeric', 'exists:specialities,id']
+            'specialities.*' => ['numeric', 'exists:specialities,id'],       
         ];
     }
 }
