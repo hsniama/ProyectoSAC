@@ -8,7 +8,6 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ReportController;
-use App\Http\Controllers\Admin\PersonController;
 use App\Http\Controllers\Admin\SpecialityController;
 use App\Http\Controllers\Admin\AppointmentController;
 use App\Http\Controllers\Auth\ChangePasswordController;
@@ -50,10 +49,10 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     });
 
     // JSON: Get the doctors of a speciality. OJO PROTEGER ESTA RUTA DE API EN UN FUTURO.
-    Route::get('/especialidades/{speciality}/doctores', [App\Http\Controllers\API\SpecialityController::class, 'doctors'])->name('especialidades.doctores');
+    Route::get('/especialidades/{speciality}/doctores', [App\Http\Controllers\API\SpecialityController::class, 'getActiveDoctors'])->name('especialidades.doctores');
     
     // JSON: Get all specialities. Protect with middleware only role admin
-    Route::get('/especialidades', [App\Http\Controllers\API\SpecialityController::class, 'specialities'])->name('especialidades.crear.doctor')->middleware('role:admin', 'role:superadmin', 'role:gerente');
+    Route::get('/especialidades', [App\Http\Controllers\API\SpecialityController::class, 'specialities'])->name('especialidades.crear.doctor');
 
     Route::group([
         // 'middleware' => ['role:admin', 'role:superadmin', 'role:gerente'],
@@ -62,8 +61,6 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
         ], function () {
             Route::resource('users', UserController::class);
-            // Route::resource('persons', PersonController::class);
-            // Route::get('persons/{user}/create', [PersonController::class, 'createSegunRol'])->name('persons.create.personrol');
             Route::resource('roles', RoleController::class);
             Route::resource('specialities', SpecialityController::class);
             Route::resource('appointments', AppointmentController::class);

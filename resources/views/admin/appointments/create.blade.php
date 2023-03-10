@@ -53,7 +53,7 @@
                                             <option value="" disabled selected>Seleccione un paciente</option>
                                             @foreach ($patients as $patient)
                                                 <option value="{{ $patient->id }}" @selected($patient->id == old('patient_id'))>
-                                                    {{'Sr(a). '. $patient->nombres . ' ' . $patient->apellidos }}
+                                                    {{'Sr(a). '. $patient->person->nombres . ' ' . $patient->person->apellidos }}
                                                 </option>
                                             @endforeach
                                         </select>

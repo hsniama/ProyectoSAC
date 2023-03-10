@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin; //ojo que yo cambie esta, por que cree la carpeta de Admin
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Person;
 use App\Models\Speciality;
@@ -51,7 +52,7 @@ class UserController extends Controller
         if ($request->ajax()) {
             
             $users = User::with(['roles:name', 'person.specialities:name'])
-            ->select('id', 'username', 'email', 'created_at', 'updated_at')->get();
+            ->select('id', 'username', 'email', 'created_at', 'updated_at', 'email_verified_at', 'status')->get();
 
 
             return DataTables::of($users)
@@ -103,34 +104,36 @@ class UserController extends Controller
                     return $show . ' ' . $edit . ' ' . $delete;
                 })
                 ->addColumn('observaciones', function ($user) {
-                    $observaciones = '<div class ="text-left">';
-             
-                        if (!$user->person){
+                    $observaciones = '<div class ="text-left">';          
+
+                        if ($user->hasRole("doctor") && !$user->hasPersonAndSpeciality()){
                             $observaciones .= '
-                                <p>No ha completado su perfil. 
-                                    <a href="' . route("admin.persons.create.personrol", $user->id) .'" class="text-decoration-none">
-                                        Completalo Aqui
-                                    </a>
-                                </p>
+                                <p>No tiene especialidades asignadas.</p>
                             ';
                         }
 
-                            if ($user->hasRole("doctor") && !$user->hasPersonAndSpeciality()){
+                        if ($user->hasRole("doctor") && $user->hasPersonAndSpeciality()) {
+                            $observaciones .= '
+                                <p>Tiene asignado las siguientes especialidades: </p>
+                            ';
+                            foreach ($user->person->specialities as $especialidad){
                                 $observaciones .= '
-                                    <p>No tiene especialidades asignadas.</p>
+                                    <span class="badge badge-primary"> '.$especialidad->name.' </span>
                                 ';
                             }
+                        }
 
-                            if ($user->hasRole("doctor") && $user->hasPersonAndSpeciality()) {
-                                $observaciones .= '
-                                    <p>Tiene asignado las siguientes especialidades: </p>
-                                ';
-                                foreach ($user->person->specialities as $especialidad){
-                                    $observaciones .= '
-                                        <span class="badge badge-primary"> '.$especialidad->name.' </span>
-                                    ';
-                                }
-                            }
+                        if (empty($user->email_verified_at) ) {
+                            $observaciones .= '
+                                <p>El usuario no ha verificado su correo electronico.</p>
+                            ';
+                        }
+
+                        if ($user->status === 'Inactivo'){
+                            $observaciones .= '
+                                <p>El usuario esta <span class = "text-danger font-weight-bold">deshabilitado/inactivo/baneado</span>  del sistema.</p>
+                            ';
+                        }
 
                         $observaciones .= '</div>';
 
@@ -144,11 +147,7 @@ class UserController extends Controller
 
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         $roles = Role::all();
@@ -156,20 +155,15 @@ class UserController extends Controller
         return view('admin.users.create', compact('roles'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreUserRequest  $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(StoreUserRequest $request)
     {
         // User::create($request->validated());
         $request->validated();
 
+
         if ($request['email_verified_at'] == 'Si') {
             $confirmado = Carbon::now();
-            ;
         } else {
             $confirmado= null;
         }
@@ -179,6 +173,7 @@ class UserController extends Controller
             'email' => $request['email'],
             'email_verified_at' => $confirmado,
             'password' => Hash::make($request['password']),
+            'status' => $request->input('status'),
         ]);
 
         $user->assignRole($request->input('roles'));
@@ -192,7 +187,7 @@ class UserController extends Controller
             'direccion' => $request['direccion'],
             'ciudad' => $request['ciudad'],
             'fecha_nacimiento' => $request['fecha_nacimiento'],
-            'genero' => $request['genero']
+            'genero' => $request['genero'],
         ]);
 
 
@@ -211,12 +206,7 @@ class UserController extends Controller
             ->with('success', 'Usuario creado exitosamente.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
+
     public function show(User $user)
     {
         // Regla de negocio: Calcular la edad de la person.
@@ -248,13 +238,7 @@ class UserController extends Controller
         return view('admin.users.edit', compact('user', 'roles', 'userRole', 'person', 'specialities'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateUserRequest  $request
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(UpdateUserRequest $request, User $user)
     {
         // $user->update($request->validated());
@@ -268,7 +252,7 @@ class UserController extends Controller
             $user::where('id', $user->id)->update(['password' => Hash::make($request['password'])]);
         }
         
-        $user->update($request->except('password'));
+        $user->update($request->only('username', 'email', 'status'));
         
         DB::table('model_has_roles')->where('model_id', $user->id)->delete();
 
@@ -278,7 +262,8 @@ class UserController extends Controller
         // Update the person
         $person = Person::where('user_id', $user->id)->first(); 
 
-        $person->update($request->except('password', 'rolesEdit', 'username', 'email', 'email_verified_at', 'specialitiesEdit'));
+        // $person->update($request->except('password', 'rolesEdit', 'username', 'email', 'specialitiesEdit'));
+        $person->update($request->only('cedula', 'nombres', 'apellidos', 'telefono', 'direccion', 'ciudad', 'fecha_nacimiento', 'genero'));
 
 
         //get the roles of the user
@@ -298,12 +283,7 @@ class UserController extends Controller
             ->with('success', 'Usuario actualizado exitosamente.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy(User $user)
     {
         $user->delete();

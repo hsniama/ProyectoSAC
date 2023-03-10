@@ -71,10 +71,19 @@ class UserSeeder extends Seeder
 
         
 
-        //Llenar automaticamente 50 usuarios pacientes random con factory con relacion a person.
-        User::factory(50)->create()->each(function ($user) {
+        //Llenar automaticamente 40 usuarios pacientes random con factory con relacion a person.
+        User::factory(40)->create()->each(function ($user) {
             $user->assignRole('paciente');
             $user->person()->save(Person::factory()->make());
+        });
+
+        //Llenar automaticamente 10 usuarios pacientes random con factory con status Inactivo
+        User::factory(20)->create()->each(function ($user) {
+            $user->assignRole('paciente');
+            $user->status = 'Inactivo';
+            $user->save();
+            $user->person()->save(Person::factory()->make());
+            $user->person->save();
         });
 
                 // // Vale muy bien para crear 10 usuarios pacientes con relacion a person
