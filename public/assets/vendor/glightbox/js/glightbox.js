@@ -565,7 +565,7 @@
   }
 
   function keyboardNavigation(instance) {
-    if (instance.events.hasOwnProperty('keyboard')) {
+    if (Object.prototype.hasOwnProperty.call(instance.events, 'keyboard')) {
       return false;
     }
 
@@ -1065,7 +1065,7 @@
   }
 
   function touchNavigation(instance) {
-    if (instance.events.hasOwnProperty('touch')) {
+    if (Object.prototype.hasOwnProperty.call(instance.events, 'touch')) {
       return false;
     }
 
@@ -1763,11 +1763,11 @@
       img.setAttribute('aria-describedby', textID);
     }
 
-    if (data.hasOwnProperty('_hasCustomWidth') && data._hasCustomWidth) {
+    if (Object.prototype.hasOwnProperty.call(data, '_hasCustomWidth') && data._hasCustomWidth) {
       img.style.width = data.width;
     }
 
-    if (data.hasOwnProperty('_hasCustomHeight') && data._hasCustomHeight) {
+    if (Object.prototype.hasOwnProperty.call(data, '_hasCustomHeight') && data._hasCustomHeight) {
       img.style.height = data.height;
     }
 
@@ -2375,7 +2375,7 @@
     }, {
       key: "getConfig",
       value: function getConfig() {
-        if (!isNode(this.element) && !this.element.hasOwnProperty('draggable')) {
+        if (!isNode(this.element) && !Object.prototype.hasOwnProperty.call(this.element, 'draggable')) {
           this.element.draggable = this.instance.settings.draggable;
         }
 
@@ -3234,7 +3234,7 @@
         var effects = [];
 
         for (var key in this.settings.cssEfects) {
-          if (this.settings.cssEfects.hasOwnProperty(key)) {
+          if (Object.prototype.hasOwnProperty.call(this.settings.cssEfects, key)) {
             var effect = this.settings.cssEfects[key];
             effects.push("g".concat(effect["in"]));
             effects.push("g".concat(effect.out));
@@ -3498,7 +3498,7 @@
         if (!this.lightboxOpen) {
           if (this.events) {
             for (var key in this.events) {
-              if (this.events.hasOwnProperty(key)) {
+              if (Object.prototype.hasOwnProperty.call(this.events, key)) {
                 this.events[key].destroy();
               }
             }
@@ -3538,7 +3538,7 @@
 
           if (_this8.events) {
             for (var _key in _this8.events) {
-              if (_this8.events.hasOwnProperty(_key)) {
+              if (Object.prototype.hasOwnProperty.call(_this8.events, _key)) {
                 _this8.events[_key].destroy();
               }
             }
