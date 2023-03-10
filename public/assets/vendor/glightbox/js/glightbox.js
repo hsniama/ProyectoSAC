@@ -497,10 +497,10 @@
   function isObject(o) {
     var type = _typeof(o);
 
-    return type === 'object' && o != null && !isFunction(o) && !isArray(o);
+    return type === 'object' && o !== null && !isFunction(o) && !isArray(o);
   }
   function isNil(o) {
-    return o == null;
+    return o === null;
   }
   function has(obj, key) {
     return obj !== null && hasOwnProperty.call(obj, key);
