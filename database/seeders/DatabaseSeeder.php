@@ -8,6 +8,7 @@ use App\Models\Person;
 use Illuminate\Database\Seeder;
 use Database\Seeders\RoleSeeder;
 use Database\Seeders\UserSeeder;
+use Database\Seeders\ScheduleSeeder;
 use Database\Seeders\PermissionSeeder;
 use Database\Seeders\SpecialitySeeder;
 use Database\Seeders\AppointmentSeeder;
@@ -28,6 +29,7 @@ class DatabaseSeeder extends Seeder
             PermissionSeeder::class,
             SpecialitySeeder::class,
             AppointmentSeeder::class,
+            ScheduleSeeder::class,
             // ConsultaSeeder::class,
             // RecetaSeeder::class,
             // DiagnosticoSeeder::class,

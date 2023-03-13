@@ -5,19 +5,32 @@ namespace App\Http\Controllers\Admin; //ojo que yo cambie esta, por que cree la 
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Person;
+use App\Models\Schedule;
 use App\Models\Speciality;
+use Illuminate\Support\Str;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Http\Requests\UpdateScheduleRequest;
 use Illuminate\Support\Arr; // yo agregue esta
 use Illuminate\Http\Request; // yo agregue esta
 use Yajra\DataTables\DataTables; // yo agregue esta
 use Illuminate\Support\Facades\DB; // yo agregue esta
 use Spatie\Permission\Models\Role; // yo agregue esta
+
 use App\Http\Controllers\Controller; // yo agregue esta
 use Illuminate\Support\Facades\Hash; // yo agregue esta
 
+
+
+
+
+
+
 class UserController extends Controller
 {
+
+    private $dias = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes'];
+
     /**
      * Display a listing of the resource.
      *
@@ -198,6 +211,20 @@ class UserController extends Controller
             if ($rol == 'doctor') {
                 // Attach the specialities to the person
                 $person->specialities()->attach($request->input('specialities'));
+
+                // Agrego por defecto el horario laboral del medico de L-V de 9 a 12 y de 14 a 16.
+                for ($i=0; $i <5 ; $i++) { 
+                    $scheduleNew =  Schedule::create([
+                        'person_id' => $person->id,
+                        'day' => $i,
+                        'active' => 1,
+                        'morning_start' => strval(Schedule::H_INGRESO_MORNING).':00:00',
+                        'morning_end' => strval(Schedule::H_SALIDA_MORNING).':00:00',
+                        'afternoon_start' => strval(Schedule::H_INGRESO_TARDE).':00:00',
+                        'afternoon_end' => strval(Schedule::H_SALIDA_TARDE).':00:00',
+                    ]);
+
+                }
             }
         }
 
@@ -220,12 +247,7 @@ class UserController extends Controller
         return view('admin.users.show', compact('user', 'edad'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\User  $user
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit(User $user)
     {
         $specialities = Speciality::where('status', 'Activo')->get();
@@ -234,8 +256,37 @@ class UserController extends Controller
         $userRole = $user->roles->pluck('name', 'id')->all();
         $person = $user->person;
 
+        // bring the schedules of the person
+        $schedules = $user->person->schedules;
 
-        return view('admin.users.edit', compact('user', 'roles', 'userRole', 'person', 'specialities'));
+
+        $dias = $this->dias;
+
+        foreach ($dias as $key => $value) {
+            if (!$schedules->contains('day', $key)) {
+                $schedules->push(new Schedule([
+                    'day' => $key,
+                    'morning_start' => strval(Schedule::H_INGRESO_MORNING).':00:00',
+                    'morning_end' => strval(Schedule::H_SALIDA_MORNING).':00:00',
+                    'afternoon_start' => strval(Schedule::H_INGRESO_TARDE).':00:00',
+                    'afternoon_end' => strval(Schedule::H_SALIDA_TARDE).':00:00',
+                    'active' => 0,
+                    'person_id' => $person->id,
+                ]));
+            }
+        }
+
+        $schedules->map(function ($schedule) {
+            $schedule->morning_start = (new Carbon($schedule->morning_start))->format('g:i A');
+            $schedule->morning_end = (new Carbon($schedule->morning_end))->format('g:i A');
+            $schedule->afternoon_start = (new Carbon($schedule->afternoon_start))->format('H:i A');
+            $schedule->afternoon_end = (new Carbon($schedule->afternoon_end))->format('H:i A');
+            // return $schedule;
+        });
+
+        // dd($schedules->toArray());
+
+        return view('admin.users.edit', compact('user', 'roles', 'userRole', 'person', 'specialities', 'schedules'));
     }
 
 
@@ -278,6 +329,61 @@ class UserController extends Controller
 
         // Sync the specialities to the person
         $person->specialities()->sync($request->input('specialitiesEdit'));
+
+
+        //------------------------------------------------------------------------------------
+
+        //Update the schedule of the person:
+        // $schedules = $person->schedules;
+
+
+        $active = $request->input('active') ? : [];
+        $morning_start = $request->input('morning_start');
+        $morning_end = $request->input('morning_end');
+        $afternoon_start = $request->input('afternoon_start');
+        $afternoon_end = $request->input('afternoon_end');
+
+        // $requestSchedule = [
+        //     'active' => $active,
+        //     'morning_start' => $morning_start,
+        //     'morning_end' => $morning_end,
+        //     'afternoon_start' => $afternoon_start,
+        //     'afternoon_end' => $afternoon_end,
+        // ];
+
+
+        // dd($requestSchedule);
+
+
+        $errorsSchedule = [];
+
+        for($i =0; $i<5; ++$i){
+
+            if ($morning_start[$i] > $morning_end[$i]) {
+                $errorsSchedule[] = 'La hora de inicio de la mañana del dia '. $this->dias[$i] .' no puede ser mayor a la hora de finalización.';
+            }
+
+            if ($afternoon_start[$i] > $afternoon_end[$i]) {
+                $errorsSchedule[] = 'La hora de inicio de la tarde del dia '. $this->dias[$i] .' no puede ser mayor a la hora de finalización.';
+            }
+
+            Schedule::updateOrCreate([
+                'day' => $i,           
+                'person_id' => $person->id,   
+            ], [        
+                'active' => in_array($i, $active),
+                'morning_start' => $morning_start[$i],
+                'morning_end' => $morning_end[$i],
+                'afternoon_start' => $afternoon_start[$i],
+                'afternoon_end' => $afternoon_end[$i],
+            ]);
+        }
+
+        // dd($errorsSchedule);
+
+        if (count($errorsSchedule) > 0) {
+            return redirect()->route('admin.users.edit', $user->id)->with('errorsSchedule', $errorsSchedule);
+        }
 
         return redirect()->route('admin.users.index')
             ->with('success', 'Usuario actualizado exitosamente.');

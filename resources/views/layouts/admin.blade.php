@@ -50,11 +50,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
   </aside> --}}
   <!-- /.control-sidebar -->
 
-
-  <!-- Main Footer -->
-  @include('layouts.partials.footer');
-  <!-- ./Main Footer -->
-
+    <!-- Main Footer -->
+    @include('layouts.partials.footer');
+    <!-- ./Main Footer -->
 
 
 </div>

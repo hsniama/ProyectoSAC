@@ -29,6 +29,7 @@ class PermissionSeeder extends Seeder
             'modulo-appointments',
             'modulo-estadisticas',
             'modulo-reportes',
+            'modulo-horarios',
             'user-list',
             'user-show',
             'user-create',
@@ -98,7 +99,12 @@ class PermissionSeeder extends Seeder
             'detalle-diagnostico-create',
             'detalle-diagnostico-edit',
             'detalle-diagnostico-delete',
-            'export-buttons'
+            'export-buttons',
+            'horarios-list',
+            'horarios-show',
+            'horarios-create',
+            'horarios-edit',
+            'horarios-delete',
         ];
 
         foreach ($permissions as $permission) {

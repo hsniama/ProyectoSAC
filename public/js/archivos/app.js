@@ -1,3 +1,5 @@
+
+
 // Activar boton when pressing
 
 
@@ -17,8 +19,8 @@
     }
 
     function validateCurrentTab() {
-        // Select all input fields in the current tab
-        var inputs = $('.tab-content .tab-pane.active input');
+        // Select all input fields in the current tab excepto password y confirm password
+        var inputs = $('.tab-content .tab-pane.active input:not([type="password"])');
         for(var i = 0; i < inputs.length; i++) {
             // Check if any of the fields are empty
             if(!inputs[i].value) {
@@ -29,7 +31,6 @@
         }
         return true;
     }
-
 
 
 // Cargar doctores por especialidad en crear cita.
@@ -116,4 +117,5 @@
             }
         );
     });
+
 

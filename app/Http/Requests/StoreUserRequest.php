@@ -28,6 +28,7 @@ class StoreUserRequest extends FormRequest
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users,email'],
             'email_verified_at' => ['required', 'string', 'max:2'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'status' => 'required|in:Activo,Inactivo',
             'roles' => ['required', 'array'],
             'roles.*' => ['required', 'exists:roles,id', 'numeric'],
         
@@ -39,7 +40,6 @@ class StoreUserRequest extends FormRequest
             'ciudad' => ['required', 'string', 'max:20'],
             'fecha_nacimiento' => ['required', 'date'],
             'genero' => ['required', 'string', 'max:10'],
-            'status' => 'required|in:Activo,Inactivo',
             'specialities' => ['array'],
             'specialities.*' => ['numeric', 'exists:specialities,id'],       
         ];

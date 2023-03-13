@@ -25,7 +25,14 @@
 
 // TABLA NORMAL
     $(document).ready(function () {
-        $('#tablaNormalDataTable').DataTable();
+        $('#tablaNormalDataTable').DataTable({
+            // sin buscador ni paginador:
+            searching: false,
+            paging: false,
+            // sin ordenar por columnas:
+            order: [],
+
+        });
     });
 
 

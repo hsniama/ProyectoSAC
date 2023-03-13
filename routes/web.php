@@ -10,6 +10,8 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\SpecialityController;
 use App\Http\Controllers\Admin\AppointmentController;
+use App\Http\Controllers\Paciente\AppointmentController as PacienteAppointmentController;
+use App\Http\Controllers\Admin\ScheduleController;
 use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\Secretaria\PacienteController;
 
@@ -71,6 +73,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
                 Route::get('/mes-cita', 'mesCita')->name('mes.cita');
                 Route::get('/year-cita', 'anoCita')->name('ano.cita');
             });
+
+            Route::resource('schedules', ScheduleController::class);
     });
 
     Route::group([
@@ -94,5 +98,18 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
             // Route::post('citas/{appointment}/cancelar', [DoctorController::class, 'cancelar'])->name('cancelar');
     });
 
+
+    Route::group([
+        'as' => 'paciente.',
+        'middleware' => 'role:paciente'
+        ], function () {
+            $username = Auth::user()->username;
+            Route::prefix($username)->group(function () {
+                // Route::get('/', [PacienteController::class, 'index'])->name('index');
+                // Route::get('/citas', [PacienteController::class, 'citas'])->name('citas');
+                // Route::get('/citas/{appointment}', [PacienteController::class, 'cita'])->name('cita');
+                // Route::post('/citas/{appointment}/cancelar', [PacienteController::class, 'cancelar'])->name('cancelar');
+            });
+    });
 
 });

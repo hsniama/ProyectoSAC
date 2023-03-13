@@ -4,10 +4,7 @@
             "dateFormat": "Y-m-d",
             "maxDate": "today",
         });
-    });
 
-
-    $(document).ready(function () {
         flatpickr(".dateCita", {
             "locale": "es",
             "dateFormat": "Y-m-d",
@@ -20,24 +17,28 @@
             } ],
             
         });
-    });
 
-        $(document).ready(function () {
+
+        //function to select hour from 9am to 12pm and from 2pm to 6pm
         flatpickr(".horaCita", {
-            "locale": "es",
-            "enableTime": true,
-            "noCalendar": true,
-            "dateFormat": "H:i",
-            "time_24hr": true,
+            enableTime: true,
+            noCalendar: true,
+            dateFormat: "H:i",
+            time_24hr: true,
+            minDate: "09:00",
+            maxDate: "18:00",
+            minuteIncrement: 40,
 
-            "minTime": "08:00",
-            "maxTime": "18:00",
-            
+            disable: [
+                {
+                    from: "12:00",
+                    to: "16:00"
+                },
+            ]
+
         });
-    });
 
 
-    $(document).ready(function () {
         flatpickr(".editarCita", {
             "locale": "es",
             "dateFormat": "Y-m-d",
@@ -50,4 +51,18 @@
             } ],
             
         });
+    });
+
+
+    $(document).ready(function () {
+
+    });
+
+        $(document).ready(function () {
+
+    });
+
+
+    $(document).ready(function () {
+
     });

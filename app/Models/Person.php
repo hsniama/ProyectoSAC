@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use App\Models\User;
+use App\Models\Schedule;
 use App\Models\Speciality;
 use App\Models\Appointment;
 use Illuminate\Support\Facades\Auth;
@@ -47,6 +48,12 @@ class Person extends Model
     public function appointments()
     {
         return $this->hasMany(Appointment::class);
+    }
+
+    // Relationship with Schedule
+    public function schedules()
+    {
+        return $this->hasMany(Schedule::class);
     }
 
 

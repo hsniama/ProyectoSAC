@@ -355,6 +355,28 @@
                   @endcan
 
 
+                @can('modulo-horarios')
+                      <li class="nav-item menu-open">
+                          <a href="#" class="nav-link active">
+                              <i class="fa-solid fa-hospital-user"></i>
+                              <p>
+                                  Gestión de Horarios Laborales
+                                  <i class="right fas fa-angle-left"></i>
+                              </p>
+                          </a>
+
+                          @can('horarios-list')
+                              <ul class="nav nav-treeview">
+                                  <li class="nav-item">
+                                      <a href="{{ route('admin.specialities.index') }}" class="nav-link @if (request()->routeIs('admin.specialities.index')) active @endif">
+                                          <i class="fa fa-user nav-icon"></i>
+                                          <p>Lista de Horarios de Personal</p>
+                                      </a>
+                                  </li>
+                              </ul>
+                          @endcan
+                      </li>
+                  @endcan
 
 
 
