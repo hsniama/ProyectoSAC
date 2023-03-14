@@ -1,19 +1,18 @@
 <?php
 
-
-
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ReportController;
+use App\Http\Controllers\Admin\ScheduleController;
 use App\Http\Controllers\Admin\SpecialityController;
 use App\Http\Controllers\Admin\AppointmentController;
-use App\Http\Controllers\Paciente\AppointmentController as PacienteAppointmentController;
-use App\Http\Controllers\Admin\ScheduleController;
 use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\Secretaria\PacienteController;
+use App\Http\Controllers\API\SpecialityController as SpecialityAPIController;
+use App\Http\Controllers\Paciente\AppointmentController as PatientAppointmentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -51,10 +50,10 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     });
 
     // JSON: Get the doctors of a speciality. OJO PROTEGER ESTA RUTA DE API EN UN FUTURO.
-    Route::get('/especialidades/{speciality}/doctores', [App\Http\Controllers\API\SpecialityController::class, 'getActiveDoctors'])->name('especialidades.doctores');
+    Route::get('/especialidades/{speciality}/doctores', [SpecialityAPIController::class, 'getActiveDoctors'])->name('especialidades.doctores');
     
     // JSON: Get all specialities. Protect with middleware only role admin
-    Route::get('/especialidades', [App\Http\Controllers\API\SpecialityController::class, 'specialities'])->name('especialidades.crear.doctor');
+    Route::get('/especialidades', [SpecialityAPIController::class, 'specialities'])->name('especialidades.crear.doctor');
 
     Route::group([
         // 'middleware' => ['role:admin', 'role:superadmin', 'role:gerente'],
@@ -100,16 +99,12 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
 
     Route::group([
+        'prefix' => 'paciente',
         'as' => 'paciente.',
         'middleware' => 'role:paciente'
         ], function () {
-            $username = Auth::user()->username;
-            Route::prefix($username)->group(function () {
-                // Route::get('/', [PacienteController::class, 'index'])->name('index');
-                // Route::get('/citas', [PacienteController::class, 'citas'])->name('citas');
-                // Route::get('/citas/{appointment}', [PacienteController::class, 'cita'])->name('cita');
-                // Route::post('/citas/{appointment}/cancelar', [PacienteController::class, 'cancelar'])->name('cancelar');
-            });
+            Route::resource('citas', PatientAppointmentController::class);
+            Route::get('resumen-cita/{appointment}', [PatientAppointmentController::class, 'resumenCita'])->name('resumen');
     });
 
 });

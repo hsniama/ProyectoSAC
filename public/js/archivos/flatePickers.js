@@ -10,6 +10,7 @@
             "dateFormat": "Y-m-d",
             "altInput": true,
             "minDate": "today",
+            "maxDate" : new Date().fp_incr(30),
             // disable sat and sun:
             "disable": [ function(date) {
                 // return true to disable

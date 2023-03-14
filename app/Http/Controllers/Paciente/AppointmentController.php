@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Paciente;
 
-use App\Http\Controllers\Controller;
+use App\Models\Speciality;
 use App\Models\Appointment;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Crypt;
+use App\Http\Requests\StoreAppointmentRequest;
 
 class AppointmentController extends Controller
 {
@@ -15,41 +18,53 @@ class AppointmentController extends Controller
      */
     public function index()
     {
-        //
+        
+
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
-        //
+        $specialities = Speciality::where('status', 'Activo')->get();
+
+        return view('paciente.citas.create', compact('specialities'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+
+    public function store(StoreAppointmentRequest $request)
     {
-        //
+        $appointment = Appointment::create($request->all());
+
+        $encrypted_appointment = encrypt($appointment->id);
+
+        return redirect()->route('paciente.resumen', ['appointment' => $encrypted_appointment])->with('notificacion', 'La cita se ha registrado con éxito');
+
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Appointment  $appointment
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Appointment $appointment)
+    public function resumenCita($encrypted_appointment)
     {
-        //
+        $appointment = Appointment::find(decrypt($encrypted_appointment));
+
+        $notificacion = session('notificacion');
+
+
+        return view('paciente.citas.resumen', ['appointment' => $appointment, 'notificacion' => $notificacion]);
     }
 
+
+
+    public function show(Appointment $appointment, String $notificacion)
+    {
+        $appointment->load('patient', 'doctor', 'speciality');
+
+        // dd($appointment);
+        // return view('paciente.citas.show', compact('notificacion', 'appointment'));
+
+        //use redirect
+        return redirect()->route('paciente.citas.show', compact('appointment'));
+
+    }
+    
     /**
      * Show the form for editing the specified resource.
      *

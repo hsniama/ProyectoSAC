@@ -60,7 +60,7 @@ class Person extends Model
     // Function to get the full name of a Person
     public function getFullNameAttribute()
     {
-        return "{$this->apellidos}, {$this->nombres}";
+        return "{$this->apellidos} {$this->nombres}";
     }
 
     // Function to check if all attributes of a Person are null

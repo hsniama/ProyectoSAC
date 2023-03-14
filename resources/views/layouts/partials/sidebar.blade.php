@@ -319,7 +319,11 @@
                           @can('appointment-create')
                               <ul class="nav nav-treeview">
                                   <li class="nav-item">
-                                      <a href="{{ route('admin.appointments.create') }}" class="nav-link @if (request()->routeIs('admin.appointments.create')) active @endif">
+                                      <a href="@hasanyrole(['admin', 'gerente']){{ route('admin.appointments.create') }} @endhasanyrole
+                                               @hasrole('paciente') {{ route('paciente.citas.create') }} @endhasrole" 
+                                                class="nav-link 
+                                                       @if (request()->routeIs('admin.appointments.create') 
+                                                       or request()->routeIs('paciente.citas.create') ) active @endif">
                                           <i class="fa fa-user nav-icon"></i>
                                           <p>Agendar Cita</p>
                                       </a>
@@ -330,7 +334,10 @@
                           @can('appointment-list')
                               <ul class="nav nav-treeview">
                                   <li class="nav-item">
-                                      <a href="{{ route('admin.appointments.index') }}" class="nav-link @if (request()->routeIs('admin.appointments.index')) active @endif">
+                                      <a href="@hasanyrole(['admin', 'gerente']) {{ route('admin.appointments.index') }} @endhasanyrole
+                                               @hasrole('paciente') {{ route('paciente.citas.index') }} @endhasrole"
+                                                class="nav-link @if (request()->routeIs('admin.appointments.index') or 
+                                                                     request()->routeIs('paciente.citas.index') ) active @endif">
                                           <i class="fa fa-user nav-icon"></i>
                                           <p>Consulta de Citas</p>
                                       </a>
@@ -353,34 +360,6 @@
 
                       </li>
                   @endcan
-
-
-                @can('modulo-horarios')
-                      <li class="nav-item menu-open">
-                          <a href="#" class="nav-link active">
-                              <i class="fa-solid fa-hospital-user"></i>
-                              <p>
-                                  Gestión de Horarios Laborales
-                                  <i class="right fas fa-angle-left"></i>
-                              </p>
-                          </a>
-
-                          @can('horarios-list')
-                              <ul class="nav nav-treeview">
-                                  <li class="nav-item">
-                                      <a href="{{ route('admin.specialities.index') }}" class="nav-link @if (request()->routeIs('admin.specialities.index')) active @endif">
-                                          <i class="fa fa-user nav-icon"></i>
-                                          <p>Lista de Horarios de Personal</p>
-                                      </a>
-                                  </li>
-                              </ul>
-                          @endcan
-                      </li>
-                  @endcan
-
-
-
-
 
 
 

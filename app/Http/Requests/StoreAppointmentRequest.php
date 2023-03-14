@@ -23,8 +23,11 @@ class StoreAppointmentRequest extends FormRequest
      */
     public function rules()
     {
+
+
         return [
             'patient_id' => 'required',
+            // 'patient_id' => $this->user()->hasanyrole(['admin', 'gerente']) ? 'required' : 'nullable',
             'doctor_id' => 'required',
             'speciality_id' => 'required',
             'scheduled_date' => ['required', 'date', 'after_or_equal:today', 
