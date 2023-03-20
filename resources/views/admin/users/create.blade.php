@@ -312,7 +312,7 @@
                                                 </div>
 
                                                 <div class="row">
-                                                    <div class="col-md-4">
+                                                    <div class="col-md-3">
                                                         <div class="form-group">
                                                             <label for="roles" class="required">Roles</label>
                                                             <select class="form-control select2{{ $errors->has('roles') ? 'is-invalidad' : '' }}" name="roles[]" id="roles" multiple>
@@ -329,7 +329,7 @@
                                                         </div>
                                                     </div>
 
-                                                    <div class="col-md-4">
+                                                    <div class="col">
                                                         <div class="form-group" id="specialitiesBox">
                                                             <label for="specialities" class="required">Especialidades</label>
                                                             <select

@@ -15,6 +15,7 @@ class ScheduleFactory extends Factory
     {
 
         return [
+
             'day' => $this->faker->randomElement([0, 1, 2, 3, 4]),
             'active' => $this->faker->randomElement([1, 1]),
             'morning_start' => $this->faker->time('H:i'),
@@ -23,7 +24,7 @@ class ScheduleFactory extends Factory
             'afternoon_end' => $this->faker->time('H:i'),
             'person_id' => Person::whereHas('user', function ($query) {
                 $query->whereHas('roles', function ($query) {
-                    $query->where('name', '!=', 'paciente');
+                    $query->where('name', '=', 'doctor');
                 });
             })->inRandomOrder()->first()->id,
         ];

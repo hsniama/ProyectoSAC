@@ -92,7 +92,7 @@
                                                             <input type="text" name="apellidos" id="apellidos"
                                                                 class="form-control {{ $errors->has('apellidos') ? 'is-invalid' : '' }}"
                                                                 placeholder="Actualiza los apellidos"
-                                                                value="{{ old('apellidos', $person->apellidos) }}">
+                                                                value="{{ old('apellidos', $user->person->apellidos) }}">
                                                             @if ($errors->has('apellidos'))
                                                                 <span class="text-danger">
                                                                     <strong>{{ $errors->first('apellidos') }}</strong>
@@ -106,7 +106,7 @@
                                                             <input type="text" name="nombres" id="nombres"
                                                                 class="form-control {{ $errors->has('nombres') ? 'is-invalid' : '' }}"
                                                                 placeholder="Actualiza los nombres"
-                                                                value="{{ old('nombres', $person->nombres) }}">
+                                                                value="{{ old('nombres', $user->person->nombres) }}">
                                                             @if ($errors->has('nombres'))
                                                                 <span class="text-danger">
                                                                     <strong>{{ $errors->first('nombres') }}</strong>
@@ -123,7 +123,7 @@
                                                             <input type="number" name="cedula" id="cedula"
                                                                 class="form-control {{ $errors->has('cedula') ? 'is-invalid' : '' }}"
                                                                 placeholder="Actualiza el N° de Cédula de la person"
-                                                                value="{{ old('cedula', $person->cedula) }}">
+                                                                value="{{ old('cedula', $user->person->cedula) }}">
                                                             @if ($errors->has('cedula'))
                                                                 <span class="text-danger">
                                                                     <strong>{{ $errors->first('cedula') }}</strong>
@@ -137,7 +137,7 @@
                                                                 Nacimiento</label>
                                                             <input name="fecha_nacimiento" id="fecha" type="date"
                                                                 class="form-control date {{ $errors->has('fecha_nacimiento') }}"
-                                                                value="{{ old('fecha', $person->fecha_nacimiento) }}"
+                                                                value="{{ old('fecha', $user->person->fecha_nacimiento) }}"
                                                                 placeholder="Actualize la fecha de nacimiento">
                                                             @if ($errors->has('fecha_nacimiento'))
                                                                 <span class="text-danger">
@@ -155,7 +155,7 @@
                                                                 <option value="">Seleccione un género</option>
                                                                 @foreach (App\Models\Person::GENEROS as $genero)
                                                                     <option value="{{ $genero }}"
-                                                                        {{ (old('genero') ? old('genero') : $person->genero ?? '') == $genero ? 'selected' : '' }}>
+                                                                        {{ (old('genero') ? old('genero') : $user->person->genero ?? '') == $genero ? 'selected' : '' }}>
                                                                         {{ $genero }}
                                                                     </option>
                                                                 @endforeach
@@ -176,7 +176,7 @@
                                                             <input type="text" name="telefono" id="telefono"
                                                                 class="form-control {{ $errors->has('telefono') ? 'is-invalid' : '' }}"
                                                                 placeholder="Actualiza el Teléfono de la person"
-                                                                value="{{ old('telefono', $person->telefono) }}">
+                                                                value="{{ old('telefono', $user->person->telefono) }}">
                                                             @if ($errors->has('telefono'))
                                                                 <span class="text-danger">
                                                                     <strong>{{ $errors->first('telefono') }}</strong>
@@ -190,7 +190,7 @@
                                                             <input type="text" name="ciudad" id="ciudad"
                                                                 class="form-control {{ $errors->has('ciudad') ? 'is-invalid' : '' }}"
                                                                 placeholder="Ingrese la Ciudad de la person"
-                                                                value="{{ old('ciudad', $person->ciudad) }}">
+                                                                value="{{ old('ciudad', $user->person->ciudad) }}">
                                                             @if ($errors->has('ciudad'))
                                                                 <span class="text-danger">
                                                                     <strong>{{ $errors->first('ciudad') }}</strong>
@@ -204,7 +204,7 @@
                                                             <input type="text" name="direccion" id="direccion"
                                                                 class="form-control {{ $errors->has('direccion') ? 'is-invalid' : '' }}"
                                                                 placeholder="Ingrese la Dirección de la person"
-                                                                value="{{ old('direccion', $person->direccion) }}">
+                                                                value="{{ old('direccion', $user->person->direccion) }}">
                                                             @if ($errors->has('direccion'))
                                                                 <span class="text-danger">
                                                                     <strong>{{ $errors->first('direccion') }}</strong>
@@ -313,7 +313,7 @@
                                                                     multiple>
                                                                     @foreach ($specialities as $especialidad)
                                                                         <option value="{{ $especialidad->id }}"
-                                                                            {{ $person->specialities->pluck('id')->contains($especialidad->id) ? 'selected' : '' }}>
+                                                                            {{ $user->person->specialities->pluck('id')->contains($especialidad->id) ? 'selected' : '' }}>
                                                                             {{ $especialidad->name }}
                                                                         </option>
                                                                     @endforeach
@@ -381,6 +381,7 @@
 
                                                 <div class="row p-2">
 
+                                                    @if(in_array('doctor', $user->roles->pluck('name')->toArray()) and $schedules)
                                                     <div class="table-responsive">
                                                         <table
                                                             class="table table-hover table-sm text-center table-borderless">
@@ -456,7 +457,7 @@
                                                                                             {{-- id="morning_end" --}}
                                                                                             >
                                                                                             @for ($i = (App\Models\Schedule::H_INGRESO_MORNING +1); $i <= App\Models\Schedule::H_SALIDA_MORNING; $i++)
-                                                                                                <option value="{{($i<10 ? '0' : ''). $i }}:00" @if (($i . ':00 PM' == $horario->morning_end) or ($i . ':00 AM' == $horario->morning_end)) selected @endif>
+                                                                              <option value="{{($i<10 ? '0' : ''). $i }}:00" @if (($i . ':00 PM' == $horario->morning_end) or ($i . ':00 AM' == $horario->morning_end)) selected @endif>
                                                                                                     @if ($i == 12)
                                                                                                         {{ $i }}
                                                                                                         :00 PM
@@ -471,7 +472,7 @@
                                                                                                     {{ $i }} :30 AM
                                                                                                 </option> --}}
                                                                                             @endfor
-                                                                                        </select>
+                                                                                                          </select>
                                                                                        
                                                                                     </div>
                                                                                 </div>
@@ -539,6 +540,7 @@
                                                             </tbody>
                                                         </table>
                                                     </div>
+                                                    @endif
 
 
                                                 </div>

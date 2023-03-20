@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\ScheduleController;
+use App\Http\Controllers\API\ScheduleController as ScheduleAPIController;
 use App\Http\Controllers\Admin\SpecialityController;
 use App\Http\Controllers\Admin\AppointmentController;
 use App\Http\Controllers\Auth\ChangePasswordController;
@@ -54,6 +55,9 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     
     // JSON: Get all specialities. Protect with middleware only role admin
     Route::get('/especialidades', [SpecialityAPIController::class, 'specialities'])->name('especialidades.crear.doctor');
+
+    //Route for my API/ScheduleController
+    Route::get('/schedule/hours', [ScheduleAPIController::class, 'getAvailableHours'])->name('schedule.hours');
 
     Route::group([
         // 'middleware' => ['role:admin', 'role:superadmin', 'role:gerente'],

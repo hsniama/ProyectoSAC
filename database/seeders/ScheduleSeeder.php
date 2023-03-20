@@ -17,7 +17,7 @@ class ScheduleSeeder extends Seeder
     public function run()
     {
         // create 10 schedules of 10 existing persons
-        Schedule::factory(10)->create([
+        Schedule::factory(21)->create([
             'morning_start' => '09:00',
             'morning_end' => '12:00',
             'afternoon_start' => '14:00',

@@ -7,10 +7,11 @@
 
         flatpickr(".dateCita", {
             "locale": "es",
+            inline : true,
             "dateFormat": "Y-m-d",
             "altInput": true,
             "minDate": "today",
-            "maxDate" : new Date().fp_incr(30),
+            "maxDate" : new Date().fp_incr(8),
             // disable sat and sun:
             "disable": [ function(date) {
                 // return true to disable
