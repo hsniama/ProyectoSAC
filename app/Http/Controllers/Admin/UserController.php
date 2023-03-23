@@ -84,7 +84,7 @@ class UserController extends Controller
     public function store(StoreUserRequest $request)
     {
         // User::create($request->validated());
-        $user = $this->userService->createUser($request);
+        $user = $this->userService->createUser($request->validated());
 
         $person = Person::where('user_id', $user->id)->first();
 

@@ -74,7 +74,7 @@ class PacienteController extends Controller
     public function store(StorePacientRequest $request)
     {
 
-        $user = $this->pacientService->createPacient($request);
+        $user = $this->pacientService->createPacient($request->validated());
 
         $paciente = Person::where('user_id', $user->id)->first();
      

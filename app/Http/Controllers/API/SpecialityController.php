@@ -9,34 +9,6 @@ use Illuminate\Http\Request;
 class SpecialityController extends Controller
 {
 
-
-    // public function getActiveDoctors(Speciality $speciality)
-    // {
-        // PRIMERA OPCION:
-        //Get the doctors that have the speciality
-        // $doctors = $speciality->persons()->whereHas('user.roles', function($query){
-        //     $query->where('name', 'doctor');
-        // })->get();
-
-        // SEGUNDA OPCION
-        // return response()->json($doctors);
-
-        // TERCERA OPCION
-        // return $speciality->persons;
-
-        // CUARTA OPCION
-        // return $speciality->persons()->with('user')->get();
-
-
-
-        // QUINTA OPCION
-        // return $speciality->persons()->get([
-        //     'people.id',
-        //     'people.nombres',
-        //     'people.apellidos'
-        // ]);
-    // }
-
     public function getActiveDoctors(Speciality $speciality)
     {
 
