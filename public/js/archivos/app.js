@@ -1,6 +1,12 @@
+$('#miSpinner').hide();
+
+let $fechaCita = $(".fechaCita");
+$fechaCita.hide();
+let $horasDisponiblesDoctor = $('.horasDisponiblesDoctor');
+$horasDisponiblesDoctor.hide();
 
 
-// Activar boton when pressing
+const noHours = `<h3 class="text-danger">No hay horas disponibles para este doctor</h3>`;
 
 
 // Multi-Step Form
@@ -39,19 +45,38 @@
         $speciality.change(() => {
             const specialityId = $speciality.val();
             const url = `/especialidades/${specialityId}/doctores`;
-            $.get(url, onDoctorsLoaded);
+            // $.get(url, onDoctorsLoaded);
+
+            const $body = $("body");
+            //get the url with the onDoctorsLoaded function and add a spinner while the data is loading. The spinner will be hidden when the data is loaded.
+            $.ajax({
+                url: url,
+                beforeSend: function(){
+                    $('#miSpinner').show();
+                    $body.css("opacity", "0.5");
+                }
+            }).done(function(doctors){
+
+                onDoctorsLoaded(doctors);
+                $('#miSpinner').hide();
+                $body.css("opacity", "1");
+            }
+            );
          
         });
     });
 
     function onDoctorsLoaded(doctors){
 
+        $fechaCita.hide();
+        $horasDisponiblesDoctor.hide();
+
         const $doctor = $('#doctor');
 
         console.log(doctors);
 
         $doctor.find('option').remove();
-        $doctor.append('<option value="" disabled selected>Seleccione un doctor</option>');
+        $doctor.append('<option disabled selected>Seleccione un doctor</option>');
 
         doctors.forEach(doctor => {
             $doctor.append(`<option value="${doctor.id}">${doctor.nombres} ${doctor.apellidos}</option>`);
@@ -117,5 +142,94 @@
             }
         );
     });
+
+
+
+
+
+//Cargar horarios del doctor
+$(function(){
+    const $doctor = $('#doctor');
+
+    
+    $date = $('#scheduled_date');
+
+    $doctor.on('change',  () => {
+
+        $fechaCita.show();
+        loadHours();
+    });
+
+    $date.on('change', () => {
+        // $("#scheduled_time").prop('disabled', false);
+        // $("#scheduled_time").addClass('bg-white');
+        $horasDisponiblesDoctor.show();
+        loadHours();
+        }
+    );
+});
+
+
+
+function loadHours(){
+
+    const $doctor = $('#doctor');
+    const $date = $('#scheduled_date');
+
+    const doctorId = $doctor.val();
+    const selectedDate = $date.val();
+    const url = `/schedule/hours?scheduled_date=${selectedDate}&doctor_id=${doctorId}`;
+    // $.getJSON(url, onHorariosLoaded);
+
+    $.ajax({
+        url: url,
+        type: 'GET',
+        success: function(data){
+            // console.log(data);
+            onHorariosLoaded(data);
+        },
+        error: function(error){
+            $horasDisponiblesDoctor.append(`<h3 class="text-danger">${error.responseJSON.error}</h3>`)
+        }
+
+
+
+    })
+
+}
+
+function onHorariosLoaded(horarios){
+    
+        // console.log(horarios);
+
+        if(horarios.length == 0){
+            // $horasDisponiblesDoctor.text('No hay horas disponibles para este doctor');
+            $horasDisponiblesDoctor.append(`<input type="text" disabled> No hay horas disponibles para este doctor </input>`);
+            alert('No hay horas disponibles para este doctor');
+            console.log('no hay horas.');
+        }else{
+
+            const horasDisponibles =  horarios.map(horario => horario.start);
+            // console.log(horasDisponibles);
+
+            $horasDisponiblesDoctor.find('input').remove();
+            $horasDisponiblesDoctor.find('label').remove();
+            $horasDisponiblesDoctor.append('<label class="form-label" for="scheduled_time" class="required">Horas disponibles</label> </br>');
+
+            let iRadio = 0;
+
+            horasDisponibles.forEach(horaInicio => {
+                $horasDisponiblesDoctor.append(`
+                    <input type="radio" class="btn-check {{ $errors->has('scheduled_time') ? 'is-invalid' : '' }}" name="scheduled_time" id="scheduled_time${iRadio}" 
+                           value="${horaInicio}" 
+                           autocomplete="off" ></input>
+                    <label class="btn btn-outline-primary" for="scheduled_time${iRadio}">${horaInicio}</label>
+                `);
+                iRadio++;
+            });
+
+        }
+}
+
 
 

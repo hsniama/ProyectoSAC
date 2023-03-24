@@ -50,6 +50,7 @@ class ScheduleController extends Controller
         $afternoonIntervals = $this->getAvailableIntervals($horario->afternoon_start, $horario->afternoon_end);
 
         $data = [];
+        // $data = array_merge($morningIntervals, $afternoonIntervals);
         $data['morning'] = $morningIntervals;
         $data['afternoon'] = $afternoonIntervals;
 

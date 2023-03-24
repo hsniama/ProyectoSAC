@@ -7,7 +7,6 @@
 
         flatpickr(".dateCita", {
             "locale": "es",
-            inline : true,
             "dateFormat": "Y-m-d",
             "altInput": true,
             "minDate": "today",
@@ -17,7 +16,7 @@
                 // return true to disable
                 return (date.getDay() === 0 || date.getDay() === 6);
             } ],
-            
+          
         });
 
 
