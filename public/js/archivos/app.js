@@ -1,12 +1,15 @@
 $('#miSpinner').hide();
 
-let $fechaCita = $(".fechaCita");
-$fechaCita.hide();
-let $horasDisponiblesDoctor = $('.horasDisponiblesDoctor');
-$horasDisponiblesDoctor.hide();
+// let $fechaCita = $(".fechaCita");
+// $fechaCita.hide();
+// let $horasDisponiblesDoctor = $('.horasDisponiblesDoctor');
+// $horasDisponiblesDoctor.hide();
 
-
-const noHours = `<h3 class="text-danger">No hay horas disponibles para este doctor</h3>`;
+let $speciality, $date, $doctor, iRadio;
+let $hoursMorning, $hoursAfternoon, $titleMorning, $titleAfternoon;
+const titleMorning = `En la mañana`;
+const titleAfternoon = `En la tarde`;
+const noHours = `<h3 class="text-danger">No hay horas disponibles.</h3>`;
 
 
 // Multi-Step Form
@@ -41,7 +44,8 @@ const noHours = `<h3 class="text-danger">No hay horas disponibles para este doct
 
 // Cargar doctores por especialidad en crear cita.
     $(function(){
-        const $speciality = $('#speciality');
+        $speciality = $('#speciality');
+
         $speciality.change(() => {
             const specialityId = $speciality.val();
             const url = `/especialidades/${specialityId}/doctores`;
@@ -68,12 +72,12 @@ const noHours = `<h3 class="text-danger">No hay horas disponibles para este doct
 
     function onDoctorsLoaded(doctors){
 
-        $fechaCita.hide();
-        $horasDisponiblesDoctor.hide();
+        // $fechaCita.hide();
+        // $horasDisponiblesDoctor.hide();
 
-        const $doctor = $('#doctor');
+        $doctor = $('#doctor');
 
-        console.log(doctors);
+        // console.log(doctors);
 
         $doctor.find('option').remove();
         $doctor.append('<option disabled selected>Seleccione un doctor</option>');
@@ -81,6 +85,8 @@ const noHours = `<h3 class="text-danger">No hay horas disponibles para este doct
         doctors.forEach(doctor => {
             $doctor.append(`<option value="${doctor.id}">${doctor.nombres} ${doctor.apellidos}</option>`);
         });
+
+        loadHours();
     }
 
 // Cargar especialidades si el usuario es doctor
@@ -149,21 +155,20 @@ const noHours = `<h3 class="text-danger">No hay horas disponibles para este doct
 
 //Cargar horarios del doctor
 $(function(){
-    const $doctor = $('#doctor');
-
-    
+    $doctor = $('#doctor');
     $date = $('#scheduled_date');
+    $titleMorning = $('#titleMorning');
+    $hoursMorning = $('#hoursMorning');
+    $titleAfternoon = $('#titleAfternoon');
+    $hoursAfternoon = $('#hoursAfternoon');
 
     $doctor.on('change',  () => {
-
-        $fechaCita.show();
+        // $fechaCita.show();
         loadHours();
     });
 
     $date.on('change', () => {
-        // $("#scheduled_time").prop('disabled', false);
-        // $("#scheduled_time").addClass('bg-white');
-        $horasDisponiblesDoctor.show();
+        // $horasDisponiblesDoctor.show();
         loadHours();
         }
     );
@@ -173,62 +178,69 @@ $(function(){
 
 function loadHours(){
 
-    const $doctor = $('#doctor');
-    const $date = $('#scheduled_date');
-
-    const doctorId = $doctor.val();
     const selectedDate = $date.val();
+    const doctorId = $doctor.val();
+
     const url = `/schedule/hours?scheduled_date=${selectedDate}&doctor_id=${doctorId}`;
-    // $.getJSON(url, onHorariosLoaded);
 
-    $.ajax({
-        url: url,
-        type: 'GET',
-        success: function(data){
-            // console.log(data);
-            onHorariosLoaded(data);
-        },
-        error: function(error){
-            $horasDisponiblesDoctor.append(`<h3 class="text-danger">${error.responseJSON.error}</h3>`)
-        }
+    $.getJSON(url, displayHours);
 
-
-
-    })
 
 }
 
-function onHorariosLoaded(horarios){
+function displayHours(data){
     
-        // console.log(horarios);
+        console.log(data);
 
-        if(horarios.length == 0){
-            // $horasDisponiblesDoctor.text('No hay horas disponibles para este doctor');
-            $horasDisponiblesDoctor.append(`<input type="text" disabled> No hay horas disponibles para este doctor </input>`);
-            alert('No hay horas disponibles para este doctor');
-            console.log('no hay horas.');
-        }else{
+        let htmlHoursMorning = '';
+        let htmlHoursAfternoon = '';
 
-            const horasDisponibles =  horarios.map(horario => horario.start);
-            // console.log(horasDisponibles);
+        iRadio = 0;
 
-            $horasDisponiblesDoctor.find('input').remove();
-            $horasDisponiblesDoctor.find('label').remove();
-            $horasDisponiblesDoctor.append('<label class="form-label" for="scheduled_time" class="required">Horas disponibles</label> </br>');
+        if(data.morning){
+            const morning_intervals = data.morning;
 
-            let iRadio = 0;
-
-            horasDisponibles.forEach(horaInicio => {
-                $horasDisponiblesDoctor.append(`
-                    <input type="radio" class="btn-check {{ $errors->has('scheduled_time') ? 'is-invalid' : '' }}" name="scheduled_time" id="scheduled_time${iRadio}" 
-                           value="${horaInicio}" 
-                           autocomplete="off" ></input>
-                    <label class="btn btn-outline-primary" for="scheduled_time${iRadio}">${horaInicio}</label>
-                `);
-                iRadio++;
+            morning_intervals.forEach(interval => {
+                htmlHoursMorning += getRadioIntervalHTML(interval);
             });
-
         }
+
+        if(!htmlHoursMorning != ""){
+            htmlHoursMorning += noHours;
+        }
+
+        if(data.afternoon){ 
+            const afternoon_intervals = data.afternoon;
+
+            afternoon_intervals.forEach(interval => {
+                htmlHoursAfternoon += getRadioIntervalHTML(interval);
+            });
+        }
+
+        if(!htmlHoursAfternoon != ""){
+            htmlHoursAfternoon += noHours;
+        }
+
+        $hoursMorning.html(htmlHoursMorning);
+        $hoursAfternoon.html(htmlHoursAfternoon);
+
+        $titleMorning.html(titleMorning);
+        $titleAfternoon.html(titleAfternoon);
+
+}
+
+function getRadioIntervalHTML(intervalo){
+    const text = `${intervalo.start} - ${intervalo.end}`;
+
+    return `
+        <input type="radio" class="btn-check {{ $errors->has('scheduled_time') ? 'is-invalid' : '' }}" 
+               name="scheduled_time" 
+               id="scheduled_time${iRadio}" 
+               value="${text}" 
+               autocomplete="off" >
+        </input>
+        <label class="btn btn-outline-primary" for="scheduled_time${iRadio++}">${text}</label>
+    `;
 }
 
 

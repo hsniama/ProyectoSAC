@@ -43,7 +43,9 @@ class ScheduleController extends Controller
 
 
         if (!$horario) {
-            return response()->json(['error' => 'El médico no tiene horario disponible'], 404);
+            // return response()->json(['error' => 'El médico no tiene horario disponible'], 404);
+            return [];
+
         }
 
         $morningIntervals = $this->getAvailableIntervals($horario->morning_start, $horario->morning_end);
@@ -67,63 +69,13 @@ class ScheduleController extends Controller
 
         while ($start->lt($end)) {
             $interval = [];
-            $interval['start'] = $start->format('H:i:s');
+            $interval['start'] = $start->format('H:i');
             $start->addMinutes(30);
-            $interval['end'] = $start->format('H:i:s');
+            $interval['end'] = $start->format('H:i');
             $intervals[] = $interval;
         }
 
         return $intervals;
     }
 
-
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Schedule  $schedule
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Schedule $schedule)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Schedule  $schedule
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Schedule $schedule)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Schedule  $schedule
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Schedule $schedule)
-    {
-        //
-    }
 }

@@ -181,6 +181,17 @@
 
                                         <div class="row form-group">
                                             <div class="col-12 horasDisponiblesDoctor">
+                                                <label for="scheduled_time">Hora de atencion</label>
+                                                <div class="row">
+                                                    <div class="col">
+                                                        <h4 class="m-3" id="titleMorning"></h4>
+                                                        <div class="" id="hoursMorning"></div>
+                                                    </div>
+                                                    <div class="col">
+                                                        <h4 class="m-3" id="titleAfternoon"></h4>
+                                                        <div class="" id="hoursAfternoon"></div>
+                                                    </div>
+                                                </div>
                                                 @if($errors->has('scheduled_time'))
                                                     <div class="invalid-feedback">
                                                         {{ $errors->first('scheduled_time') }}
