@@ -23,7 +23,7 @@ class PersonFactory extends Factory
             'cedula' => fake()->unique()->randomNumber(8),
             'apellidos' => fake()->lastName(),
             'nombres' => fake()->firstName(),
-            'telefono' => fake()->unique()->phoneNumber(),
+            'telefono' => preg_replace('/[^0-9]/', '', fake()->unique()->numerify('##########')),
             'direccion' => fake()->address(),
             'ciudad' => fake()->city(),
             'fecha_nacimiento' => fake()->date(),

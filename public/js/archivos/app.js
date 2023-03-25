@@ -1,15 +1,17 @@
 $('#miSpinner').hide();
 
-// let $fechaCita = $(".fechaCita");
-// $fechaCita.hide();
-// let $horasDisponiblesDoctor = $('.horasDisponiblesDoctor');
-// $horasDisponiblesDoctor.hide();
+let $fechaCita = $(".fechaCita");
+$fechaCita.hide();
+let $horasDisponiblesDoctor = $('.horasDisponiblesDoctor');
+$horasDisponiblesDoctor.hide();
+let $doctorBox = $('.doctorBox');
+$doctorBox.hide();
 
 let $speciality, $date, $doctor, iRadio;
-let $hoursMorning, $hoursAfternoon, $titleMorning, $titleAfternoon;
-const titleMorning = `En la mañana`;
-const titleAfternoon = `En la tarde`;
-const noHours = `<h3 class="text-danger">No hay horas disponibles.</h3>`;
+let $hoursMorning, $hoursAfternoon, $titleMorning, $titleAfternoon, $hoursAvailable;
+// const titleMorning = `En la mañana`;
+// const titleAfternoon = `En la tarde`;
+const noHours = `<input type="text" disabled id="noHoursAvailable" class="text-danger border-0 bg-white" value="No hay horas disponibles.">`;
 
 
 // Multi-Step Form
@@ -32,9 +34,27 @@ const noHours = `<h3 class="text-danger">No hay horas disponibles.</h3>`;
         var inputs = $('.tab-content .tab-pane.active input:not([type="password"])');
         for(var i = 0; i < inputs.length; i++) {
             // Check if any of the fields are empty
+
+            if(inputs[i].value == "No hay horas disponibles."){
+                // If a field is empty, show an error message and return false
+                Swal.fire({
+                    icon: 'error',
+                    title: 'No hay citas disponibles',
+                    text: 'Lo sentimos, busca otro doctor/especialidad o intenta otro diá.',
+                })
+
+                return false;
+            }
+
+
             if(!inputs[i].value) {
                 // If a field is empty, show an error message and return false
-                alert("Porfavor llena primero estos campos antes de avanzar al siguiente paso.");
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Datos incompletos',
+                    text: 'Porfavor llena todos los campos antes de avanzar al siguiente paso.',
+                })
+
                 return false;
             }
         }
@@ -64,6 +84,8 @@ const noHours = `<h3 class="text-danger">No hay horas disponibles.</h3>`;
                 onDoctorsLoaded(doctors);
                 $('#miSpinner').hide();
                 $body.css("opacity", "1");
+
+                $doctorBox.show();
             }
             );
          
@@ -72,8 +94,8 @@ const noHours = `<h3 class="text-danger">No hay horas disponibles.</h3>`;
 
     function onDoctorsLoaded(doctors){
 
-        // $fechaCita.hide();
-        // $horasDisponiblesDoctor.hide();
+        $fechaCita.hide();
+        $horasDisponiblesDoctor.hide();
 
         $doctor = $('#doctor');
 
@@ -86,7 +108,7 @@ const noHours = `<h3 class="text-danger">No hay horas disponibles.</h3>`;
             $doctor.append(`<option value="${doctor.id}">${doctor.nombres} ${doctor.apellidos}</option>`);
         });
 
-        loadHours();
+        // loadHours();
     }
 
 // Cargar especialidades si el usuario es doctor
@@ -157,18 +179,20 @@ const noHours = `<h3 class="text-danger">No hay horas disponibles.</h3>`;
 $(function(){
     $doctor = $('#doctor');
     $date = $('#scheduled_date');
-    $titleMorning = $('#titleMorning');
-    $hoursMorning = $('#hoursMorning');
-    $titleAfternoon = $('#titleAfternoon');
-    $hoursAfternoon = $('#hoursAfternoon');
+    // $titleMorning = $('#titleMorning');
+    // $hoursMorning = $('#hoursMorning');
+    // $titleAfternoon = $('#titleAfternoon');
+    // $hoursAfternoon = $('#hoursAfternoon');
+    $hoursAvailable = $('#hoursAvailable');
 
     $doctor.on('change',  () => {
-        // $fechaCita.show();
-        loadHours();
+        $fechaCita.show();
+        // loadHours();
+        //loadDias(); Ejemplo de como cargar dias.
     });
 
     $date.on('change', () => {
-        // $horasDisponiblesDoctor.show();
+        $horasDisponiblesDoctor.show();
         loadHours();
         }
     );
@@ -183,7 +207,22 @@ function loadHours(){
 
     const url = `/schedule/hours?scheduled_date=${selectedDate}&doctor_id=${doctorId}`;
 
-    $.getJSON(url, displayHours);
+    // $.getJSON(url, displayHours);
+
+    const $body = $("body");
+
+    $.ajax({
+        url: url,
+        beforeSend: function(){
+            $('#miSpinner').show();
+            $body.css("opacity", "0.5");
+        }
+    }).done(function(data){
+        displayHours(data);
+        $('#miSpinner').hide();
+        $body.css("opacity", "1");
+    }
+    );
 
 
 }
@@ -192,51 +231,68 @@ function displayHours(data){
     
         console.log(data);
 
-        let htmlHoursMorning = '';
-        let htmlHoursAfternoon = '';
+        // let htmlHoursMorning = '';
+        // let htmlHoursAfternoon = '';
+        let htmlHours = '';
 
         iRadio = 0;
 
-        if(data.morning){
-            const morning_intervals = data.morning;
+        // if(data.morning){
+        //     const morning_intervals = data.morning;
 
-            morning_intervals.forEach(interval => {
-                htmlHoursMorning += getRadioIntervalHTML(interval);
+        //     morning_intervals.forEach(interval => {
+        //         htmlHoursMorning += getRadioIntervalHTML(interval);
+        //     });
+        // }
+
+        // if(!htmlHoursMorning != ""){
+        //     htmlHoursMorning += noHours;
+        // }
+
+        // if(data.afternoon){ 
+        //     const afternoon_intervals = data.afternoon;
+
+        //     afternoon_intervals.forEach(interval => {
+        //         htmlHoursAfternoon += getRadioIntervalHTML(interval);
+        //     });
+        // }
+
+        // if(!htmlHoursAfternoon != ""){
+        //     htmlHoursAfternoon += noHours;
+        // }
+
+        // $hoursMorning.html(htmlHoursMorning);
+        // $hoursAfternoon.html(htmlHoursAfternoon);
+
+        // $titleMorning.html(titleMorning);
+        // $titleAfternoon.html(titleAfternoon);
+
+        if(data.morning || data.afternoon){
+            const hoursIntervals = [...data.morning, ...data.afternoon];
+
+
+            hoursIntervals.forEach(interval => {
+                htmlHours += getRadioIntervalHTML(interval);
             });
         }
 
-        if(!htmlHoursMorning != ""){
-            htmlHoursMorning += noHours;
+        if(!htmlHours != ""){
+            htmlHours += noHours;
         }
 
-        if(data.afternoon){ 
-            const afternoon_intervals = data.afternoon;
-
-            afternoon_intervals.forEach(interval => {
-                htmlHoursAfternoon += getRadioIntervalHTML(interval);
-            });
-        }
-
-        if(!htmlHoursAfternoon != ""){
-            htmlHoursAfternoon += noHours;
-        }
-
-        $hoursMorning.html(htmlHoursMorning);
-        $hoursAfternoon.html(htmlHoursAfternoon);
-
-        $titleMorning.html(titleMorning);
-        $titleAfternoon.html(titleAfternoon);
+        $hoursAvailable.html(htmlHours);
 
 }
 
 function getRadioIntervalHTML(intervalo){
-    const text = `${intervalo.start} - ${intervalo.end}`;
+    // const text = `${intervalo.start} - ${intervalo.end}`;
+    const text = `${intervalo.start}`;
 
     return `
         <input type="radio" class="btn-check {{ $errors->has('scheduled_time') ? 'is-invalid' : '' }}" 
                name="scheduled_time" 
                id="scheduled_time${iRadio}" 
-               value="${text}" 
+               value="${intervalo.start}" 
                autocomplete="off" >
         </input>
         <label class="btn btn-outline-primary" for="scheduled_time${iRadio++}">${text}</label>

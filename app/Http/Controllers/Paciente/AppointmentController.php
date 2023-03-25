@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Crypt;
 use App\Http\Requests\StoreAppointmentRequest;
+use Validator;
 
 class AppointmentController extends Controller
 {
@@ -34,6 +35,28 @@ class AppointmentController extends Controller
     public function store(StoreAppointmentRequest $request)
     {
         $appointment = Appointment::create($request->all());
+
+        //validate the telephone and email of the patient
+        $rules =[
+            'telefono' => 'required|numeric|digits:10',
+            'email' => 'required|email'
+        ];
+
+        $validator = Validator::make($request->only('telefono', 'email'), $rules);
+
+        // show the validation error messages
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+        //update the telephone number and email of the patient
+        $appointment->patient->update([
+            'telefono' => $request->input('telefono')
+        ]);
+
+        $appointment->patient->user->update([
+            'email' => $request->input('email')
+        ]);
 
         $encrypted_appointment = encrypt($appointment->id);
 
