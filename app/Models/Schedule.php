@@ -25,8 +25,8 @@ class Schedule extends Model
     public const DIAS = ['Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes'];
     public const H_INGRESO_MORNING = 9;
     public const H_SALIDA_MORNING = 12;
-    public const H_INGRESO_TARDE = 14;
-    public const H_SALIDA_TARDE = 16;
+    public const H_INGRESO_TARDE = 16;
+    public const H_SALIDA_TARDE = 18;
 
 
     // Relationship with Person

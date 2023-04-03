@@ -48,6 +48,23 @@
                             <div class="mb-3">
                                 <small class="mt-1 fst-italic"> (Los datos marcados con * son obligatorios)</small>
                             </div>
+
+                            <div>
+                                <!--Si existen errores:-->
+                                @if ($errors->any())
+                                    <div class="alert alert-danger d-flex align-items-center alert-dismissible fade show" role="alert">
+                                        <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Danger:">
+                                            <use xlink:href="#exclamation-triangle-fill" />
+                                        </svg>
+                                        <div>
+                                            @foreach ($errors->all() as $error)
+                                                <p>{{ $error }}</p>
+                                            @endforeach
+                                        </div>
+                                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>
+                                @endif
+                            </div>
                             
 
                             <form method="POST" action="{{ route('paciente.citas.store') }}" role="form" class="confirmarCita" enctype="multipart/form-data">
@@ -295,7 +312,7 @@
                                                                     <div class="row">
                                                                         <div class="col">
                                                                             <h4 class="m-3" id="titleHours"></h4>
-                                                                            <div class="" id="hoursAvailable"></div>
+                                                                            <div class="" data-toggle="buttons" id="hoursAvailable"></div>
                                                                         </div>
                                                                     </div>
                                                                     @if($errors->has('scheduled_time'))

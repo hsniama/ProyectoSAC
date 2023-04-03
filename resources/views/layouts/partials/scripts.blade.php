@@ -41,4 +41,3 @@
 
 <script src="{{ asset('/js/archivos/app.js') }}"></script>
 
-

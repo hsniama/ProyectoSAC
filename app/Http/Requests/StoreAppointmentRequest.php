@@ -43,7 +43,7 @@ class StoreAppointmentRequest extends FormRequest
                 // excepto from 12:00 to 16:00
                 function ($attribute, $value, $fail) {
                     $from = now()->setTime(12, 0, 0);
-                    $to = now()->setTime(16, 0, 0);
+                    $to = now()->setTime(15, 59, 0);
                     $scheduled_time = now()->setTimeFromTimeString($value);
                     if ($scheduled_time->between($from, $to)) {
                         $fail('El horario de atención es de 09:00 a 12:00 y de 16:00 a 18:00');

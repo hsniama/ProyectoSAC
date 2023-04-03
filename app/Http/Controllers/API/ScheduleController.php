@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use Validator;
 use Carbon\Carbon;
 use App\Models\Schedule;
+use App\Models\Appointment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -48,8 +49,8 @@ class ScheduleController extends Controller
 
         }
 
-        $morningIntervals = $this->getAvailableIntervals($horario->morning_start, $horario->morning_end);
-        $afternoonIntervals = $this->getAvailableIntervals($horario->afternoon_start, $horario->afternoon_end);
+        $morningIntervals = $this->getAvailableIntervals($horario->morning_start, $horario->morning_end, $doctorId, $date);
+        $afternoonIntervals = $this->getAvailableIntervals($horario->afternoon_start, $horario->afternoon_end, $doctorId, $date);
 
         $data = [];
         // $data = array_merge($morningIntervals, $afternoonIntervals);
@@ -60,8 +61,18 @@ class ScheduleController extends Controller
 
     }
 
-    private function getAvailableIntervals($start, $end)
+    private function getAvailableIntervals($start, $end, $doctorId, $date)
     {
+
+        // Check if the day of the $dateCarbon is the same as today, if so, the available intervals must be greater than the current time
+        // $now = Carbon::now();
+        // $dayOfToday = $now->dayOfWeek;
+
+        // if ($dateCarbon->dayOfWeek == $dayOfToday) {
+        //     $now->addMinutes(40);
+        //     $start = $now->format('H:i');
+        // }
+
         $start = new Carbon($start);
         $end = new Carbon($end);
 
@@ -70,9 +81,19 @@ class ScheduleController extends Controller
         while ($start->lt($end)) {
             $interval = [];
             $interval['start'] = $start->format('H:i');
-            $start->addMinutes(30);
+
+            $exists = Appointment::where('doctor_id', $doctorId)
+                                ->where('scheduled_date', $date)
+                                ->where('scheduled_time', $start->format('H:i:s'))
+                                ->where('status', 'Pendiente')
+                                ->exists();
+
+            $start->addMinutes(40);
             $interval['end'] = $start->format('H:i');
-            $intervals[] = $interval;
+
+            if (!$exists) {
+                $intervals[] = $interval;
+            }
         }
 
         return $intervals;

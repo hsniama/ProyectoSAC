@@ -18,10 +18,10 @@ class ScheduleFactory extends Factory
 
             'day' => $this->faker->randomElement([0, 1, 2, 3, 4]),
             'active' => $this->faker->randomElement([1, 1]),
-            'morning_start' => $this->faker->time('H:i'),
-            'morning_end' =>  $this->faker->time('H:i'),
-            'afternoon_start' => $this->faker->time('H:i'),
-            'afternoon_end' => $this->faker->time('H:i'),
+            'morning_start' => $this->faker->time('H:i:s'),
+            'morning_end' =>  $this->faker->time('H:i:s'),
+            'afternoon_start' => $this->faker->time('H:i:s'),
+            'afternoon_end' => $this->faker->time('H:i:s'),
             'person_id' => Person::whereHas('user', function ($query) {
                 $query->whereHas('roles', function ($query) {
                     $query->where('name', '=', 'doctor');

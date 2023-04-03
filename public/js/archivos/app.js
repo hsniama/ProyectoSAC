@@ -35,6 +35,17 @@ const noHours = `<input type="text" disabled id="noHoursAvailable" class="text-d
         for(var i = 0; i < inputs.length; i++) {
             // Check if any of the fields are empty
 
+            if(!inputs[i].value ) {
+                // If a field is empty, show an error message and return false
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Datos incompletos',
+                    text: 'Porfavor llena todos los campos antes de avanzar al siguiente paso.',
+                })
+
+                return false;
+            }
+
             if(inputs[i].value == "No hay horas disponibles."){
                 // If a field is empty, show an error message and return false
                 Swal.fire({
@@ -46,17 +57,28 @@ const noHours = `<input type="text" disabled id="noHoursAvailable" class="text-d
                 return false;
             }
 
-
-            if(!inputs[i].value) {
-                // If a field is empty, show an error message and return false
-                Swal.fire({
-                    icon: 'warning',
-                    title: 'Datos incompletos',
-                    text: 'Porfavor llena todos los campos antes de avanzar al siguiente paso.',
-                })
-
-                return false;
+            //check if the scheduled_time is not selected:
+            if(inputs[i].name == "scheduled_time"){
+                let iRButtons = document.getElementsByName("scheduled_time");
+                let isChecked = false;
+                for (let i = 0; i < iRButtons.length; i++) {
+                    if (iRButtons[i].checked) {
+                        isChecked = true;
+                        break;
+                    }
+                }
+                if (!isChecked) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'No has seleccionado una hora',
+                        text: 'Porfavor selecciona una hora antes de avanzar al siguiente paso.',
+                    })
+                    return false;
+                }
             }
+
+
+
         }
         return true;
     }
@@ -293,7 +315,7 @@ function getRadioIntervalHTML(intervalo){
                name="scheduled_time" 
                id="scheduled_time${iRadio}" 
                value="${intervalo.start}" 
-               autocomplete="off" >
+               autocomplete="off">
         </input>
         <label class="btn btn-outline-primary" for="scheduled_time${iRadio++}">${text}</label>
     `;

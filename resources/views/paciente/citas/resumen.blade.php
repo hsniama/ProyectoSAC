@@ -6,14 +6,14 @@
     <div class="container-fluid">
         <div class="col-lg-12">
 
-                @if (session('notificacion'))
+                {{-- @if (session('notificacion'))
                     <div class="alert alert-success alert-dismissible mt-2">
                     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
                     <h5><i class="icon fas fa-check"></i> {{ session('notificacion') }}</h5>
                         Confirmamos que su cita médica ha sido agendada para el día {{ $appointment->scheduled_date }} a las {{ $appointment->scheduled_time }} 
                         en la unidad Medica HOSPITAL EL ORO con el Dr. <span class="uppercase">{{ $appointment->doctor->getFullNameAttribute() }}</span>  en el area de <span class="uppercase">{{ $appointment->speciality->name }}</span> .
                     </div>                               
-                @endif
+                @endif --}}
 
 
 

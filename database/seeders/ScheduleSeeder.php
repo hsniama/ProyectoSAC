@@ -16,12 +16,12 @@ class ScheduleSeeder extends Seeder
      */
     public function run()
     {
-        // create 10 schedules of 10 existing persons
+        // create 21 schedules of 21 existing doctors
         Schedule::factory(21)->create([
-            'morning_start' => '09:00',
-            'morning_end' => '12:00',
-            'afternoon_start' => '14:00',
-            'afternoon_end' => '16:00',
+            'morning_start' => '09:00:00',
+            'morning_end' => '12:00:00',
+            'afternoon_start' => '16:00:00',
+            'afternoon_end' => '18:00:00',
         ]);
     }
 }
