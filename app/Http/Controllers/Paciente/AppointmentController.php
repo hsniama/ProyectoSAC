@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Paciente;
 
+
 use Carbon\Carbon;
 use App\Models\Speciality;
 use App\Models\Appointment;
+use Dompdf\Dompdf;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Services\AppointmentService;
@@ -25,7 +28,9 @@ class AppointmentController extends Controller
 
     public function index()
     {
-        
+        $appointments = Appointment::with('patient', 'doctor', 'speciality')->where('patient_id', auth()->user()->person->id)->get();
+
+        return view('paciente.citas.index', compact('appointments'));
 
     }
 
@@ -100,6 +105,22 @@ class AppointmentController extends Controller
 
         // return view('paciente.citas.resumen', ['appointment' => $appointment, 'notificacion' => $notificacion]);
         return view('paciente.citas.resumen', ['appointment' => $appointment]);
+    }
+
+
+    public function showPreviewPDF(Request $request)
+    {
+        // Obtener las citas del paciente
+        $appointments = Appointment::with('patient', 'doctor', 'speciality')->where('patient_id', auth()->user()->person->id)->get();
+        $fecha = Carbon::now()->format('Y-m-d H:i:s');
+        
+        $pdf = PDF::loadView('paciente.citas.previewCitas', compact('appointments', 'fecha'))->setPaper('a4', 'landscape');
+
+        // set font
+        $pdf->setOption('defaultFont', 'sans-serif');
+
+        return $pdf->stream('citas.pdf');
+
     }
 
 

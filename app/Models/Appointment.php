@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use App\Models\Person;
 use App\Models\Speciality;
 use Illuminate\Database\Eloquent\Model;
@@ -39,5 +40,10 @@ class Appointment extends Model
     public static function countAppointments()
     {
         return Appointment::count();
+    }
+
+    public function getScheduledTimeAttribute($value)
+    {
+        return (new Carbon($value))->format('H:i');
     }
 }

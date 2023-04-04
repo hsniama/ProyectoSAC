@@ -219,6 +219,9 @@ return [
         // 'ExampleClass' => App\Example\ExampleClass::class,
         // Datatables
         'DataTables' => Yajra\DataTables\Facades\DataTables::class,
+
+        //Para pdf:
+        'PDF' => Barryvdh\DomPDF\Facade::class,
     ])->toArray(),
 
 ];

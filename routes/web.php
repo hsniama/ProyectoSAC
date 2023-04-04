@@ -109,6 +109,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         ], function () {
             Route::resource('citas', PatientAppointmentController::class);
             Route::get('resumen-cita/{appointment}', [PatientAppointmentController::class, 'resumenCita'])->name('resumen');
+            // Route::post('resumen-cita/{appointment}/cancelar', [PatientAppointmentController::class, 'cancelarCita'])->name('cancelar');
+            Route::get('/preview-pdf', [PatientAppointmentController::class, 'showPreviewPDF'])->name('previewCitas');
     });
 
 });

@@ -30,7 +30,11 @@
             searching: false,
             paging: false,
             // sin ordenar por columnas:
-            order: [],
+            
+
+            orderable: false,
+
+
 
         });
     });

@@ -20,7 +20,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <p class="text-lightblue fs-2">OroMed</p> --}}
 
     <div class="spinner-border text-info" style="width: 3rem; height: 3rem;" role="status">
-      <span class="visually-hidden">Loading...</span>
+      {{-- <span class="visually-hidden">Loading...</span> --}}
     </div>
   </div>
 
