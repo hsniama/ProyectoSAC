@@ -8,9 +8,17 @@ use App\Models\Schedule;
 use App\Models\Appointment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Services\AppointmentService;
 
 class ScheduleController extends Controller
 {
+
+    protected $appointmentService;
+
+    public function __construct(AppointmentService $appointmentService)
+    {
+        $this->appointmentService = $appointmentService;
+    }
 
     public function getAvailableHours(Request $request)
     {
@@ -82,16 +90,12 @@ class ScheduleController extends Controller
             $interval = [];
             $interval['start'] = $start->format('H:i');
 
-            $exists = Appointment::where('doctor_id', $doctorId)
-                                ->where('scheduled_date', $date)
-                                ->where('scheduled_time', $start->format('H:i:s'))
-                                ->where('status', 'Pendiente')
-                                ->exists();
+            $available = $this->appointmentService->isAvailableInterval($date, $doctorId, $start);
 
             $start->addMinutes(40);
             $interval['end'] = $start->format('H:i');
 
-            if (!$exists) {
+            if ($available) {
                 $intervals[] = $interval;
             }
         }

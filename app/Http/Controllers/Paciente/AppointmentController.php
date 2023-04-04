@@ -2,21 +2,27 @@
 
 namespace App\Http\Controllers\Paciente;
 
+use Carbon\Carbon;
 use App\Models\Speciality;
 use App\Models\Appointment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Services\AppointmentService;
 use Illuminate\Support\Facades\Crypt;
-use App\Http\Requests\StoreAppointmentRequest;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\StoreAppointmentRequest;
 
 class AppointmentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+    protected $appointmentService;
+
+    public function __construct(AppointmentService $appointmentService)
+    {
+        $this->appointmentService = $appointmentService;
+    }
+    
+
     public function index()
     {
         
@@ -42,6 +48,22 @@ class AppointmentController extends Controller
         ];
 
         $validator = Validator::make($request->only('telefono', 'email'), $rules);
+
+        $validator->after(function ($validator) use ($request) {
+
+            $date = $request->input('scheduled_date');
+            $doctorId = $request->input('doctor_id');
+            $scheduled_time = new Carbon($request->input('scheduled_time'));
+
+            if($this->appointmentService->isAvailableInterval($date, $doctorId, $scheduled_time) == false) {
+                $validator->errors()->add('scheduled_time', 'La hora seleccionada ya se encuentra ocupada. Acaba de ser seleccionada por otro paciente.');
+            }
+
+            if ($request->input('telefono') == $request->input('email')) {
+                $validator->errors()->add('telefono', 'El telefono y el email no pueden ser iguales');
+            }
+        });
+
 
         // show the validation error messages
         if ($validator->fails()) {

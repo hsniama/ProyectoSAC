@@ -119,9 +119,9 @@ class UserService
 
 
     //---------------------------------------------------------------------------------------------------
-    public function createUser(Request $request) : User  
+    public function createUser(StoreUserRequest $request) : User  
     {
-        // $request->validated();
+        $request->validated();
 
         if ($request['email_verified_at'] == 'Si') {
             $confirmado = Carbon::now();
