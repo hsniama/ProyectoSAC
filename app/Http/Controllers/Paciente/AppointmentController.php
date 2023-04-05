@@ -22,18 +22,35 @@ class AppointmentController extends Controller
 
     public function __construct(AppointmentService $appointmentService)
     {
+        $this->middleware('can:appointment-list')->only('index');
+        $this->middleware('can:appointment-create')->only('create', 'store');
+        $this->middleware('can:appointment-edit')->only('edit', 'update');
+        $this->middleware('can:appointment-delete')->only('destroy');
+        $this->middleware('can:appointment-show')->only('show');
+
         $this->appointmentService = $appointmentService;
     }
     
 
     public function index()
     {
+
         $appointments = Appointment::with('patient', 'doctor', 'speciality')->where('patient_id', auth()->user()->person->id)->get();
 
-        return view('paciente.citas.index', compact('appointments'));
 
+        return view('paciente.citas.index', compact('appointments'));
+        
     }
 
+    public function cancelarCitas(){
+        $appointments = Appointment::with('patient', 'doctor', 'speciality')->where('patient_id', auth()->user()->person->id)->get();
+
+
+        return view('paciente.citas.cancelar', compact('appointments'));
+        
+
+    }
+    
 
     public function create()
     {
@@ -150,8 +167,21 @@ class AppointmentController extends Controller
     }
 
 
-    public function destroy(Appointment $appointment)
+    public function destroy($id)
     {
-        //
+
+        $appointment = Appointment::find($id);
+
+        $appointment->delete();
+
+        notify()->success('La cita se ha cancelado con éxito', 'Cita eliminada');
+
+        //check if there are appointments
+        $appointments = Appointment::with('patient', 'doctor', 'speciality')->where('patient_id', auth()->user()->person->id)->get();
+
+
+        return redirect()->route('paciente.cancelarCitasPaciente', compact('appointments'));
+        
+
     }
 }

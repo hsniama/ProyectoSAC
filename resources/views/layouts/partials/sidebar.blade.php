@@ -345,6 +345,18 @@
                               </ul>
                           @endcan
 
+                          @hasrole('paciente')
+                              <ul class="nav nav-treeview">
+                                  <li class="nav-item">
+                                      <a href="{{ route('paciente.cancelarCitasPaciente') }}"
+                                                class="nav-link @if (request()->routeIs('paciente.cancelarCitasPaciente')) active @endif">
+                                          <i class="fa fa-user nav-icon"></i>
+                                          <p>Cancelar Citas</p>
+                                      </a>
+                                  </li>
+                              </ul>
+                          @endhasrole       
+
                           @if (auth()->user()->hasPermissionTo('appointment-reprogramar'))
                               <ul class="nav nav-treeview">
                                   <li class="nav-item">
