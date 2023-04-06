@@ -362,7 +362,7 @@
                                                                 
                                                                 <div class="card-body">
                                                                     <div class="card-text">
-                                                                        Detalle el motivo de su consulta.
+                                                                        Escoja el motivo de su consulta.
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -375,9 +375,51 @@
                                                             <div class="col">
                                                                 <div class="form-group">
                                                                     <label for="notes" class="required">Motivo</label>
+
+                                                                    
+                                                                    <div class="form-check">
+                                                                        <input
+                                                                            class="form-check-input {{ $errors->has('notes') ? 'is-invalid' : '' }}"
+                                                                            type="radio" name="notes" id="consulta"
+                                                                            value="Consulta/Cita Médica" checked
+                                                                        >                                                                 
+                                                                        <label class="form-check-label" for="consulta">Consulta/Cita Médica</label>                                                           
+                                                                    </div>
+                                                                    
+                                                                    <div class="form-check">                                  
+                                                                        <input
+                                                                            class="form-check-input {{ $errors->has('notes') ? 'is-invalid' : '' }}"
+                                                                            type="radio" name="notes"  id="examen"
+                                                                            value="Revisión de Exámenes" 
+                                                                        >                                                                 
+                                                                        <label class="form-check-label" for="examen">Revisión de Exámenes</label>
+                                                                    </div>
+                                                                    
+                                                                    <div class="form-check">                                  
+                                                                        <input
+                                                                            class="form-check-input {{ $errors->has('notes') ? 'is-invalid' : '' }}"
+                                                                            type="radio" name="notes"  id="otro"
+                                                                            value="Otro" 
+                                                                        >                                                                 
+                                                                        <label class="form-check-label" for="otro">Otro</label>
+                                                                    </div>
+
+
+                                                                    {{-- <select class="form-control w-100 select2 {{ $errors->has('notes') ? 'is-invalid' : '' }}" name="notes" id="notes">                                 
+                                                                        <option value="" disabled selected>Seleccione el motivo de la cita</option>
+                                                                        @foreach (App\Models\Appointment::MOTIVOS as $motivo)
+                                                                            <option value="{{ $motivo}}" @selected($motivo == old('motivo'))>
+                                                                                {{ $motivo }}
+                                                                            </option>
+                                                                        @endforeach
+                                                                    </select> --}}
+
+                                                                    {{-- 
                                                                     <textarea class="form-control {{ $errors->has('notes') ? 'is-invalid' : '' }}" 
                                                                             name="notes" id="notes" style="height: 150px"  
-                                                                            placeholder="Escribe un comentario">{{ old('notes') }}</textarea>
+                                                                            placeholder="Escribe un comentario">{{ old('notes') }}
+                                                                    </textarea> 
+                                                                    --}}
                                                                     @if($errors->has('notes'))
                                                                         <div class="invalid-feedback">
                                                                             {{ $errors->first('notes') }}
@@ -427,22 +469,3 @@
     </section><!-- /.content -->
 @endsection
 
-@section('scripts')
-
-    @if ($num_appointments == 2)
-        <script>
-            Swal.fire({
-                title: '¡Atención!',
-                text: 'No se puede agendar más de 2 citas por día',
-                icon: 'warning',
-                confirmButtonText: 'Aceptar'
-                confirmButtonColor: '#3085d6',
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    window.location.href = '/home';
-                }
-            });
-        </script>
-    @endif
-
-@endsection

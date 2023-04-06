@@ -13,6 +13,7 @@ use App\Http\Controllers\Admin\AppointmentController;
 use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\Secretaria\PacienteController;
 use App\Http\Controllers\API\SpecialityController as SpecialityAPIController;
+use App\Http\Controllers\API\AppointmentController as AppointmentAPIController;
 use App\Http\Controllers\Paciente\AppointmentController as PatientAppointmentController;
 
 /*
@@ -58,6 +59,10 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
 
     //Route for my API/ScheduleController
     Route::get('/schedule/hours', [ScheduleAPIController::class, 'getAvailableHours'])->name('schedule.hours');
+
+    // JSON: Get the patient's appointment data from the form
+    Route::post('/get-appointment-data', [AppointmentAPIController::class, 'getAppointmentData'])->name('get.appointment.data');
+        // uso post porque voy a enviar datos del formulario (cliente) al servidor.
 
     Route::group([
         // 'middleware' => ['role:admin', 'role:superadmin', 'role:gerente'],

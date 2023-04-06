@@ -31,7 +31,7 @@ class ReportController extends Controller
             ->get('speciality_id', 'total');
 
         $specialityCountCancelado = Appointment::selectRaw('speciality_id, count(*) as total')
-            ->where('status', 'Cancelado')
+            ->where('status', 'Cancelada')
             ->groupBy('speciality_id')
             ->get('speciality_id', 'total');
 
@@ -94,7 +94,7 @@ class ReportController extends Controller
             ->get('doctor_id', 'total');
 
         $doctorCountCancelado = Appointment::selectRaw('doctor_id, count(*) as total')
-            ->where('status', 'Cancelado')
+            ->where('status', 'Cancelada')
             ->groupBy('doctor_id')
             ->get('doctor_id', 'total');
 
@@ -153,7 +153,7 @@ class ReportController extends Controller
 
         // get the amount of appointments with status Cancelado per month:
         $monthCountCancelado = Appointment::selectRaw('month(scheduled_date) as month, year(scheduled_date) as year, count(*) as total')
-            ->where('status', 'Cancelado')
+            ->where('status', 'Cancelada')
             ->groupBy('month', 'year')
             ->get('month', 'total', 'year');
 
@@ -248,7 +248,7 @@ class ReportController extends Controller
 
         // get the amount of appointments with status Cancelado per year:
         $yearCountCancelado = Appointment::selectRaw('year(scheduled_date) as year, count(*) as total')
-            ->where('status', 'Cancelado')
+            ->where('status', 'Cancelada')
             ->groupBy('year')
             ->get();
 

@@ -21,6 +21,12 @@ class Appointment extends Model
         'notes'
     ];
 
+    public const MOTIVOS = [
+        'Consulta/Cita Médica',
+        'Revisión de Exámenes',
+        'Otro'
+    ];
+
     public function patient()
     {
         return $this->belongsTo(Person::class, 'patient_id')->withDefault();
