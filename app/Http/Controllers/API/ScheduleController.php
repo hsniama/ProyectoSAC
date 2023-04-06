@@ -72,14 +72,10 @@ class ScheduleController extends Controller
     private function getAvailableIntervals($start, $end, $doctorId, $date)
     {
 
-        // Check if the day of the $dateCarbon is the same as today, if so, the available intervals must be greater than the current time
-        // $now = Carbon::now();
-        // $dayOfToday = $now->dayOfWeek;
+        //get current date and time
+        $nowDate = new Carbon();
+        $nowTime = $nowDate->format('H:i');
 
-        // if ($dateCarbon->dayOfWeek == $dayOfToday) {
-        //     $now->addMinutes(40);
-        //     $start = $now->format('H:i');
-        // }
 
         $start = new Carbon($start);
         $end = new Carbon($end);
@@ -96,7 +92,10 @@ class ScheduleController extends Controller
             $interval['end'] = $start->format('H:i');
 
             if ($available) {
-                $intervals[] = $interval;
+                if($date == $nowDate->format('Y-m-d') && $interval['start'] < $nowTime)
+                    continue;
+                else
+                    $intervals[] = $interval;
             }
         }
 

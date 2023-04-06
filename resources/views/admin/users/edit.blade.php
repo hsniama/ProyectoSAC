@@ -457,7 +457,7 @@
                                                                                             {{-- id="morning_end" --}}
                                                                                             >
                                                                                             @for ($i = (App\Models\Schedule::H_INGRESO_MORNING +1); $i <= App\Models\Schedule::H_SALIDA_MORNING; $i++)
-                                                                              <option value="{{($i<10 ? '0' : ''). $i }}:00" @if (($i . ':00 PM' == $horario->morning_end) or ($i . ':00 AM' == $horario->morning_end)) selected @endif>
+                                                                                                <option value="{{($i<10 ? '0' : ''). $i }}:00" @if (($i . ':00 PM' == $horario->morning_end) or ($i . ':00 AM' == $horario->morning_end)) selected @endif>
                                                                                                     @if ($i == 12)
                                                                                                         {{ $i }}
                                                                                                         :00 PM

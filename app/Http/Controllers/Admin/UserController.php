@@ -174,9 +174,9 @@ class UserController extends Controller
             }
         }
 
+        notify()->success('Usuario actualizado exitosamente.', 'Actualizado');
 
-        return redirect()->route('admin.users.index')
-            ->with('success', 'Usuario actualizado exitosamente.');
+        return redirect()->route('admin.users.index');
     }
 
 

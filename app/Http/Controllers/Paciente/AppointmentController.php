@@ -56,7 +56,18 @@ class AppointmentController extends Controller
     {
         $specialities = Speciality::where('status', 'Activo')->get();
 
-        return view('paciente.citas.create', compact('specialities'));
+        //get the amount of appointments of the patient
+        $appointments = Appointment::with('patient', 'doctor', 'speciality')->where('patient_id', auth()->user()->person->id)->get();
+
+        if($appointments->count() == 2) {
+            notify()->error('No puede agendar más de 2 citas.', 'Error');
+            return redirect()->route('home');
+        }
+
+        //get the number of appointments of the patient
+        $num_appointments = $appointments->count();
+
+        return view('paciente.citas.create', compact('specialities', 'num_appointments'));
     }
 
 

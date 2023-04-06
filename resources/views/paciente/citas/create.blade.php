@@ -63,7 +63,7 @@
                                         </div>
                                         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                     </div>
-                                @endif
+                                @endif                 
                             </div>
                             
 
@@ -427,3 +427,22 @@
     </section><!-- /.content -->
 @endsection
 
+@section('scripts')
+
+    @if ($num_appointments == 2)
+        <script>
+            Swal.fire({
+                title: '¡Atención!',
+                text: 'No se puede agendar más de 2 citas por día',
+                icon: 'warning',
+                confirmButtonText: 'Aceptar'
+                confirmButtonColor: '#3085d6',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '/home';
+                }
+            });
+        </script>
+    @endif
+
+@endsection
