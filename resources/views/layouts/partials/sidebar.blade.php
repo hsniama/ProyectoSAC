@@ -59,34 +59,6 @@
           <nav class="mt-2">
               <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                   data-accordion="false">
-                  <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-
-                  {{-- <li class="nav-item menu-open">
-            <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>
-                DashBoard
-                <i class="right fas fa-angle-left"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="#" class="nav-link active">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Active Page</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="#" class="nav-link">
-                  <i class="nav-icon fas fa-users"></i>
-                  <p>Prueba</p>
-                </a>
-              </li>
-            </ul>       
-
-          </li> --}}
-
 
 
                   @can('modulo-estadisticas')
@@ -173,7 +145,6 @@
                   @endcan
 
 
-
                   @can('modulo-rpu')
                       <li class="nav-item menu-open">
 
@@ -210,42 +181,6 @@
                   @endcan
 
 
-
-
-                  {{-- @can('modulo-persons')
-                      <li class="nav-item menu-open">
-                          <a href="#" class="nav-link active">
-                              <i class="fa-solid fa-hospital-user"></i>
-                              <p>
-                                  Gestión de Personas
-                                  <i class="right fas fa-angle-left"></i>
-                              </p>
-                          </a>
-
-                          @can('person-create')
-                              <ul class="nav nav-treeview">
-                                  <li class="nav-item">
-                                      <a href="{{ route('admin.persons.create') }}" class="nav-link @if (request()->routeIs('admin.persons.create')) active @endif">
-                                          <i class="fa fa-user nav-icon"></i>
-                                          <p>Registrar Persona</p>
-                                      </a>
-                                  </li>
-                              </ul>
-                          @endcan
-
-                          @can('person-list')
-                              <ul class="nav nav-treeview">
-                                  <li class="nav-item">
-                                      <a href="{{ route('admin.persons.index') }}" class="nav-link @if (request()->routeIs('admin.persons.index')) active @endif ">
-                                          <i class="fa fa-user nav-icon"></i>
-                                          <p>Listar Personas</p>
-                                      </a>
-                                  </li>
-                              </ul>
-                          @endcan
-                      </li>
-                  @endcan --}}
-
                   @can('modulo-especialidades')
                       <li class="nav-item menu-open">
                           <a href="#" class="nav-link active">
@@ -269,6 +204,72 @@
                       </li>
                   @endcan
 
+
+                  @can('modulo-appointments')
+                      <li class="nav-item menu-open">
+                          <a href="#" class="nav-link active">
+                              <i class="fa-solid fa-hospital-user"></i>
+                              <p>
+                                  Gestión de Citas
+                                  <i class="right fas fa-angle-left"></i>
+                              </p>
+                          </a>
+
+                          @can('appointment-create')
+                              <ul class="nav nav-treeview">
+                                  @hasanyrole(['admin', 'gerente'])
+                                  <li class="nav-item">
+                                        <a href="{{ route('admin.appointments.create') }}"
+                                           class="nav-link @if(request()->routeIs('admin.appointments.create')) active @endif">
+                                            <i class="fa fa-user nav-icon"></i>
+                                            <p>Agendar Cita (a)</p>
+                                        </a>
+                                  </li>
+                                  @endhasanyrole
+                              </ul>
+                          @endcan
+
+                          @can('appointment-list')
+                              <ul class="nav nav-treeview">
+                                  <li class="nav-item">
+                                        <a href="{{ route('admin.appointments.index') }}"
+                                                    class="nav-link @if (request()->routeIs('admin.appointments.index')) active @endif">
+                                            <i class="fa fa-user nav-icon"></i>
+                                            <p>Consulta de Citas</p>
+                                        </a>
+                                  </li>
+                              </ul>
+                          @endcan
+
+                          {{-- @can('appointment-delete') --}}
+                            {{-- <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                      @hasrole('paciente')
+                                      <a href="{{ route('paciente.cancelarCitasPaciente') }}"
+                                                class="nav-link @if (request()->routeIs('paciente.cancelarCitasPaciente')) active @endif">
+                                          <i class="fa fa-user nav-icon"></i>
+                                          <p>Cancelar Citas</p>
+                                      </a>
+                                      @endhasrole      
+                                </li>
+                            </ul> --}}
+                          {{-- @endcan --}}
+
+    
+
+                          {{-- @can('appointment-reprogramar')
+                              <ul class="nav nav-treeview">
+                                  <li class="nav-item">
+                                      <a href="#" class="nav-link ">
+                                          <i class="fa fa-user nav-icon"></i>
+                                          <p>Reprogramar Cita</p>
+                                      </a>
+                                  </li>
+                              </ul>
+                          @endcan --}}
+
+                      </li>
+                  @endcan
 
                   @hasrole('secretaria')
                       <li class="nav-item menu-open">
@@ -305,39 +306,33 @@
                       </li>
                   @endhasrole
 
-
-                  @can('modulo-appointments')
-                      <li class="nav-item menu-open">
+                  @hasrole('paciente')
+                    <li class="nav-item menu-open">
                           <a href="#" class="nav-link active">
                               <i class="fa-solid fa-hospital-user"></i>
                               <p>
-                                  Gestión de Citas
+                                  Agendamiento de Citas Médicas
                                   <i class="right fas fa-angle-left"></i>
                               </p>
                           </a>
 
                           @can('appointment-create')
                               <ul class="nav nav-treeview">
-                                  <li class="nav-item">
-                                      <a href="@hasanyrole(['admin', 'gerente']){{ route('admin.appointments.create') }} @endhasanyrole
-                                               @hasrole('paciente') {{ route('paciente.citas.create') }} @endhasrole" 
-                                                class="nav-link 
-                                                       @if (request()->routeIs('admin.appointments.create') 
-                                                       or request()->routeIs('paciente.citas.create') ) active @endif">
+                                  <li class="nav-item">                          
+                                      <a href="{{ route('paciente.citas.create') }}" 
+                                                class="nav-link @if (request()->routeIs('paciente.citas.create')) active @endif">
                                           <i class="fa fa-user nav-icon"></i>
-                                          <p>Agendar Cita</p>
+                                          <p>Agendar Citas</p>
                                       </a>
-                                  </li>
+                                    </li>
                               </ul>
                           @endcan
 
                           @can('appointment-list')
-                              <ul class="nav nav-treeview">
+                              <ul class="nav nav-treeview">          
                                   <li class="nav-item">
-                                      <a href="@hasanyrole(['admin', 'gerente']) {{ route('admin.appointments.index') }} @endhasanyrole
-                                               @hasrole('paciente') {{ route('paciente.citas.index') }} @endhasrole"
-                                                class="nav-link @if (request()->routeIs('admin.appointments.index') or 
-                                                                     request()->routeIs('paciente.citas.index') ) active @endif">
+                                      <a href="{{ route('paciente.citas.index') }}"
+                                                class="nav-link @if (request()->routeIs('paciente.citas.index')) active @endif">
                                           <i class="fa fa-user nav-icon"></i>
                                           <p>Consulta de Citas</p>
                                       </a>
@@ -345,46 +340,47 @@
                               </ul>
                           @endcan
 
-                          @hasrole('paciente')
-                              <ul class="nav nav-treeview">
-                                  <li class="nav-item">
+                          @can('appointment-delete')
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
                                       <a href="{{ route('paciente.cancelarCitasPaciente') }}"
                                                 class="nav-link @if (request()->routeIs('paciente.cancelarCitasPaciente')) active @endif">
                                           <i class="fa fa-user nav-icon"></i>
-                                          <p>Cancelar Citas</p>
-                                      </a>
-                                  </li>
-                              </ul>
-                          @endhasrole       
+                                          <p>Cancelación de Citas</p>
+                                      </a>  
+                                </li>
+                            </ul>
+                          @endcan
+                      </li>
+                  @endrole
 
-                          @if (auth()->user()->hasPermissionTo('appointment-reprogramar'))
-                              <ul class="nav nav-treeview">
+
+                  @hasrole('doctor')
+                    <li class="nav-item menu-open">
+                          <a href="#" class="nav-link active">
+                              <i class="fa-solid fa-hospital-user"></i>
+                              <p>
+                                  Gestión de Citas e Historiales
+                                  <i class="right fas fa-angle-left"></i>
+                              </p>
+                          </a>
+
+                          @can('appointment-list')
+                              <ul class="nav nav-treeview">          
                                   <li class="nav-item">
-                                      <a href="#" class="nav-link ">
+                                      <a href="{{ route('doctor.citas.index') }}"
+                                                class="nav-link @if(request()->routeIs('doctor.citas.index')) active @endif">
                                           <i class="fa fa-user nav-icon"></i>
-                                          <p>Reprogramar Cita</p>
+                                          <p>Revisar Agenda</p>
                                       </a>
                                   </li>
                               </ul>
-                          @endif
-
-
+                          @endcan
 
                       </li>
-                  @endcan
+                  @endhasrole
 
 
-
-
-                  {{-- <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                Otro enlace mas
-                <span class="right badge badge-danger">New</span> 
-              </p>
-            </a>
-          </li> --}}
 
               </ul>
           </nav>

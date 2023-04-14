@@ -15,6 +15,7 @@ use App\Http\Controllers\Secretaria\PacienteController;
 use App\Http\Controllers\API\SpecialityController as SpecialityAPIController;
 use App\Http\Controllers\API\AppointmentController as AppointmentAPIController;
 use App\Http\Controllers\Paciente\AppointmentController as PatientAppointmentController;
+use App\Http\Controllers\Doctor\AppointmentController as DoctorAppointmentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -100,7 +101,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         'as' => 'doctor.',
         'middleware' => 'role:doctor'
         ], function () {
-            // Route::get('citas', [DoctorController::class, 'citas'])->name('citas');
+            // Route::resource('citas', DoctorAppointmentController::class);
+            Route::get('citas', [DoctorAppointmentController::class, 'index'])->name('citas.index');
             // Route::get('citas/{appointment}', [DoctorController::class, 'cita'])->name('cita');
             // Route::post('citas/{appointment}/atender', [DoctorController::class, 'atender'])->name('atender');
             // Route::post('citas/{appointment}/cancelar', [DoctorController::class, 'cancelar'])->name('cancelar');

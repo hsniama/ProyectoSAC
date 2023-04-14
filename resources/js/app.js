@@ -1,8 +1,11 @@
-import './bootstrap'; // no tiene nada que ver con el verdadero bootstrap.
+import './bootstrap'; 
 
 import "../sass/app.scss";
-import "../css/app.css";
-import * as boostrap from 'bootstrap';
 
+import * as bootstrap from 'bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-
+var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+  return new bootstrap.Popover(popoverTriggerEl)
+})

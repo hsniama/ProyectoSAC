@@ -38,6 +38,6 @@
 <script src="{{ asset('js/archivos/sweetAlert.js') }}"></script>
 
 
-
+<!--Manejo de apis, etc:-->
 <script src="{{ asset('/js/archivos/app.js') }}"></script>
 

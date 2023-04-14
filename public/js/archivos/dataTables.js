@@ -4,13 +4,6 @@
         language: {
             url: "//cdn.datatables.net/plug-ins/1.13.1/i18n/es-ES.json"
         },
-        
-        // columnDefs: [{
-        //     targets: -1,
-        //     "searching": false,
-        //     "orderable": false
-        // }, ],
-
         responsive: true,
         //scrollY : 600,
         pageLength: 10,
@@ -29,14 +22,21 @@
             // sin buscador ni paginador:
             searching: false,
             paging: false,
-            // sin ordenar por columnas:
-            
-
+            // sin ordenar por columnas: 
             orderable: false,
-
-
-
         });
+    });
+
+// TABLA NORMAL CON BUSCADOR
+    $(document).ready(function () {
+        $('#tablaNormalDataTableBuscador').DataTable({
+            searching: true,
+            paging: true,
+            ordering: false, // sin ordenar por columnas.
+            lengthChange: false, // sin cambiar la cantidad de registros por pagina.
+            pageLength: 5, // cantidad de registros por pagina.
+        });
+
     });
 
 
