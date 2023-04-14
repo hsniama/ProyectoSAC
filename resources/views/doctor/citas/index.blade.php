@@ -90,7 +90,7 @@
 
                                                 <a href="#" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="bottom" data-bs-content="Ver Perfil del Paciente"><i class="fa-regular fa-eye fa-xl opcion-citas-doctor" style="color: #6487c4;"></i></a>
 
-                                                {{-- <a href="#" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="bottom" data-bs-content="Eliminar"><i class="fa-regular fa-circle-xmark fa-xl opcion-citas-doctor" style="color: #d85450;"></i></a> --}}
+                                                <a href="#" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="bottom" data-bs-content="Eliminar"><i class="fa-regular fa-circle-xmark fa-xl opcion-citas-doctor" style="color: #d85450;"></i></a>
                                                     
                                             </td>
 

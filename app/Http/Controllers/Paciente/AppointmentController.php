@@ -95,7 +95,7 @@ class AppointmentController extends Controller
             $scheduled_time = new Carbon($request->input('scheduled_time'));
 
             if($this->appointmentService->isAvailableInterval($date, $doctorId, $scheduled_time) == false) {
-                $validator->errors()->add('scheduled_time', 'La hora seleccionada ya se encuentra ocupada. Acaba de ser seleccionada por otro paciente.');
+                $validator->errors()->add('scheduled_time', 'La hora seleccionada ya se encuentra ocupada. Acaba de ser seleccionada por otro usuario.');
             }
 
             if ($request->input('telefono') == $request->input('email')) {

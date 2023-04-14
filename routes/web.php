@@ -64,6 +64,9 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     // JSON: Get the patient's appointment data from the form
     Route::post('/get-appointment-data', [AppointmentAPIController::class, 'getAppointmentData'])->name('get.appointment.data');
         // uso post porque voy a enviar datos del formulario (cliente) al servidor.
+    
+    // JSON: Get the data of the patient from the form to create a new appointment
+    Route::get('/get-patient-data/{cedula}', [AppointmentAPIController::class, 'getPatientData'])->name('get.patient.data');
 
     Route::group([
         // 'middleware' => ['role:admin', 'role:superadmin', 'role:gerente'],

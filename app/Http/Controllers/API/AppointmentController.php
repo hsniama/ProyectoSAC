@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Models\Speciality;
+use App\Models\User;
 use App\Models\Person;
+use App\Models\Speciality;
 use App\Models\Appointment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -80,6 +81,19 @@ class AppointmentController extends Controller
             'especialidad_nombre' => $speciality->name,
             'doctor_nombres' => $doctor->nombres,
             'doctor_apellidos' => $doctor->apellidos,
+        ]);
+    }
+
+    public function getPatientData($cedula){
+        $patient = Person::where('cedula', $cedula)->first();
+
+        // dd($patient);
+        $user = User::find($patient->user_id);
+        return response()->json([
+            'nombres' => $patient->getFullNameAttribute(),
+            'edad' => $patient->getAgeAttribute(),
+            'telefono' => $patient->telefono,
+            'email' => $user->email,
         ]);
     }
 }
