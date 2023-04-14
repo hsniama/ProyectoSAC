@@ -27,6 +27,12 @@ class Appointment extends Model
         'Otro'
     ];
 
+    public const STATUS = [
+        'Atendido',
+        'Cancelada',
+        'Pendiente'
+    ];
+
     public function patient()
     {
         return $this->belongsTo(Person::class, 'patient_id')->withDefault();

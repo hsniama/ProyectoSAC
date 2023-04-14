@@ -2,16 +2,18 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Person;
 use App\Models\Speciality;
 use App\Models\Appointment;
+use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
+use App\Services\AppointmentService;
+use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\StoreAppointmentRequest;
 use App\Http\Requests\UpdateAppointmentRequest;
 use App\Http\Controllers\Controller; // yo agregue esta
-use Illuminate\Support\Facades\Validator;
-use Carbon\Carbon;
-use App\Services\AppointmentService;
 
 class AppointmentController extends Controller
 {
@@ -30,16 +32,59 @@ class AppointmentController extends Controller
     }
 
 
-    public function index()
+    public function index(Request $request)
     {
-        //$appointments = Appointment::all();
-
-        // $appointments = Appointment::with('patient', 'doctor', 'speciality')->get();
-
         $appointments = Appointment::with('patient:id,nombres,apellidos,cedula', 'doctor:id,nombres,apellidos', 'speciality:id,name')
-        ->select('id', 'patient_id', 'doctor_id', 'speciality_id', 'scheduled_time', 'scheduled_date', 'status', 'notes')->get();
+                ->select('id', 'patient_id', 'doctor_id', 'speciality_id', 'scheduled_time', 'scheduled_date', 'status', 'notes');
+    
 
-        return view('admin.appointments.index', compact('appointments'));
+        if ($request->ajax()) {
+
+                return DataTables::of($appointments)
+                    ->addColumn('actions', function ($appointment) {
+                        $edit = '';
+                        $delete = '';
+                        $show = '';
+
+                        // if (auth()->user()->can('user-show')) {
+                        //     $show = '<a href="' . route('admin.users.show', $appointment->id) . '" class="show btn btn-info btn-sm">
+                        //                     <i class="fa fa-fw fa-eye"></i>
+                        //             </a>';
+                        // }
+                        if (auth()->user()->can('appointment-reprogramar')) {
+                            $edit = '<a href="' . route('admin.appointments.edit', $appointment->id) . '" class="edit btn btn-warning btn-sm">
+                                            <i class="fa fa-fw fa-edit"></i>
+                                    </a>';
+                        }
+                        if (auth()->user()->can('appointment-delete')) {
+                            $delete = '
+                                    <form action="' . route('admin.appointments.destroy', $appointment->id) . '" method="POST" class="d-inline eliminarUsuario">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <input type="hidden" name="_token" value="' . csrf_token() . '">
+                                        <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i></button>
+                                    </form>';
+                        }
+
+                        return $show . ' ' . $edit . ' ' . $delete;
+                    })
+                    ->addColumn('doctor', function ($appointment) {
+                        return $appointment->doctor->nombres . ' ' . $appointment->doctor->apellidos;
+                    })
+                    ->filter(function ($appointment) use ($request) {
+
+                        if ($request->has('status_id') && $request->get('status_id') != '') {
+                            $appointment->where('status', $request->get('status_id'));
+                        }      
+                        
+                        if ($request->has('start_date') && $request->get('start_date') != '') {
+                            $appointment->where('scheduled_date', '=', $request->get('start_date'));
+                        }
+
+                    })
+                ->rawColumns(['actions'])
+                ->make(true);
+        }
+         return view('admin.appointments.index');
     }
 
     /**
