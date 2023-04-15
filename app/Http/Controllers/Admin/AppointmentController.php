@@ -35,63 +35,85 @@ class AppointmentController extends Controller
     public function index(Request $request)
     {
         $appointments = Appointment::with('patient:id,nombres,apellidos,cedula', 'doctor:id,nombres,apellidos', 'speciality:id,name')
-                ->select('id', 'patient_id', 'doctor_id', 'speciality_id', 'scheduled_time', 'scheduled_date', 'status', 'notes');
-    
+            ->select('id', 'patient_id', 'doctor_id', 'speciality_id', 'scheduled_time', 'scheduled_date', 'status', 'notes');
+
+        // Aplicar filtros de búsqueda
+        if ($request->has('status_id') && $request->get('status_id') != '') {
+            $appointments->where('status', $request->get('status_id'));
+        }      
+                            
+        if ($request->has('start_date') && $request->get('start_date') != '' && $request->has('end_date') && $request->get('end_date') != '') {
+            $appointments->whereBetween('scheduled_date', [$request->get('start_date'), $request->get('end_date')]);
+        }
+
+        if ($request->has('speciality_id') && $request->get('speciality_id') != '') {
+            $appointments->where('speciality_id', $request->get('speciality_id'));
+        }
+
+        if ($request->has('doctor_id') && $request->get('doctor_id') != '') {
+            $appointments->where('doctor_id', $request->get('doctor_id'));
+        }
 
         if ($request->ajax()) {
+            return DataTables::of($appointments)
+                ->addColumn('actions', function ($appointment) {
+                    $edit = '';
+                    $delete = '';
+                    $show = '';
 
-                return DataTables::of($appointments)
-                    ->addColumn('actions', function ($appointment) {
-                        $edit = '';
-                        $delete = '';
-                        $show = '';
+                    if (auth()->user()->can('appointment-show')) {
+                        $show = '<a href="' . route('admin.users.show', $appointment->id) . '" class="show btn btn-info btn-sm">
+                                        <i class="fa fa-fw fa-eye"></i>
+                                </a>';
+                    }
 
-                        // if (auth()->user()->can('user-show')) {
-                        //     $show = '<a href="' . route('admin.users.show', $appointment->id) . '" class="show btn btn-info btn-sm">
-                        //                     <i class="fa fa-fw fa-eye"></i>
-                        //             </a>';
-                        // }
-                        if (auth()->user()->can('appointment-reprogramar')) {
-                            $edit = '<a href="' . route('admin.appointments.edit', $appointment->id) . '" class="edit btn btn-warning btn-sm">
-                                            <i class="fa fa-fw fa-edit"></i>
-                                    </a>';
-                        }
-                        if (auth()->user()->can('appointment-delete')) {
-                            $delete = '
-                                    <form action="' . route('admin.appointments.destroy', $appointment->id) . '" method="POST" class="d-inline eliminarUsuario">
-                                        <input type="hidden" name="_method" value="DELETE">
-                                        <input type="hidden" name="_token" value="' . csrf_token() . '">
-                                        <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i></button>
-                                    </form>';
-                        }
+                    if (auth()->user()->can('appointment-reprogramar')) {
+                        $edit = '<a href="' . route('admin.appointments.edit', $appointment->id) . '" class="edit btn btn-warning btn-sm">
+                                    <i class="fa fa-fw fa-edit"></i>
+                                </a>';
+                    }
 
-                        return $show . ' ' . $edit . ' ' . $delete;
-                    })
-                    ->addColumn('doctor', function ($appointment) {
-                        return $appointment->doctor->nombres . ' ' . $appointment->doctor->apellidos;
-                    })
-                    ->filter(function ($appointment) use ($request) {
+                    if (auth()->user()->can('appointment-delete')) {
+                        $delete = '
+                            <form action=""
+                                  method="POST" style="display: inline" class="">
+                                  <input type="hidden" name="_method" value="DELETE">
+                                  <input type="hidden" name="_token" value="' . csrf_token() . '">
+                                <button class="btn btn-danger btn-sm eliminarCitaPacienteDesdeAdmin" type="submit"
+                                        data-appointment="'. htmlentities(json_encode($appointment)) .'">
+                                        <i class="fa fa-fw fa-trash"></i>
+                                </button>
+                            </form>';
+                    }
 
-                        if ($request->has('status_id') && $request->get('status_id') != '') {
-                            $appointment->where('status', $request->get('status_id'));
-                        }      
-                        
-                        if ($request->has('start_date') && $request->get('start_date') != '') {
-                            $appointment->where('scheduled_date', '=', $request->get('start_date'));
-                        }
+                    return $show . ' ' . $edit . ' ' . $delete;
+                })
+                ->addColumn('doctor', function ($appointment) {
+                    return $appointment->doctor->nombres . ' ' . $appointment->doctor->apellidos;
+                })
 
-                    })
-                ->rawColumns(['actions'])
+                ->filterColumn('doctor', function ($appointment, $keyword) {
+                    $appointment->whereHas('doctor', function ($query) use ($keyword) {
+                        $query->whereRaw("CONCAT(nombres, ' ', apellidos) like ?", ["%{$keyword}%"]);
+                    });
+                })
+
+                ->rawColumns(['actions', 'doctor'])
                 ->make(true);
         }
-         return view('admin.appointments.index');
+
+        $specialities = Speciality::where('status', 'Activo')->get();
+
+        //get doctors that have at least one appointment
+        $doctors = User::with('person')->whereHas('roles', function ($query) {
+            $query->where('name', 'doctor');
+        })->where('status', 'Activo')->get();
+
+        return view('admin.appointments.index')->with(compact('specialities', 'doctors'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
+
     public function create()
     {
 
@@ -109,7 +131,7 @@ class AppointmentController extends Controller
     public function store(StoreAppointmentRequest $request)
     {
 
-        $cedula = $request->input('cedula');
+        $cedula = $request->input('cedulaPaciente');
 
         //buscar el usuario con la cedula
         $user = User::whereHas('person', function ($query) use ($cedula) {
@@ -172,12 +194,7 @@ class AppointmentController extends Controller
         return redirect()->route('admin.appointments.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Appointment  $appointment
-     * @return \Illuminate\Http\Response
-     */
+
     public function show(Appointment $appointment)
     {
         $appointment->load('patient', 'doctor', 'speciality');
@@ -185,12 +202,7 @@ class AppointmentController extends Controller
         return view('admin.appointments.show', compact('appointment'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Appointment  $appointment
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit(Appointment $appointment)
     {
 
@@ -227,16 +239,17 @@ class AppointmentController extends Controller
         //return redirect()->route('admin.appointments.index')->with('success', 'La cita se actualizó con éxito');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Appointment  $appointment
-     * @return \Illuminate\Http\Response
-     */
+
     public function destroy(Appointment $appointment)
     {
-        $appointment->delete();
 
-        return redirect()->route('admin.appointments.index')->with('success', 'La cita se eliminó con éxito');
+        $appointment->notes = $appointment->notes . ' - Cita eliminada por el administrador';
+        $appointment->status = 'Cancelada';
+        $appointment->save();
+
+        // $appointment->delete();
+
+        notify()->success('La cita se cancelo con éxito', 'Cita médica cancelada con éxito');
+        return redirect()->route('admin.appointments.index');
     }
 }

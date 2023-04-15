@@ -5,12 +5,18 @@
             "maxDate": "today",
         });
 
-        flatpickr(".dateFiltro", {
+        flatpickr(".dateFiltroInicio", {
             "locale": "es",
             "dateFormat": "Y-m-d",
-            // "maxDate": "today",
             "defaultDate": "today",
-            "mode": "range",
+            "maxDate": "today",
+        });
+
+        flatpickr(".dateFiltroFinal", {
+            "locale": "es",
+            "dateFormat": "Y-m-d",
+            "defaultDate": "today",
+            // "maxDate": "today",
         });
 
         flatpickr(".dateCita", {

@@ -135,7 +135,7 @@ const noHours = `<input type="text" disabled id="noHoursAvailable" class="text-d
 
 // Cargar datos del paciente a partir de la cedula
     $(function(){
-        const $cedula = $('#cedula');
+        const $cedula = $('#cedulaPaciente');
 
         $cedula.change(() => {
             const cedulaId = $cedula.val();

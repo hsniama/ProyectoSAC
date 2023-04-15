@@ -113,9 +113,10 @@ class UserController extends Controller
             }
         }
 
+        notify()->success('Usuario creado exitosamente.', 'Creado');
 
-        return redirect()->route('admin.users.index')
-            ->with('success', 'Usuario creado exitosamente.');
+
+        return redirect()->route('admin.users.index');
     }
 
 

@@ -85,18 +85,18 @@
                                                                             </td>
                                                                             <td>
                                                                                 <p>
-                                                                                    <select class="form-control select2 {{ $errors->has('cedula') ? 'is-invalid' : '' }}" name="cedula" id="cedula">                                 
+                                                                                    <select class="form-control select2 {{ $errors->has('cedula') ? 'is-invalid' : '' }}" name="cedulaPaciente" id="cedulaPaciente">                                 
                                                                                         <option value="" disabled selected>Escribe la cédula del paciente</option>
                                                                                         @foreach ($patients as $patient)
-                                                                                            <option value="{{ $patient->person->cedula }}" {{ $patient->person->cedula == old('cedula') ? 'selected' : '' }}>
+                                                                                            <option value="{{ $patient->person->cedula }}" {{ $patient->person->cedula == old('cedulaPaciente') ? 'selected' : '' }}>
                                                                                                 {{ $patient->person->cedula}}
                                                                                             </option>
                                                                                             <p hidden disabled>{{ $idPaciente = $patient->id }}</p> 
                                                                                         @endforeach                             
                                                                                     </select>                                                                                       
-                                                                                    @if ($errors->has('cedula'))
+                                                                                    @if ($errors->has('cedulaPaciente'))
                                                                                         <span class="text-danger">
-                                                                                            <strong>{{ $errors->first('cedula') }}</strong>
+                                                                                            <strong>{{ $errors->first('cedulaPaciente') }}</strong>
                                                                                         </span>
                                                                                     @endif
                                                                                 </p>

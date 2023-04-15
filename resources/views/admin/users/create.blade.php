@@ -236,7 +236,7 @@
                                                                 <div class="form-check form-check-inline">
                                                                     <input
                                                                         class="form-check-input {{ $errors->has('email_verified_at') ? 'is-invalid' : ''}}"
-                                                                        type="radio" name="email_verified_at" id="estado_Activo"
+                                                                        type="radio" name="email_verified_at" id="estado_Si"
                                                                         value="Si"
                                                                     >                                                                 
                                                                     <label class="form-check-label" for="estado_Si">Si</label>                                                           

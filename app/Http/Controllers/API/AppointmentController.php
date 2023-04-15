@@ -84,6 +84,26 @@ class AppointmentController extends Controller
         ]);
     }
 
+    public function cancelAppFromAdmin(Request $request){
+
+        // \dd($request->all());
+
+        $appointment_id = $request->input('appointment_id');
+
+        $appointment = Appointment::find($appointment_id);
+
+        // dd($appointment);
+
+        $appointment->status = 'Cancelada';
+        $appointment->notes = $request->input('notes');
+
+        $appointment->save();
+
+        return response()->json([
+            'message' => 'Cita cancelada correctamente.',
+        ]);
+    }
+
     public function getPatientData($cedula){
         $patient = Person::where('cedula', $cedula)->first();
 

@@ -55,28 +55,63 @@
                         </div>
 
 
-                        <div class="row mb-3">
-                            <div class="col-md-3">
-                                <label for="start_date ">Fecha de Inicio (desde): </label>
-                                <input type="date" name="start_date" class="form-control bg-white dateFiltro" readonly />
+                        <div class="row mt-3 mb-4">
+                            <div class="col-md-2">
+                                <div class="form-floating">
+                                    <input type="date" name="start_date" class="form-control bg-white dateFiltroInicio" readonly />
+                                    <label for="start_date ">Fecha Inicio (desde): </label>
+                                </div>
                             </div>
-                            {{-- <div class="col-md-3">
-                                <label for="end_date">Fecha final (hasta): </label>
-                                <input type="text" name="end_date" class="form-control end_date bg-white" readonly />
-                            </div> --}}
-                            <div class="col-md-3">
-                                <label for="status_id">Estado: </label>
-                                <select class="form-control" name="status_id">
-                                    <option value="" disabled >Seleccione un estado</option>
-                                        <option value="Atendido">Atendido</option>                                
-                                        <option value="Cancelada">Cancelada</option>                                
-                                        <option value="Pendiente" selected>Pendiente</option>                                
-                                </select>
+                            <div class="col-md-2">
+                                <div class="form-floating">
+                                    <input type="text" name="end_date" class="form-control end_date bg-white dateFiltroFinal" readonly />
+                                    <label for="end_date">Fecha final (hasta): </label>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-floating">
+                                    <select class="form-control" name="status_id">
+                                        <option value="" disabled >Seleccione un estado</option>
+                                            <option value="Atendido">Atendido</option>                                
+                                            <option value="Cancelada">Cancelada</option>                                
+                                            <option value="Pendiente" selected>Pendiente</option>                                
+                                    </select>
+                                    <label for="status_id">Estado: </label>
+                                </div>
+
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-floating">
+                                    <select class="form-control" name="speciality_id">
+                                        <option value="" disabled selected>Seleccione una especialidad</option>
+                                        @foreach ($specialities as $speciality)
+                                            <option value="{{ $speciality->id }}">{{ $speciality->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    <label for="speciality_id">Especialidad: </label>
+                                </div>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="form-floating">
+                                    <select class="form-control" name="doctor_id">
+                                        <option value="" disabled selected>Escoja un doctor</option>
+                                        @foreach ($doctors as $doctor)
+                                            <option value="{{ $doctor->id }}">{{ $doctor->person->getFullNameAttribute() }}</option>
+                                        @endforeach
+                                    </select>
+                                    <label for="doctor_id">Doctor: </label>
+                                </div>
                             </div>
                             <div class="col">
-                                <div class="mt-md-4 float-end">
-                                    <button id="filtrar" class="btn btn-danger">Filtrar</button>
+                                <div class="row float-end">
+                                    <div class="col">
+                                        <button id="filtrar" class="btn btn-danger btn-sm">Filtrar</button>
+                                    </div>
+                                    <div class="col">
+                                        <button id="limpiar" class="btn btn-secondary btn-sm">Limpiar</button>
+                                    </div>
                                 </div>
+
                             </div>
                         </div>
             
@@ -85,7 +120,7 @@
                             <table id="citasTabla" class="table table-bordered text-center table-sm">
                                 <thead class="thead">
                                     <tr>
-                                        <th>ID</th>                    
+                                        {{-- <th>ID</th>               --}}
 										<th>C.I Paciente</th>
 										<th>Doctor</th>
 										<th>Especialidad</th>
@@ -152,8 +187,10 @@
     @can('export-buttons')
     <script>
         $(document).ready(function() {
+
             $('#citasTabla').DataTable({
- 
+                searching: true,
+                ordering: false,
                 processing: true,
                 serverSide: true,
                 responsive: true,
@@ -161,15 +198,18 @@
                     url: "{{ route('admin.appointments.index') }}",
                     data: function (d) {
                         d.start_date = $('input[name=start_date]').val();
-                        // d.end_date = $('input[name=end_date]').val();
+                        d.end_date = $('input[name=end_date]').val();
                         d.status_id = $('select[name=status_id]').val();
+                        d.speciality_id = $('select[name=speciality_id]').val();
+                        d.doctor_id = $('select[name=doctor_id]').val();
                     }
                 },
                 dataType: 'json',
                 type: 'POST',
-                columns: [{
-                        data: 'id', name: 'id'
-                    },
+                columns: [
+                    // {
+                    //     data: 'id', name: 'id'
+                    // },
                     {
                         data: 'patient.cedula', name: 'patient.cedula'
                     },
@@ -191,8 +231,8 @@
                     {
                         data: 'actions',
                         name: 'actions',
-                        orderable: false,
-                        searchable: false 
+                        // orderable: false,
+                        // searchable: false 
                     }
                 ],
 
@@ -257,6 +297,24 @@
             $('#filtrar').click(function(){
                 $('#citasTabla').DataTable().draw();
             });
+
+            //select the input search box
+
+
+            $('#limpiar').click(function(){
+                var now = new Date();
+                now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+
+                $('input[name=start_date]').val(now.toISOString().slice(0,10));
+                $('input[name=end_date]').val(now.toISOString().slice(0,10)); 
+                $('select[name=status_id]').val('Pendiente');
+                $('select[name=speciality_id]').val('');
+                $('select[name=doctor_id]').val('');
+                $('#citasTabla').DataTable().draw(true);
+            });
+
+
+
         });
 
 
