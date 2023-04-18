@@ -51,6 +51,15 @@
         //get the appointment:
         var appointment = $(this).data('appointment');
 
+    var motivoSelect = 
+                            '<div class="form-floating">'+
+                                '<select class="form-select" name="notes" id="notes" required>' +
+                                    '<option value="" disabled selected>Seleccione un motivo</option>' +
+                                    '<option value="Paciente no puede acudir">No puedo acudir</option>' +
+                                    '<option value="Paciente solicitó la eliminación de la cita">Solicitar eliminación de cita</option>' +
+                                '</select>'+
+                                '<label for="notes">Motivo</label>'+
+                            '</div>';
         // console.log(appointment);
         
         var paciente = appointment.patient.nombres + ' ' + appointment.patient.apellidos;
@@ -63,16 +72,17 @@
         // Muestra SweetAlert2 con la información de la cita
         Swal.fire({
             title: '¿Desea eliminar esta cita médica?',
-            html: '<table class="table table-bordered">' +
-                    '<tbody>' +
-                        '<tr><td><b>Paciente:</b></td><td>' + paciente + '</td></tr>' +
-                        '<tr><td><b>Cédula:</b></td><td>' + cedula + '</td></tr>' +
-                        '<tr><td><b>Médico:</b></td><td>' + doctor + '</td></tr>' +
-                        '<tr><td><b>Especialidad:</b></td><td>' + especialidad + '</td></tr>' +
-                        '<tr><td><b>Fecha:</b></td><td>' + fecha + '</td></tr>' +
-                        '<tr><td><b>Hora:</b></td><td>' + hora + '</td></tr>' +
-                    '</tbody>' +
-                '</table>',
+            html: motivoSelect +'<br/>'+
+                        '<table class="table table-bordered">' +
+                            '<tbody>' +
+                                '<tr><td><b>Paciente:</b></td><td>' + paciente + '</td></tr>' +
+                                '<tr><td><b>Cédula:</b></td><td>' + cedula + '</td></tr>' +
+                                '<tr><td><b>Médico:</b></td><td>' + doctor + '</td></tr>' +
+                                '<tr><td><b>Especialidad:</b></td><td>' + especialidad + '</td></tr>' +
+                                '<tr><td><b>Fecha:</b></td><td>' + fecha + '</td></tr>' +
+                                '<tr><td><b>Hora:</b></td><td>' + hora + '</td></tr>' +
+                            '</tbody>' +
+                        '</table>',
             icon: 'warning',
             width: '40%',
             showCancelButton: true,
@@ -84,10 +94,60 @@
                 title: 'text-danger',
             }
         }).then((result) => {
-            if (result.isConfirmed) {
-                // Envía el formulario para eliminar la cita
-                $(this).unbind('submit').submit();
+            // if motivo is not selected
+            if (result.isConfirmed && $('#notes').val() == null) {
+
+                console.log($('#notes').val());
+                console.log('No seleccionó motivo');
+
+                Swal.fire({
+                    title: 'Debe seleccionar un motivo',
+                    icon: 'warning',
+                    showCancelButton: false,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Aceptar',
+                    customClass: {
+                        title: 'text-danger',
+                    }
+                });
+
+
+            } else if (result.isConfirmed && $('#notes').val() != null) {
+
+                console.log($('#notes').val());
+                console.log('Seleccionó motivo');
+
+                // send the notes to the controller and the appointment id through ajax
+                $.ajax({
+                    url: "/eliminar-cita-paciente",
+                    type: "POST",
+                    data: {
+                        appointment_id: appointment.id,
+                        notes: $('#notes').val(),
+                        _token: $('meta[name="csrf-token"]').attr('content')
+                    },
+                }).done(function(response) {
+                    console.log(response);
+                    Swal.fire({
+                        title: response.message,
+                        icon: 'success',
+                        showCancelButton: false,
+                        confirmButtonColor: '#3085d6',
+                        confirmButtonText: 'Aceptar',
+                        customClass: {
+                            title: 'text-success',
+                        }
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            location.reload();
+                        }
+                    });
+                }).fail(function(response) {
+                    console.log(response);
+                }
+                );
             }
+
         });
     });
 
@@ -276,7 +336,7 @@ $(document).on('click', '.eliminarCitaPacienteDesdeAdmin', function(e) {
 
                 // send the notes to the controller and the appointment id through ajax
                 $.ajax({
-                    url: "/eliminar-cita-paciente-desde-admin",
+                    url: "/eliminar-cita-paciente",
                     type: "POST",
                     data: {
                         appointment_id: appointment.id,
@@ -309,6 +369,9 @@ $(document).on('click', '.eliminarCitaPacienteDesdeAdmin', function(e) {
 
         });
 });
+
+
+
 
 
     
