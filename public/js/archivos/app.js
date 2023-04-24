@@ -8,10 +8,11 @@ let $doctorBox = $('.doctorBox');
 $doctorBox.hide();
 
 let $speciality, $date, $doctor, iRadio;
-let $hoursMorning, $hoursAfternoon, $titleMorning, $titleAfternoon, $hoursAvailable;
+let $hoursMorning, $hoursAfternoon, $titleMorning, $titleAfternoon, $hoursAvailable, $doctoresAvailable;
 // const titleMorning = `En la mañana`;
 // const titleAfternoon = `En la tarde`;
-const noHours = `<input type="text" disabled id="noHoursAvailable" class="text-danger border-0 bg-white" value="No hay horas disponibles.">`;
+const noHours = `<input type="text" disabled id="noHoursAvailable" class="text-danger border-0 bg-white fs-5" value="No hay horas disponibles.">`;
+const noDoctors = `<input type="text" disabled id="noDoctorsAvailable" class="text-danger border-0 bg-white fs-5" value="No hay doctores/citas disponibles para esta especialidad.">`;
 
 
 // Multi-Step Form
@@ -90,7 +91,10 @@ const noHours = `<input type="text" disabled id="noHoursAvailable" class="text-d
 
         $speciality.change(() => {
             const specialityId = $speciality.val();
-            const url = `/especialidades/${specialityId}/doctores`;
+            const url = `/api/especialidades/${specialityId}/doctores`;
+
+            $doctoresAvailable = $("#doctoresDisponibles");
+            $doctoresAvailable.html("");
             // $.get(url, onDoctorsLoaded);
 
             const $body = $("body");
@@ -102,6 +106,10 @@ const noHours = `<input type="text" disabled id="noHoursAvailable" class="text-d
                     $body.css("opacity", "0.5");
                 }
             }).done(function(doctors){
+
+                if(doctors.length == 0){
+                    $doctoresAvailable.html(noDoctors);
+                }
 
                 onDoctorsLoaded(doctors);
                 $('#miSpinner').hide();
@@ -140,7 +148,7 @@ const noHours = `<input type="text" disabled id="noHoursAvailable" class="text-d
         $cedula.change(() => {
             const cedulaId = $cedula.val();
 
-            const url = `/get-patient-data/${cedulaId}`;
+            const url = `/api/get-patient-data/${cedulaId}`;
 
             const $body = $("body");
             //get the url with the onDoctorsLoaded function and add a spinner while the data is loading. The spinner will be hidden when the data is loaded.
@@ -203,7 +211,7 @@ const noHours = `<input type="text" disabled id="noHoursAvailable" class="text-d
         $rolDoctor.change(() => {
 
             if ($rolDoctor.val() == 4) {
-                const url = `/especialidades`;
+                const url = `/api/especialidades`;
                 $.get(url, onSpecialitiesLoaded);
                 $specialityBox.show();
             }else{
@@ -286,7 +294,7 @@ function loadHours(){
     const selectedDate = $date.val();
     const doctorId = $doctor.val();
 
-    const url = `/schedule/hours?scheduled_date=${selectedDate}&doctor_id=${doctorId}`;
+    const url = `/api/schedule/hours?scheduled_date=${selectedDate}&doctor_id=${doctorId}`;
 
     // $.getJSON(url, displayHours);
 

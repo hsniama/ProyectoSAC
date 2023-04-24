@@ -7,13 +7,10 @@ use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\ScheduleController;
-use App\Http\Controllers\API\ScheduleController as ScheduleAPIController;
 use App\Http\Controllers\Admin\SpecialityController;
 use App\Http\Controllers\Admin\AppointmentController;
 use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\Secretaria\PacienteController;
-use App\Http\Controllers\API\SpecialityController as SpecialityAPIController;
-use App\Http\Controllers\API\AppointmentController as AppointmentAPIController;
 use App\Http\Controllers\Paciente\AppointmentController as PatientAppointmentController;
 use App\Http\Controllers\Doctor\AppointmentController as DoctorAppointmentController;
 
@@ -52,23 +49,6 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::post('profile', 'store')->name('profile.store');
     });
 
-    // JSON: Get the doctors of a speciality. OJO PROTEGER ESTA RUTA DE API EN UN FUTURO.
-    Route::get('/especialidades/{speciality}/doctores', [SpecialityAPIController::class, 'getActiveDoctors'])->name('especialidades.doctores');
-    
-    // JSON: Get all specialities. Protect with middleware only role admin
-    Route::get('/especialidades', [SpecialityAPIController::class, 'specialities'])->name('especialidades.crear.doctor');
-
-    //Route for my API/ScheduleController
-    Route::get('/schedule/hours', [ScheduleAPIController::class, 'getAvailableHours'])->name('schedule.hours');
-
-    // JSON: Get the patient's appointment data from the form
-    Route::post('/get-appointment-data', [AppointmentAPIController::class, 'getAppointmentData'])->name('get.appointment.data');
-        // uso post porque voy a enviar datos del formulario (cliente) al servidor.
-    
-    Route::post('/eliminar-cita-paciente', [AppointmentAPIController::class, 'cancelAppFromAdmin'])->name('eliminar.cita.paciente.desde.admin');
-    
-    // JSON: Get the data of the patient from the form to create a new appointment
-    Route::get('/get-patient-data/{cedula}', [AppointmentAPIController::class, 'getPatientData'])->name('get.patient.data');
 
     Route::group([
         // 'middleware' => ['role:admin', 'role:superadmin', 'role:gerente'],

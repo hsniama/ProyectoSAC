@@ -217,10 +217,10 @@
                         data: 'doctor', name: 'doctor'
                     },
                     {
-                        data: 'speciality.name', name: 'speciality.name'
+                        data: 'speciality', name: 'speciality'
                     },
                     {
-                        data: 'scheduled_date', name: 'scheduled_date'
+                        data: 'appDateWithTime', name: 'appDateWithTime'
                     },
                     {
                         data: 'status', name: 'status'
@@ -229,8 +229,7 @@
                         data: 'notes', name: 'notes'
                     },
                     {
-                        data: 'actions',
-                        name: 'actions',
+                        data: 'actions', name: 'actions',
                         // orderable: false,
                         // searchable: false 
                     }

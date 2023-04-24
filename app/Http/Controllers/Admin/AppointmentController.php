@@ -34,7 +34,7 @@ class AppointmentController extends Controller
 
     public function index(Request $request)
     {
-        $appointments = Appointment::with('patient:id,nombres,apellidos,cedula', 'doctor:id,nombres,apellidos', 'speciality:id,name')
+        $appointments = Appointment::with('patient:id,nombres,apellidos,cedula', 'doctor:id,nombres,apellidos'/*, 'speciality:id,name'*/)
             ->select('id', 'patient_id', 'doctor_id', 'speciality_id', 'scheduled_time', 'scheduled_date', 'status', 'notes');
 
         // Aplicar filtros de búsqueda
@@ -91,6 +91,12 @@ class AppointmentController extends Controller
                 ->addColumn('doctor', function ($appointment) {
                     return $appointment->doctor->nombres . ' ' . $appointment->doctor->apellidos;
                 })
+                ->addColumn('speciality', function ($appointment) {
+                    return Speciality::find($appointment->speciality_id)->name;
+                })
+                ->addColumn('appDateWithTime', function ($appointment) {
+                    return $appointment->scheduled_date . '</br>' . $appointment->scheduled_time;
+                })
 
                 ->filterColumn('doctor', function ($appointment, $keyword) {
                     $appointment->whereHas('doctor', function ($query) use ($keyword) {
@@ -98,7 +104,7 @@ class AppointmentController extends Controller
                     });
                 })
 
-                ->rawColumns(['actions', 'doctor'])
+                ->rawColumns(['actions', 'doctor', 'speciality', 'appDateWithTime'])
                 ->make(true);
         }
 

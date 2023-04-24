@@ -71,9 +71,14 @@ class AppointmentController extends Controller
         $fecha_cita = $request->input('scheduled_time');
         $speciality_id = $request->input('speciality_id');
         $doctor_id = $request->input('doctor_id');
+        $patient_id = $request->input('patient_id');
 
         $speciality = Speciality::find($speciality_id);
         $doctor = Person::find($doctor_id);
+        $patient = Person::find($patient_id);
+
+        $nombresCompletosPaciente = $patient->getFullNameAttribute();
+        $cedulaPaciente = $patient->cedula;
 
         return response()->json([
             'fecha_cita' => $fecha_cita,
@@ -81,6 +86,8 @@ class AppointmentController extends Controller
             'especialidad_nombre' => $speciality->name,
             'doctor_nombres' => $doctor->nombres,
             'doctor_apellidos' => $doctor->apellidos,
+            'paciente_nombres' => $nombresCompletosPaciente,
+            'paciente_cedula' => $cedulaPaciente,
         ]);
     }
 

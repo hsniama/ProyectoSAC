@@ -225,7 +225,7 @@ $('.confirmarCita').submit(function(e) {
         var form_data = $(this).serialize();
 
                 $.ajax({
-                    url: "/get-appointment-data",
+                    url: "/api/get-appointment-data",
                     type: "POST",
                     data: form_data,
                 }).done(function(response) {
@@ -233,7 +233,9 @@ $('.confirmarCita').submit(function(e) {
                         '<tbody>' +
                             '<tr><td><b>Médico:</b></td><td>' + response.doctor_nombres + ' ' + response.doctor_apellidos + '</td></tr>' +
                             '<tr><td><b>Especialidad:</b></td><td>' + response.especialidad_nombre + '</td></tr>' +
-                            '<tr><td><b>Fecha:</b></td><td>' + response.fecha_cita + '</td></tr>' +
+                            '<tr><td><b>Paciente:</b></td><td>' + response.paciente_nombres + '</td></tr>' +
+                            '<tr><td><b>Cedula:</b></td><td>' + response.paciente_cedula + '</td></tr>' +
+                            '<tr><td><b>Fecha de la Cita:</b></td><td>' + response.fecha_cita + '</td></tr>' +
                             '<tr><td><b>Hora:</b></td><td>' + response.hora_cita + '</td></tr>' +
                         '</tbody>' +
                    '</table>';
@@ -336,7 +338,7 @@ $(document).on('click', '.eliminarCitaPacienteDesdeAdmin', function(e) {
 
                 // send the notes to the controller and the appointment id through ajax
                 $.ajax({
-                    url: "/eliminar-cita-paciente",
+                    url: "/api/eliminar-cita-paciente",
                     type: "POST",
                     data: {
                         appointment_id: appointment.id,

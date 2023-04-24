@@ -17,6 +17,15 @@ class SpecialityController extends Controller
                 $query->where('name', 'doctor');
             });
         })->select('people.id', 'people.nombres', 'people.apellidos')->get();
+
+        //Take the doctors that have an active schedule
+        $doctors = $doctors->filter(function($doctor){
+            return $doctor->schedules()->where('active', 1)->exists();
+        });
+
+        // if($doctors->isEmpty()){
+        //     return response()->json(['message' => 'No hay doctores/citas disponibles para esta especialidad.'], 404);
+        // }
         
         return response()->json($doctors);
        
@@ -24,7 +33,7 @@ class SpecialityController extends Controller
 
     public function specialities()
     {
-        return Speciality::all();
+        return Speciality::where('status', 'Activo')->get();
     }
 
 }

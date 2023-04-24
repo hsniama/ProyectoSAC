@@ -43,10 +43,10 @@ class Appointment extends Model
         return $this->belongsTo(Person::class, 'doctor_id')->withDefault();
     }
 
-    public function speciality()
-    {
-        return $this->belongsTo(Speciality::class)->withDefault();
-    }
+    // public function speciality()
+    // {
+    //     return $this->belongsTo(Speciality::class)->withDefault();
+    // }
 
     // function to get the total number of appointments
     public static function countAppointments()

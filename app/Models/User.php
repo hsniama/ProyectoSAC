@@ -46,9 +46,13 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
+    // constants
     public const CONFIRMAREMAIL = ['Si', 'No'];
 
+//-------------------------------------------------------------------------------------------
+    // OTHER METHODS
 
+    // Relationship with person
     public function person()
     {
         return $this->hasOne(Person::class);
@@ -72,4 +76,93 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return User::role('doctor')->count();
     }
+
+// -------------------------------------------------------------------------------------------
+
+    // getters and setters
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    public function setUsername($username)
+    {
+        $this->username = $username;
+    }
+
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    }
+
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    public function setPassword($password)
+    {
+        $this->password = $password;
+    }
+
+    public function getEmailVerifiedAt()
+    {
+        return $this->email_verified_at;
+    }
+
+
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
+
+
+    public function getConfirmarEmail()
+    {
+        return $this->confirmarEmail;
+    }
+
+    public function setConfirmarEmail($confirmarEmail)
+    {
+        $this->confirmarEmail = $confirmarEmail;
+    }
+
+    public function getRoles()
+    {
+        return $this->roles;
+    }
+
+    public function setRoles($roles)
+    {
+        $this->roles = $roles;
+    }
+
+    public function getPermissions()
+    {
+        return $this->permissions;
+    }
+
+    public function setPermissions($permissions)
+    {
+        $this->permissions = $permissions;
+    }
+
+
+
+
+
+
+
+
+
 }
