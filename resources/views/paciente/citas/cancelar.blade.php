@@ -49,7 +49,8 @@
                                     <tbody>
                                         @foreach ($appointments as $a)
                                             <tr class="fs-6">
-                                                <td class="text-uppercase">{{ $a->speciality->name}}</td>
+                                                {{-- <td class="text-uppercase">{{ $a->speciality->name}}</td> --}}
+                                                <td class="text-uppercase">{{ App\Models\Speciality::find($a->speciality_id)->name}}</td>
                                                 <td>
                                                     {{ $a->scheduled_date }}
                                                 </td>
@@ -69,7 +70,8 @@
                                                         @can('appointment-delete')
                                                             <form action="{{ route('paciente.citas.destroy', $a->id) }}"
                                                                 method="POST" style="display: inline" class="eliminarCitaPaciente"
-                                                                data-appointment = "{{ json_encode($a) }}">
+                                                                data-appointment = "{{ json_encode($a) }}"
+                                                                data-speciality-name="{{ $speciality = App\Models\Speciality::find($a->speciality_id)->name }}">
                                                                 @csrf
                                                                 {{ method_field('DELETE') }}
                                                                 <button class="btn btn-danger btn-sm" type="submit">

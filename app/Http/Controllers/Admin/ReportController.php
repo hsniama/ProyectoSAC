@@ -20,7 +20,7 @@ class ReportController extends Controller
     {
         // $specialityCount = Appointment::specialityCount()->get('speciality_id', 'total', 'name');
         $specialityCount = Appointment::selectRaw('speciality_id, count(*) as total')
-            ->with('speciality')
+            // ->with('speciality')
             ->groupBy('speciality_id')
             ->get('speciality_id', 'total', 'name');
 
@@ -45,23 +45,27 @@ class ReportController extends Controller
 
 
         foreach ($specialityCount as $sT) {
-            $specialitywithAppointments[$sT->speciality->name]['total'] = $sT->total;
+            // $specialitywithAppointments[$sT->speciality->name]['total'] = $sT->total;
+            $specialitywithAppointments[Speciality::find($sT->speciality_id)->name]['total'] = $sT->total;
 
             foreach ($specialityCountCancelado as $sC) {
                 if ($sT->speciality_id == $sC->speciality_id) {
-                    $specialitywithAppointments[$sT->speciality->name]['cancelado']= $sC->total;
+                    // $specialitywithAppointments[$sT->speciality->name]['cancelado']= $sC->total;
+                    $specialitywithAppointments[Speciality::find($sT->speciality_id)->name]['cancelado']= $sC->total;
                 }
             }
 
             foreach ($specialityCountPendiente as $sP) {
                 if ($sT->speciality_id == $sP->speciality_id) {
-                    $specialitywithAppointments[$sT->speciality->name]['pendiente']= $sP->total;
+                    // $specialitywithAppointments[$sT->speciality->name]['pendiente']= $sP->total;
+                    $specialitywithAppointments[Speciality::find($sT->speciality_id)->name]['pendiente']= $sP->total;
                 }
             }
 
             foreach ($specialityCountAtendido as $sA) {
                 if ($sT->speciality_id == $sA->speciality_id) {
-                    $specialitywithAppointments[$sT->speciality->name]['atendido']= $sA->total;
+                    // $specialitywithAppointments[$sT->speciality->name]['atendido']= $sA->total;
+                    $specialitywithAppointments[Speciality::find($sT->speciality_id)->name]['atendido']= $sA->total;
                 }
             }
         }

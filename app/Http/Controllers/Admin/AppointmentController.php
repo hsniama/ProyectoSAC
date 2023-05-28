@@ -80,7 +80,8 @@ class AppointmentController extends Controller
                                   <input type="hidden" name="_method" value="DELETE">
                                   <input type="hidden" name="_token" value="' . csrf_token() . '">
                                 <button class="btn btn-danger btn-sm eliminarCitaPacienteDesdeAdmin" type="submit"
-                                        data-appointment="'. htmlentities(json_encode($appointment)) .'">
+                                        data-appointment="'. htmlentities(json_encode($appointment)) .'"
+                                        data-speciality-name="'.htmlentities(Speciality::find($appointment->speciality_id)->name).'">
                                         <i class="fa fa-fw fa-trash"></i>
                                 </button>
                             </form>';
@@ -203,7 +204,9 @@ class AppointmentController extends Controller
 
     public function show(Appointment $appointment)
     {
-        $appointment->load('patient', 'doctor', 'speciality');
+        // $appointment->load('patient', 'doctor', 'speciality');
+        $appointment->load('patient', 'doctor');
+
 
         return view('admin.appointments.show', compact('appointment'));
     }

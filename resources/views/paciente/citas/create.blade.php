@@ -278,6 +278,7 @@
                                                                     <select class="form-control select2 {{ $errors->has('doctor_id') ? 'is-invalid' : '' }}" name="doctor_id" id="doctor">
                                                                         
                                                                     </select>
+                                                                    <div id="doctoresDisponibles" class="mt-3 row"></div>
                                                                     @if($errors->has('doctor_id'))
                                                                         <div class="invalid-feedback">
                                                                             {{ $errors->first('doctor_id') }}

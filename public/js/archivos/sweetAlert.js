@@ -50,6 +50,7 @@
 
         //get the appointment:
         var appointment = $(this).data('appointment');
+        var specialityName = $(this).data('speciality-name');
 
     var motivoSelect = 
                             '<div class="form-floating">'+
@@ -65,7 +66,8 @@
         var paciente = appointment.patient.nombres + ' ' + appointment.patient.apellidos;
         var cedula = appointment.patient.cedula;
         var doctor = appointment.doctor.nombres + ' ' + appointment.doctor.apellidos;
-        var especialidad = appointment.speciality.name;
+        // var especialidad = appointment.speciality.name;
+        var especialidad = specialityName;
         var fecha = appointment.scheduled_date;
         var hora = appointment.scheduled_time;
 
@@ -119,7 +121,7 @@
 
                 // send the notes to the controller and the appointment id through ajax
                 $.ajax({
-                    url: "/eliminar-cita-paciente",
+                    url: "/api/eliminar-cita-paciente",
                     type: "POST",
                     data: {
                         appointment_id: appointment.id,
@@ -268,6 +270,7 @@ $(document).on('click', '.eliminarCitaPacienteDesdeAdmin', function(e) {
     e.preventDefault();
 
     var appointment = $(this).data('appointment');
+    var specialityName = $(this).data("speciality-name");
 
     var motivoSelect = 
                             '<div class="form-floating">'+
@@ -282,7 +285,8 @@ $(document).on('click', '.eliminarCitaPacienteDesdeAdmin', function(e) {
         var paciente = appointment.patient.nombres + ' ' + appointment.patient.apellidos;
         var cedula = appointment.patient.cedula;
         var doctor = appointment.doctor.nombres + ' ' + appointment.doctor.apellidos;
-        var especialidad = appointment.speciality.name;
+        // var especialidad = appointment.speciality.name;
+        var especialidad = specialityName;
         var fecha = appointment.scheduled_date;
         var hora = appointment.scheduled_time;
 
@@ -371,13 +375,3 @@ $(document).on('click', '.eliminarCitaPacienteDesdeAdmin', function(e) {
 
         });
 });
-
-
-
-
-
-    
-
-
-    
-// });

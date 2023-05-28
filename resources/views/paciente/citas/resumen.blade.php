@@ -37,7 +37,7 @@
                             <dd class="col-sm-8">{{$appointment->doctor->getFullNameAttribute() }}</dd>    
 
                             <dt class="col-sm-4">Especialidad</dt>
-                            <dd class="col-sm-8">{{ $appointment->speciality->name }}</dd>
+                            <dd class="col-sm-8">{{ App\Models\Speciality::find($appointment->speciality_id)->name }}</dd>
                         </dl>
 
 
@@ -47,7 +47,7 @@
                             </p>
                             <p>
                                 Confirmamos que su cita médica ha sido agendada para el día {{ $appointment->scheduled_date }} a las {{ $appointment->scheduled_time }} 
-                                en la unidad Medica HOSPITAL EL ORO con el Dr. <span class="uppercase">{{ $appointment->doctor->getFullNameAttribute() }}</span>  en el area de <span class="uppercase">{{ $appointment->speciality->name }}</span>.
+                                en la unidad Medica HOSPITAL EL ORO con el Dr. <span class="uppercase">{{ $appointment->doctor->getFullNameAttribute() }}</span>  en el area de <span class="uppercase">{{App\Models\Speciality::find($appointment->speciality_id)->name }}</span>.
                             </p>
                             <p>
                                 El formato de la atención médica es PRESENCIAL, por lo que se le solicita presentarse con 15 minutos de anticipación a la hora de su cita.

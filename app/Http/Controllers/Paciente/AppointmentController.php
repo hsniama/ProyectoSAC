@@ -34,16 +34,26 @@ class AppointmentController extends Controller
 
     public function index()
     {
-        $appointments = Appointment::with('patient', 'doctor', 'speciality')
+        // $appointments = Appointment::with('patient', 'doctor', 'speciality')
+        //                 ->where('patient_id', auth()->user()->person->id)
+        //                 ->where('status', 'Pendiente')
+        //                 ->get();
+
+        $appointments = Appointment::with('patient', 'doctor')
                         ->where('patient_id', auth()->user()->person->id)
                         ->where('status', 'Pendiente')
-                        ->get();
+                        ->get();          
 
         return view('paciente.citas.index', compact('appointments'));    
     }
 
     public function cancelarCitas(){
-        $appointments = Appointment::with('patient', 'doctor', 'speciality')
+        // $appointments = Appointment::with('patient', 'doctor', 'speciality')
+        //                 ->where('patient_id', auth()->user()->person->id)
+        //                 ->where('status', 'Pendiente')
+        //                 ->get();
+
+        $appointments = Appointment::with('patient', 'doctor')
                         ->where('patient_id', auth()->user()->person->id)
                         ->where('status', 'Pendiente')
                         ->get();
@@ -60,10 +70,15 @@ class AppointmentController extends Controller
         $specialities = Speciality::where('status', 'Activo')->get();
 
         //get the amount of appointments of the patient
-        $appointments = Appointment::with('patient', 'doctor', 'speciality')
+        // $appointments = Appointment::with('patient', 'doctor', 'speciality')
+        //                 ->where('patient_id', auth()->user()->person->id)
+        //                 ->where('status', 'Pendiente')
+        //                 ->get();
+
+        $appointments = Appointment::with('patient', 'doctor')
                         ->where('patient_id', auth()->user()->person->id)
                         ->where('status', 'Pendiente')
-                        ->get();
+                        ->get();         
 
         if($appointments->count() == 2) {
             notify()->error('No puede agendar más de 2 citas.', 'Error');
@@ -134,7 +149,7 @@ class AppointmentController extends Controller
         // $notificacion = session('notificacion');
 
         notify()->success('Confirmamos que su cita médica ha sido agendada para el día '. $appointment->scheduled_date . ' a las ' . $appointment->scheduled_time . '
-                          en la unidad Medica HOSPITAL EL ORO con el Dr. ' . $appointment->doctor->getFullNameAttribute() . ' en el area de ' . $appointment->speciality->name .'.', 
+                          en la unidad Medica HOSPITAL EL ORO con el Dr. ' . $appointment->doctor->getFullNameAttribute() . ' en el area de ' . Speciality::find($appointment->speciality_id)->name .'.', 
                           'La cita se ha registrado con éxito');
 
         // return view('paciente.citas.resumen', ['appointment' => $appointment, 'notificacion' => $notificacion]);
@@ -145,10 +160,17 @@ class AppointmentController extends Controller
     public function showPreviewPDF(Request $request)
     {
         // Obtener las citas del paciente
-        $appointments = Appointment::with('patient', 'doctor', 'speciality')
+        // $appointments = Appointment::with('patient', 'doctor', 'speciality')
+        //                 ->where('patient_id', auth()->user()->person->id)
+        //                 ->where('status', 'Pendiente')
+        //                 ->get();
+
+        $appointments = Appointment::with('patient', 'doctor')
                         ->where('patient_id', auth()->user()->person->id)
                         ->where('status', 'Pendiente')
-                        ->get();
+                        ->get();              
+
+
         $fecha = Carbon::now()->format('Y-m-d H:i:s');
         
         $pdf = PDF::loadView('paciente.citas.previewCitas', compact('appointments', 'fecha'))->setPaper('a4', 'landscape');
@@ -164,7 +186,8 @@ class AppointmentController extends Controller
 
     public function show(Appointment $appointment, String $notificacion)
     {
-        $appointment->load('patient', 'doctor', 'speciality');
+        // $appointment->load('patient', 'doctor', 'speciality');
+        $appointment->load('patient', 'doctor');
 
         // dd($appointment);
         // return view('paciente.citas.show', compact('notificacion', 'appointment'));
@@ -199,7 +222,11 @@ class AppointmentController extends Controller
         notify()->success('La cita se ha cancelado con éxito', 'Cita eliminada');
 
         //check if there are appointments
-        $appointments = Appointment::with('patient', 'doctor', 'speciality')
+        // $appointments = Appointment::with('patient', 'doctor', 'speciality')
+        //                 ->where('patient_id', auth()->user()->person->id)
+        //                 ->where('status', 'Pendiente')
+        //                 ->get();
+        $appointments = Appointment::with('patient', 'doctor')
                         ->where('patient_id', auth()->user()->person->id)
                         ->where('status', 'Pendiente')
                         ->get();

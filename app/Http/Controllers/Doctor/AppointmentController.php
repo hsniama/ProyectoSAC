@@ -17,17 +17,22 @@ class AppointmentController extends Controller
      */
     public function index()
     {
-        $pendingAppointments = Appointment::with('patient', 'doctor', 'speciality')
+        // $pendingAppointments = Appointment::with('patient', 'doctor', 'speciality')
+        //                     ->where('doctor_id', auth()->user()->person->id)
+        //                     ->where('status', 'Pendiente')
+        //                     ->get();
+
+        $pendingAppointments = Appointment::with('patient', 'doctor')
                             ->where('doctor_id', auth()->user()->person->id)
                             ->where('status', 'Pendiente')
-                            ->get();
+                            ->get();                   
         
-        // $confirmedAppointments = Appointment::with('patient', 'doctor', 'speciality')
+        // $confirmedAppointments = Appointment::with('patient', 'doctor')
         //                     ->where('doctor_id', auth()->user()->person->id)
         //                     ->where('status', 'Confirmado')
         //                     ->get();
         
-        // $oldAppointments = Appointment::with('patient', 'doctor', 'speciality')
+        // $oldAppointments = Appointment::with('patient', 'doctor')
         //                     ->where('doctor_id', auth()->user()->person->id)
         //                     ->where('status', 'Atendido')
         //                     ->get();

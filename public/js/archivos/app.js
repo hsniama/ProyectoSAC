@@ -107,7 +107,8 @@ const noDoctors = `<input type="text" disabled id="noDoctorsAvailable" class="te
                 }
             }).done(function(doctors){
 
-                if(doctors.length == 0){
+                if(doctors.length === 0){
+                    console.log(doctors.length);
                     $doctoresAvailable.html(noDoctors);
                 }
 

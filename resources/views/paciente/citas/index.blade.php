@@ -48,7 +48,8 @@
                                     <tbody>
                                         @foreach ($appointments as $a)
                                             <tr class="fs-6">
-                                                <td class="text-uppercase">{{ $a->speciality->name}}</td>
+                                                {{-- <td class="text-uppercase">{{ $a->speciality->name}}</td> --}}
+                                                <td class="text-uppercase">{{ App\Models\Speciality::find($a->speciality_id)->name}}</td>
                                                 <td>
                                                     {{ $a->scheduled_date }}
                                                 </td>

@@ -93,7 +93,7 @@
                   @foreach ($appointments as $a)
                     <tr class="fs-6">
                       <td>Hospital el Oro</td>
-											<td class="text-uppercase">{{ $a->speciality->name}}</td>
+											<td class="text-uppercase">{{ App\Models\Speciality::find($a->speciality_id)->name }}</td>
                       <td class="text-uppercase text-start">{{ $a->doctor->getFullNameAttribute()}}</td>
                       <td>{{ $a->scheduled_date }}</td>
                       <td>{{ $a->getScheduledTimeAttribute($a->scheduled_time) }}</td>
