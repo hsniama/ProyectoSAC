@@ -8,6 +8,8 @@ use App\Models\Person;
 use Illuminate\Database\Seeder;
 use Database\Seeders\RoleSeeder;
 use Database\Seeders\UserSeeder;
+use Database\Seeders\DiseaseSeeder;
+use Database\Seeders\SymptomSeeder;
 use Database\Seeders\ScheduleSeeder;
 use Database\Seeders\PermissionSeeder;
 use Database\Seeders\SpecialitySeeder;
@@ -30,11 +32,8 @@ class DatabaseSeeder extends Seeder
             SpecialitySeeder::class,
             AppointmentSeeder::class,
             ScheduleSeeder::class,
-            // ConsultaSeeder::class,
-            // RecetaSeeder::class,
-            // DiagnosticoSeeder::class,
-            // DetalleRecetaSeeder::class,
-            // DetalleDiagnosticoSeeder::class,
+            DiseaseSeeder::class,
+            SymptomSeeder::class,
         ]);
     }
 }

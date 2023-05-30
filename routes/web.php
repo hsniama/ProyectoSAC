@@ -13,6 +13,7 @@ use App\Http\Controllers\Auth\ChangePasswordController;
 use App\Http\Controllers\Secretaria\PacienteController;
 use App\Http\Controllers\Paciente\AppointmentController as PatientAppointmentController;
 use App\Http\Controllers\Doctor\AppointmentController as DoctorAppointmentController;
+use App\Http\Controllers\Doctor\DiagnosisController;
 
 /*
 |--------------------------------------------------------------------------
@@ -88,6 +89,9 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         ], function () {
             // Route::resource('citas', DoctorAppointmentController::class);
             Route::get('citas', [DoctorAppointmentController::class, 'index'])->name('citas.index');
+            Route::get('iniciar-consulta/{appointment}', [DiagnosisController::class, 'create'])->name('iniciar.consulta');
+            Route::post('diagnostico', [DiagnosisController::class, 'store'])->name('diagnostico.store');
+
             // Route::get('citas/{appointment}', [DoctorController::class, 'cita'])->name('cita');
             // Route::post('citas/{appointment}/atender', [DoctorController::class, 'atender'])->name('atender');
             // Route::post('citas/{appointment}/cancelar', [DoctorController::class, 'cancelar'])->name('cancelar');

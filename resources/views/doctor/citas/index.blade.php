@@ -66,7 +66,7 @@
                                         <tr>
 											<td>{{ $cita->scheduled_date }}</td>
 											<td>{{ $cita->getScheduledTimeAttribute($cita->scheduled_time) }}</td>
-											<td><span class="badge badge-primary ">{{ $cita->speciality->name }}</span></td>
+											<td><span class="badge badge-primary ">{{ App\Models\Speciality::find($cita->speciality_id)->name }}</span></td>
 											<td>{{ $cita->patient->getFullNameAttribute() }}</td>
 											<td>{{ $cita->patient->getAgeAttribute()}}</td>
 											<td>{{ $cita->notes }}</td>
@@ -75,22 +75,24 @@
                                                 <a href="{{ route('admin.appointments.show', $cita->id) }}"><button class="btn btn-info mb-2 btn-sm"><i class="fa fa-fw fa-eye"></i></button></a> </br>   
                                                 @endcan --}}
                                                 @can('appointment-edit')
-                                                <a href="{{ route('admin.appointments.edit', $cita->id) }}"><button class="btn btn-warning mb-2 btn-sm"><i class="fa fa-fw fa-edit"></i></button></a></br> 
+                                                    <a href="{{ route('admin.appointments.edit', $cita->id) }}"><button class="btn btn-warning mb-2 btn-sm"><i class="fa fa-fw fa-edit"></i></button></a></br> 
                                                 @endcan
+                                                
                                                 @can('appointment-delete')
-                                                <form action="{{ route('admin.appointments.destroy', $cita) }}" method="POST" style="display: inline" class="eliminarCita">
-                                                    @csrf
-                                                    {{ method_field('DELETE') }}
-                                                    <button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-fw fa-trash"></i></button>
-                                                </form>
+                                                    <form action="{{ route('admin.appointments.destroy', $cita) }}" method="POST" style="display: inline" class="eliminarCita">
+                                                        @csrf
+                                                        {{ method_field('DELETE') }}
+                                                        <button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-fw fa-trash"></i></button>
+                                                    </form>
                                                 @endcan
-                                                <a href="#" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="bottom" data-bs-content="Iniciar Consulta" ><i class="fa-solid fa-circle-plus fa-xl opcion-citas-doctor" style="color: #47e04e;"></i></a>
 
-                                                <a href="#" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="bottom" data-bs-content="Editar Paciente"><i class="fa-regular fa-pen-to-square fa-xl opcion-citas-doctor" style="color: #cfcc16;"></i></a>
+                                                <a href="{{ route('doctor.iniciar.consulta', $cita->id) }}" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="bottom" data-bs-content="Iniciar Consulta" ><i class="fa-solid fa-circle-plus fa-xl opcion-citas-doctor" style="color: #47e04e;"></i></a>
+
+                                                <a href="#" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="bottom" data-bs-content="Reprogramar Cita"><i class="fa-regular fa-pen-to-square fa-xl opcion-citas-doctor" style="color: #848336;"></i></a>
 
                                                 <a href="#" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="bottom" data-bs-content="Ver Perfil del Paciente"><i class="fa-regular fa-eye fa-xl opcion-citas-doctor" style="color: #6487c4;"></i></a>
 
-                                                <a href="#" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="bottom" data-bs-content="Eliminar"><i class="fa-regular fa-circle-xmark fa-xl opcion-citas-doctor" style="color: #d85450;"></i></a>
+                                                <a href="#" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="bottom" data-bs-content="Eliminar Cita"><i class="fa-regular fa-circle-xmark fa-xl opcion-citas-doctor" style="color: #d85450;"></i></a>
                                                     
                                             </td>
 

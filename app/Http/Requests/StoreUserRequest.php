@@ -33,10 +33,10 @@ class StoreUserRequest extends FormRequest
             'roles.*' => ['required', 'exists:roles,id', 'numeric'],
         
             'cedula' => ['required', 'numeric', 'unique:people,cedula'],
-            'nombres' => ['required', 'string', 'max:15', 'min:3'],
-            'apellidos' => ['required', 'string', 'max:15', 'min:3'],
+            'nombres' => ['required', 'string', 'max:20', 'min:3'],
+            'apellidos' => ['required', 'string', 'max:20', 'min:3'],
             'telefono' => ['required', 'numeric'],
-            'direccion' => ['required', 'max:25', 'min:3', 'string'],
+            'direccion' => ['required', 'max:50', 'min:3', 'string'],
             'ciudad' => ['required', 'string', 'max:20'],
             'fecha_nacimiento' => ['required', 'date'],
             'genero' => ['required', 'string', 'max:10'],
