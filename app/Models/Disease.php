@@ -17,6 +17,6 @@ class Disease extends Model
 
     public function diagnosis()
     {
-        return $this->belongsToMany(Diagnosis::class)->withTimestamps();
+        return $this->belongsToMany(Diagnosis::class)->withTimestamps()->withPivot('duration', 'status', 'notes');
     }
 }

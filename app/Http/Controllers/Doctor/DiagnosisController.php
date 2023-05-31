@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Doctor;
 
 use App\Models\Disease;
 use App\Models\Symptom;
+use App\Models\Medicine;
 use App\Models\Diagnosis;
 use App\Models\Appointment;
+use App\Models\MedicalExam;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreDiagnosisRequest;
 use App\Http\Requests\UpdateDiagnosisRequest;
@@ -37,7 +39,11 @@ class DiagnosisController extends Controller
         // get all the symptoms:
         $symptoms = Symptom::all();
 
-        return view('doctor.diagnosis.create', compact('diagnosis', 'appointment', 'diseases', 'symptoms'));
+        $medicines = Medicine::all();
+
+        $exams = MedicalExam::all();
+
+        return view('doctor.diagnosis.create', compact('diagnosis', 'appointment', 'diseases', 'symptoms', 'medicines', 'exams'));
     }
     
 

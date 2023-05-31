@@ -4,9 +4,12 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use App\Models\Person;
+use App\Models\Medicine;
 use App\Models\Diagnosis;
 use App\Models\VitalSign;
 use App\Models\Speciality;
+use App\Models\MedicalExam;
+use App\Models\Prescription;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -54,6 +57,11 @@ class Appointment extends Model
     public function vitalSign()
     {
         return $this->hasOne(VitalSign::class);
+    }
+
+    public function prescription()
+    {
+        return $this->hasOne(Prescription::class);
     }
 
     // public function speciality()

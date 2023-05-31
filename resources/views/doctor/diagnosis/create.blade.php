@@ -83,11 +83,11 @@
                                         <a class="nav-link" data-toggle="tab" href="#step3">3. Diagnóstico</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" data-toggle="tab" href="#step4">4. Examenes</a>
+                                        <a class="nav-link" data-toggle="tab" href="#step4">4. Receta</a>
                                     </li>
-                                    <li class="nav-item">
+                                    {{-- <li class="nav-item">
                                         <a class="nav-link" data-toggle="tab" href="#step5">5. Receta</a>
-                                    </li>
+                                    </li> --}}
                                 </ul>
 
                                 <div class="box box-info padding-1">
@@ -415,7 +415,6 @@
                                             </div>
 
                                             <div id="step3" class="tab-pane">
-
 
                                                 <div class="row p-1 d-flex justify-content-center">
 
@@ -745,6 +744,189 @@
 
                                             </div>
 
+                                            <div id="step4" class="tab-pane">
+
+                                                <div class="row p-1 d-flex justify-content-center">
+
+                                                    <div class="row"> <!--Completar Informacion-->
+                                                        <div class="col-md-12 mt-3">
+
+                                                            <button class="btn btn-outline-primary w-100" type="button" data-bs-toggle="collapse" data-bs-target="#quinta" aria-expanded="false" aria-controls="quinta">
+                                                                1. Medicamentos
+                                                            </button>
+
+                                                            <div class="collapse" id="quinta"><!--collapse-->                                          
+                                                               <div class="card card-body mt-2"><!--card card-body mt-2--> 
+                                                                    
+                                                                    <div class="col">
+                                                                     
+                                                                        <div class="medicines_container mt-3">
+                                                                            
+                                                                            <div class="card card-body medicine_1">
+                                                                                <div class="row g-2">
+
+                                                                                    <div class="col-5">
+                                                                                        <div class="form-floating">
+                                                                                            <select class="form-control" name="medicines[1][id]" id="medicine1_id">
+                                                                                                <option value="" disabled selected>Seleccione una medicina: </option>
+                                                                                                @foreach ($medicines as $medicine)
+                                                                                                    <option value="{{ $medicine->id }}">{{ $medicine->name }}</option>
+                                                                                                @endforeach
+                                                                                            </select>
+                                                                                            <label for="medicine1_id">Medicamento 1: </label>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <div class="col">
+                                                                                        <div class="form-floating">
+                                                                                            <input type="number" class="form-control {{ $errors->has('medicine1_quantity') ? 'is-invalid' : '' }}" name="medicines[1][quantity]" id="medicine1_quantity" 
+                                                                                                placeholder="Enumera las alergias del paciente." value="{{ old('medicine1_quantity') }}">
+                                                                                            <label for="medicine1_quantity">Cantidad:</label>
+                                                                                            @if ($errors->has('medicine1_quantity'))
+                                                                                                <span class="text-danger">
+                                                                                                    <strong>{{ $errors->first('medicine1_quantity') }}</strong>
+                                                                                                </span>
+                                                                                            @endif
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <div class="col">
+                                                                                        <div class="form-floating">
+                                                                                            <input type="number" class="form-control {{ $errors->has('medicine1_duration') ? 'is-invalid' : '' }}" name="medicines[1][duration]" id="medicine1_duration" 
+                                                                                                placeholder="Enumera las alergias del paciente." value="{{ old('medicine1_duration') }}">
+                                                                                            <label for="medicine1_duration">Duración <small>(días)</small>:</label>
+                                                                                            @if ($errors->has('medicine1_duration'))
+                                                                                                <span class="text-danger">
+                                                                                                    <strong>{{ $errors->first('medicine1_duration') }}</strong>
+                                                                                                </span>
+                                                                                            @endif
+                                                                                        </div>
+                                                                                    </div>
+
+
+                                                                                </div>
+                                                                                
+                                                                                <div class="form-floating mt-3">
+                                                                                    <textarea class="form-control" placeholder="Agrega las notas adicionales" name="medicines[1][observations]" id="medicine1_observations" style="height: 100px"></textarea>
+                                                                                    <label for="medicine1_observations">Observaciones adicionales <small>(Detalle las dosis, etc. Si no existe el medicamento en el listado, escribalo aqui. )</small> : </label>
+                                                                                </div>
+                                                                                
+                                                                            </div>
+
+                                                                            <!--Nueva enfermedad actual-->                   
+                                                                            <a href="#" class="text-decoration-none p-2" id="add_medicine"><i class="fa-solid fa-circle-plus fa-xl" style="color: #3991d8;"></i> Agregar otro medicamento.</a>
+                                                                        </div>
+
+
+                                             
+                                                                    </div>
+                                                                    
+                                                                </div><!--card card-body mt-2-->  
+                                                            </div><!--collapse-->
+
+                                                        </div><!--col-md-12 mt-3-->
+                                                    </div><!--Completar Informacion-->
+
+                                                    <div class="row">             
+                                                        <div class="col-md-12 mt-3">
+                                                            <button class="btn btn-outline-primary w-100" type="button" data-bs-toggle="collapse" data-bs-target="#sexta" aria-expanded="false" aria-controls="sexta">
+                                                                2. Exámenes
+                                                            </button> 
+                                                            <div class="collapse" id="sexta">
+                                                               <div class="card card-body mt-2">
+                                                                    <div class="col">
+
+                                                                        <div class="exams_container mt-3">
+                                                                            
+                                                                            <div class="card card-body exam_1">
+                                                                                <div class="row g-2">
+
+                                                                                    <div class="col-5">
+                                                                                        <div class="form-floating">
+                                                                                            <select class="form-control" name="exams[1][id]" id="exam1_id">
+                                                                                                <option value="" disabled selected>Seleccione una medicina: </option>
+                                                                                                @foreach ($exams as $exam)
+                                                                                                    <option value="{{ $exam->id }}">{{ $exam->name }}</option>
+                                                                                                @endforeach
+                                                                                            </select>
+                                                                                            <label for="exam1_id">Examen 1: </label>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <div class="col">
+                                                                                        <div class="form-floating">
+                                                                                            <input type="text" class="form-control" placeholder="Agrega las notas adicionales" name="exams[1][observations]" id="exam1_observations"></input>
+                                                                                            <label for="exam1_observations">Observaciones adicionales <small>(Si no existe el examen en el listado, escribalo aqui. )</small> : </label>
+                                                                                        </div>
+                                                                                    </div>
+
+
+                                                                                </div>
+                                                                                
+
+                                                                                
+                                                                            </div>
+                                                                            <!--Nuevo examen actual-->
+                                                                            <a href="#" class="text-decoration-none p-2" id="add_exam"><i class="fa-solid fa-circle-plus fa-xl" style="color: #3991d8;"></i> Agregar otro exámen.</a>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div> 
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-md-12 mt-3">
+                                                            <button class="btn btn-outline-primary w-100" type="button" data-bs-toggle="collapse" data-bs-target="#septima" aria-expanded="false" aria-controls="septima">
+                                                                3. Sugerencias o Recomendaciones
+                                                            </button>  
+                                                            <div class="collapse" id="septima">
+                                                               <div class="card card-body mt-2">
+                                                                    <div class="col">
+
+                                                                        <div class="recommendations_container mt-3">
+
+                                                                            <div class="card card-body recommendation_1">                                                                           
+                                                                                <div class="row g-5">
+                                                                                        <div class="col">
+                                                                                        <div class="form-floating mt-3">
+                                                                                            <input type="text" class="form-control" placeholder="Agrega las notas adicionales" name="recommendationsPrescription[]" id="recommendation1"></input>
+                                                                                            <label for="recomendation1">Recomendacion 1: </label>
+                                                                                        </div>
+                                                                                    </div>                                         
+                                                                                </div>                                                                     
+                                                                            </div>
+
+                                                                            <!--Nueva enfermedad actual-->
+                                                                            <a href="#" class="text-decoration-none p-2" id="add_recommendation"><i class="fa-solid fa-circle-plus fa-xl opcion-citas-doctor" style="color: #3991d8;"></i> Agregar otra recomendación posible del paciente.</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div> 
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+
+                                                <div class="row d-flex">
+                                                    <div class="col">
+                                                        <button type="button" class="btn btn-secondary"
+                                                            onclick="prevTab(event, 'step3')">
+                                                            Anterior
+                                                        </button>
+                                                    </div>
+                                                    <div class="col text-right">
+                                                        <button type="submit" class="btn btn-success">
+                                                            <i class="fa fa-fw fa-lg fa-check-circle"></i>
+                                                            Finalizar Consulta
+                                                        </button>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
 
 
 
@@ -831,7 +1013,7 @@
         document.getElementById('add_current_disease').addEventListener('click', function (e) {
             e.preventDefault();
 
-            let containerEnfermedades = document.querySelector('.current_diseases_container');
+            let containerMedicamentos = document.querySelector('.current_diseases_container');
 
             let div = document.createElement('div');
             div.classList.add('card', 'card-body', 'current_disease_' + contadorEnfermedades);
@@ -1054,6 +1236,208 @@
                 document.querySelector('.possible_disease_' + enfermedad).remove();
 
                 contadorEnfermedadesPosibles--;
+            }
+        });
+
+        //--------------------------------------------------------------------------------------
+        // Agregar nuevo medicamento
+        let contadorMedicamentos = 2; //Inicia en 2, ya que en el bloque 1 ya existe la primera.
+
+        document.getElementById('add_medicine').addEventListener('click', function (e) {
+            e.preventDefault();
+
+            let containerMedicamentos = document.querySelector('.medicines_container');
+
+            let div = document.createElement('div');
+            div.classList.add('card', 'card-body', 'medicine_' + contadorMedicamentos);
+            div.innerHTML = `
+                <div class="row g-2">
+
+                    <div class="col-5">
+                        <div class="form-floating">
+                            <select class="form-control" name="medicines[${contadorMedicamentos}][id]" id="medicine${contadorMedicamentos}_id">
+                                <option value="" disabled selected>Seleccione una medicina: </option>
+                                @foreach ($medicines as $medicine)
+                                    <option value="{{ $medicine->id }}">{{ $medicine->name }}</option>
+                                @endforeach
+                            </select>
+                            <label for="medicine${contadorMedicamentos}_id">Medicamento ${contadorMedicamentos}: </label>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-floating">
+                            <input type="number" class="form-control {{ $errors->has('medicine${contadorMedicamentos}_quantity') ? 'is-invalid' : '' }}" name="medicines[${contadorMedicamentos}][quantity]" id="medicine${contadorMedicamentos}_quantity" 
+                                placeholder="Enumera las alergias del paciente." value="{{ old('medicine${contadorMedicamentos}_quantity') }}">
+                            <label for="medicine${contadorMedicamentos}_quantity">Cantidad:</label>
+                            @if ($errors->has('medicine${contadorMedicamentos}_quantity'))
+                                <span class="text-danger">
+                                    <strong>{{ $errors->first('medicine${contadorMedicamentos}_quantity') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-floating">
+                            <input type="number" class="form-control {{ $errors->has('medicine${contadorMedicamentos}_duration') ? 'is-invalid' : '' }}" name="medicines[${contadorMedicamentos}][duration]" id="medicine${contadorMedicamentos}_duration" 
+                                placeholder="Enumera las alergias del paciente." value="{{ old('medicine${contadorMedicamentos}_duration') }}">
+                            <label for="medicine${contadorMedicamentos}_duration">Duración <small>(días)</small>:</label>
+                            @if ($errors->has('medicine${contadorMedicamentos}_duration'))
+                                <span class="text-danger">
+                                    <strong>{{ $errors->first('medicine${contadorMedicamentos}_duration') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                    </div>
+
+
+                </div>
+                
+                <div class="form-floating mt-3">
+                    <textarea class="form-control" placeholder="Agrega las notas adicionales" name="medicines[${contadorMedicamentos}][observations]" id="medicine${contadorMedicamentos}_observations" style="height: 100px"></textarea>
+                    <label for="medicine${contadorMedicamentos}_observations">Observaciones adicionales <small>(Detalle las dosis, frecuencias, etc. Si no existe el medicamento en el listado, escribalo aqui. )</small> : </label>
+                </div>
+
+                <div class="d-flex">
+                    <a href="#" class="text-decoration-none link-danger ms-auto pt-2 remove_medicine" data-medicine="${contadorMedicamentos}">
+                        Eliminar
+                    </a>
+                </div>
+
+            `;
+
+            //Insertar despues del ultimo elemento de .enfermedad + contadorMedicamentos - 1
+            containerMedicamentos.insertBefore(div, document.querySelector('.medicine_' + (contadorMedicamentos - 1)).nextSibling);
+
+            contadorMedicamentos++;
+
+        });
+
+        // Eliminar medicine actual previamente agregada
+        document.addEventListener('click', function (e) {
+            if (e.target.classList.contains('remove_medicine')) {
+                e.preventDefault();
+
+                let medicine = e.target.dataset.medicine;
+
+                document.querySelector('.medicine_' + medicine).remove();
+
+                contadorMedicamentos--;
+            }
+        });
+
+
+        //--------------------------------------------------------------------------------------
+        // Agregar nuevo Examen
+        let contadorExamenes = 2; //Inicia en 2, ya que en el bloque 1 ya existe la primera.
+
+        document.getElementById('add_exam').addEventListener('click', function (e) {
+            e.preventDefault();
+
+            let containerExamenes = document.querySelector('.exams_container');
+
+            let div = document.createElement('div');
+            div.classList.add('card', 'card-body', 'exam_' + contadorExamenes);
+            div.innerHTML = `
+                <div class="row g-2">
+
+                    <div class="col-5">
+                        <div class="form-floating">
+                            <select class="form-control" name="exams[${contadorExamenes}][id]" id="exam${contadorExamenes}_id">
+                                <option value="" disabled selected>Seleccione una medicina: </option>
+                                @foreach ($exams as $exam)
+                                    <option value="{{ $exam->id }}">{{ $exam->name }}</option>
+                                @endforeach
+                            </select>
+                            <label for="exam${contadorExamenes}_id">Examen ${contadorExamenes}: </label>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-floating">
+                            <input type="text" class="form-control" placeholder="Agrega las notas adicionales" name="exams[${contadorExamenes}][observations]" id="exam${contadorExamenes}_observations"></input>
+                            <label for="exam${contadorExamenes}_observations">Observaciones adicionales <small>(Si no existe el examen en el listado, escribalo aqui. )</small> : </label>
+                        </div>
+                    </div>
+
+                </div>
+                
+                <div class="d-flex">
+                    <a href="#" class="text-decoration-none link-danger ms-auto pt-2 remove_exam" data-exam="${contadorExamenes}">
+                        Eliminar
+                    </a>
+                </div>
+
+            `;
+
+            //Insertar despues del ultimo elemento de .enfermedad + contadorExamenes - 1
+            containerExamenes.insertBefore(div, document.querySelector('.exam_' + (contadorExamenes - 1)).nextSibling);
+
+            contadorExamenes++;
+
+        });
+
+        // Eliminar examen previamente agregado
+        document.addEventListener('click', function (e) {
+            if (e.target.classList.contains('remove_exam')) {
+                e.preventDefault();
+
+                let exam = e.target.dataset.exam;
+
+                document.querySelector('.exam_' + exam).remove();
+
+                contadorExamenes--;
+            }
+        });
+
+
+        //--------------------------------------------------------------------------------------
+        // Agregar nueva recomendacion
+        let contadorRecomendaciones = 2; //Inicia en 2, ya que en el bloque 1 ya existe la primera.
+
+        document.getElementById('add_recommendation').addEventListener('click', function (e) {
+            e.preventDefault();
+
+            let containerRecomendaciones = document.querySelector('.recommendations_container');
+
+            let div = document.createElement('div');
+            div.classList.add('card', 'card-body', 'recommendation_' + contadorRecomendaciones);
+            div.innerHTML = `
+                <div class="row g-5">
+                    <div class="col">
+                        <div class="form-floating mt-3">
+                            <input type="text" class="form-control" placeholder="Agrega las observaciones adicionales" name="recommendationsPrescription[]" id="recommendation${contadorRecomendaciones}"></input>
+                            <label for="recomendation${contadorRecomendaciones}">Recomendacion ${contadorRecomendaciones}: </label>
+                        </div>
+                    </div>                                         
+                </div> 
+
+                <div class="d-flex">
+                    <a href="#" class="text-decoration-none link-danger ms-auto pt-2 remove_recommendation" data-valor="${contadorRecomendaciones}">
+                        Eliminar
+                    </a>
+                </div>
+
+            `;
+
+            //Insertar despues del ultimo elemento de .enfermedad + contadorExamenes - 1
+            containerRecomendaciones.insertBefore(div, document.querySelector('.recommendation_' + (contadorRecomendaciones - 1)).nextSibling);
+
+            contadorRecomendaciones++;
+
+        });
+
+        // Eliminar recommendation previamente agregado
+        document.addEventListener('click', function (e) {
+            if (e.target.classList.contains('remove_recommendation')) {
+                e.preventDefault();
+
+                let valor = e.target.dataset.valor;
+
+                document.querySelector('.recommendation_' + valor).remove();
+
+                contadorRecomendaciones--;
             }
         });
 

@@ -34,12 +34,12 @@ class Diagnosis extends Model
 
     public function symptoms()
     {
-        return $this->belongsToMany(Symptom::class)->withTimestamps();
+        return $this->belongsToMany(Symptom::class)->withTimestamps()->withPivot('duration', 'notes');
     }
 
     public function diseases()
     {
-        return $this->belongsToMany(Disease::class)->withTimestamps();
+        return $this->belongsToMany(Disease::class)->withTimestamps()->wherePivot('duration', 'status', 'notes');
     }
 
     // public function addSymptom($symptom)
