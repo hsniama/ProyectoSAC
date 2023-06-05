@@ -29,6 +29,8 @@ class SymptomSeeder extends Seeder
         Symptom::create(['name' => 'Dificultad para respirar']);
         Symptom::create(['name' => 'Dolor o presión en el pecho']);
         Symptom::create(['name' => 'Incapacidad para hablar o moverse']);
+        Symptom::create(['name' => 'Otro']);
+        Symptom::create(['name' => 'Ninguno']);
 
         // Symptom::factory()->count(10)->create();
     }

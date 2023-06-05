@@ -47,6 +47,9 @@ class MedicalExamSeeder extends Seeder
         MedicalExam::create(['name' => 'Endoscopia', 'type' => 'Imagen']);
         MedicalExam::create(['name' => 'Mamografía', 'type' => 'Imagen']);
         MedicalExam::create(['name' => 'Densitometría ósea', 'type' => 'Imagen']);
+        MedicalExam::create(['name' => 'Prueba de COVID', 'type' => 'Imagen']);
+        MedicalExam::create(['name' => 'Otro', 'type' => 'Otro']);
+        MedicalExam::create(['name' => 'Ninguno', 'type' => 'Ninguno']);
 
     }
 }

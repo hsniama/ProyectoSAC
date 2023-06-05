@@ -4,11 +4,12 @@ namespace App\Http\Controllers\Paciente;
 
 
 use Carbon\Carbon;
+use Dompdf\Dompdf;
+use App\Models\VitalSign;
 use App\Models\Speciality;
 use App\Models\Appointment;
-use Dompdf\Dompdf;
-use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Controllers\Controller;
 use App\Services\AppointmentService;
 use Illuminate\Support\Facades\Crypt;
@@ -24,9 +25,9 @@ class AppointmentController extends Controller
     {
         $this->middleware('can:appointment-list')->only('index');
         $this->middleware('can:appointment-create')->only('create', 'store');
-        $this->middleware('can:appointment-edit')->only('edit', 'update');
+        // $this->middleware('can:appointment-edit')->only('edit', 'update'); No la estoy usando
         $this->middleware('can:appointment-delete')->only('destroy');
-        $this->middleware('can:appointment-show')->only('show');
+        // $this->middleware('can:appointment-show')->only('show');  No la estoy usando
 
         $this->appointmentService = $appointmentService;
     }
@@ -125,6 +126,9 @@ class AppointmentController extends Controller
         }
 
         $appointment = Appointment::create($request->all());
+        VitalSign::create([
+            'appointment_id' => $appointment->id,
+        ]);
 
         //update the telephone number and email of the patient
         $appointment->patient->update([

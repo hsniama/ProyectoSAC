@@ -69,8 +69,11 @@
                             </div>
                             
 
-                            <form method="POST" action="{{ route('doctor.diagnostico.store') }}" role="form" class="confirmarCita" enctype="multipart/form-data">
+                            <form method="POST" action="{{ route('doctor.diagnosis.store') }}" role="form" class="" enctype="multipart/form-data">
                                 @csrf
+                                <input hidden type="number" name="appointment_id" value="{{ $appointment->id }}">
+                                {{-- <input type="hidden" name="patient_id" value="{{ $appointment->patient->id }}">
+                                <input type="hidden" name="doctor_id" value="{{ $appointment->doctor->id }}"> --}}
 
                                 <ul class="nav nav-tabs">
                                     <li class="nav-item">
@@ -81,29 +84,24 @@
                                     </li>
                                     <li class="nav-item">
                                         <a class="nav-link" data-toggle="tab" href="#step3">3. Diagnóstico</a>
-                                    </li>
+                                    </li> 
                                     <li class="nav-item">
                                         <a class="nav-link" data-toggle="tab" href="#step4">4. Receta</a>
                                     </li>
-                                    {{-- <li class="nav-item">
-                                        <a class="nav-link" data-toggle="tab" href="#step5">5. Receta</a>
-                                    </li> --}}
                                 </ul>
 
                                 <div class="box box-info padding-1">
                                     <div class="box-body">
 
                                         <div class="tab-content">
-
+                                            <!--1. Informacion adicional-->
                                             <div id="step1" class="tab-pane active">
 
                                                 <div class="row">
 
                                                     <div class="col-md-8">
                                                         <div class="row p-3 d-flex justify-content-center">
-                                                            {{-- <div class="col-7 mt-3"> --}}
-                                                                <table class="table table-borderless">
-                                                                    {{-- <caption class="caption-top fw-bolder text-black mb-3 fs-5">Datos del Paciente: </caption> --}}
+                                                                <table class="table table-borderless">        
                                                                     <tbody>
                                                                         <tr>
                                                                             <td>
@@ -113,7 +111,6 @@
                                                                             </td>
                                                                             <td>
                                                                                 <p>
-                                                                                    {{-- <span class="fw-bolder">Cedula</span> <span class="ml-2">{{ Auth::user()->person->cedula }}</span> --}}
                                                                                     <span class="ml-2 mr-2">{{ $appointment->patient->getFullNameAttribute() }} </span> 
                                                                                 </p>
                                                                             </td>
@@ -129,7 +126,6 @@
                                                                             </td>
                                                                             <td>
                                                                                 <p>
-                                                                                    {{-- <span class="fw-bolder">Cedula</span> <span class="ml-2">{{ Auth::user()->person->cedula }}</span> --}}
                                                                                     <span class="ml-2 mr-2">{{ $appointment->patient->cedula }}</span>
                                                                                 </p>
                                                                             </td>
@@ -145,7 +141,6 @@
                                                                             </td>
                                                                             <td>
                                                                                 <p>
-                                                                                    {{-- <span class="fw-bolder">Cedula</span> <span class="ml-2">{{ Auth::user()->person->cedula }}</span> --}}
                                                                                     <span class="ml-2 mr-2">{{ $appointment->patient->ciudad }}</span>
                                                                                 </p>
                                                                             </td>
@@ -161,7 +156,6 @@
                                                                             </td>
                                                                             <td>
                                                                                 <p>
-                                                                                    {{-- <span class="fw-bolder">Cedula</span> <span class="ml-2">{{ Auth::user()->person->cedula }}</span> --}}
                                                                                     <span class="ml-2 mr-2">{{ $appointment->patient->direccion }}</span>
                                                                                 </p>
                                                                             </td>
@@ -171,7 +165,7 @@
                                                                         </tr>
                                                                     </tbody>
                                                                 </table>
-                                                            {{-- </div> --}}
+                                                            
                                                         </div>
 
                                                     </div>
@@ -191,16 +185,14 @@
 
                                             </div>
 
-
+                                            <!--2. Signos Vitales-->
                                             <div id="step2" class="tab-pane">
 
                                                 <div class="row">
 
                                                     <div class="col-md-6">
                                                         <div class="row p-3 d-flex justify-content-center">
-                                                            {{-- <div class="col-7 mt-3"> --}}
                                                                 <table class="table table-borderless">
-                                                                    {{-- <caption class="caption-top fw-bolder text-black mb-3 fs-5">Signos Vitales: </caption> --}}
                                                                     <tbody>
                                                                         <tr>
                                                                             <td>
@@ -210,7 +202,6 @@
                                                                             </td>
                                                                             <td>
                                                                                 <p>
-                                                                                    {{-- <span class="fw-bolder">Cedula</span> <span class="ml-2">{{ Auth::user()->person->cedula }}</span> --}}
                                                                                     <span class="ml-2 mr-2">{{ $appointment->patient->getAgeAttribute() }}</span>
                                                                                 </p>
                                                                             </td>
@@ -281,17 +272,14 @@
                                                                         </tr>
                                                                     </tbody>
                                                                 </table>
-                                                            {{-- </div> --}}
                                                         </div>
 
                                                     </div>
 
                                                     <div class="col-md-6">
                                                         <div class="row p-3 d-flex justify-content-center">
-                                                            {{-- <div class="col-8 mt-3"> --}}
 
                                                                 <table class="table table-borderless">
-                                                                    {{-- <caption class="caption-top fw-bolder text-black mb-3 fs-5">Datos para confirmar cita: </caption> --}}
                                                                     <tbody>
                                                                         <tr>
                                                                             <td>
@@ -389,8 +377,6 @@
 
                                                                     </tbody>
                                                                 </table>
-
-                                                            {{-- </div> --}}
                                                         </div>
 
                                                     </div>
@@ -414,6 +400,7 @@
 
                                             </div>
 
+                                            <!--3. Diagnostico-->
                                             <div id="step3" class="tab-pane">
 
                                                 <div class="row p-1 d-flex justify-content-center">
@@ -429,7 +416,7 @@
                                                                <div class="card card-body mt-2"><!--card card-body mt-2--> 
                                                                     
                                                                     <div class="col">
-                                                                        
+                                                                        <!-- allergies-->
                                                                         <div class="form-floating">
                                                                             <input type="text" class="form-control {{ $errors->has('allergies') ? 'is-invalid' : '' }}" name="allergies" id="allergies" 
                                                                                 placeholder="Enumera las alergias del paciente." value="{{ old('allergies') }}">
@@ -442,6 +429,7 @@
                                                                         </div>
                                                                         
                                                                         <div class="row g-2 mt-2">
+                                                                            <!--alcohol_use-->
                                                                             <div class="col">
                                                                                 <div class="form-floating">
                                                                                     <select class="form-select {{ $errors->has('alcohol_use') ? 'is-invalid' : '' }}" id="alcohol_use" name="alcohol_use" aria-label="¿Consume Alcohol?">
@@ -449,14 +437,15 @@
                                                                                         <option value="Si" {{ old('alcohol_use') ==  'Si' ? 'selected' : '' }}>Si</option>
                                                                                         <option value="No" {{ old('alcohol_use') == 'No' ? 'selected' : '' }}>No</option>
                                                                                     </select>
-                                                                                    <label for="alcohol_use">¿Consume Alcohol?</label>
+                                                                                    <label for="alcohol_use">¿Consume Alcohol?*</label>
                                                                                         @if ($errors->has('alcohol_use'))
-                                                                                        <span class="text-danger">
-                                                                                            <strong>{{ $errors->first('alcohol_use') }}</strong>
-                                                                                        </span>
-                                                                                    @endif
+                                                                                            <span class="text-danger">
+                                                                                                <strong>{{ $errors->first('alcohol_use') }}</strong>
+                                                                                            </span>
+                                                                                        @endif
                                                                                 </div>
                                                                             </div>
+                                                                            <!--drug_use-->
                                                                             <div class="col">
                                                                                 <div class="form-floating">
                                                                                     <select class="form-select {{ $errors->has('drug_use') ? 'is-invalid' : '' }}" id="drug_use" name="drug_use" aria-label="¿Consume Drogas?">
@@ -464,14 +453,15 @@
                                                                                         <option value="Si" {{ old('drug_use') ==  'Si' ? 'selected' : '' }}>Si</option>
                                                                                         <option value="No" {{ old('drug_use') == 'No' ? 'selected' : '' }}>No</option>
                                                                                     </select>
-                                                                                    <label for="drug_use">¿Consume Drogas?</label>
+                                                                                    <label for="drug_use">¿Consume Drogas?*</label>
                                                                                         @if ($errors->has('drug_use'))
-                                                                                        <span class="text-danger">
-                                                                                            <strong>{{ $errors->first('drug_use') }}</strong>
-                                                                                        </span>
-                                                                                    @endif
+                                                                                            <span class="text-danger">
+                                                                                                <strong>{{ $errors->first('drug_use') }}</strong>
+                                                                                            </span>
+                                                                                        @endif
                                                                                 </div>
                                                                             </div>
+                                                                            <!--smoking_use-->
                                                                             <div class="col">
                                                                                 <div class="form-floating">
                                                                                     <select class="form-select {{ $errors->has('smoking_use') ? 'is-invalid' : '' }}" id="smoking_use" name="smoking_use" aria-label="¿Consume Tabaco?">
@@ -479,16 +469,16 @@
                                                                                         <option value="Si" {{ old('smoking_use') ==  'Si' ? 'selected' : '' }}>Si</option>
                                                                                         <option value="No" {{ old('smoking_use') == 'No' ? 'selected' : '' }}>No</option>
                                                                                     </select>
-                                                                                    <label for="smoking_use">¿Consume Tabaco?</label>
+                                                                                    <label for="smoking_use">¿Consume Tabaco?*</label>
                                                                                         @if ($errors->has('smoking_use'))
-                                                                                        <span class="text-danger">
-                                                                                            <strong>{{ $errors->first('smoking_use') }}</strong>
-                                                                                        </span>
-                                                                                    @endif
+                                                                                            <span class="text-danger">
+                                                                                                <strong>{{ $errors->first('smoking_use') }}</strong>
+                                                                                            </span>
+                                                                                        @endif
                                                                                 </div>
                                                                             </div>
                                                                         </div>
-                                                                        
+                                                                        <!-- family_background-->
                                                                         <div class="form-floating mt-3">
                                                                             <input type="text" class="form-control {{ $errors->has('family_background') ? 'is-invalid' : '' }}" name="family_background" id="family_background" 
                                                                                 placeholder="Enumera las alergias del paciente." value="{{ old('family_background') }}">
@@ -499,7 +489,7 @@
                                                                                 </span>
                                                                             @endif
                                                                         </div>
-                                                                        
+                                                                        <!--surgical_history-->
                                                                         <div class="form-floating mt-3">
                                                                             <input type="text" class="form-control {{ $errors->has('surgical_history') ? 'is-invalid' : '' }}" name="surgical_history" id="surgical_history" 
                                                                                 placeholder="Enumera las alergias del paciente." value="{{ old('surgical_history') }}">
@@ -511,42 +501,49 @@
                                                                             @endif
                                                                         </div>
 
+                                                                        <!--current_medication-->
                                                                         <div class="form-floating mt-3">
-                                                                            <input type="text" class="form-control {{ $errors->has('surgical_history') ? 'is-invalid' : '' }}" name="surgical_history" id="surgical_history" 
-                                                                                placeholder="Enumera las alergias del paciente." value="{{ old('surgical_history') }}">
-                                                                            <label for="surgical_history">¿Está con medicación? <small>(Detalla los medicamentos que consume)</small>:</label>
-                                                                            @if ($errors->has('surgical_history'))
+                                                                            <input type="text" class="form-control {{ $errors->has('current_medication') ? 'is-invalid' : '' }}" name="current_medication" id="current_medication" 
+                                                                                placeholder="Enumera las alergias del paciente." value="{{ old('current_medication') }}">
+                                                                            <label for="current_medication">¿Está con medicación? <small>(Detalla los medicamentos que consume)</small>:</label>
+                                                                            @if ($errors->has('current_medication'))
                                                                                 <span class="text-danger">
-                                                                                    <strong>{{ $errors->first('surgical_history') }}</strong>
+                                                                                    <strong>{{ $errors->first('current_medication') }}</strong>
                                                                                 </span>
                                                                             @endif
                                                                         </div>
 
+                                                                        <!--current_diseases-->
                                                                         <div class="current_diseases_container mt-3">
                                                                             
                                                                             <div class="card card-body current_disease_1">
                                                                                 <div class="row g-2">
                                                                                     <div class="col-6">
                                                                                         <div class="form-floating">
-                                                                                            <select class="form-control" name="currentdiseases[1][id]" id="currentdisease1_id">
+                                                                                            <select class="form-control" name="current_diseases[1][id]" id="currentdisease1_id">
                                                                                                 <option value="" disabled selected>Seleccione una enfermedad</option>
                                                                                                 @foreach ($diseases as $disease)
-                                                                                                    <option value="{{ $disease->id }}">{{ $disease->name }}</option>
+                                                                                                    <option value="{{ $disease->id }}" {{ old('current_diseases.1.id') == $disease->id ? 'selected' : '' }}>{{ $disease->name }}</option>
                                                                                                 @endforeach
                                                                                             </select>
                                                                                             <label for="currentdisease1_id">Enfermedad actual 1: </label>
+                                                                                            @if ($errors->has('currentdisease1_id'))
+                                                                                                <span class="text-danger">
+                                                                                                    <strong>{{ $errors->first('currentdisease1_id') }}</strong>
+                                                                                                </span>
+                                                                                            @endif
                                                                                         </div>
 
                                                                                     </div>
 
                                                                                     <div class="col-6">
                                                                                         <div class="form-floating">
-                                                                                            <select class="form-select {{ $errors->has('currentdisease1_duration') ? 'is-invalid' : '' }}" id="currentdisease1_duration" name="currentdiseases[1][duration]" aria-label="¿?">
+                                                                                            <select class="form-select {{ $errors->has('currentdisease1_duration') ? 'is-invalid' : '' }}" id="currentdisease1_duration" name="current_diseases[1][duration]" aria-label="¿?">
                                                                                                 <option selected disabled>Seleccione:</option>
-                                                                                                <option value="year<1" {{ old('currentdisease1_duration') ==  'year<1' ? 'selected' : '' }}>Menos de 1 Año</option>
-                                                                                                <option value="1<year<5" {{ old('currentdisease1_duration') == '1<year<5' ? 'selected' : '' }}>De 1 a 5 Años</option>
-                                                                                                <option value="year>5" {{ old('currentdisease1_duration') == 'year>5' ? 'selected' : '' }}>Más de 5 Años</option>
-                                                                                                <option value="nacimiento" {{ old('currentdisease1_duration') == 'nacimiento' ? 'selected' : '' }}>Origen Congénito</option>
+                                                                                                <option value="year<1" {{ old('current_diseases.1.duration') ==  'year<1' ? 'selected' : '' }}>Menos de 1 Año</option>
+                                                                                                <option value="1<year<5" {{ old('current_diseases.1.duration') == '1<year<5' ? 'selected' : '' }}>De 1 a 5 Años</option>
+                                                                                                <option value="year>5" {{ old('current_diseases.1.duration') == 'year>5' ? 'selected' : '' }}>Más de 5 Años</option>
+                                                                                                <option value="nacimiento" {{ old('current_diseases.1.duration') == 'nacimiento' ? 'selected' : '' }}>Origen Congénito</option>
                                                                                             </select>
                                                                                             <label for="currentdisease1_duration">¿Tiempo con la enfermedad?</label>
                                                                                             @if ($errors->has('currentdisease1_duration'))
@@ -559,9 +556,14 @@
                                                                                 </div>
                                                                                 
                                                                                 <div class="form-floating mt-3">
-                                                                                    <textarea class="form-control" placeholder="Agrega las notas adicionales" name="currentdiseases[1][notes]" id="currentdisease1_notes" style="height: 100px"></textarea>
+                                                                                    <textarea class="form-control" placeholder="Agrega las notas adicionales" name="current_diseases[1][notes]" id="currentdisease1_notes" style="height: 100px">{{ old('current_diseases.1.notes') }}</textarea>
                                                                                     <label for="currentdisease1_notes">Notas adicionales <small>(Si no existe la enfermedad en el listado, escribala aqui)</small> : </label>
-                                                                                    <input type="text" hidden name="currentdiseases[1][status]" id="currentdisease1_status" value="Enfermedad Actual">
+                                                                                    <input type="text" hidden name="current_diseases[1][status]" id="currentdisease1_status" value="Enfermedad Actual">
+                                                                                    @if ($errors->has('currentdisease1_notes'))
+                                                                                        <span class="text-danger">
+                                                                                            <strong>{{ $errors->first('currentdisease1_notes') }}</strong>
+                                                                                        </span>
+                                                                                    @endif
                                                                                 </div>
                                                                                 
                                                                             </div>
@@ -571,9 +573,15 @@
                                                                             <a href="#" class="text-decoration-none p-2" id="add_current_disease"><i class="fa-solid fa-circle-plus fa-xl opcion-citas-doctor" style="color: #3991d8;"></i> Agregar otra enfermedad actual del paciente.</a>
                                                                         </div>
 
+                                                                        <!--reason_for_consultation-->
                                                                         <div class="form-floating mt-3">
-                                                                            <textarea class="form-control" placeholder="Leave a comment here" name="reason_for_consultation" id="reason_for_consultation" style="height: 100px"></textarea>
-                                                                            <label for="reason_for_consultation">Razón o motivo de la consulta</label>
+                                                                            <textarea class="form-control {{ $errors->has('reason_for_consultation') ? 'is-invalid' : '' }}" placeholder="Leave a comment here" name="reason_for_consultation" id="reason_for_consultation" style="height: 100px">{{ old('reason_for_consultation') }}</textarea>
+                                                                            <label for="reason_for_consultation">Razón o motivo de la consulta:*</label>
+                                                                            @if ($errors->has('reason_for_consultation'))
+                                                                                <span class="text-danger">
+                                                                                    <strong>{{ $errors->first('reason_for_consultation') }}</strong>
+                                                                                </span>
+                                                                            @endif
                                                                         </div>
                                              
                                                                     </div>
@@ -584,6 +592,7 @@
                                                         </div><!--col-md-12 mt-3-->
                                                     </div><!--Completar Informacion-->
 
+                                                    <!--2. Sintomas y Enfermedades-->
                                                     <div class="row">             
                                                         <div class="col-md-6 mt-3">
                                                             <button class="btn btn-outline-primary w-100" type="button" data-bs-toggle="collapse" data-bs-target="#segunda" aria-expanded="false" aria-controls="segunda">
@@ -592,9 +601,8 @@
                                                             <div class="collapse" id="segunda">
                                                                <div class="card card-body mt-2">
                                                                     <div class="col">
-
-                                                                        <div class="sintomas-container mt-3">
-                                                                            
+                                                                        <!-- symptoms-->
+                                                                        <div class="sintomas-container mt-3">     
                                                                             <div class="card card-body symptom1">
                                                                                 <div class="row g-2">
                                                                                     <div class="col-6">
@@ -602,7 +610,7 @@
                                                                                             <select class="form-control" name="symptoms[1][id]" id="symptom1">
                                                                                                 <option value="" disabled selected>Seleccione una síntoma: </option>
                                                                                                 @foreach ($symptoms as $symptom)
-                                                                                                    <option value="{{ $symptom->id }}">{{ $symptom->name }}</option>
+                                                                                                    <option value="{{ $symptom->id }}" {{ old('symptoms.1.id') == $symptom->id ? 'selected' : '' }}>{{ $symptom->name }}</option>
                                                                                                 @endforeach
                                                                                             </select>
                                                                                             <label for="disease1">Síntoma actual 1: </label>
@@ -614,10 +622,10 @@
                                                                                         <div class="form-floating">
                                                                                             <select class="form-select {{ $errors->has('symptom1_duration') ? 'is-invalid' : '' }}" id="symptom1_duration" name="symptoms[1][duration]" aria-label="¿symptom?">
                                                                                                 <option selected disabled>Seleccione:</option>
-                                                                                                <option value="week<1" {{ old('symptom1_duration') ==  'week<1' ? 'selected' : '' }}>Menos de 1 semana</option>
-                                                                                                <option value="month<1" {{ old('symptom1_duration') == 'month<1' ? 'selected' : '' }}>Menos de 1 mes</option>
-                                                                                                <option value="month>5" {{ old('symptom1_duration') == 'month>5' ? 'selected' : '' }}>Más de 1 mes</option>
-                                                                                                <option value="always" {{ old('symptom1_duration') == 'always' ? 'selected' : '' }}>Siempre</option>
+                                                                                                <option value="week<1" {{ old('symptoms.1.duration') ==  'week<1' ? 'selected' : '' }}>Menos de 1 semana</option>
+                                                                                                <option value="month<1" {{ old('symptoms.1.duration') == 'month<1' ? 'selected' : '' }}>Menos de 1 mes</option>
+                                                                                                <option value="month>5" {{ old('symptoms.1.duration') == 'month>5' ? 'selected' : '' }}>Más de 1 mes</option>
+                                                                                                <option value="always" {{ old('symptoms.1.duration') == 'always' ? 'selected' : '' }}>Siempre</option>
                                                                                             </select>
                                                                                             <label for="symptom1_duration">¿Tiempo con el síntoma?</label>
                                                                                             @if ($errors->has('symptom1_duration'))
@@ -630,10 +638,14 @@
                                                                                 </div>
                                                                                 
                                                                                 <div class="form-floating mt-3">
-                                                                                    <textarea class="form-control" placeholder="Agrega las notas adicionales" name="symptoms[1][notes]" id="symptom1_notes" style="height: 100px"></textarea>
+                                                                                    <textarea class="form-control" placeholder="Agrega las notas adicionales" name="symptoms[1][notes]" id="symptom1_notes" style="height: 100px">{{ old('symptoms.1.notes') }}</textarea>
                                                                                     <label for="symptom1_notes">Notas adicionales <small>(Si no existe el síntoma en el listado, escribalo aqui)</small> : </label>
-                                                                                </div>
-                                                                                
+                                                                                    @if ($errors->has('symptom1_notes'))
+                                                                                        <span class="text-danger">
+                                                                                            <strong>{{ $errors->first('symptom1_notes') }}</strong>
+                                                                                        </span>
+                                                                                    @endif
+                                                                                </div>                                                                    
                                                                             </div>
 
                                                                             <!--Nuevo síntoma actual-->
@@ -646,6 +658,7 @@
                                                             </div>
                                                         </div>
 
+                                                        <!--3. Posibles Enfermedades-->
                                                         <div class="col-md-6 mt-3">
                                                             <button class="btn btn-outline-primary w-100" type="button" data-bs-toggle="collapse" data-bs-target="#tercera" aria-expanded="false" aria-controls="tercera">
                                                                 3. Posibles Enfermedades
@@ -653,8 +666,8 @@
                                                             <div class="collapse" id="tercera">
                                                                <div class="card card-body mt-2">
                                                                     <div class="col">
-                                                                        <div class="possible_diseases_container mt-3">
-                                                                            
+                                                                        <!--possible_diseases-->
+                                                                        <div class="possible_diseases_container mt-3">                      
                                                                             <div class="card card-body possible_disease_1">
                                                                                 <div class="row g-2">
                                                                                     <div class="col-6">
@@ -662,7 +675,7 @@
                                                                                             <select class="form-control" name="possiblediseases[1][id]" id="possibledisease1_id">
                                                                                                 <option value="" disabled selected>Seleccione una enfermedad</option>
                                                                                                 @foreach ($diseases as $disease)
-                                                                                                    <option value="{{ $disease->id }}">{{ $disease->name }}</option>
+                                                                                                    <option value="{{ $disease->id }}" {{ old('possiblediseases.1.id') == $disease->id ? 'selected' : '' }}>{{ $disease->name }}</option>
                                                                                                 @endforeach
                                                                                             </select>
                                                                                             <label for="possibledisease1_id">Enfermedad posible 1: </label>
@@ -674,8 +687,8 @@
                                                                                         <div class="form-floating">
                                                                                             <select class="form-select {{ $errors->has('possibledisease1_status') ? 'is-invalid' : '' }}" id="possibledisease1_status" name="possiblediseases[1][status]" aria-label="¿?">
                                                                                                 <option selected disabled>Seleccione:</option>
-                                                                                                <option value="Posible" {{ old('possibledisease1_status') ==  'Posible' ? 'selected' : '' }}>Posible</option>
-                                                                                                <option value="Confirmada" {{ old('possibledisease1_status') == 'Confirmada' ? 'selected' : '' }}>Confirmada</option>
+                                                                                                <option value="Posible Enfermedad" {{ old('possibledisease.1.status') ==  'Posible Enfermedad' ? 'selected' : '' }}>Posible</option>
+                                                                                                <option value="Enfermedad Confirmada" {{ old('possibledisease.1.status') == 'Enfermedad Confirmada' ? 'selected' : '' }}>Confirmada</option>
                                                                                             </select>
                                                                                             <label for="possibledisease1_status">¿Probabilidad?</label>
                                                                                             @if ($errors->has('possibledisease1_status'))
@@ -688,8 +701,13 @@
                                                                                 </div>
                                                                                 
                                                                                 <div class="form-floating mt-3">
-                                                                                    <textarea class="form-control" placeholder="Agrega las notas adicionales" name="possiblediseases[1][notes]" id="possibledisease1_notes" style="height: 100px"></textarea>
+                                                                                    <textarea class="form-control" placeholder="Agrega las notas adicionales" name="possiblediseases[1][notes]" id="possibledisease1_notes" style="height: 100px">{{ old('possiblediseases.1.notes') }}</textarea>
                                                                                     <label for="possibledisease1_notes">Notas adicionales <small>(Si no existe la enfermedad en el listado, escribala aqui)</small> : </label>
+                                                                                    @if ($errors->has('possibledisease1_notes'))
+                                                                                        <span class="text-danger">
+                                                                                            <strong>{{ $errors->first('possibledisease1_notes') }}</strong>
+                                                                                        </span>
+                                                                                    @endif
                                                                                 </div>
                                                                                 
                                                                             </div>
@@ -704,6 +722,7 @@
                                                         </div>
                                                     </div>
 
+                                                    <!--3. Conclusiones generales-->
                                                     <div class="row">
                                                         <div class="col-md-12 mt-3">
                                                             <button class="btn btn-outline-primary w-100" type="button" data-bs-toggle="collapse" data-bs-target="#cuarta" aria-expanded="false" aria-controls="cuarta">
@@ -712,10 +731,17 @@
                                                             <div class="collapse" id="cuarta">                                          
                                                                <div class="card card-body mt-2">
                                                                     <div class="col">
+                                                                        <!--conclusions-->
                                                                         <div class="form-floating mt-3">
-                                                                            <textarea class="form-control" placeholder="Leave a comment here" name="conclusions" id="conclusions" style="height: 100px"></textarea>
-                                                                            <label for="conclusions">Conclusiones finales del diagnóstico: </label>
+                                                                            <textarea class="form-control {{ $errors->has('conclusions') ? 'is-invalid' : '' }}" placeholder="Leave a comment here" name="conclusions" id="conclusions" style="height: 100px">{{ old('conclusions') }}</textarea>
+                                                                            <label for="conclusions">Conclusiones finales del diagnóstico:* </label>
+                                                                            @if ($errors->has('conclusions'))
+                                                                                <span class="text-danger">
+                                                                                    <strong>{{ $errors->first('conclusions') }}</strong>
+                                                                                </span>
+                                                                            @endif
                                                                         </div>
+
                                                                     </div>
                                                                 </div> 
                                                             </div>
@@ -744,6 +770,7 @@
 
                                             </div>
 
+                                            <!-- 4. Receta -->
                                             <div id="step4" class="tab-pane">
 
                                                 <div class="row p-1 d-flex justify-content-center">
@@ -767,24 +794,16 @@
 
                                                                                     <div class="col-5">
                                                                                         <div class="form-floating">
-                                                                                            <select class="form-control" name="medicines[1][id]" id="medicine1_id">
+                                                                                            <select class="form-control {{ $errors->has('medicines.1.id') ?  'is-invalid' : '' }}" name="medicines[1][id]" id="medicine1_id">
                                                                                                 <option value="" disabled selected>Seleccione una medicina: </option>
                                                                                                 @foreach ($medicines as $medicine)
-                                                                                                    <option value="{{ $medicine->id }}">{{ $medicine->name }}</option>
+                                                                                                    <option value="{{ $medicine->id }}" {{ old('medicines.1.id') == $medicine->id ? 'selected' : '' }}>{{ $medicine->name }}</option>
                                                                                                 @endforeach
                                                                                             </select>
-                                                                                            <label for="medicine1_id">Medicamento 1: </label>
-                                                                                        </div>
-                                                                                    </div>
-
-                                                                                    <div class="col">
-                                                                                        <div class="form-floating">
-                                                                                            <input type="number" class="form-control {{ $errors->has('medicine1_quantity') ? 'is-invalid' : '' }}" name="medicines[1][quantity]" id="medicine1_quantity" 
-                                                                                                placeholder="Enumera las alergias del paciente." value="{{ old('medicine1_quantity') }}">
-                                                                                            <label for="medicine1_quantity">Cantidad:</label>
-                                                                                            @if ($errors->has('medicine1_quantity'))
+                                                                                            <label for="medicine1_id">Medicamento 1:* </label>
+                                                                                            @if ($errors->has('medicines.1.id'))
                                                                                                 <span class="text-danger">
-                                                                                                    <strong>{{ $errors->first('medicine1_quantity') }}</strong>
+                                                                                                    <strong>{{ $errors->first('medicines.1.id') }}</strong>
                                                                                                 </span>
                                                                                             @endif
                                                                                         </div>
@@ -792,12 +811,25 @@
 
                                                                                     <div class="col">
                                                                                         <div class="form-floating">
-                                                                                            <input type="number" class="form-control {{ $errors->has('medicine1_duration') ? 'is-invalid' : '' }}" name="medicines[1][duration]" id="medicine1_duration" 
-                                                                                                placeholder="Enumera las alergias del paciente." value="{{ old('medicine1_duration') }}">
-                                                                                            <label for="medicine1_duration">Duración <small>(días)</small>:</label>
-                                                                                            @if ($errors->has('medicine1_duration'))
+                                                                                            <input type="number" class="form-control {{ $errors->has('medicines.1.quantity') ? 'is-invalid' : '' }}" name="medicines[1][quantity]" id="medicine1_quantity" 
+                                                                                                placeholder="Enumera las alergias del paciente." value="{{ old('medicines.1.quantity') }}">
+                                                                                            <label for="medicine1_quantity">Cantidad:*</label>
+                                                                                            @if ($errors->has('medicines.1.quantity'))
                                                                                                 <span class="text-danger">
-                                                                                                    <strong>{{ $errors->first('medicine1_duration') }}</strong>
+                                                                                                    <strong>{{ $errors->first('medicines.1.quantity') }}</strong>
+                                                                                                </span>
+                                                                                            @endif
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                    <div class="col">
+                                                                                        <div class="form-floating">
+                                                                                            <input type="number" class="form-control {{ $errors->has('medicines.1.duration') ? 'is-invalid' : '' }}" name="medicines[1][duration]" id="medicine1_duration" 
+                                                                                                placeholder="Enumera las alergias del paciente." value="{{ old('medicines.1.duration') }}">
+                                                                                            <label for="medicine1_duration">Duración:* <small>(días)</small>:</label>
+                                                                                            @if ($errors->has('medicines.1.duration'))
+                                                                                                <span class="text-danger">
+                                                                                                    <strong>{{ $errors->first('medicines.1.duration') }}</strong>
                                                                                                 </span>
                                                                                             @endif
                                                                                         </div>
@@ -807,8 +839,13 @@
                                                                                 </div>
                                                                                 
                                                                                 <div class="form-floating mt-3">
-                                                                                    <textarea class="form-control" placeholder="Agrega las notas adicionales" name="medicines[1][observations]" id="medicine1_observations" style="height: 100px"></textarea>
+                                                                                    <textarea class="form-control {{ $errors->has('medicines.1.observations') ? 'is-invalid' : '' }}" placeholder="Agrega las notas adicionales" name="medicines[1][observations]" id="medicine1_observations" style="height: 100px">{{ old('medicines.1.observations') }}</textarea>
                                                                                     <label for="medicine1_observations">Observaciones adicionales <small>(Detalle las dosis, etc. Si no existe el medicamento en el listado, escribalo aqui. )</small> : </label>
+                                                                                    @if ($errors->has('medicines.1.observations'))
+                                                                                        <span class="text-danger">
+                                                                                            <strong>{{ $errors->first('medicines.1.observations') }}</strong>
+                                                                                        </span>
+                                                                                    @endif
                                                                                 </div>
                                                                                 
                                                                             </div>
@@ -844,9 +881,9 @@
                                                                                     <div class="col-5">
                                                                                         <div class="form-floating">
                                                                                             <select class="form-control" name="exams[1][id]" id="exam1_id">
-                                                                                                <option value="" disabled selected>Seleccione una medicina: </option>
+                                                                                                <option value="" disabled selected>Seleccione un examen: </option>
                                                                                                 @foreach ($exams as $exam)
-                                                                                                    <option value="{{ $exam->id }}">{{ $exam->name }}</option>
+                                                                                                    <option value="{{ $exam->id }}" {{ old('exams.1.id') == $exam->id ? 'selected' : '' }}>{{ $exam->name }}</option>
                                                                                                 @endforeach
                                                                                             </select>
                                                                                             <label for="exam1_id">Examen 1: </label>
@@ -855,7 +892,7 @@
 
                                                                                     <div class="col">
                                                                                         <div class="form-floating">
-                                                                                            <input type="text" class="form-control" placeholder="Agrega las notas adicionales" name="exams[1][observations]" id="exam1_observations"></input>
+                                                                                            <input type="text" class="form-control" placeholder="Agrega las notas adicionales" name="exams[1][observations]" id="exam1_observations">{{ old('exams.1.observations') }}</input>
                                                                                             <label for="exam1_observations">Observaciones adicionales <small>(Si no existe el examen en el listado, escribalo aqui. )</small> : </label>
                                                                                         </div>
                                                                                     </div>
@@ -891,9 +928,14 @@
                                                                                 <div class="row g-5">
                                                                                         <div class="col">
                                                                                         <div class="form-floating mt-3">
-                                                                                            <input type="text" class="form-control" placeholder="Agrega las notas adicionales" name="recommendationsPrescription[]" id="recommendation1"></input>
+                                                                                            <textarea class="form-control {{ $errors->has('recommendationsPrescription.0') ? 'is-invalid' : '' }}" placeholder="Agrega las notas adicionales" name="recommendationsPrescription[]" id="recommendation1">{{ old('recommendationsPrescription.0') }}</textarea>
                                                                                             <label for="recomendation1">Recomendacion 1: </label>
                                                                                         </div>
+                                                                                        @if ($errors->has('recommendationsPrescription.0'))
+                                                                                            <span class="text-danger">
+                                                                                                <strong>{{ $errors->first('recommendationsPrescription.0') }}</strong>
+                                                                                            </span>
+                                                                                        @endif
                                                                                     </div>                                         
                                                                                 </div>                                                                     
                                                                             </div>
@@ -927,16 +969,13 @@
 
 
                                             </div>
-
-
-
-
-                                            <div class="" id="miSpinner"></div>
+               
                                         </div>
 
                                     </div> <!--box-body-->
                                 </div> <!--box-->
                                         <!--tab-content-->
+  
                             </form>
 
 
@@ -1007,13 +1046,13 @@
         }
 
         //--------------------------------------------------------------------------------------
-        // Agregar nueva enfermedad actual
+        //Agregar nueva enfermedad actual
         let contadorEnfermedades = 2; //Inicia en 2, ya que en el bloque 1 ya existe la primera.
 
         document.getElementById('add_current_disease').addEventListener('click', function (e) {
             e.preventDefault();
 
-            let containerMedicamentos = document.querySelector('.current_diseases_container');
+            let containerEnfermedades = document.querySelector('.current_diseases_container');
 
             let div = document.createElement('div');
             div.classList.add('card', 'card-body', 'current_disease_' + contadorEnfermedades);
@@ -1021,10 +1060,10 @@
                 <div class="row g-2">
                     <div class="col-6">
                         <div class="form-floating">
-                            <select class="form-control" name="currentdiseases[${contadorEnfermedades}][id]" id="currentdisease${contadorEnfermedades}_id">
+                            <select class="form-control" name="current_diseases[${contadorEnfermedades}][id]" id="currentdisease${contadorEnfermedades}_id">
                                 <option value="" disabled selected>Seleccione una enfermedad</option>
                                 @foreach ($diseases as $disease)
-                                    <option value="{{ $disease->id }}">{{ $disease->name }}</option>
+                                    <option value="{{ $disease->id }}" {{ old('current_diseases.${contadorEnfermedades}.id') }}>{{ $disease->name }}</option>
                                 @endforeach
                             </select>
                             <label for="currentdisease${contadorEnfermedades}_id">Enfermedad actual ${contadorEnfermedades}: </label>
@@ -1034,12 +1073,12 @@
 
                     <div class="col-6">
                         <div class="form-floating">
-                            <select class="form-select {{ $errors->has('currentdisease${contadorEnfermedades}_duration') ? 'is-invalid' : '' }}" id="currentdisease${contadorEnfermedades}_duration" name="currentdiseases[${contadorEnfermedades}][duration]" aria-label="¿?">
+                            <select class="form-select {{ $errors->has('currentdisease${contadorEnfermedades}_duration') ? 'is-invalid' : '' }}" id="currentdisease${contadorEnfermedades}_duration" name="current_diseases[${contadorEnfermedades}][duration]" aria-label="¿?">
                                 <option selected disabled>Seleccione:</option>
-                                <option value="year<1" {{ old('currentdisease${contadorEnfermedades}_duration') ==  'year<1' ? 'selected' : '' }}>Menos de 1 Año</option>
-                                <option value="1<year<5" {{ old('currentdisease${contadorEnfermedades}_duration') == '1<year<5' ? 'selected' : '' }}>De 1 a 5 Años</option>
-                                <option value="year>5" {{ old('currentdisease${contadorEnfermedades}_duration') == 'year>5' ? 'selected' : '' }}>Más de 5 Años</option>
-                                <option value="nacimiento" {{ old('currentdisease${contadorEnfermedades}_duration') == 'nacimiento' ? 'selected' : '' }}>Origen Congénito</option>
+                                <option value="year<1" {{ old('current_diseases.${contadorEnfermedades}.duration') ==  'year<1' ? 'selected' : '' }}>Menos de 1 Año</option>
+                                <option value="1<year<5" {{ old('current_diseases.${contadorEnfermedades}.duration') == '1<year<5' ? 'selected' : '' }}>De 1 a 5 Años</option>
+                                <option value="year>5" {{ old('current_diseases.${contadorEnfermedades}.duration') == 'year>5' ? 'selected' : '' }}>Más de 5 Años</option>
+                                <option value="nacimiento" {{ old('current_diseases.${contadorEnfermedades}.duration') == 'nacimiento' ? 'selected' : '' }}>Origen Congénito</option>
                             </select>
                             <label for="currentdisease${contadorEnfermedades}_duration">¿Tiempo con la enfermedad?</label>
                             @if ($errors->has('currentdisease${contadorEnfermedades}_duration'))
@@ -1052,9 +1091,14 @@
                 </div>
                 
                 <div class="form-floating mt-3">
-                    <textarea class="form-control" placeholder="Agrega las notas adicionales" name="currentdiseases[${contadorEnfermedades}][notes]" id="currentdisease${contadorEnfermedades}_notes" style="height: 100px"></textarea>
+                    <textarea class="form-control" placeholder="Agrega las notas adicionales" name="current_diseases[${contadorEnfermedades}][notes]" id="currentdisease${contadorEnfermedades}_notes" style="height: 100px">{{ old('current_diseases.${contadorEnfermedades}.notes') }}</textarea>
                     <label for="currentdisease${contadorEnfermedades}_notes">Notas adicionales <small>(Si no existe la enfermedad en el listado, escribala aqui)</small> : </label>
-                    <input type="text" hidden name="currentdiseases[${contadorEnfermedades}][status]" id="currentdisease${contadorEnfermedades}_status" value="Enfermedad Actual">
+                    <input type="text" hidden name="current_diseases[${contadorEnfermedades}][status]" id="currentdisease${contadorEnfermedades}_status" value="Enfermedad Actual">
+                    @if ($errors->has('currentdisease${contadorEnfermedades}_notes'))
+                        <span class="text-danger">
+                            <strong>{{ $errors->first('currentdisease${contadorEnfermedades}_notes') }}</strong>
+                        </span>
+                    @endif
                 </div>
 
                 <div class="d-flex">
@@ -1072,7 +1116,7 @@
 
         });
 
-        // Eliminar enfermedad actual previamente agregada
+        //Eliminar enfermedad actual previamente agregada
         document.addEventListener('click', function (e) {
             if (e.target.classList.contains('remove_disease')) {
                 e.preventDefault();
@@ -1103,7 +1147,7 @@
                             <select class="form-control" name="symptoms[${contadorSintomas}][id]" id="symptom${contadorSintomas}">
                                 <option value="" disabled selected>Seleccione una sintoma</option>
                                 @foreach ($symptoms as $symptom)
-                                    <option value="{{ $symptom->id }}">{{ $symptom->name }}</option>
+                                    <option value="{{ $symptom->id }}" {{ old('symptoms.${contadorSintomas}.id') == $symptom->id ? 'selected' : '' }}>{{ $symptom->name }}</option>
                                 @endforeach
                             </select>
                             <label for="symptom${contadorSintomas}">Síntoma actual ${contadorSintomas}: </label>
@@ -1115,10 +1159,10 @@
                         <div class="form-floating">
                             <select class="form-select {{ $errors->has('symptom${contadorSintomas}_duration') ? 'is-invalid' : '' }}" id="symptom${contadorSintomas}_duration" name="symptoms[${contadorSintomas}][duration]" aria-label="¿symptom?">
                                 <option selected disabled>Seleccione:</option>
-                                <option value="week<1" {{ old('symptom${contadorSintomas}_duration') ==  'week<1' ? 'selected' : '' }}>Menos de 1 semana</option>
-                                <option value="month<1" {{ old('symptom${contadorSintomas}_duration') == 'month<1' ? 'selected' : '' }}>Menos de 1 mes</option>
-                                <option value="month>5" {{ old('symptom${contadorSintomas}_duration') == 'month>5' ? 'selected' : '' }}>Más de 1 mes</option>
-                                <option value="always" {{ old('symptom${contadorSintomas}_duration') == 'always' ? 'selected' : '' }}>Siempre</option>
+                                <option value="week<1" {{ old('symptoms.${contadorSintomas}.duration') ==  'week<1' ? 'selected' : '' }}>Menos de 1 semana</option>
+                                <option value="month<1" {{ old('symptoms.${contadorSintomas}.duration') == 'month<1' ? 'selected' : '' }}>Menos de 1 mes</option>
+                                <option value="month>5" {{ old('symptoms.${contadorSintomas}.duration') == 'month>5' ? 'selected' : '' }}>Más de 1 mes</option>
+                                <option value="always" {{ old('symptoms.${contadorSintomas}.duration') == 'always' ? 'selected' : '' }}>Siempre</option>
                             </select>
                             <label for="symptom${contadorSintomas}_duration">¿Tiempo con la sintoma?</label>
                             @if ($errors->has('symptom${contadorSintomas}_duration'))
@@ -1131,8 +1175,13 @@
                 </div>
                 
                 <div class="form-floating mt-3">
-                    <textarea class="form-control" placeholder="Agrega las notas adicionales" name="symptoms[${contadorSintomas}][notes]" id="symptom${contadorSintomas}_notes" style="height: 100px"></textarea>
+                    <textarea class="form-control" placeholder="Agrega las notas adicionales" name="symptoms[${contadorSintomas}][notes]" id="symptom${contadorSintomas}_notes" style="height: 100px">{{ old('symptoms.${contadorSintomas}.notes') }}</textarea>
                     <label for="symptom${contadorSintomas}_notes">Notas adicionales <small>(Si no existe el síntoma en el listado, escribalo aquí)</small> : </label>
+                    @if ($errors->has('symptom${contadorSintomas}_notes'))
+                        <span class="text-danger">
+                            <strong>{{ $errors->first('symptom${contadorSintomas}_notes') }}</strong>
+                        </span>
+                    @endif
                 </div>
 
                 <div class="d-flex">
@@ -1150,7 +1199,7 @@
 
         });
 
-        // Eliminar sintoma actual previamente agregada
+        //Eliminar sintoma actual previamente agregada
         document.addEventListener('click', function (e) {
             if (e.target.classList.contains('eliminar-sintoma')) {
                 e.preventDefault();
@@ -1181,7 +1230,7 @@
                             <select class="form-control" name="possiblediseases[${contadorEnfermedadesPosibles}][id]" id="possibledisease${contadorEnfermedadesPosibles}_id">
                                 <option value="" disabled selected>Seleccione una enfermedad</option>
                                 @foreach ($diseases as $disease)
-                                    <option value="{{ $disease->id }}">{{ $disease->name }}</option>
+                                    <option value="{{ $disease->id }}" {{ old('possiblediseases.${contadorEnfermedadesPosibles}.id') == $disease->id }}>{{ $disease->name }}</option>
                                 @endforeach
                             </select>
                             <label for="possibledisease${contadorEnfermedadesPosibles}_id">Enfermedad posible ${contadorEnfermedadesPosibles}: </label>
@@ -1193,8 +1242,8 @@
                         <div class="form-floating">
                             <select class="form-select {{ $errors->has('possibledisease${contadorEnfermedadesPosibles}_status') ? 'is-invalid' : '' }}" id="possibledisease${contadorEnfermedadesPosibles}_status" name="possiblediseases[${contadorEnfermedadesPosibles}][status]" aria-label="¿?">
                                 <option selected disabled>Seleccione:</option>
-                                <option value="Posible" {{ old('possibledisease${contadorEnfermedadesPosibles}_status') ==  'Posible' ? 'selected' : '' }}>Posible</option>
-                                <option value="Confirmada" {{ old('possibledisease${contadorEnfermedadesPosibles}_status') == 'Confirmada' ? 'selected' : '' }}>Confirmada</option>
+                                <option value="Posible Enfermedad" {{ old('possiblediseases.${contadorEnfermedadesPosibles}.status') ==  'Posible Enfermedad' ? 'selected' : '' }}>Posible</option>
+                                <option value="Enfermedad Confirmada" {{ old('possiblediseases.${contadorEnfermedadesPosibles}.status') == 'Enfermedad Confirmada' ? 'selected' : '' }}>Confirmada</option>
                             </select>
                             <label for="possibledisease${contadorEnfermedadesPosibles}_status">¿Probabilidad?</label>
                             @if ($errors->has('possibledisease${contadorEnfermedadesPosibles}_status'))
@@ -1207,8 +1256,13 @@
                 </div>
                 
                 <div class="form-floating mt-3">
-                    <textarea class="form-control" placeholder="Agrega las notas adicionales" name="possiblediseases[${contadorEnfermedadesPosibles}][notes]" id="possibledisease${contadorEnfermedadesPosibles}_notes" style="height: 100px"></textarea>
+                    <textarea class="form-control" placeholder="Agrega las notas adicionales" name="possiblediseases[${contadorEnfermedadesPosibles}][notes]" id="possibledisease${contadorEnfermedadesPosibles}_notes" style="height: 100px">{{ old('possiblediseases.${contadorEnfermedadesPosibles}.notes') }}</textarea>
                     <label for="possibledisease${contadorEnfermedadesPosibles}_notes">Notas adicionales <small>(Si no existe la enfermedad en el listado, escribala aqui)</small> : </label>
+                    @if ($errors->has('possibledisease${contadorEnfermedadesPosibles}_notes'))
+                        <span class="text-danger">
+                            <strong>{{ $errors->first('possibledisease${contadorEnfermedadesPosibles}_notes') }}</strong>
+                        </span>
+                    @endif
                 </div>
 
                 <div class="d-flex">
@@ -1226,7 +1280,7 @@
 
         });
 
-        // Eliminar enfermedad actual previamente agregada
+        //Eliminar enfermedad actual previamente agregada
         document.addEventListener('click', function (e) {
             if (e.target.classList.contains('remove_possible_disease')) {
                 e.preventDefault();
@@ -1255,24 +1309,16 @@
 
                     <div class="col-5">
                         <div class="form-floating">
-                            <select class="form-control" name="medicines[${contadorMedicamentos}][id]" id="medicine${contadorMedicamentos}_id">
+                            <select class="form-control {{ $errors->has('medicines.${contadorMedicamentos}.id') ?  'is-invalid' : '' }}" name="medicines[${contadorMedicamentos}][id]" id="medicine${contadorMedicamentos}_id">
                                 <option value="" disabled selected>Seleccione una medicina: </option>
                                 @foreach ($medicines as $medicine)
-                                    <option value="{{ $medicine->id }}">{{ $medicine->name }}</option>
+                                    <option value="{{ $medicine->id }}" {{ old('medicines.${contadorMedicamentos}.id') == $medicine->id ? 'selected' : '' }}>{{ $medicine->name }}</option>
                                 @endforeach
                             </select>
                             <label for="medicine${contadorMedicamentos}_id">Medicamento ${contadorMedicamentos}: </label>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <div class="form-floating">
-                            <input type="number" class="form-control {{ $errors->has('medicine${contadorMedicamentos}_quantity') ? 'is-invalid' : '' }}" name="medicines[${contadorMedicamentos}][quantity]" id="medicine${contadorMedicamentos}_quantity" 
-                                placeholder="Enumera las alergias del paciente." value="{{ old('medicine${contadorMedicamentos}_quantity') }}">
-                            <label for="medicine${contadorMedicamentos}_quantity">Cantidad:</label>
-                            @if ($errors->has('medicine${contadorMedicamentos}_quantity'))
+                            @if ($errors->has('medicines.${contadorMedicamentos}.id'))
                                 <span class="text-danger">
-                                    <strong>{{ $errors->first('medicine${contadorMedicamentos}_quantity') }}</strong>
+                                    <strong>{{ $errors->first('medicines.${contadorMedicamentos}.id') }}</strong>
                                 </span>
                             @endif
                         </div>
@@ -1280,12 +1326,25 @@
 
                     <div class="col">
                         <div class="form-floating">
-                            <input type="number" class="form-control {{ $errors->has('medicine${contadorMedicamentos}_duration') ? 'is-invalid' : '' }}" name="medicines[${contadorMedicamentos}][duration]" id="medicine${contadorMedicamentos}_duration" 
+                            <input type="number" class="form-control {{ $errors->has('medicines.${contadorMedicamentos}.quantity') ? 'is-invalid' : '' }}" name="medicines[${contadorMedicamentos}][quantity]" id="medicine${contadorMedicamentos}_quantity" 
+                                placeholder="Enumera las alergias del paciente." value="{{ old('medicines${contadorMedicamentos}.quantity') }}">
+                            <label for="medicine${contadorMedicamentos}_quantity">Cantidad:</label>
+                            @if ($errors->has('medicines.${contadorMedicamentos}.quantity'))
+                                <span class="text-danger">
+                                    <strong>{{ $errors->first('medicines.${contadorMedicamentos}.quantity') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <div class="form-floating">
+                            <input type="number" class="form-control {{ $errors->has('medicine.${contadorMedicamentos}.duration') ? 'is-invalid' : '' }}" name="medicines[${contadorMedicamentos}][duration]" id="medicine${contadorMedicamentos}_duration" 
                                 placeholder="Enumera las alergias del paciente." value="{{ old('medicine${contadorMedicamentos}_duration') }}">
                             <label for="medicine${contadorMedicamentos}_duration">Duración <small>(días)</small>:</label>
-                            @if ($errors->has('medicine${contadorMedicamentos}_duration'))
+                            @if ($errors->has('medicines.${contadorMedicamentos}.duration'))
                                 <span class="text-danger">
-                                    <strong>{{ $errors->first('medicine${contadorMedicamentos}_duration') }}</strong>
+                                    <strong>{{ $errors->first('medicines.${contadorMedicamentos}.duration') }}</strong>
                                 </span>
                             @endif
                         </div>
@@ -1295,8 +1354,13 @@
                 </div>
                 
                 <div class="form-floating mt-3">
-                    <textarea class="form-control" placeholder="Agrega las notas adicionales" name="medicines[${contadorMedicamentos}][observations]" id="medicine${contadorMedicamentos}_observations" style="height: 100px"></textarea>
+                    <textarea class="form-control {{ $errors->has('medicines.${contadorMedicamentos}.observations') ? 'is-invalid' : '' }}" placeholder="Agrega las notas adicionales" name="medicines[${contadorMedicamentos}][observations]" id="medicine${contadorMedicamentos}_observations" style="height: 100px">{{ old('medicines.${contadorMedicamentos}.observations') }}</textarea>
                     <label for="medicine${contadorMedicamentos}_observations">Observaciones adicionales <small>(Detalle las dosis, frecuencias, etc. Si no existe el medicamento en el listado, escribalo aqui. )</small> : </label>
+                    @if ($errors->has('medicines.${contadorMedicamentos}.observations'))
+                        <span class="text-danger">
+                            <strong>{{ $errors->first('medicines.${contadorMedicamentos}.observations') }}</strong>
+                        </span>
+                    @endif
                 </div>
 
                 <div class="d-flex">
@@ -1314,7 +1378,7 @@
 
         });
 
-        // Eliminar medicine actual previamente agregada
+        //Eliminar medicine actual previamente agregada
         document.addEventListener('click', function (e) {
             if (e.target.classList.contains('remove_medicine')) {
                 e.preventDefault();
@@ -1347,7 +1411,7 @@
                             <select class="form-control" name="exams[${contadorExamenes}][id]" id="exam${contadorExamenes}_id">
                                 <option value="" disabled selected>Seleccione una medicina: </option>
                                 @foreach ($exams as $exam)
-                                    <option value="{{ $exam->id }}">{{ $exam->name }}</option>
+                                    <option value="{{ $exam->id }}" {{ old('exams.${contadorExamenes}.id') == $exam->id ? 'selected' : '' }}>{{ $exam->name }}</option>
                                 @endforeach
                             </select>
                             <label for="exam${contadorExamenes}_id">Examen ${contadorExamenes}: </label>
@@ -1356,7 +1420,7 @@
 
                     <div class="col">
                         <div class="form-floating">
-                            <input type="text" class="form-control" placeholder="Agrega las notas adicionales" name="exams[${contadorExamenes}][observations]" id="exam${contadorExamenes}_observations"></input>
+                            <input type="text" class="form-control" placeholder="Agrega las notas adicionales" name="exams[${contadorExamenes}][observations]" id="exam${contadorExamenes}_observations">{{ old('exams.${contadorExamenes}.observations') }}</input>
                             <label for="exam${contadorExamenes}_observations">Observaciones adicionales <small>(Si no existe el examen en el listado, escribalo aqui. )</small> : </label>
                         </div>
                     </div>
@@ -1378,7 +1442,7 @@
 
         });
 
-        // Eliminar examen previamente agregado
+        //Eliminar examen previamente agregado
         document.addEventListener('click', function (e) {
             if (e.target.classList.contains('remove_exam')) {
                 e.preventDefault();
@@ -1407,9 +1471,14 @@
                 <div class="row g-5">
                     <div class="col">
                         <div class="form-floating mt-3">
-                            <input type="text" class="form-control" placeholder="Agrega las observaciones adicionales" name="recommendationsPrescription[]" id="recommendation${contadorRecomendaciones}"></input>
-                            <label for="recomendation${contadorRecomendaciones}">Recomendacion ${contadorRecomendaciones}: </label>
+                            <textarea class="form-control {{ $errors->has('recommendationsPrescription.${contadorRecomendaciones}') ? 'is-invalid' : '' }}" placeholder="Agrega las notas adicionales" name="recommendationsPrescription[]" id="recommendation1">{{ old('recommendationsPrescription.${contadorRecomendaciones}') }}</textarea>
+                            <label for="recomendation1">Recomendacion ${contadorRecomendaciones}: </label>
                         </div>
+                        @if ($errors->has('recommendationsPrescription.${contadorRecomendaciones}'))
+                            <span class="text-danger">
+                                <strong>{{ $errors->first('recommendationsPrescription.${contadorRecomendaciones}') }}</strong>
+                            </span>
+                        @endif
                     </div>                                         
                 </div> 
 
@@ -1428,7 +1497,7 @@
 
         });
 
-        // Eliminar recommendation previamente agregado
+        //Eliminar recommendation previamente agregado
         document.addEventListener('click', function (e) {
             if (e.target.classList.contains('remove_recommendation')) {
                 e.preventDefault();

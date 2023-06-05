@@ -74,7 +74,7 @@
                                                 {{-- @can('appointment-show')
                                                 <a href="{{ route('admin.appointments.show', $cita->id) }}"><button class="btn btn-info mb-2 btn-sm"><i class="fa fa-fw fa-eye"></i></button></a> </br>   
                                                 @endcan --}}
-                                                @can('appointment-edit')
+                                                {{-- @can('appointment-edit')
                                                     <a href="{{ route('admin.appointments.edit', $cita->id) }}"><button class="btn btn-warning mb-2 btn-sm"><i class="fa fa-fw fa-edit"></i></button></a></br> 
                                                 @endcan
                                                 
@@ -84,15 +84,16 @@
                                                         {{ method_field('DELETE') }}
                                                         <button class="btn btn-danger btn-sm" type="submit"><i class="fa fa-fw fa-trash"></i></button>
                                                     </form>
+                                                @endcan --}}
+
+                                                @can('diagnostico-create')
+                                                <a href="{{ route('doctor.diagnosis.create', $cita->id) }}" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="bottom" data-bs-content="Iniciar Consulta" ><i class="fa-solid fa-circle-plus fa-xl opcion-citas-doctor" style="color: #47e04e;"></i></a>
                                                 @endcan
-
-                                                <a href="{{ route('doctor.iniciar.consulta', $cita->id) }}" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="bottom" data-bs-content="Iniciar Consulta" ><i class="fa-solid fa-circle-plus fa-xl opcion-citas-doctor" style="color: #47e04e;"></i></a>
-
-                                                <a href="#" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="bottom" data-bs-content="Reprogramar Cita"><i class="fa-regular fa-pen-to-square fa-xl opcion-citas-doctor" style="color: #848336;"></i></a>
+                                                {{-- <a href="#" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="bottom" data-bs-content="Reprogramar Cita"><i class="fa-regular fa-pen-to-square fa-xl opcion-citas-doctor" style="color: #848336;"></i></a>
 
                                                 <a href="#" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="bottom" data-bs-content="Ver Perfil del Paciente"><i class="fa-regular fa-eye fa-xl opcion-citas-doctor" style="color: #6487c4;"></i></a>
 
-                                                <a href="#" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="bottom" data-bs-content="Eliminar Cita"><i class="fa-regular fa-circle-xmark fa-xl opcion-citas-doctor" style="color: #d85450;"></i></a>
+                                                <a href="#" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="bottom" data-bs-content="Eliminar Cita"><i class="fa-regular fa-circle-xmark fa-xl opcion-citas-doctor" style="color: #d85450;"></i></a> --}}
                                                     
                                             </td>
 

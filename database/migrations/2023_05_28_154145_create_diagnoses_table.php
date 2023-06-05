@@ -18,7 +18,6 @@ return new class extends Migration
             $table->foreignId('appointment_id')->constrained('appointments')->onDelete('restrict');
             $table->string('allergies')->nullable();
             $table->string('current_medication')->nullable();
-            $table->string('current_illness')->nullable();
             $table->string('drug_use');
             $table->string('alcohol_use');
             $table->string('smoking_use');

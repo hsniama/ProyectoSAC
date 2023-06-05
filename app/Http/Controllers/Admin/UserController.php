@@ -103,10 +103,10 @@ class UserController extends Controller
                         'person_id' => $person->id,
                         'day' => $i,
                         'active' => 1,
-                        'morning_start' => strval(Schedule::H_INGRESO_MORNING).':09:00',
-                        'morning_end' => strval(Schedule::H_SALIDA_MORNING).':12:00',
-                        'afternoon_start' => strval(Schedule::H_INGRESO_TARDE).':16:00',
-                        'afternoon_end' => strval(Schedule::H_SALIDA_TARDE).':18:00',
+                        'morning_start' => strval(Schedule::H_INGRESO_MORNING).':00',
+                        'morning_end' => strval(Schedule::H_SALIDA_MORNING).':00',
+                        'afternoon_start' => strval(Schedule::H_INGRESO_TARDE).':00',
+                        'afternoon_end' => strval(Schedule::H_SALIDA_TARDE).':00',
                     ]);
 
                 }

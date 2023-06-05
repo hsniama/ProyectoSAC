@@ -16,13 +16,14 @@ class Diagnosis extends Model
         'appointment_id',
         'allergies',
         'current_medication',
-        'current_illness',
+        // 'current_illness',
         'drug_use',
         'alcohol_use',
         'smoking_use',
         'family_background',
         'surgical_history',
         'reason_for_consultation',
+        'conclusions',
     ];
 
 

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('medicine_id')->constrained()->onDelete('restrict');
             $table->foreignId('prescription_id')->constrained()->onDelete('restrict');
             $table->integer('quantity');
-            $table->string('days');
+            $table->string('duration');
             $table->text('observations')->nullable();
             $table->timestamps();
         });

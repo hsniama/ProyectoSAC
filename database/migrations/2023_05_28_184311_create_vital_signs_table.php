@@ -17,15 +17,14 @@ return new class extends Migration
             $table->id();
             $table->foreignId('appointment_id')->constrained()->onDelete('restrict');
             $table->integer('height')->nullable();
-            $table->integer('weight')->nullable();
-            $table->integer('body_mass_index')->nullable();
-            $table->integer('temperature')->nullable();
-            $table->integer('blood_pressure')->nullable();
-            $table->integer('heart_rate')->nullable();
-            $table->integer('respiratory_rate')->nullable();
-            $table->string('status')->default('Sin Llenar'); //Llenada, Sin Llenar,
-            $table->string('filled_by')->nullable();
+            $table->decimal('weight', 5, 2)->nullable();
+            $table->decimal('temperature', 5, 2)->nullable();
+            $table->decimal('blood_pressure', 5, 2)->nullable();
+            $table->decimal('heart_rate', 5, 2)->nullable();
+            $table->decimal('respiratory_rate', 5, 2)->nullable();
+            $table->string('status')->default('Sin llenar');
             $table->string('updated_by')->nullable(); 
+            $table->string('created_by')->nullable(); 
             $table->timestamps();
         });
     }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Person;
+use App\Models\VitalSign;
 use App\Models\Speciality;
 use App\Models\Appointment;
 use Illuminate\Http\Request;
@@ -182,6 +183,9 @@ class AppointmentController extends Controller
             'scheduled_date' => $request->input('scheduled_date'),
             'status' => $request->input('status'),
             'notes' => $request->input('notes'),
+        ]);
+        VitalSign::create([
+            'appointment_id' => $appointment->id,
         ]);
 
         //update the telephone number and email of the patient

@@ -69,7 +69,7 @@ class DiseaseSeeder extends Seeder
         Disease::create(['name' => 'Virus del papiloma humano']);
         Disease::create(['name' => 'Zika']);
         Disease::create(['name' => 'Enfermedad no está registrada']);
-
+        Disease::create(['name' => 'Otra']);
 
     }
 }

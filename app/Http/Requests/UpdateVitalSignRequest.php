@@ -13,7 +13,7 @@ class UpdateVitalSignRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,17 @@ class UpdateVitalSignRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'appointment_id' => 'required|exists:appointments,id',
+            'height' => 'required|numeric',
+            'weight' => 'required|regex:/^\d+(\.\d{1,2})?$/',
+            'temperature' => 'required|regex:/^\d+(\.\d{1,2})?$/',
+            'blood_pressure' => 'required|regex:/^\d+(\.\d{1,2})?$/',
+            'heart_rate' => 'required|regex:/^\d+(\.\d{1,2})?$/',
+            'respiratory_rate' => 'required|regex:/^\d+(\.\d{1,2})?$/',
+
+            // Las siguientes 2 deben ser llenadas por el sistema.
+            // 'updated_by' => 'required|string'
+            // 'created_by' => 'required|string'
         ];
     }
 }

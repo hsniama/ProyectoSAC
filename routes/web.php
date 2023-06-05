@@ -89,12 +89,11 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         ], function () {
             // Route::resource('citas', DoctorAppointmentController::class);
             Route::get('citas', [DoctorAppointmentController::class, 'index'])->name('citas.index');
-            Route::get('iniciar-consulta/{appointment}', [DiagnosisController::class, 'create'])->name('iniciar.consulta');
-            Route::post('diagnostico', [DiagnosisController::class, 'store'])->name('diagnostico.store');
 
-            // Route::get('citas/{appointment}', [DoctorController::class, 'cita'])->name('cita');
-            // Route::post('citas/{appointment}/atender', [DoctorController::class, 'atender'])->name('atender');
-            // Route::post('citas/{appointment}/cancelar', [DoctorController::class, 'cancelar'])->name('cancelar');
+            Route::controller(DiagnosisController::class)->group(function () {
+                Route::get('diagnosis/create/{appointment}', 'create')->name('diagnosis.create');
+                Route::post('diagnosis-store', 'store')->name('diagnosis.store');
+            });
     });
 
 

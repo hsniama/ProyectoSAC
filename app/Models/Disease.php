@@ -11,8 +11,7 @@ class Disease extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name',
-        'description',
+        'name'
     ];
 
     public function diagnosis()

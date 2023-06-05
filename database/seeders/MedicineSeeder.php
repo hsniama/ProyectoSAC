@@ -129,6 +129,11 @@ class MedicineSeeder extends Seeder
             'name' => 'Salbutamol',
             'presentation' => 'Tabletas',
         ]);
+
+        Medicine::create([
+            'name' => 'Ninguno',
+            'presentation' => 'Ninguno',
+        ]);
         
     }
 }
