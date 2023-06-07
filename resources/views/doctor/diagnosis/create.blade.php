@@ -69,7 +69,7 @@
                             </div>
                             
 
-                            <form method="POST" action="{{ route('doctor.diagnosis.store') }}" role="form" class="" enctype="multipart/form-data">
+                            <form method="POST" action="{{ route('doctor.diagnosis.store') }}" role="form" class="confirmarConsulta" enctype="multipart/form-data">
                                 @csrf
                                 <input hidden type="number" name="appointment_id" value="{{ $appointment->id }}">
                                 {{-- <input type="hidden" name="patient_id" value="{{ $appointment->patient->id }}">
@@ -264,6 +264,7 @@
                                                                             <td>
                                                                                 <p>                     
                                                                                     <span class="ml-2 mr-2" id="imc"></span>
+                                                                                    <input type="number" readonly name="body_mass_index" id="body_mass_index">
                                                                                 </p>
                                                                             </td>
                                                                             <td>
@@ -996,6 +997,7 @@
         const alturaInput = document.getElementById('height');
         const masaInput = document.getElementById('weight');
         const indiceCorporalSpan = document.getElementById('imc');
+        const valorIMC = document.getElementById('body_mass_index');
 
         alturaInput.addEventListener('input', calcularIndiceCorporal);
         masaInput.addEventListener('input', calcularIndiceCorporal);
@@ -1009,6 +1011,7 @@
 
             // Actualizar el campo del índice corporal en la vista
             indiceCorporalSpan.textContent = `${indiceCorporal.toFixed(2)}`;
+            valorIMC.value = indiceCorporal.toFixed(2);
 
             // si altura o masa estan vacios, no se muestra el visto verde
             if (altura == "" || masa == "") {

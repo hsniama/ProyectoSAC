@@ -360,7 +360,7 @@
                           <a href="#" class="nav-link active">
                               <i class="fa-solid fa-hospital-user"></i>
                               <p>
-                                  Gestión de Citas e Historiales
+                                  Gestión de Citas, Consultas e Historias
                                   <i class="right fas fa-angle-left"></i>
                               </p>
                           </a>
@@ -368,14 +368,26 @@
                           @can('appointment-list')
                               <ul class="nav nav-treeview">          
                                   <li class="nav-item">
-                                      <a href="{{ route('doctor.citas.index') }}"
-                                                class="nav-link @if(request()->routeIs('doctor.citas.index')) active @endif">
+                                      <a href="{{ route('doctor.appointments.index') }}"
+                                                class="nav-link @if(request()->routeIs('doctor.appointments.index')) active @endif">
                                           <i class="fa fa-user nav-icon"></i>
                                           <p>Revisar Agenda</p>
                                       </a>
                                   </li>
                               </ul>
                           @endcan
+
+                          {{-- @can('diagnostico-list')
+                              <ul class="nav nav-treeview">          
+                                  <li class="nav-item">
+                                      <a href="#"
+                                                class="nav-link @if(request()->routeIs('#')) active @endif">
+                                          <i class="fa fa-user nav-icon"></i>
+                                          <p>Historias Médicas</p>
+                                      </a>
+                                  </li>
+                              </ul>
+                          @endcan --}}
 
                       </li>
                   @endhasrole

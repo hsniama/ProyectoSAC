@@ -10,7 +10,7 @@ use App\Http\Controllers\Admin\ScheduleController;
 use App\Http\Controllers\Admin\SpecialityController;
 use App\Http\Controllers\Admin\AppointmentController;
 use App\Http\Controllers\Auth\ChangePasswordController;
-use App\Http\Controllers\Secretaria\PacienteController;
+use App\Http\Controllers\Secretaria\PatientController;
 use App\Http\Controllers\Paciente\AppointmentController as PatientAppointmentController;
 use App\Http\Controllers\Doctor\AppointmentController as DoctorAppointmentController;
 use App\Http\Controllers\Doctor\DiagnosisController;
@@ -78,8 +78,8 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         'middleware' => 'role:secretaria'
 
         ], function () {
-            Route::resource('pacientes', PacienteController::class);
-            Route::post('imprimir-creedenciales', [PacienteController::class, 'imprimirCreedenciales'])->name('imprimir.creedenciales');
+            Route::resource('pacientes', PatientController::class);
+            Route::post('imprimir-creedenciales', [PatientController::class, 'imprimirCreedenciales'])->name('imprimir.creedenciales');
     });
     
     Route::group([
@@ -87,12 +87,14 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         'as' => 'doctor.',
         'middleware' => 'role:doctor'
         ], function () {
-            // Route::resource('citas', DoctorAppointmentController::class);
-            Route::get('citas', [DoctorAppointmentController::class, 'index'])->name('citas.index');
+            Route::resource('appointments', DoctorAppointmentController::class);
 
             Route::controller(DiagnosisController::class)->group(function () {
                 Route::get('diagnosis/create/{appointment}', 'create')->name('diagnosis.create');
                 Route::post('diagnosis-store', 'store')->name('diagnosis.store');
+                Route::get('medical-histories/{patient}', 'show')->name('diagnosis.medicalHistories');
+                Route::get('diagnosis-show/{appointment}', 'showDiagnosis')->name('diagnosis.show');
+                Route::get('print-prescription/{appointment}', 'printPrescription')->name('diagnosis.printPrescription');
             });
     });
 

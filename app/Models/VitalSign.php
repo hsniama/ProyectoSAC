@@ -19,7 +19,9 @@ class VitalSign extends Model
         'blood_pressure',
         'heart_rate',
         'respiratory_rate',
-        'filled_by',
+        'status',
+        'updated_by',
+        'created_by',
     ];
 
 

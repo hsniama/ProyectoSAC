@@ -147,7 +147,7 @@
                                                     <div class="col">
                                                         <div class="form-group">
                                                             <label for="telefono">Teléfono</label>
-                                                            <input type="text" name="telefono" id="telefono"
+                                                            <input type="number" name="telefono" id="telefono"
                                                                 class="form-control {{ $errors->has('telefono') ? 'is-invalid' : '' }}"
                                                                 placeholder="Ingrese el Teléfono de la person"
                                                                 value="{{ old('telefono', '') }}">

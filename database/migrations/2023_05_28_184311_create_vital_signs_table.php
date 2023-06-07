@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('appointment_id')->constrained()->onDelete('restrict');
             $table->integer('height')->nullable();
             $table->decimal('weight', 5, 2)->nullable();
+            $table->decimal('body_mass_index', 5, 2)->nullable();
             $table->decimal('temperature', 5, 2)->nullable();
             $table->decimal('blood_pressure', 5, 2)->nullable();
             $table->decimal('heart_rate', 5, 2)->nullable();

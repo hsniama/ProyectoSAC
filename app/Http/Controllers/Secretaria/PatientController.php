@@ -7,25 +7,14 @@ use App\Models\Person;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StorePacientRequest;
-use App\Services\PacientService;
+use App\Http\Requests\StorePatientRequest;
+use App\Services\PatientService;
 
-class PacienteController extends Controller
+class PatientController extends Controller
 {
-
-    //create static variable (borrar si no se usa)
-    // public $usuarioGuardado;
-    // public $pacienteGuardado;
-
     protected $pacientService;
     
-    //create invoke method
-    public function __invoke()
-    {
-        //return view('paciente.create');
-    }
-    
-    public function __construct(PacientService $pacientService)
+    public function __construct(PatientService $pacientService)
     {
         $this->middleware('can:paciente-list')->only('index');
         $this->middleware('can:paciente-create')->only('create', 'store');
@@ -71,15 +60,13 @@ class PacienteController extends Controller
     }
 
 
-    public function store(StorePacientRequest $request)
+    public function store(StorePatientRequest $request)
     {
-
-        $user = $this->pacientService->createPacient($request->validated());
+        $user = $this->pacientService->createPatient($request);
 
         $paciente = Person::where('user_id', $user->id)->first();
      
         return view('secretaria.pacientes.creedenciales', compact('user', 'paciente'))->with('success', 'El paciente se creó con éxito');
-
     }
 
     public function show(Person $paciente)

@@ -24,11 +24,11 @@ class Prescription extends Model
 
     public function medicalExams()
     {
-        return $this->belongsToMany(MedicalExam::class)->withTimestamps()->withPivot('observations');
+        return $this->belongsToMany(MedicalExam::class)->withPivot('observations')->withTimestamps();
     }
 
     public function medicines()
     {
-        return $this->belongsToMany(Medicine::class)->withTimestamps()->withPivot('quantity', 'days', 'observations');
+        return $this->belongsToMany(Medicine::class)->withPivot('quantity', 'duration', 'observations')->withTimestamps();
     }
 }

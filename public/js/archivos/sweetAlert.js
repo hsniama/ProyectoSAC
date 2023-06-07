@@ -47,21 +47,20 @@
     $('.eliminarCitaPaciente').submit(function(e) {
         e.preventDefault();
         // Obtiene la información de la cita
-
         //get the appointment:
         var appointment = $(this).data('appointment');
         var specialityName = $(this).data('speciality-name');
 
-    var motivoSelect = 
-                            '<div class="form-floating">'+
-                                '<select class="form-select" name="notes" id="notes" required>' +
-                                    '<option value="" disabled selected>Seleccione un motivo</option>' +
-                                    '<option value="Paciente no puede acudir">No puedo acudir</option>' +
-                                    '<option value="Paciente solicitó la eliminación de la cita">Solicitar eliminación de cita</option>' +
-                                '</select>'+
-                                '<label for="notes">Motivo</label>'+
-                            '</div>';
-        // console.log(appointment);
+        var motivoSelect = 
+                                '<div class="form-floating">'+
+                                    '<select class="form-select" name="notes" id="notes" required>' +
+                                        '<option value="" disabled selected>Seleccione un motivo</option>' +
+                                        '<option value="Paciente no puede acudir">No puedo acudir</option>' +
+                                        '<option value="Paciente solicitó la eliminación de la cita">Solicitar eliminación de cita</option>' +
+                                    '</select>'+
+                                    '<label for="notes">Motivo</label>'+
+                                '</div>';
+            // console.log(appointment);
         
         var paciente = appointment.patient.nombres + ' ' + appointment.patient.apellidos;
         var cedula = appointment.patient.cedula;
@@ -218,50 +217,77 @@
         }) 
     });
 
-$('.confirmarCita').submit(function(e) {
-    
+    $('.confirmarCita').submit(function(e) {
+        
+            e.preventDefault();
+
+            var self = this;
+
+            var form_data = $(this).serialize();
+
+                    $.ajax({
+                        url: "/api/get-appointment-data",
+                        type: "POST",
+                        data: form_data,
+                    }).done(function(response) {
+                        var html = '<table class="table table-bordered">' +
+                            '<tbody>' +
+                                '<tr><td><b>Médico:</b></td><td>' + response.doctor_nombres + ' ' + response.doctor_apellidos + '</td></tr>' +
+                                '<tr><td><b>Especialidad:</b></td><td>' + response.especialidad_nombre + '</td></tr>' +
+                                '<tr><td><b>Paciente:</b></td><td>' + response.paciente_nombres + '</td></tr>' +
+                                '<tr><td><b>Cedula:</b></td><td>' + response.paciente_cedula + '</td></tr>' +
+                                '<tr><td><b>Fecha de la Cita:</b></td><td>' + response.fecha_cita + '</td></tr>' +
+                                '<tr><td><b>Hora:</b></td><td>' + response.hora_cita + '</td></tr>' +
+                            '</tbody>' +
+                    '</table>';
+                        Swal.fire({
+                            title: '¿Confirmar Cita?',
+                            html: html,
+                            icon: 'warning',
+                            showCancelButton: true,
+                            confirmButtonColor: '#3085d6',
+                            cancelButtonColor: '#d33',
+                            confirmButtonText: 'Sí, agendar!',
+                            cancelButtonText: 'No'
+                        }).then((result) => {
+                            if (result.value) {
+                                self.submit();
+                            }
+                        });
+                    }).fail(function(response) {
+                        console.log(response);
+                    });    
+                
+
+
+    });
+
+    $(".confirmarConsulta").submit(function(e) {
         e.preventDefault();
 
-        var self = this;
-
-        var form_data = $(this).serialize();
-
-                $.ajax({
-                    url: "/api/get-appointment-data",
-                    type: "POST",
-                    data: form_data,
-                }).done(function(response) {
-                    var html = '<table class="table table-bordered">' +
-                        '<tbody>' +
-                            '<tr><td><b>Médico:</b></td><td>' + response.doctor_nombres + ' ' + response.doctor_apellidos + '</td></tr>' +
-                            '<tr><td><b>Especialidad:</b></td><td>' + response.especialidad_nombre + '</td></tr>' +
-                            '<tr><td><b>Paciente:</b></td><td>' + response.paciente_nombres + '</td></tr>' +
-                            '<tr><td><b>Cedula:</b></td><td>' + response.paciente_cedula + '</td></tr>' +
-                            '<tr><td><b>Fecha de la Cita:</b></td><td>' + response.fecha_cita + '</td></tr>' +
-                            '<tr><td><b>Hora:</b></td><td>' + response.hora_cita + '</td></tr>' +
-                        '</tbody>' +
-                   '</table>';
-                    Swal.fire({
-                        title: '¿Confirmar Cita?',
-                        html: html,
-                        icon: 'warning',
-                        showCancelButton: true,
-                        confirmButtonColor: '#3085d6',
-                        cancelButtonColor: '#d33',
-                        confirmButtonText: 'Sí, agendar!',
-                        cancelButtonText: 'No'
-                    }).then((result) => {
-                        if (result.value) {
-                            self.submit();
-                        }
-                    });
-                }).fail(function(response) {
-                    console.log(response);
-                });    
-            
-
-
-});
+        Swal.fire({
+            title: '¿Terminar Consulta?',
+            text: "No se podrá revertir!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: '<i class="fas fa-check"></i> Sí, terminar!',
+            cancelButtonText: '<i class="fas fa-times"></i> No'
+            }).then((result) => {
+            if (result.isConfirmed) {              
+                Swal.fire({
+                    title: 'Consulta terminada exitosamente',
+                    icon: 'success',
+                    showCancelButton: false,
+                    confirmButtonColor: '#3085d6',
+                    confirmButtonText: 'Aceptar',
+                })
+                this.submit();
+                // this.submit();
+            }
+        })
+    });
 
 });
 
@@ -273,14 +299,14 @@ $(document).on('click', '.eliminarCitaPacienteDesdeAdmin', function(e) {
     var specialityName = $(this).data("speciality-name");
 
     var motivoSelect = 
-                            '<div class="form-floating">'+
-                                '<select class="form-select" name="notes" id="notes" required>' +
-                                    '<option value="" disabled selected>Seleccione un motivo</option>' +
-                                    '<option value="Paciente no puede acudir">Paciente no puede acudir</option>' +
-                                    '<option value="Medico no disponible">Medico no disponible</option>' +
-                                '</select>'+
-                                '<label for="notes">Motivo</label>'+
-                            '</div>';
+        '<div class="form-floating">'+
+            '<select class="form-select" name="notes" id="notes" required>' +
+                '<option value="" disabled selected>Seleccione un motivo</option>' +
+                '<option value="Paciente no puede acudir">Paciente no puede acudir</option>' +
+                '<option value="Medico no disponible">Medico no disponible</option>' +
+            '</select>'+
+            '<label for="notes">Motivo</label>'+
+        '</div>';
 
         var paciente = appointment.patient.nombres + ' ' + appointment.patient.apellidos;
         var cedula = appointment.patient.cedula;

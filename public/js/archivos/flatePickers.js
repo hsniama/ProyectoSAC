@@ -12,11 +12,19 @@
             "maxDate": "today",
         });
 
+        flatpickr(".dateFiltroInicioDoctor", {
+            locale: "es",
+            dateFormat: "Y-m-d",
+            defaultDate: "today",
+            maxDate: "today",
+            minDate: "today",
+        });
+
         flatpickr(".dateFiltroFinal", {
             "locale": "es",
             "dateFormat": "Y-m-d",
             "defaultDate": "today",
-            // "maxDate": "today",
+            "minDate": "today",
         });
 
         flatpickr(".dateCita", {
