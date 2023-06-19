@@ -26,12 +26,12 @@ class UpdateVitalSignRequest extends FormRequest
         return [
             'appointment_id' => 'required|exists:appointments,id',
             'height' => 'required|numeric',
-            'weight' => 'required|regex:/^\d+(\.\d{1,2})?$/',
-            'body_mass_index' => 'required|regex:/^\d+(\.\d{1,2})?$/',
-            'temperature' => 'required|regex:/^\d+(\.\d{1,2})?$/',
-            'blood_pressure' => 'required|regex:/^\d+(\.\d{1,2})?$/',
-            'heart_rate' => 'required|regex:/^\d+(\.\d{1,2})?$/',
-            'respiratory_rate' => 'required|regex:/^\d+(\.\d{1,2})?$/',
+            'weight' => 'required|regex:/^\d+(\.\d+)?$/',
+            'body_mass_index' => 'required|regex:/^\d+(\.\d+)?$/',
+            'temperature' => 'required|regex:/^\d+(\.\d+)?$/',
+            'blood_pressure' => 'required|regex:/^\d+(\.\d+)?$/',
+            'heart_rate' => 'required|regex:/^\d+(\.\d+)?$/',
+            'respiratory_rate' => 'required|regex:/^\d+(\.\d+)?$/',
 
             // Las siguientes 2 deben ser llenadas por el sistema.
             // 'updated_by' => 'required|string'

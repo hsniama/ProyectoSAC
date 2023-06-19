@@ -60,7 +60,7 @@
                                             <td>{{ $cita->notes }}</td>
                                             <td>
                                                 <a href="{{ route('doctor.diagnosis.show', encrypt($cita->id)) }}" target="_blank" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="bottom" data-bs-content="Ver Diagnostico"><i class="fa-regular fa-eye fa-xl" style="color: #6487c4;"></i></a>
-                                                <a href="{{ route('doctor.diagnosis.printPrescription', encrypt($cita->id)) }}" target="_blank" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="bottom" data-bs-content="Ver Receta medicada"><i class="fa-regular fa-newspaper fa-xl" style="color: #ca2121;"></i></a>                                                                        
+                                                <a href="{{ route('doctor.diagnosis.printPrescription', $cita->id) }}" target="_blank" data-bs-toggle="popover" data-bs-trigger="hover focus" data-bs-placement="bottom" data-bs-content="Ver Receta medicada"><i class="fa-regular fa-newspaper fa-xl" style="color: #ca2121;"></i></a>                                                                        
                                             </td>
                                         </tr>
                                     @endforeach         

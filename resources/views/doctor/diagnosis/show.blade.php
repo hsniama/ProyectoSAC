@@ -379,7 +379,7 @@
                                                                         <!-- possible_diseases -->
                                                                         <div class="possible_diseases_container mt-3">
                                                                             @foreach ($diagnosis->diseases as $index => $possibleDisease)
-                                                                                @if ($disease->pivot->status == 'Enfermedad Confirmada' || $disease->pivot->status == 'Posible Enfermedad')
+                                                                                @if ($disease->pivot->status === 'Enfermedad Posible' && !empty($disease->pivot->probability ))
                                                                                     <div class="card card-body possible_disease_{{ $index + 1 }}">
                                                                                         <div class="row g-2">
                                                                                             <div class="col-6">
@@ -393,9 +393,9 @@
                                                                                             <div class="col-6">
                                                                                                 <div class="form-floating">
                                                                                                     <select class="form-select bg-white" disabled>
-                                                                                                        <option selected disabled>{{ $possibleDisease->pivot->status }}</option>
+                                                                                                        <option selected disabled>{{ $possibleDisease->pivot->probability }}</option>
                                                                                                     </select>
-                                                                                                    <label for="possibledisease{{ $index + 1 }}_status">¿Probabilidad?</label>
+                                                                                                    <label for="possibledisease{{ $index + 1 }}_probability">¿Probabilidad?</label>
                                                                                                 </div>
                                                                                             </div>
                                                                                         </div>

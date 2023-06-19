@@ -41,3 +41,7 @@
 <!--Manejo de apis, etc:-->
 <script src="{{ asset('/js/archivos/app.js') }}"></script>
 
+<!--Add chart js:-->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+

@@ -18,7 +18,8 @@ return new class extends Migration
             $table->foreignId('diagnosis_id')->nullable()->constrained()->onDelete('restrict');
             $table->foreignId('disease_id')->nullable()->constrained()->onDelete('restrict');
             $table->string('duration')->nullable();
-            $table->string('status');
+            $table->string('status')->nullable();
+            $table->string('probability')->nullable();
             $table->text('notes')->nullable();
             $table->timestamps();
         });

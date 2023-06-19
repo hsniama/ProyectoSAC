@@ -29,18 +29,19 @@ class StoreDiagnosisRequest extends FormRequest
             'current_diseases' => 'nullable|array', //tabla intermedia
                 'current_diseases.*.id' => 'nullable|exists:diseases,id',
                 'current_diseases.*.duration' => 'nullable|string',
-                'current_diseases.*.notes' => 'nullable|string',
                 'current_diseases.*.status' => 'nullable|string|in:Enfermedad Actual',
+                'current_diseases.*.notes' => 'nullable|string',
 
                 // Las siguientes 2 deben ser llenadas por el sistema.
                 //'diagnosis_id' => 'required|exists:diagnoses,id',
                 //'disease_id' => 'required|exists:diseases,id',
 
             // Tabla intermedia:diagnosis_disease Posible
-            'possiblediseases' => 'array', //tabla intermedia
-                'possiblediseases.*.id' => 'exists:diseases,id',
-                'possiblediseases.*.notes' => 'string',
-                'possiblediseases.*.status' => 'string|in:Posible Enfermedad,Enfermedad Confirmada',
+            'possiblediseases' => 'nullable|array', //tabla intermedia
+                'possiblediseases.*.id' => 'nullable|exists:diseases,id',
+                'possiblediseases.*.probability' => 'nullable|string|in:Alta, Media, Baja',
+                'possiblediseases.*.status' => 'nullable|string|in:Enfermedad Posible',
+                'possiblediseases.*.notes' => 'nullable|string',
 
             // Tabla intermedia:diagnosis_symptom
             'symptoms' => 'array', //tabla intermedia

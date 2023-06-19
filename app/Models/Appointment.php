@@ -75,6 +75,22 @@ class Appointment extends Model
         return Appointment::count();
     }
 
+    // function to get the total appointments with the status Atendido attended by the doctor today:
+    public static function countAppointmentsAttendedToday()
+    {
+        return Appointment::where('status', 'Atendido')
+            ->whereDate('scheduled_date', Carbon::today())
+            ->count();
+    }
+
+    //function to get the appointments of this current year with the status Atendido
+    public static function countAppointmentsAttendedThisYear()
+    {
+        return Appointment::where('status', 'Atendido')
+            ->whereYear('scheduled_date', Carbon::now()->year)
+            ->count();
+    }
+
     public function getScheduledTimeAttribute($value)
     {
         return (new Carbon($value))->format('H:i');

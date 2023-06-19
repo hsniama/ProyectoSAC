@@ -27,7 +27,7 @@ class UserSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
-        ])->assignRole('super-admin')->person()->save(Person::factory()->make());
+        ])->assignRole('super-admin')->person()->save(Person::factory(['ciudad' => 'Quito'])->make());
 
         User::create([
             'username' => 'admin',
@@ -35,7 +35,7 @@ class UserSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
-        ])->assignRole('admin')->person()->save(Person::factory()->make());
+        ])->assignRole('admin')->person()->save(Person::factory(['ciudad' => 'Quito'])->make());
 
         User::create([
             'username' => 'gerente',
@@ -43,7 +43,7 @@ class UserSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
-        ])->assignRole('gerente')->person()->save(Person::factory()->make());
+        ])->assignRole('gerente')->person()->save(Person::factory(['ciudad' => 'Quito'])->make());
 
         User::create([
             'username' => 'paciente',
@@ -51,7 +51,7 @@ class UserSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
-        ])->assignRole('paciente')->person()->save(Person::factory()->make());
+        ])->assignRole('paciente')->person()->save(Person::factory(['ciudad' => 'Quito'])->make());
 
         User::create([
             'username' => 'secretaria',
@@ -59,7 +59,7 @@ class UserSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
-        ])->assignRole('secretaria')->person()->save(Person::factory()->make());
+        ])->assignRole('secretaria')->person()->save(Person::factory(['ciudad' => 'Quito'])->make());
 
         User::create([
             'username' => 'doctor',
@@ -67,22 +67,35 @@ class UserSeeder extends Seeder
             'email_verified_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
-        ])->assignRole('doctor')->person()->save(Person::factory()->make())->specialities()->save(Speciality::factory()->make());
+        ])->assignRole('doctor')->person()->save(Person::factory()->make(['ciudad' => 'Quito']))->specialities()->save(Speciality::factory()->make(['status' => 'Inactivo']));
 
         
 
         //Llenar automaticamente 10 usuarios pacientes random con factory con relacion a person.
-        User::factory(10)->create()->each(function ($user) {
+        User::factory(5)->create()->each(function ($user) {
             $user->assignRole('paciente');
-            $user->person()->save(Person::factory()->make());
+            $user->person()->save(Person::factory()->make(['ciudad' => 'Cuenca']));
         });
+        User::factory(5)->create()->each(function ($user) {
+            $user->assignRole('paciente');
+            $user->person()->save(Person::factory()->make(['ciudad' => 'Guayaquil']));
+        });
+        User::factory(3)->create()->each(function ($user) {
+            $user->assignRole('paciente');
+            $user->person()->save(Person::factory()->make(['ciudad' => 'Manta']));
+        });
+        User::factory(3)->create()->each(function ($user) {
+            $user->assignRole('paciente');
+            $user->person()->save(Person::factory()->make(['ciudad' => 'Quito']));
+        });
+
 
         //Llenar automaticamente 4 usuarios pacientes random con factory con status Inactivo
         User::factory(4)->create()->each(function ($user) {
             $user->assignRole('paciente');
             $user->status = 'Inactivo';
             $user->save();
-            $user->person()->save(Person::factory()->make());
+            $user->person()->save(Person::factory()->make( ['ciudad' => 'Quito']));
             $user->person->save();
         });
 
@@ -98,8 +111,8 @@ class UserSeeder extends Seeder
         // con una especialidad:
         User::factory(20)->create()->each(function ($user) {
             $user->assignRole('doctor');
-            $user->person()->save(Person::factory()->make(['nombres' => 'Dr. ']));
-            $user->person->specialities()->save(Speciality::factory()->make());
+            $user->person()->save(Person::factory()->make(['nombres' => 'Dr.']));
+            $user->person->specialities()->save(Speciality::factory()->make(['status' => 'Activo']));
         });
     }
 }

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\ScheduleController as ScheduleAPIController;
 use App\Http\Controllers\API\SpecialityController as SpecialityAPIController;
 use App\Http\Controllers\API\AppointmentController as AppointmentAPIController;
+use App\Http\Controllers\API\ChartsController as ChartsAPIController;
 
 
 /*
@@ -41,4 +42,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
     Route::post('/eliminar-cita-paciente', [AppointmentAPIController::class, 'cancelAppFromAdmin'])->name('eliminar.cita.paciente.desde.admin');
 
+    Route::get('/covid-chart/data-year', [ChartsAPIController::class, 'covidChartByYear'])->name('covid.chart.data.year'); //Ej: ?year=2021
 

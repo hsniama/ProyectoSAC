@@ -32,12 +32,12 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             PermissionSeeder::class,
             SpecialitySeeder::class,
-            AppointmentSeeder::class,
             ScheduleSeeder::class,
             DiseaseSeeder::class,
             SymptomSeeder::class,
             MedicalExamSeeder::class,
             MedicineSeeder::class,
+            AppointmentSeeder::class,
         ]);
     }
 }

@@ -49,8 +49,8 @@ class AppointmentFactory extends Factory
                                 // Bring the id of the speciality that belongs to the doctor:
                                 Person::find($idDoctor)->specialities()->inRandomOrder()->first()->id,                             
             'scheduled_date' => fake()->date(),
-            'scheduled_time' => fake()->time(),
-            'status' => fake()->randomElement(['Atendido', 'Cancelado', 'Pendiente']),
+            'scheduled_time' => fake()->randomElement(['09:00', '10:00', '11:00', '14:00', '15:00', '16:00']),
+            'status' => fake()->randomElement(['Cancelado', 'Cancelado']),
             'notes' => fake()->paragraph(),
         ];
     }

@@ -60,54 +60,42 @@
               <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                   data-accordion="false">
 
+                  @can('modulo-reportes')
 
-                  @can('modulo-estadisticas')
                       <li class="nav-item menu-open">
 
                           <a href="#" class="nav-link active">
                               <i class="nav-icon fa-regular fa-newspaper"></i>
                               <p>
-                                  Gestion Estadistica
+                                  Reportes de Pacientes
                                   <i class="right fas fa-angle-left"></i>
                               </p>
                           </a>
 
                           <ul class="nav nav-treeview">
                               <li class="nav-item">
-                                  <a href="#" class="nav-link">
+                                  <a href="{{ route('gerente.patient.data') }}" class="nav-link @if (request()->routeIs('gerente.patient.data')) active @endif">
                                       <i class="fa-solid fa-chart-pie nav-icon"></i>
-                                      <p>Ver Gráficas</p>
-                                  </a>
-                              </li>
-                          </ul>
-
-                          <ul class="nav nav-treeview">
-                              <li class="nav-item">
-                                  <a href="#" class="nav-link">
-                                      <i class="fa-solid fa-filter nav-icon"></i>
-                                      <p>Filtrar Informacion</p>
+                                      <p>Edad, género y ciudad</p>
                                   </a>
                               </li>
                           </ul>
 
                       </li>
-                  @endcan
 
-
-                  @can('modulo-reportes')
                       <li class="nav-item menu-open">
 
                           <a href="#" class="nav-link active">
                               <i class="fa-solid fa-scroll"></i>
                               <p>
-                                  Gestion de Reportes
+                                  Reportes de Citas
                                   <i class="right fas fa-angle-left"></i>
                               </p>
                           </a>
 
                           <ul class="nav nav-treeview">
                               <li class="nav-item">
-                                  <a href="{{ route('admin.especialidad.cita') }}" class="nav-link @if (request()->routeIs('admin.especialidad.cita')) active @endif">
+                                  <a href="{{ route('gerente.especialidad.cita') }}" class="nav-link @if (request()->routeIs('gerente.especialidad.cita')) active @endif">
                                       <i class="fa-solid fa-file-circle-check"></i>
                                       <p>Especialidad - Citas</p>
                                   </a>
@@ -116,7 +104,7 @@
 
                           <ul class="nav nav-treeview">
                               <li class="nav-item">
-                                  <a href="{{ route('admin.doctor.cita') }}" class="nav-link @if (request()->routeIs('admin.doctor.cita')) active @endif">
+                                  <a href="{{ route('gerente.doctor.cita') }}" class="nav-link @if (request()->routeIs('gerente.doctor.cita')) active @endif">
                                       <i class="fa-solid fa-file-circle-check"></i>
                                       <p>Medico - Citas</p>
                                   </a>
@@ -125,7 +113,7 @@
 
                           <ul class="nav nav-treeview">
                               <li class="nav-item">
-                                  <a href="{{ route('admin.mes.cita') }}" class="nav-link @if (request()->routeIs('admin.mes.cita')) active @endif">
+                                  <a href="{{ route('gerente.mes.cita') }}" class="nav-link @if (request()->routeIs('gerente.mes.cita')) active @endif">
                                       <i class="fa-solid fa-file-circle-check"></i>
                                       <p>Mes - Citas</p>
                                   </a>
@@ -134,9 +122,91 @@
 
                           <ul class="nav nav-treeview">
                               <li class="nav-item">
-                                  <a href="{{ route('admin.ano.cita') }}" class="nav-link @if (request()->routeIs('admin.ano.cita')) active @endif">
+                                  <a href="{{ route('gerente.ano.cita') }}" class="nav-link @if (request()->routeIs('gerente.ano.cita')) active @endif">
                                       <i class="fa-solid fa-file-circle-check"></i>
                                       <p>Año - Citas</p>
+                                  </a>
+                              </li>
+                          </ul>
+
+                      </li>
+
+
+
+                      <li class="nav-item menu-open">
+
+                          <a href="#" class="nav-link active">
+                              <i class="nav-icon fa-regular fa-newspaper"></i>
+                              <p>
+                                  Reportes de Enfermedades
+                                  <i class="right fas fa-angle-left"></i>
+                              </p>
+                          </a>
+
+                          <ul class="nav nav-treeview">
+                              <li class="nav-item">
+                                  <a href="{{ route('gerente.enfermedades') }}" class="nav-link @if (request()->routeIs('gerente.enfermedades')) active @endif">
+                                      <i class="fa-solid fa-chart-pie nav-icon"></i>
+                                      <p>Total por año</p>
+                                  </a>
+                              </li>
+                          </ul>
+                      </li>
+
+                      <li class="nav-item menu-open">
+
+                          <a href="#" class="nav-link active">
+                              <i class="nav-icon fa-regular fa-newspaper"></i>
+                              <p>
+                                  Reportes de COVID-19
+                                  <i class="right fas fa-angle-left"></i>
+                              </p>
+                          </a>
+
+                          <ul class="nav nav-treeview">
+                              <li class="nav-item">
+                                  <a href="{{ route('gerente.covid.cases.year') }}" class="nav-link @if (request()->routeIs('gerente.covid.cases.year')) active @endif">
+                                      <i class="fa-solid fa-chart-pie nav-icon"></i>
+                                      <p>Casos por mes y año</p>
+                                  </a>
+                              </li>
+                          </ul>
+
+                          <ul class="nav nav-treeview">
+                              <li class="nav-item">
+                                  <a href="{{ route('gerente.covid.cases.city') }}" class="nav-link @if (request()->routeIs('gerente.covid.cases.city')) active @endif">
+                                      <i class="fa-solid fa-chart-pie nav-icon"></i>
+                                      <p>Casos por ciudad</p>
+                                  </a>
+                              </li>
+                          </ul>
+
+                          <ul class="nav nav-treeview">
+                              <li class="nav-item">
+                                  <a href="{{ route('gerente.covid.cases.common.symptoms') }}" class="nav-link @if (request()->routeIs('gerente.covid.cases.common.symptoms')) active @endif">
+                                      <i class="fa-solid fa-chart-pie nav-icon"></i>
+                                      <p>Sintomas más comunes</p>
+                                  </a>
+                              </li>
+                          </ul>
+
+                      </li>
+
+                      <li class="nav-item menu-open">
+
+                          <a href="#" class="nav-link active">
+                              <i class="nav-icon fa-regular fa-newspaper"></i>
+                              <p>
+                                  Reportes de Calificaciones
+                                  <i class="right fas fa-angle-left"></i>
+                              </p>
+                          </a>
+
+                          <ul class="nav nav-treeview">
+                              <li class="nav-item">
+                                  <a href="#" class="nav-link @if (request()->routeIs('#')) active @endif">
+                                      <i class="fa-solid fa-chart-pie nav-icon"></i>
+                                      <p>Calificación de Médicos</p>
                                   </a>
                               </li>
                           </ul>

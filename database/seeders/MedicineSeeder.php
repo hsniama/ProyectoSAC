@@ -134,6 +134,11 @@ class MedicineSeeder extends Seeder
             'name' => 'Ninguno',
             'presentation' => 'Ninguno',
         ]);
+
+        Medicine::create([
+            'name' => 'Otro',
+            'presentation' => 'Otro',
+        ]);
         
     }
 }

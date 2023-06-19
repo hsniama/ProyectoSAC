@@ -21,7 +21,6 @@ class Person extends Model
         'cedula',
         'apellidos',
         'nombres',
-        //'email',
         'telefono',
         'direccion',
         'ciudad',
@@ -48,6 +47,12 @@ class Person extends Model
     public function appointments()
     {
         return $this->hasMany(Appointment::class);
+    }
+
+    // Relationship with patient appointments
+    public function patientAppointments()
+    {
+        return $this->hasMany(Appointment::class, 'patient_id');
     }
 
     // Relationship with Schedule

@@ -5,7 +5,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Admin\ReportController;
+use App\Http\Controllers\Gerente\ReportController;
+use App\Http\Controllers\Gerente\ChartsController;
 use App\Http\Controllers\Admin\ScheduleController;
 use App\Http\Controllers\Admin\SpecialityController;
 use App\Http\Controllers\Admin\AppointmentController;
@@ -61,14 +62,6 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
             Route::resource('roles', RoleController::class);
             Route::resource('specialities', SpecialityController::class);
             Route::resource('appointments', AppointmentController::class);
-
-            Route::controller(ReportController::class)->group(function () {
-                Route::get('/especialidad-cita', 'especialidadCita')->name('especialidad.cita');
-                Route::get('/medico-cita', 'doctorCita')->name('doctor.cita');
-                Route::get('/mes-cita', 'mesCita')->name('mes.cita');
-                Route::get('/year-cita', 'anoCita')->name('ano.cita');
-            });
-
             Route::resource('schedules', ScheduleController::class);
     });
 
@@ -97,6 +90,28 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
                 Route::get('print-prescription/{appointment}', 'printPrescription')->name('diagnosis.printPrescription');
             });
     });
+
+    Route::group([
+        'prefix' => 'gerente',
+        'as' => 'gerente.',
+        'middleware' => 'role:gerente'
+    ], function(){
+        Route::controller(ChartsController::class)->group(function () {
+            Route::get('/patient-data', 'getPatientData')->name('patient.data');
+            Route::get('/covid-cases-by-year-and-month', 'getCovidCasesByYearAndMonth')->name('covid.cases.year');
+            Route::get('/covid-cases-by-city', 'getCovidCasesByCity')->name('covid.cases.city');
+            Route::get('/covid-common-symptoms', 'getCovidCommonSymptoms')->name('covid.cases.common.symptoms');
+        });
+
+        Route::controller(ReportController::class)->group(function () {
+            Route::get('/especialidad-cita', 'especialidadCita')->name('especialidad.cita');
+            Route::get('/medico-cita', 'doctorCita')->name('doctor.cita');
+            Route::get('/mes-cita', 'mesCita')->name('mes.cita');
+            Route::get('/year-cita', 'anoCita')->name('ano.cita');
+            Route::get('/enfermedades', 'enfermedades')->name('enfermedades');
+        });
+    });
+
 
 
     Route::group([

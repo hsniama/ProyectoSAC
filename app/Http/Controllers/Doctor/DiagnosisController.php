@@ -120,11 +120,11 @@ class DiagnosisController extends Controller
     }
 
 
-    public function printPrescription($encrypted_appointment_id)//Appointment $appointment
+    public function printPrescription(Appointment $appointment)//
     {
         // Buscar prescripción por id de la cita
         $prescription = Prescription::with('appointment', 'medicines', 'medicalExams')
-                    ->where('appointment_id', decrypt($encrypted_appointment_id))->first();//$appointment->id
+                    ->where('appointment_id', $appointment->id)->first();//$appointment->id
 
         // encontrar paciente
         $patient = Person::find($prescription->appointment->patient_id);

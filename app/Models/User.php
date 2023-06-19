@@ -77,6 +77,12 @@ class User extends Authenticatable implements MustVerifyEmail
         return User::role('doctor')->count();
     }
 
+    // function to get the number of users with role patient
+    public static function countPatients()
+    {
+        return User::role('paciente')->count();
+    }
+
 // -------------------------------------------------------------------------------------------
 
     // getters and setters

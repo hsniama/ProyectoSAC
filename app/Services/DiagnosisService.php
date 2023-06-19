@@ -65,6 +65,7 @@ class DiagnosisService
                 $diagnosis->diseases()->attach($possibleDisease['id'], [
                     'notes' => $possibleDisease['notes'],
                     'status' => $possibleDisease['status'],
+                    'probability' => $possibleDisease['probability'],
                 ]);
             }
         }

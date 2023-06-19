@@ -264,7 +264,7 @@
                                                                             <td>
                                                                                 <p>                     
                                                                                     <span class="ml-2 mr-2" id="imc"></span>
-                                                                                    <input type="number" readonly name="body_mass_index" id="body_mass_index">
+                                                                                    <input type="number" hidden readonly name="body_mass_index" id="body_mass_index">
                                                                                 </p>
                                                                             </td>
                                                                             <td>
@@ -686,15 +686,16 @@
 
                                                                                     <div class="col-6">
                                                                                         <div class="form-floating">
-                                                                                            <select class="form-select {{ $errors->has('possibledisease1_status') ? 'is-invalid' : '' }}" id="possibledisease1_status" name="possiblediseases[1][status]" aria-label="¿?">
+                                                                                            <select class="form-select {{ $errors->has('possibledisease1_probability') ? 'is-invalid' : '' }}" id="possibledisease1_probability" name="possiblediseases[1][probability]" aria-label="¿?">
                                                                                                 <option selected disabled>Seleccione:</option>
-                                                                                                <option value="Posible Enfermedad" {{ old('possibledisease.1.status') ==  'Posible Enfermedad' ? 'selected' : '' }}>Posible</option>
-                                                                                                <option value="Enfermedad Confirmada" {{ old('possibledisease.1.status') == 'Enfermedad Confirmada' ? 'selected' : '' }}>Confirmada</option>
+                                                                                                <option value="Alta" {{ old('possibledisease.1.probability') ==  'Alta' ? 'selected' : '' }}>Alta</option>
+                                                                                                <option value="Media" {{ old('possibledisease.1.probability') == 'Media' ? 'selected' : '' }}>Media</option>
+                                                                                                <option value="Baja" {{ old('possibledisease.1.probability') == 'Baja' ? 'selected' : '' }}>Baja</option>
                                                                                             </select>
-                                                                                            <label for="possibledisease1_status">¿Probabilidad?</label>
-                                                                                            @if ($errors->has('possibledisease1_status'))
+                                                                                            <label for="possibledisease1_probability">¿Probabilidad?</label>
+                                                                                            @if ($errors->has('possibledisease1_probability'))
                                                                                                 <span class="text-danger">
-                                                                                                    <strong>{{ $errors->first('possibledisease1_status') }}</strong>
+                                                                                                    <strong>{{ $errors->first('possibledisease1_probability') }}</strong>
                                                                                                 </span>
                                                                                             @endif
                                                                                         </div>
@@ -704,6 +705,8 @@
                                                                                 <div class="form-floating mt-3">
                                                                                     <textarea class="form-control" placeholder="Agrega las notas adicionales" name="possiblediseases[1][notes]" id="possibledisease1_notes" style="height: 100px">{{ old('possiblediseases.1.notes') }}</textarea>
                                                                                     <label for="possibledisease1_notes">Notas adicionales <small>(Si no existe la enfermedad en el listado, escribala aqui)</small> : </label>
+                                                                                    <input type="text" hidden name="possiblediseases[1][status]" id="possibledisease1_status" value="Enfermedad Posible">
+                                                                                    
                                                                                     @if ($errors->has('possibledisease1_notes'))
                                                                                         <span class="text-danger">
                                                                                             <strong>{{ $errors->first('possibledisease1_notes') }}</strong>
@@ -1243,15 +1246,16 @@
 
                     <div class="col-6">
                         <div class="form-floating">
-                            <select class="form-select {{ $errors->has('possibledisease${contadorEnfermedadesPosibles}_status') ? 'is-invalid' : '' }}" id="possibledisease${contadorEnfermedadesPosibles}_status" name="possiblediseases[${contadorEnfermedadesPosibles}][status]" aria-label="¿?">
+                            <select class="form-select {{ $errors->has('possibledisease${contadorEnfermedadesPosibles}_probability') ? 'is-invalid' : '' }}" id="possibledisease${contadorEnfermedadesPosibles}_probability" name="possiblediseases[${contadorEnfermedadesPosibles}][probability]" aria-label="¿?">
                                 <option selected disabled>Seleccione:</option>
-                                <option value="Posible Enfermedad" {{ old('possiblediseases.${contadorEnfermedadesPosibles}.status') ==  'Posible Enfermedad' ? 'selected' : '' }}>Posible</option>
-                                <option value="Enfermedad Confirmada" {{ old('possiblediseases.${contadorEnfermedadesPosibles}.status') == 'Enfermedad Confirmada' ? 'selected' : '' }}>Confirmada</option>
+                                <option value="Alta" {{ old('possiblediseases.${contadorEnfermedadesPosibles}.probability') ==  'Alta' ? 'selected' : '' }}>Alta</option>
+                                <option value="Media" {{ old('possiblediseases.${contadorEnfermedadesPosibles}.probability') == 'Media' ? 'selected' : '' }}>Media</option>
+                                <option value="Baja" {{ old('possiblediseases.${contadorEnfermedadesPosibles}.probability') == 'Baja' ? 'selected' : '' }}>Baja</option>
                             </select>
-                            <label for="possibledisease${contadorEnfermedadesPosibles}_status">¿Probabilidad?</label>
-                            @if ($errors->has('possibledisease${contadorEnfermedadesPosibles}_status'))
+                            <label for="possibledisease${contadorEnfermedadesPosibles}_probability">¿Probabilidad?</label>
+                            @if ($errors->has('possibledisease${contadorEnfermedadesPosibles}_probability'))
                                 <span class="text-danger">
-                                    <strong>{{ $errors->first('possibledisease${contadorEnfermedadesPosibles}_status') }}</strong>
+                                    <strong>{{ $errors->first('possibledisease${contadorEnfermedadesPosibles}_probability') }}</strong>
                                 </span>
                             @endif
                         </div>
@@ -1261,6 +1265,8 @@
                 <div class="form-floating mt-3">
                     <textarea class="form-control" placeholder="Agrega las notas adicionales" name="possiblediseases[${contadorEnfermedadesPosibles}][notes]" id="possibledisease${contadorEnfermedadesPosibles}_notes" style="height: 100px">{{ old('possiblediseases.${contadorEnfermedadesPosibles}.notes') }}</textarea>
                     <label for="possibledisease${contadorEnfermedadesPosibles}_notes">Notas adicionales <small>(Si no existe la enfermedad en el listado, escribala aqui)</small> : </label>
+                    <input type="text" hidden name="possiblediseases[${contadorEnfermedadesPosibles}][status]" id="possibledisease${contadorEnfermedadesPosibles}_status" value="Enfermedad Posible">
+                    
                     @if ($errors->has('possibledisease${contadorEnfermedadesPosibles}_notes'))
                         <span class="text-danger">
                             <strong>{{ $errors->first('possibledisease${contadorEnfermedadesPosibles}_notes') }}</strong>

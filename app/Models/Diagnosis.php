@@ -16,7 +16,6 @@ class Diagnosis extends Model
         'appointment_id',
         'allergies',
         'current_medication',
-        // 'current_illness',
         'drug_use',
         'alcohol_use',
         'smoking_use',
@@ -40,8 +39,22 @@ class Diagnosis extends Model
 
     public function diseases()
     {
-        return $this->belongsToMany(Disease::class)->withPivot('duration', 'status', 'notes')->withTimestamps();
+        return $this->belongsToMany(Disease::class)->withPivot('duration', 'status', 'probability', 'notes')->withTimestamps();
     }
+
+    // METODOS
+    //get disease name
+    public function getDiseasesName()
+    {
+        return $this->diseases()->pluck('name');
+    }
+
+    //get the amount of each unique diseas:
+    public function getDiseasesCount()
+    {
+        return $this->diseases()->countBy('name');
+    }
+
 
     // public function addSymptom($symptom)
     // {
@@ -62,6 +75,7 @@ class Diagnosis extends Model
     // {
     //     return $this->symptoms()->get();
     // }
+
 
     // public function getSymptomsId()
     // {

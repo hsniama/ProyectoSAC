@@ -25,8 +25,8 @@ class PersonFactory extends Factory
             'nombres' => fake()->firstName(),
             'telefono' => preg_replace('/[^0-9]/', '', fake()->unique()->numerify('##########')),
             'direccion' => fake()->address(),
-            'ciudad' => fake()->city(),
-            'fecha_nacimiento' => fake()->date(),
+            'ciudad' => fake()->randomElement(['Quito', 'Guayaquil', 'Cuenca', 'Manta']),
+            'fecha_nacimiento' => fake()->dateTimeBetween('1950-01-01', '2022-12-31')->format('Y-m-d'),
             'genero' => fake()->randomElement(['Masculino', 'Femenino', 'Otro']),
         ];
     }

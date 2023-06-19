@@ -1,11 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Gerente;
 
-use App\Models\Appointment;
 use App\Models\Person;
+use App\Models\Disease;
+use App\Models\Diagnosis;
 use App\Models\Speciality;
+use App\Models\Appointment;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 use App\Http\Controllers\Controller; // yo agregue esta
 
 class ReportController extends Controller
@@ -73,10 +76,8 @@ class ReportController extends Controller
 
         //  dd($specialitywithAppointments);
 
-        return view('admin.reports.especialidadCita', compact('specialitywithAppointments'));
+        return view('gerente.reports.especialidadCita', compact('specialitywithAppointments'));
     }
-
-
 
     public function doctorCita()
     {
@@ -135,9 +136,8 @@ class ReportController extends Controller
         //dd($doctorwithAppointments);
 
 
-        return view('admin.reports.doctorCita', compact('doctorwithAppointments'));
+        return view('gerente.reports.doctorCita', compact('doctorwithAppointments'));
     }
-
 
     public function mesCita(Request $request)
     {
@@ -233,9 +233,8 @@ class ReportController extends Controller
         $years = Appointment::selectRaw('YEAR(scheduled_date) as year')->groupBy('year')->get();
 
 
-        return view('admin.reports.mesCita', compact('monthwithAppointments', 'years'));
+        return view('gerente.reports.mesCita', compact('monthwithAppointments', 'years'));
     }
-
 
     public function anoCita()
     {
@@ -292,6 +291,54 @@ class ReportController extends Controller
 
         // dd($yearwithAppointments);
 
-        return view('admin.reports.anoCita', compact('yearwithAppointments'));
+        return view('gerente.reports.anoCita', compact('yearwithAppointments'));
+    }
+
+    public function enfermedades(Request $request)
+    {
+        $year = $request->input('yearEnfermedad', date('Y'));
+
+        if (is_numeric($year)) {
+            $diseases = Disease::selectRaw('diseases.name, count(*) as total')
+            ->join('diagnosis_disease', 'diseases.id', '=', 'diagnosis_disease.disease_id')
+            ->join('diagnoses', 'diagnosis_disease.diagnosis_id', '=', 'diagnoses.id')
+            ->whereYear('diagnoses.created_at', $year)
+            ->groupBy('diseases.name')
+            ->orderBy('total', 'desc')
+            ->get()
+            ->toArray();
+        }else{
+            $diseases = Disease::selectRaw('diseases.name, count(*) as total')
+                ->join('diagnosis_disease', 'diseases.id', '=', 'diagnosis_disease.disease_id')
+                ->join('diagnoses', 'diagnosis_disease.diagnosis_id', '=', 'diagnoses.id')
+                ->groupBy('diseases.name')
+                ->orderBy('total', 'desc')
+                ->get()
+                ->toArray();
+        }
+
+
+        if ($request->ajax()) {
+            return DataTables::of($diseases)
+                ->addColumn('enfermedad', function ($disease) {
+                    return $disease['name'];
+                })
+                ->addColumn('cantidad', function ($disease) {
+                    return $disease['total'];
+                })
+                ->rawColumns(['enfermedad', 'cantidad'])
+                ->make(true);
+        }
+
+        $years = Diagnosis::selectRaw('YEAR(created_at) year')
+            ->groupBy('year')
+            ->orderBy('year', 'desc')
+            ->pluck('year')
+            ->toArray();
+
+        //Add to $years array the 'Todos' string:
+        array_unshift($years, 'Todos los años');
+
+        return view('gerente.reports.enfermedades' , compact('years'));
     }
 }

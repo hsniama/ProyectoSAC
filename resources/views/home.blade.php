@@ -107,17 +107,7 @@
 
                                         <div class="row">
                                             <div class="col-lg-3 col-6">
-                                                <!-- small box -->
-                                                <div class="small-box bg-info">
-                                                <div class="inner">
-                                                    <h3>{{ App\Models\User::countDoctors(); }}</h3>
-                                                    <p>Doctores</p>
-                                                </div>
-                                                <div class="icon">
-                                                    <i class="fa-solid fa-user-doctor"></i>
-                                                </div>
-                                                <a href="{{ route('admin.doctor.cita') }}" class="small-box-footer">Mas información <i class="fas fa-arrow-circle-right"></i></a>
-                                                </div>
+
                                             </div>
 
                                             <!-- ./col -->
@@ -150,20 +140,62 @@
                                                 </div>
                                                     <a href="{{ route('admin.users.index') }}" class="small-box-footer">Mas información <i class="fas fa-arrow-circle-right"></i></a>
                                                 </div>
+
+                                                <!-- small box -->
+                                                <div class="small-box bg-warning">
+                                                    <div class="inner">
+                                                        <h3>{{ App\Models\User::countDoctors(); }}</h3>
+                                                        <p>Doctores</p>
+                                                    </div>
+                                                    <div class="icon">
+                                                        <i class="fa-solid fa-user-doctor"></i>
+                                                    </div>
+                                                </div>
+
+                                                <!-- small box -->
+                                                <div class="small-box bg-warning">
+                                                    <div class="inner">
+                                                        <h3>{{ App\Models\User::countPatients(); }}</h3>
+                                                        <p>Pacientes</p>
+                                                    </div>
+                                                    <div class="icon">
+                                                        <i class="fa-solid fa-user-doctor"></i>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <!-- ./col -->
                                             <div class="col-lg-3 col-6">
                                                 <!-- small box -->
                                                 <div class="small-box bg-danger">
-                                                <div class="inner">
-                                                    <h3>{{App\Models\Appointment::countAppointments();  }}</h3>
+                                                    <div class="inner">
+                                                        <h3>{{App\Models\Appointment::countAppointments();  }}</h3>
 
-                                                    <p>Citas agendadas</p>
+                                                        <p>Citas agendadas</p>
+                                                    </div>
+                                                    <div class="icon">
+                                                        <i class="fa-regular fa-calendar-check"></i>
+                                                    </div>
+                                                    <a href="{{ route('admin.appointments.index') }}" class="small-box-footer">Mas información <i class="fas fa-arrow-circle-right"></i></a>
                                                 </div>
-                                                <div class="icon">
-                                                    <i class="fa-regular fa-calendar-check"></i>
+
+                                                <div class="small-box bg-danger">
+                                                    <div class="inner">
+                                                        <h3>{{App\Models\Appointment::countAppointmentsAttendedToday();  }}</h3>                                                        
+                                                        <p>Citas atendidas hoy {{\Carbon\Carbon::now()->format('Y-m-d') }}</p>
+                                                    </div>
+                                                    <div class="icon">
+                                                        <i class="fa-regular fa-calendar-check"></i>
+                                                    </div>
                                                 </div>
-                                                <a href="{{ route('admin.appointments.index') }}" class="small-box-footer">Mas información <i class="fas fa-arrow-circle-right"></i></a>
+
+                                                <div class="small-box bg-danger">
+                                                    <div class="inner">
+                                                        <h3>{{App\Models\Appointment::countAppointmentsAttendedThisYear();  }}</h3>                                                        
+                                                        <p>Citas atendidas este año {{\Carbon\Carbon::now()->format('Y') }}</p>
+                                                    </div>
+                                                    <div class="icon">
+                                                        <i class="fa-regular fa-calendar-check"></i>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <!-- ./col -->
