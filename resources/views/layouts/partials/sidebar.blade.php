@@ -204,9 +204,27 @@
 
                           <ul class="nav nav-treeview">
                               <li class="nav-item">
-                                  <a href="#" class="nav-link @if (request()->routeIs('#')) active @endif">
+                                  <a href="{{ route('gerente.best.doctors') }}" class="nav-link @if (request()->routeIs('gerente.best.doctors')) active @endif">
                                       <i class="fa-solid fa-chart-pie nav-icon"></i>
-                                      <p>Calificación de Médicos</p>
+                                      <p>Mejores Médicos</p>
+                                    </a>
+                                </li>
+                            </ul>
+                            
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('gerente.doctors.calification') }}" class="nav-link @if (request()->routeIs('gerente.doctors.calificat')) active @endif">
+                                        <i class="fa-solid fa-chart-pie nav-icon"></i>
+                                        <p>Calificación de Médicos</p>
+                                  </a>
+                              </li>
+                          </ul>
+
+                          <ul class="nav nav-treeview">
+                              <li class="nav-item">
+                                  <a href="route('gerente.satisfaction.puntuation')" class="nav-link @if (request()->routeIs('gerente.satisfaction.puntuation')) active @endif">
+                                      <i class="fa-solid fa-chart-pie nav-icon"></i>
+                                      <p>Satisfacción general</p>
                                   </a>
                               </li>
                           </ul>

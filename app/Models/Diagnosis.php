@@ -43,19 +43,7 @@ class Diagnosis extends Model
     }
 
     // METODOS
-    //get disease name
-    public function getDiseasesName()
-    {
-        return $this->diseases()->pluck('name');
-    }
-
-    //get the amount of each unique diseas:
-    public function getDiseasesCount()
-    {
-        return $this->diseases()->countBy('name');
-    }
-
-
+    
     // public function addSymptom($symptom)
     // {
     //     $this->symptoms()->attach($symptom);

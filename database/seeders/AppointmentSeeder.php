@@ -2,13 +2,14 @@
 
 namespace Database\Seeders;
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Person;
+use App\Models\Diagnosis;
+use App\Models\VitalSign;
 use App\Models\Speciality;
 use App\Models\Appointment;
-use App\Models\Diagnosis;
 use App\Models\Prescription;
-use Carbon\Carbon;
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
@@ -79,34 +80,39 @@ class AppointmentSeeder extends Seeder
         });
 
 
+        Appointment::factory(2)->create()->each(function ($appointment) {
+            $appointment->status = 'Pendiente';
+            $appointment->scheduled_date = now()->addDays(5)->format('Y-m-d');
+            $appointment->vitalSign()->save(VitalSign::factory()->make( ['appointment_id' => $appointment->id]));
+            $appointment->save();
+        });
 
+        Appointment::factory(5)->create()->each(function ($appointment) {
+            $appointment->status = 'Pendiente';
+            $appointment->scheduled_date = now()->addDays(7)->format('Y-m-d');
+            $appointment->vitalSign()->save(VitalSign::factory()->make( ['appointment_id' => $appointment->id]));
+            $appointment->save();
+        });
 
-        Appointment::factory()->count(2)->create([
-            'status' => 'Pendiente',
-            'scheduled_date' => now()->addDays(5)->format('Y-m-d'),
-        ]);
+        Appointment::factory(3)->create()->each(function ($appointment) {
+            $appointment->status = 'Pendiente';
+            $appointment->scheduled_date = now()->addDays(10)->format('Y-m-d');
+            $appointment->vitalSign()->save(VitalSign::factory()->make( ['appointment_id' => $appointment->id]));
+            $appointment->save();
+        });
 
-        Appointment::factory()->count(5)->create([
-            'status' => 'Pendiente',
-            'scheduled_date' => now()->addDays(7)->format('Y-m-d'),
-        ]);
+        Appointment::factory(2)->create()->each(function ($appointment) {
+            $appointment->status = 'Cancelada';
+            $appointment->scheduled_date = now()->addDays(5)->format('Y-m-d');
+            $appointment->vitalSign()->save(VitalSign::factory()->make( ['appointment_id' => $appointment->id]));
+            $appointment->save();
+        });
 
-        Appointment::factory()->count(3)->create([
-            'status' => 'Pendiente',
-            'scheduled_date' => now()->addDays(10)->format('Y-m-d'),
-        ]);
-
-
-
-
-        Appointment::factory()->count(2)->create([
-            'status' => 'Cancelada',
-            'scheduled_date' => now()->addDays(5)->format('Y-m-d'),
-        ]);
-
-        Appointment::factory()->count(5)->create([
-            'status' => 'Cancelada',
-            'scheduled_date' => now()->subDays(7)->format('Y-m-d'),
-        ]);
+        Appointment::factory(5)->create()->each(function ($appointment) {
+            $appointment->status = 'Cancelada';
+            $appointment->scheduled_date = now()->subDays(7)->format('Y-m-d');
+            $appointment->vitalSign()->save(VitalSign::factory()->make( ['appointment_id' => $appointment->id]));
+            $appointment->save();
+        });
     }
 }

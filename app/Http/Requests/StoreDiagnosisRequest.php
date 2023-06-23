@@ -39,7 +39,7 @@ class StoreDiagnosisRequest extends FormRequest
             // Tabla intermedia:diagnosis_disease Posible
             'possiblediseases' => 'nullable|array', //tabla intermedia
                 'possiblediseases.*.id' => 'nullable|exists:diseases,id',
-                'possiblediseases.*.probability' => 'nullable|string|in:Alta, Media, Baja',
+                'possiblediseases.*.probability' => 'nullable|string',
                 'possiblediseases.*.status' => 'nullable|string|in:Enfermedad Posible',
                 'possiblediseases.*.notes' => 'nullable|string',
 

@@ -62,4 +62,14 @@ class ChartsController extends Controller
             'chartSymptoms' => $chartSymptoms->build(),
         ]);
     }
+
+    public function getBestDoctors()
+    {
+        // $doctors = User::doctors()->get();
+        // bring the doctor that 
+
+        return view('gerente.charts.bestDoctors', [
+            'doctors' => $doctors,
+        ]);
+    }
 }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use App\Models\Person;
+use App\Models\Survey;
 use App\Models\Medicine;
 use App\Models\Diagnosis;
 use App\Models\VitalSign;
@@ -62,6 +63,11 @@ class Appointment extends Model
     public function prescription()
     {
         return $this->hasOne(Prescription::class);
+    }
+
+    public function survey()
+    {
+        return $this->hasOne(Survey::class, 'appointment_id');
     }
 
     // public function speciality()

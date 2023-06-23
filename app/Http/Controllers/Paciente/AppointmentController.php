@@ -223,6 +223,11 @@ class AppointmentController extends Controller
         $appointment->notes = 'Cita cancelada por el paciente';
         $appointment->save();
 
+        //borrar signos vitales asociados a la cita
+        $vitalSign = VitalSign::where('appointment_id', $appointment->id)->first();
+        $vitalSign->delete();
+        
+
         notify()->success('La cita se ha cancelado con éxito', 'Cita eliminada');
 
         //check if there are appointments

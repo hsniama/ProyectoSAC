@@ -2,13 +2,12 @@
 
 namespace Database\Factories;
 
-use App\Models\Appointment;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\VitalSign>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Survey>
  */
-class VitalSignFactory extends Factory
+class SurveyFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -18,7 +17,7 @@ class VitalSignFactory extends Factory
     public function definition()
     {
         return [
-            'appointment_id' => Appointment::inRandomOrder()->first()->id,
+            //
         ];
     }
 }

@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Diagnosis;
+use App\Models\Appointment;
+use App\Observers\DiagnosisObserver;
+use App\Observers\AppointmentObserver;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -23,6 +27,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        //Las siguientes lineas de codigo se comentan para evitar que se envien correos electronicos 
+        //al momento de ejecutar las pruebas. Es decir, cuando hacemos un php artisan migrate:fresh --seed
+        Appointment::observe(AppointmentObserver::class);
+        Diagnosis::observe(DiagnosisObserver::class);
     }
 }

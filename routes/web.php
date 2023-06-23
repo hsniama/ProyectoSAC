@@ -15,6 +15,7 @@ use App\Http\Controllers\Secretaria\PatientController;
 use App\Http\Controllers\Paciente\AppointmentController as PatientAppointmentController;
 use App\Http\Controllers\Doctor\AppointmentController as DoctorAppointmentController;
 use App\Http\Controllers\Doctor\DiagnosisController;
+use App\Http\Controllers\SurveyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -101,6 +102,9 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
             Route::get('/covid-cases-by-year-and-month', 'getCovidCasesByYearAndMonth')->name('covid.cases.year');
             Route::get('/covid-cases-by-city', 'getCovidCasesByCity')->name('covid.cases.city');
             Route::get('/covid-common-symptoms', 'getCovidCommonSymptoms')->name('covid.cases.common.symptoms');
+            Route::get('/best-doctors', 'getBestDoctors')->name('best.doctors'); //LarapexChart Horizontal bar chart
+            Route::get('/doctors-calification', 'doctorsCalification')->name('doctors.calification'); //Chart Js Pie chart with filter.
+            Route::get('/satisfaction-puntuation', 'getSatisfactionPuntuation')->name('satisfaction.puntuation');// LarapexChart Vertical Bar chart of three.
         });
 
         Route::controller(ReportController::class)->group(function () {
@@ -111,8 +115,6 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
             Route::get('/enfermedades', 'enfermedades')->name('enfermedades');
         });
     });
-
-
 
     Route::group([
         'prefix' => 'paciente',
@@ -126,3 +128,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
     });
 
 });
+
+// Ruta libre para que el paciente pueda acceder a la encuesta de satisfaccion:
+Route::get('/satisfaction_survey/{survey}', [SurveyController::class, 'satisfactionSurvey'])->name('satisfaction_survey');
+Route::post('/thanks_for_answering', [SurveyController::class, 'store'])->name('satisfaction_survey.store');
