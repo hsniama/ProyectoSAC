@@ -28,7 +28,7 @@
               @if (Auth::user()->person)
                   @if (!Auth::user()->person->isComplete())
                       <li class="nav-item d-none d-sm-inline-block mr-3">
-                          <a href="{{ route('profile.edit', Auth::user()->person->id) }}"
+                          <a href="{{ route('profile.edit', Auth::user()->username) }}" {{-- person->id --}}
                               class="text-decoration-none nav-link text-bg-warning">
                               Completa tu perfil Aqui
                           </a>

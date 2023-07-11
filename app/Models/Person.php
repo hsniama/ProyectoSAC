@@ -55,6 +55,12 @@ class Person extends Model
         return $this->hasMany(Appointment::class, 'patient_id');
     }
 
+    // Relationship with doctor appointments
+    public function doctorAppointments()
+    {
+        return $this->hasMany(Appointment::class, 'doctor_id');
+    }
+
     // Relationship with Schedule
     public function schedules()
     {

@@ -45,12 +45,24 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
         Route::post('/cambiar-password', 'changePassword')->name('change.password');
     });
 
-    Route::controller(ProfileController::class)->group(function () {
-        Route::get('profile/create', 'create')->name('profile.create');
-        Route::get('profile/{username}/edit', 'edit')->name('profile.edit');
-        Route::put('profile/{id}', 'update')->name('profile.update');
-        Route::post('profile', 'store')->name('profile.store');
-    });
+    Route::group([
+        'prefix' => 'profile',
+        'as' => 'profile.',
+        'middleware' => 'role:admin|superadmin|gerente|secretaria|doctor|paciente'
+        ], function () {
+            // Route::get('/{username}', [ProfileController::class, 'show'])->name('show');
+            Route::get('/create', [ProfileController::class, 'create'])->name('create');
+            Route::get('/{username}/edit', [ProfileController::class, 'edit'])->name('edit');
+            Route::put('/{id}', [ProfileController::class, 'update'])->name('update');
+            Route::post('/', [ProfileController::class, 'store'])->name('store');
+        });
+
+    // Route::controller(ProfileController::class)->group(function () {
+    //     Route::get('profile/create', 'create')->name('profile.create');
+    //     Route::get('profile/{username}/edit', 'edit')->name('profile.edit');
+    //     Route::put('profile/{id}', 'update')->name('profile.update');
+    //     Route::post('profile', 'store')->name('profile.store');
+    // });
 
 
     Route::group([

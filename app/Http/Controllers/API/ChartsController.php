@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\API;
 
+use App\Models\Survey;
 use App\Models\Disease;
 use App\Models\Diagnosis;
+use App\Models\Appointment;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -47,5 +49,65 @@ class ChartsController extends Controller
             'months' => $months,
             'cases' => $cases,
         ]);
+    }
+
+    public function doctorCalification(Request $request)
+    {
+
+        $doctorId = $request->input('doctorId');
+
+        $buena = Appointment::with('survey')
+                    ->whereHas('survey', function($query){
+                        $query->where('doctor_qualification', '=', 'Buena');
+                    })->select('doctor_id', \DB::raw('count(*) as total'))
+                    ->groupBy('doctor_id')
+                    ->orderBy('total', 'desc')
+                    ->get()
+                    ->pluck('total', 'doctor_id')
+                    ->toArray();
+  
+        $regular = Appointment::with('survey')
+                    ->whereHas('survey', function($query){
+                        $query->where('doctor_qualification', '=', 'Regular');
+                    })->select('doctor_id', \DB::raw('count(*) as total'))
+                    ->groupBy('doctor_id')
+                    ->orderBy('total', 'desc')
+                    ->get()
+                    ->pluck('total', 'doctor_id')
+                    ->toArray();
+
+        $mala = Appointment::with('survey')
+                    ->whereHas('survey', function($query){
+                        $query->where('doctor_qualification', '=', 'Mala');
+                    })->select('doctor_id', \DB::raw('count(*) as total'))
+                    ->groupBy('doctor_id')
+                    ->orderBy('total', 'desc')
+                    ->get()
+                    ->pluck('total', 'doctor_id')
+                    ->toArray();      
+
+        
+        //create an array with the data > 0
+        $data = [];
+        $labels = [];
+
+        if($buena[$doctorId]> 0){
+            $labels[] = 'Buena';
+            $data[] = $buena[$doctorId];
+        }
+        if($regular[$doctorId] > 0){
+            $labels[] = 'Regular';
+            $data[] = $regular[$doctorId];
+        }
+        if($mala[$doctorId] > 0){
+            $labels[] = 'Mala';
+            $data[] = $mala[$doctorId];
+        }
+
+        return response()->json([
+            'labels' => $labels,
+            'data' => $data,
+        ]);
+
     }
 }

@@ -11,6 +11,7 @@ use App\Models\Speciality;
 use App\Models\Appointment;
 use Illuminate\Http\Request;
 use App\Charts\AgePatientChart;
+use App\Charts\BestDoctorsChart;
 use App\Charts\CityPatientChart;
 use App\Charts\CovidCasesCities;
 use App\Charts\GenderPatientChart;
@@ -63,12 +64,24 @@ class ChartsController extends Controller
         ]);
     }
 
-    public function getBestDoctors()
+    public function getBestDoctors(BestDoctorsChart $chartDoctors)
     {
-        // $doctors = User::doctors()->get();
-        // bring the doctor that 
-
         return view('gerente.charts.bestDoctors', [
+            'chartDoctors' => $chartDoctors->build(),
+        ]);
+
+    }
+
+    public function doctorsCalification()
+    {   
+        $doctors = User::with('person')->whereHas('roles', function ($query) {
+            $query->where('name', 'doctor');
+        })->where('status', 'Activo')->get();
+
+        // dd ($doctors);
+
+
+        return view('gerente.charts.doctorsCalification', [
             'doctors' => $doctors,
         ]);
     }

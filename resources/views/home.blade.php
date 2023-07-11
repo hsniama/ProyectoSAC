@@ -229,10 +229,9 @@
                                                 <span class="text-bold">¡Hola {{ Auth::user()->person->nombres }}!</span>,
                                                 como <span class="text-bold">Secretaria</span> puedes:</br>
                                             <ul class="fs-5">
-                                                <li>Registrar un nuevo paciente en el sistema e imprimir sus creedenciales
-                                                    (username y contraseña).</li>
-                                                <li>Agendar citas a pacientes.</li>
-                                                <li>Consultar y filtrar citas agendadas.</li>
+                                                <li>- Registrar un nuevo paciente en el sistema e imprimir sus creedenciales (username y contraseña).</li>
+                                                <li>- Agendar citas a pacientes.</li>
+                                                <li>- Consultar y filtrar citas agendadas.</li>
                                             </ul>
                                             </p>
                                             {{-- <p class="fs-4">
@@ -270,7 +269,7 @@
                                         </p>
                                     </div> --}}
                                     <div>
-                                        <p>nada, desde home.</p>
+                                        <p>Por favor, dirigite a la barra lateral izquierda.</p>
                                     </div>
                                 @endif
                             </div>

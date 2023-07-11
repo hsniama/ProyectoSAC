@@ -174,38 +174,6 @@
                                                 <div class="row">
                                                     <div class="col-6">
                                                         <div class="form-group">
-                                                            <label for="fecha" class="required">Fecha de Nacimiento</label>
-                                                            <input name="fecha_nacimiento" id="fecha" type="date"
-                                                                class="form-control date {{ $errors->has('fecha_nacimiento') }}"
-                                                                value="{{ old('fecha', $person->fecha_nacimiento) }}"
-                                                                {{-- placeholder="Ingrese su fecha de nacimiento"  --}}
-                                                                disabled>
-                                                            {{-- @if ($errors->has('fecha_nacimiento'))
-                                                                <span class="text-danger">
-                                                                    <strong>{{ $errors->first('fecha_nacimiento') }}</strong>
-                                                                </span>
-                                                            @endif --}}
-                                                        </div>
-                                                    </div>
-                                                    
-                                                    <div class="col-3">
-                                                        <div class="form-group">
-                                                            <label for="fecha_nacimiento" class="required">Edad</label>
-                                                            <input type="number" class="form-control" id="fecha_nacimiento" disabled
-                                                                    value="{{ $edad }}">
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-3">
-                                                        <div class="form-group">
-                                                            <label for="genero" class="required">Género</label>
-                                                            <input type="text" class="form-control" id="genero" value="{{ $person->genero }}" disabled>
-                                                        </div>
-                                                    </div> 
-                                                    
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-6">
-                                                        <div class="form-group">
                                                             <label for="created_at" class="required">Fecha de creación de mi cuenta</label>
                                                             <input type="text" class="form-control" id="created_at" disabled value="{{ $person->created_at }}">
                                                         </div>
@@ -282,6 +250,39 @@
                                                             @endif
                                                         </div>
                                                     </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-6">
+                                                        <div class="form-group">
+                                                            <label for="fecha" class="required">Fecha de Nacimiento</label>
+                                                            <input name="fecha_nacimiento" id="fecha" type="date"
+                                                                class="form-control date bg-white {{ $errors->has('fecha_nacimiento') }}"
+                                                                value="{{ old('fecha', $person->fecha_nacimiento) }}"
+                                                                {{-- placeholder="Ingrese su fecha de nacimiento"  --}}
+                                                                >
+                                                            {{-- @if ($errors->has('fecha_nacimiento'))
+                                                                <span class="text-danger">
+                                                                    <strong>{{ $errors->first('fecha_nacimiento') }}</strong>
+                                                                </span>
+                                                            @endif --}}
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    {{-- <div class="col-3">
+                                                        <div class="form-group">
+                                                            <label for="fecha_nacimiento" class="required">Edad</label>
+                                                            <input type="number" class="form-control" id="fecha_nacimiento" 
+                                                                    value="{{ $edad }}">
+                                                        </div>
+                                                    </div> --}}
+                                                    <div class="col-3">
+                                                        <div class="form-group">
+                                                            <label for="genero" class="required">Género</label>
+                                                            <input name="genero" type="text" class="form-control" id="genero" value="{{ $person->genero }}">
+                                                        </div>
+                                                    </div> 
+                                                    
                                                 </div>
                                             </div>
                                         </div>

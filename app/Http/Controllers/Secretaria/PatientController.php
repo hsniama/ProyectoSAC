@@ -9,6 +9,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StorePatientRequest;
 use App\Services\PatientService;
+use Yajra\DataTables\DataTables; // yo agregue esta
 
 class PatientController extends Controller
 {
@@ -25,22 +26,13 @@ class PatientController extends Controller
         $this->pacientService = $pacientService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
-
-        // ------------------------------------------------------------------------------------------------
-        // Tercera forma: Excelente, sirve muy bien, sirve para entender un poquito mas.
-        // $personsRolPaciente = Person::whereHas('user', function($query){
-        //     $query->whereHas('roles', function($query){
-        //         $query->where('name', 'paciente');
-        //     });
-        // })->get();
-
         // ------------------------------------------------------------------------------------------------
         // Cuarta Forma: la mas optimizada
-         $personsRolPaciente = Person::whereHas('user.roles', function ($query) {
-            $query->where('name', 'paciente');
-         })->with('user')->get();
+        //  $personsRolPaciente = Person::whereHas('user.roles', function ($query) {
+        //     $query->where('name', 'paciente');
+        //  })->with('user')->get();
         /*
         This will retrieve all 'Person' records that have a related 'User' model with a role named 'secretaria'
         directly from the database, without the need for the foreach loop.
@@ -48,7 +40,35 @@ class PatientController extends Controller
         have the role of secretaria.
         */
 
-        return view('secretaria.pacientes.index', compact('personsRolPaciente'));
+        // return view('secretaria.pacientes.index', compact('personsRolPaciente'));
+
+        if($request->ajax()){
+            // select all the users that are active and have the role of 'paciente'
+            // $pacientes = Person::whereHas('user.roles', function ($query) {
+            //     $query->where('name', 'paciente');
+            // })->with('user')->get();
+
+            $pacientes = Person::with('user:username,email')
+                        ->whereHas('user.roles', function ($query) {
+                            $query->where('name', 'paciente');
+                        })->select('id', 'cedula', 'apellidos', 'nombres', 'fecha_nacimiento', 'genero')->get();
+
+            return DataTables::of($pacientes)
+                        ->addColumn('actions', function ($paciente){
+                            $show = '<a href="' . route('secretaria.pacientes.show', $paciente->id) . '" class="show btn btn-info btn-sm">
+                                        <i class="fa fa-fw fa-eye"></i>
+                                </a>';
+                            return $show;
+                        
+                            })
+                        ->addColumn('nombres', function($paciente){
+                            return $paciente->getFullNameAttribute();
+                        })
+                        ->rawColumns(['username', 'actions'])
+                        ->make(true);   
+        }
+
+        return view('secretaria.pacientes.index');
     }
 
 

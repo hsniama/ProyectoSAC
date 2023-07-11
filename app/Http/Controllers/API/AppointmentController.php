@@ -67,8 +67,8 @@ class AppointmentController extends Controller
     }
 
     public function getAppointmentData(Request $request){
-        $hora_cita = $request->input('scheduled_date');
-        $fecha_cita = $request->input('scheduled_time');
+        $hora_cita = $request->input('scheduled_time');
+        $fecha_cita = $request->input('scheduled_date');
         $speciality_id = $request->input('speciality_id');
         $doctor_id = $request->input('doctor_id');
         $patient_id = $request->input('patient_id');

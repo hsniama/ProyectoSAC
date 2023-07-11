@@ -84,16 +84,17 @@ class DiagnosisController extends Controller
     }
 
 
-    public function show($encrypted_patient_id)//Patient $patient
+    public function show(Person $patient )//Patient $patient $encrypted_patient_id
     {
         //Recuperar las citas del paciente con status Atendido:
         $appointments = Appointment::with('patient', 'doctor', 'diagnosis', 'vitalSign', 'prescription')
-                                    ->where('patient_id', decrypt($encrypted_patient_id)) //$pat
+                                    ->where('patient_id', $patient->id) // decrypt($encrypted_patient_id)
                                     ->where('status', 'Atendido')
                                     ->get();
 
         // Recuperar los datos del paciente
-        $patient = Person::find(decrypt($encrypted_patient_id));
+        // $patient = Person::find(decrypt($encrypted_patient_id));
+        $patient = Person::find($patient->id);
 
         smilify('success', 'Historial médico del paciente cargado con éxito.');
 

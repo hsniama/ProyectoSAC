@@ -240,7 +240,7 @@ class PermissionSeeder extends Seeder
             // 'modulo-appointments',
             // 'appointment-list',
             // 'appointment-show',
-            // 'appointment-create',
+            'appointment-create',
             'user-create',
             'user-creedenciales',
             'person-create',

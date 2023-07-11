@@ -57,7 +57,8 @@ class ProfileController extends Controller
         $user = User::where('username', $username)->select('id', 'username')->first();
 
         // La persona.
-        $person = Person::findOrFail($user->id);
+        // $person = Person::findOrFail($user->id);
+        $person = Person::find($user->id);
 
         // La edad.
         $edad = $person->getAgeAttribute();
@@ -73,11 +74,12 @@ class ProfileController extends Controller
             //'apellidos' => ['required', 'string', 'max:255', 'min:3', 'string'],
             //'nombres' => ['required', 'string', 'max:255', 'min:3', 'string'],
             'email' => ['required', 'email', 'max:255', 'min:3', 'unique:users,email,'.$id],
+            // 'email' => ['required', 'email', 'max:255', 'min:3', Rule::unique('users')->ignore($id)],
             'telefono' => ['required', 'numeric'],
             'direccion' => ['required', 'max:255', 'min:3', 'string'],
             'ciudad' => ['required', 'max:255', 'min:3', 'string'],
-            //'fecha_nacimiento' => ['required', 'date'],
-            //'genero' => ['required', 'string']
+            'fecha_nacimiento' => ['required', 'date'],
+            'genero' => ['required', 'string']
         ]);
   
         $person = Person::findOrFail($id);
@@ -85,7 +87,10 @@ class ProfileController extends Controller
         $person->update($request->except('email'));
 
         $user = User::findOrFail($person->user_id);
-        $user->update($request->only('email'));
+        //update only the email of the user
+        $user->email = $request->input('email');
+        $user->save();
+        // $user->update($request->input('email'));
 
         return redirect()->route('home')->with('success', 'Perfil actualizado con éxito');
     }

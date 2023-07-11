@@ -44,3 +44,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
     Route::get('/covid-chart/data-year', [ChartsAPIController::class, 'covidChartByYear'])->name('covid.chart.data.year'); //Ej: ?year=2021
 
+    Route::get('/doctor-calification', [ChartsAPIController::class, 'doctorCalification'])->name('doctor.calification'); //Ej: ?doctorId=2021
