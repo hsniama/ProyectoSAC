@@ -73,7 +73,9 @@ class CreatePermissionTables extends Migration
 
 
         Schema::create($tableNames['model_has_roles'], function (Blueprint $table) use ($tableNames, $columnNames, $teams) {
-            $table->bigIncrements('id');
+            
+            $table->bigIncrements('id'); // Agrego esta linea por error en Digital ocean.
+            
             $table->unsignedBigInteger(PermissionRegistrar::$pivotRole);
 
             $table->string('model_type');
