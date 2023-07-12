@@ -115,7 +115,6 @@ class CreatePermissionTables extends Migration
 
         Schema::create($tableNames['role_has_permissions'], function (Blueprint $table) use ($tableNames) {
 
-            $table->bigIncrements('id'); // Agrego esta linea para que no de error al momento de ejecutar las migraciones en Digital Ocean
 
             $table->unsignedBigInteger(PermissionRegistrar::$pivotPermission);
             $table->unsignedBigInteger(PermissionRegistrar::$pivotRole);
@@ -130,7 +129,8 @@ class CreatePermissionTables extends Migration
                 ->on($tableNames['roles'])
                 ->onDelete('cascade');
 
-            $table->primary(['id', PermissionRegistrar::$pivotPermission, PermissionRegistrar::$pivotRole], 'role_has_permissions_permission_id_role_id_primary');
+            // $table->primary(['id', PermissionRegistrar::$pivotPermission, PermissionRegistrar::$pivotRole], 'role_has_permissions_permission_id_role_id_primary');
+            $table->primary([PermissionRegistrar::$pivotPermission, PermissionRegistrar::$pivotRole], 'role_has_permissions_permission_id_role_id_primary');
         });
 
         app('cache')
