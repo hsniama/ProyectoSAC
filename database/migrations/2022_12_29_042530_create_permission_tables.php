@@ -115,6 +115,8 @@ class CreatePermissionTables extends Migration
 
         Schema::create($tableNames['role_has_permissions'], function (Blueprint $table) use ($tableNames) {
 
+            $table->bigIncrements('id'); // Agrego esta linea para que no de error al momento de ejecutar las migraciones en Digital Ocean
+
             $table->unsignedBigInteger(PermissionRegistrar::$pivotPermission);
             $table->unsignedBigInteger(PermissionRegistrar::$pivotRole);
 
