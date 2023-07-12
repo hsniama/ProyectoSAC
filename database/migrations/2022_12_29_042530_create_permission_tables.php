@@ -1,9 +1,10 @@
 <?php
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Database\Migrations\Migration;
 use Spatie\Permission\PermissionRegistrar;
+use Illuminate\Database\Migrations\Migration;
 
 class CreatePermissionTables extends Migration
 {
@@ -14,6 +15,9 @@ class CreatePermissionTables extends Migration
      */
     public function up()
     {
+
+        DB::statement('SET sql_require_primary_key = 0');
+
         $tableNames = config('permission.table_names');
         $columnNames = config('permission.column_names');
         $teams = config('permission.teams');
@@ -53,28 +57,27 @@ class CreatePermissionTables extends Migration
         Schema::create($tableNames['model_has_permissions'], function (Blueprint $table) use ($tableNames, $columnNames, $teams) {
             $table->unsignedBigInteger(PermissionRegistrar::$pivotPermission);
 
-    $table->string('model_type');
-    $table->unsignedBigInteger($columnNames['model_morph_key']);
-    $table->index([$columnNames['model_morph_key'], 'model_type'], 'model_has_permissions_model_id_model_type_index');
+            $table->string('model_type');
+            $table->unsignedBigInteger($columnNames['model_morph_key']);
+            $table->index([$columnNames['model_morph_key'], 'model_type'], 'model_has_permissions_model_id_model_type_index');
 
-    $table->foreign(PermissionRegistrar::$pivotPermission)
-        ->references('id') // permission id
-        ->on($tableNames['permissions'])
-        ->onDelete('cascade');
+            $table->foreign(PermissionRegistrar::$pivotPermission)
+                ->references('id') // permission id
+                ->on($tableNames['permissions'])
+                ->onDelete('cascade');
 
-    if ($teams) {
-        $table->unsignedBigInteger($columnNames['team_foreign_key']);
-        $table->index($columnNames['team_foreign_key'], 'model_has_permissions_team_foreign_key_index');
-    }
+            if ($teams) {
+                $table->unsignedBigInteger($columnNames['team_foreign_key']);
+                $table->index($columnNames['team_foreign_key'], 'model_has_permissions_team_foreign_key_index');
+            }
 
-    $table->primary([$columnNames['model_morph_key'], 'model_type', PermissionRegistrar::$pivotPermission], 'model_has_permissions_permission_model_type_primary');
-});
+            $table->primary([$columnNames['model_morph_key'], 'model_type', PermissionRegistrar::$pivotPermission], 'model_has_permissions_permission_model_type_primary');
+        });
 
 
 
         Schema::create($tableNames['model_has_roles'], function (Blueprint $table) use ($tableNames, $columnNames, $teams) {
-            
-            $table->bigIncrements('id'); // Agrego esta linea por error en Digital ocean.
+        
             
             $table->unsignedBigInteger(PermissionRegistrar::$pivotRole);
 
@@ -119,6 +122,9 @@ class CreatePermissionTables extends Migration
         app('cache')
             ->store(config('permission.cache.store') != 'default' ? config('permission.cache.store') : null)
             ->forget(config('permission.cache.key'));
+
+            
+        DB::statement('SET sql_require_primary_key = 1');
     }
 
     /**
