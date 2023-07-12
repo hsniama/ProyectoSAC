@@ -50,8 +50,8 @@ class CreatePermissionTables extends Migration
             }
         });
 
-Schema::create($tableNames['model_has_permissions'], function (Blueprint $table) use ($tableNames, $columnNames, $teams) {
-    $table->unsignedBigInteger(PermissionRegistrar::$pivotPermission);
+        Schema::create($tableNames['model_has_permissions'], function (Blueprint $table) use ($tableNames, $columnNames, $teams) {
+            $table->unsignedBigInteger(PermissionRegistrar::$pivotPermission);
 
     $table->string('model_type');
     $table->unsignedBigInteger($columnNames['model_morph_key']);
@@ -98,7 +98,6 @@ Schema::create($tableNames['model_has_permissions'], function (Blueprint $table)
 
 
         Schema::create($tableNames['role_has_permissions'], function (Blueprint $table) use ($tableNames) {
-
             $table->unsignedBigInteger(PermissionRegistrar::$pivotPermission);
             $table->unsignedBigInteger(PermissionRegistrar::$pivotRole);
 
