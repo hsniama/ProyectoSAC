@@ -50,10 +50,9 @@ class CreatePermissionTables extends Migration
             }
         });
 
-        // TABLA ORIGINAL PARA SPATIE PERMISSIONS
         Schema::create($tableNames['model_has_permissions'], function (Blueprint $table) use ($tableNames, $columnNames, $teams) {          
             
-            $table->bigIncrements('id'); // agrego yo por problemas en digitalOcean
+             $table->unsignedBigInteger('id'); // agrego yo por problemas en digitalOcean
             
             $table->unsignedBigInteger(PermissionRegistrar::$pivotPermission);
 
@@ -82,7 +81,7 @@ class CreatePermissionTables extends Migration
 
         Schema::create($tableNames['model_has_roles'], function (Blueprint $table) use ($tableNames, $columnNames, $teams) {
                   
-            $table->bigIncrements('id'); // agrego yo por problemas en digitalOcean
+            $table->unsignedBigInteger('id'); // agrego yo por problemas en digitalOcean
 
             $table->unsignedBigInteger(PermissionRegistrar::$pivotRole);
 
@@ -108,7 +107,7 @@ class CreatePermissionTables extends Migration
 
         Schema::create($tableNames['role_has_permissions'], function (Blueprint $table) use ($tableNames) {   
             
-            $table->bigIncrements('id'); // agrego yo por problemas en digitalOcean
+            $table->unsignedBigInteger('id'); // agrego yo por problemas en digitalOcean
 
             $table->unsignedBigInteger(PermissionRegistrar::$pivotPermission);
             $table->unsignedBigInteger(PermissionRegistrar::$pivotRole);
