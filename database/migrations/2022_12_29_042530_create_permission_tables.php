@@ -78,6 +78,7 @@ class CreatePermissionTables extends Migration
 
         Schema::create($tableNames['model_has_roles'], function (Blueprint $table) use ($tableNames, $columnNames, $teams) {
         
+            $table->unsignedBigInteger('id'); // creo yo por errores en DO.
             
             $table->unsignedBigInteger(PermissionRegistrar::$pivotRole);
 
@@ -123,7 +124,7 @@ class CreatePermissionTables extends Migration
             ->store(config('permission.cache.store') != 'default' ? config('permission.cache.store') : null)
             ->forget(config('permission.cache.key'));
 
-            
+
         DB::statement('SET sql_require_primary_key = 1');
     }
 
