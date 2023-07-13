@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\Diagnosis;
 use App\Models\Appointment;
+use Illuminate\Support\Facades\URL;
 use App\Observers\DiagnosisObserver;
 use App\Observers\AppointmentObserver;
 use Illuminate\Support\ServiceProvider;
@@ -31,5 +32,9 @@ class AppServiceProvider extends ServiceProvider
         //al momento de ejecutar las pruebas. Es decir, cuando hacemos un php artisan migrate:fresh --seed
         Appointment::observe(AppointmentObserver::class);
         Diagnosis::observe(DiagnosisObserver::class);
+
+        if($this->app->environment('production')){
+            URL::forceScheme('https');
+        }
     }
 }
