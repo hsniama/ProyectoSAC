@@ -33,8 +33,8 @@ class AppServiceProvider extends ServiceProvider
         Appointment::observe(AppointmentObserver::class);
         Diagnosis::observe(DiagnosisObserver::class);
 
-        if($this->app->environment('production')){
-            URL::forceScheme('https');
-        }
+        // if($this->app->environment('production')){
+        //     URL::forceScheme('https');
+        // }
     }
 }
