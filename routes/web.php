@@ -2,20 +2,21 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SurveyController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
-use App\Http\Controllers\Gerente\ReportController;
-use App\Http\Controllers\Gerente\ChartsController;
 use App\Http\Controllers\Admin\ScheduleController;
+use App\Http\Controllers\Gerente\ChartsController;
+use App\Http\Controllers\Gerente\ReportController;
 use App\Http\Controllers\Admin\SpecialityController;
-use App\Http\Controllers\Admin\AppointmentController;
-use App\Http\Controllers\Auth\ChangePasswordController;
-use App\Http\Controllers\Secretaria\PatientController;
-use App\Http\Controllers\Paciente\AppointmentController as PatientAppointmentController;
-use App\Http\Controllers\Doctor\AppointmentController as DoctorAppointmentController;
 use App\Http\Controllers\Doctor\DiagnosisController;
-use App\Http\Controllers\SurveyController;
+use App\Http\Controllers\Paciente\DiseaseController;
+use App\Http\Controllers\Admin\AppointmentController;
+use App\Http\Controllers\Secretaria\PatientController;
+use App\Http\Controllers\Auth\ChangePasswordController;
+use App\Http\Controllers\Doctor\AppointmentController as DoctorAppointmentController;
+use App\Http\Controllers\Paciente\AppointmentController as PatientAppointmentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -137,6 +138,7 @@ Route::group(['middleware' => ['auth', 'verified']], function () {
             Route::get('resumen-cita/{appointment}', [PatientAppointmentController::class, 'resumenCita'])->name('resumen');
             Route::get('/preview-pdf', [PatientAppointmentController::class, 'showPreviewPDF'])->name('previewCitas');
             Route::get('/cancelar-citas', [PatientAppointmentController::class, 'cancelarCitas'])->name('cancelarCitasPaciente');
+            Route::resource('diseases', DiseaseController::class);
     });
 
 });

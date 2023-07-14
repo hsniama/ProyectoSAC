@@ -15,7 +15,9 @@ return new class extends Migration
     {
         Schema::create('diseases', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('patient_id')->nullable()->constrained('people');
             $table->string('name')->unique();
+            $table->string('observaciones')->nullable();
             $table->timestamps();
         });
     }

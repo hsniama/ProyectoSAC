@@ -30,8 +30,8 @@ class AppServiceProvider extends ServiceProvider
     {
         //Las siguientes lineas de codigo se comentan para evitar que se envien correos electronicos 
         //al momento de ejecutar las pruebas. Es decir, cuando hacemos un php artisan migrate:fresh --seed
-        Appointment::observe(AppointmentObserver::class);
-        Diagnosis::observe(DiagnosisObserver::class);
+        // Appointment::observe(AppointmentObserver::class);
+        // Diagnosis::observe(DiagnosisObserver::class);
 
         // if($this->app->environment('production')){
         //     URL::forceScheme('https');

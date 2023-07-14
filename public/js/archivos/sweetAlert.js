@@ -217,6 +217,9 @@
         }) 
     });
 
+    
+    
+
     $('.confirmarCita').submit(function(e) {
         
             e.preventDefault();

@@ -436,6 +436,28 @@
                                 </li>
                             </ul>
                           @endcan
+
+                    <li class="nav-item menu-open">
+                          <a href="#" class="nav-link active">
+                              <i class="fa-solid fa-hospital-user"></i>
+                              <p>
+                                    Otros
+                                  <i class="right fas fa-angle-left"></i>
+                              </p>
+                          </a>
+
+
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                      <a href="{{ route('paciente.diseases.index') }}"
+                                                class="nav-link @if (request()->routeIs('paciente.cancelarCitasPaciente')) active @endif">
+                                          <i class="fa fa-user nav-icon"></i>
+                                          <p>Mis enfermedades</p>
+                                      </a>  
+                                </li>
+                            </ul>
+                    </li>
+
                       </li>
                   @endrole
 

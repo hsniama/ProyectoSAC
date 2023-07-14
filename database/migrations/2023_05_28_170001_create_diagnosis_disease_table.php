@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('diagnosis_disease', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('diagnosis_id')->nullable()->constrained()->onDelete('restrict');
-            $table->foreignId('disease_id')->nullable()->constrained()->onDelete('restrict');
+            $table->foreignId('diagnosis_id')->nullable()->constrained()->onDelete('set null');
+            $table->foreignId('disease_id')->nullable()->constrained()->onDelete('set null');
             $table->string('duration')->nullable();
             $table->string('status')->nullable();
             $table->string('probability')->nullable();

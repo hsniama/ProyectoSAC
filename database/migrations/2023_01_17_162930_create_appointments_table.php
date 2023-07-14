@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('appointments', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('patient_id')->constrained('people')->nullOnDelete();
-            $table->foreignId('doctor_id')->constrained('people')->nullOnDelete();
+            $table->foreignId('patient_id')->constrained('people');
+            $table->foreignId('doctor_id')->constrained('people');
             // $table->foreignId('speciality_id')->constrained();
             $table->integer('speciality_id')->unsigned();
             $table->date('scheduled_date');

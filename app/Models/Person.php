@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use App\Models\User;
+use App\Models\Disease;
 use App\Models\Schedule;
 use App\Models\Speciality;
 use App\Models\Appointment;
@@ -67,6 +68,12 @@ class Person extends Model
         return $this->hasMany(Schedule::class);
     }
 
+    //Relationship with Diseases
+    public function diseases()
+    {
+        return $this->hasMany(Disease::class);
+    }
+
 
     // Function to get the full name of a Person
     public function getFullNameAttribute()
@@ -108,4 +115,6 @@ class Person extends Model
     {
         return Carbon::parse($this->fecha_nacimiento)->age;
     }
+
+
 }
