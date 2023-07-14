@@ -57,8 +57,7 @@
 
           <!-- Sidebar Menu -->
           <nav class="mt-2">
-              <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
-                  data-accordion="false">
+              <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
                   @can('modulo-reportes')
 
@@ -130,8 +129,6 @@
                           </ul>
 
                       </li>
-
-
 
                       <li class="nav-item menu-open">
 
@@ -488,3 +485,5 @@
       </div>
       <!-- /.sidebar -->
   </aside>
+
+

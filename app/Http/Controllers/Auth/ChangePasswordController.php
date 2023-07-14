@@ -37,7 +37,10 @@ class ChangePasswordController extends Controller
             $user->password = Hash::make($request->new_password);
             $user->save();
 
-            return redirect()->back()->with('success', 'Contraseña cambiada exitosamente!');
+            notify()->success('Contraseña cambiada exitosamente!', 'Cambio exitoso');
+
+            return redirect()->back();
+            // return redirect()->back()->with('success', 'Contraseña cambiada exitosamente!');
         } else {
             return redirect()->back()->with('error', 'La contraseña actual no es correcta!');
         }

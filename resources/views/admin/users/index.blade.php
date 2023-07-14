@@ -99,7 +99,7 @@
  
                 processing: true,
                 serverSide: true,
-                ajax: "{{ route('admin.users.index') }}",
+                ajax: "{{ secure_url(route('admin.users.index')) }}",
                 dataType: 'json',
                 type: 'GET',
                 columns: [{

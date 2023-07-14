@@ -71,7 +71,7 @@
                                                     <label for="current_password" class="required">Contraseña actual</label>
                                                     <input type="password" name="current_password" id="current_password"
                                                         class="form-control {{ $errors->has('current_password') ? 'is-invalid' : '' }}"
-                                                        placeholder="Ingrese la contraseña actual" value="{{ old('current_password', '') }}">
+                                                        placeholder="Ingrese la contraseña actual" value="{{ old('current_password', '') }}" required>
                                                     @if ($errors->has('current_password'))
                                                         <span class="text-danger">
                                                             <strong>{{ $errors->first('current_password') }}</strong>
